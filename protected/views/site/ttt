@@ -1,0 +1,6 @@
+  <select style="width:100px;" class="select-pel" id="namapel">
+                        <option value="">Pilih Semua</option>
+                        <?php foreach (Customer::model()->findAll() as $c) {?>
+                            <option value="<?php echo $c->nama ?>"><?php echo $c->id."".$c->nama ?></option>                            
+                        <?php } ?>
+                    </select>
