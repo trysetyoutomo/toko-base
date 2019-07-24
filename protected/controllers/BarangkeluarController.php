@@ -1,6 +1,6 @@
 <?php
 
-class BarangkeluarController extends Controller
+class BarangKeluarController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
