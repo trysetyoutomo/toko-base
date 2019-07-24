@@ -2,7 +2,7 @@
 	 function getSatuan(selected=""){
            $.ajax({
                type: 'POST',
-               url: '<?php echo Yii::app()->createAbsoluteUrl("ItemsSatuanMaster/GetSatuan"); ?>',
+               url: '<?php echo Yii::app()->createAbsoluteUrl("itemsSatuanMaster/GetSatuan"); ?>',
 
                success:function(data){
                 // return data;
@@ -163,7 +163,7 @@
 
            $.ajax({
                type: 'POST',
-               url: '<?php echo Yii::app()->createAbsoluteUrl("ItemsSatuanMaster/create"); ?>',
+               url: '<?php echo Yii::app()->createAbsoluteUrl("itemsSatuanMaster/create"); ?>',
                data:data,
                success:function(data){
                    // alert(data);
@@ -190,7 +190,7 @@
   <div id="tambah-satuan-form" title="Tambah Satuan" style="width: 500px;display: none;" >
         <?php
         $model = new ItemsSatuanMaster;
-        $this->renderPartial('application.views.ItemsSatuanMaster._form',array("model"=>$model));
+        $this->renderPartial('application.views.itemsSatuanMaster._form',array("model"=>$model));
          ?>
       </div>
 

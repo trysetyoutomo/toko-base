@@ -21,7 +21,10 @@
 
 	<?php 
 	foreach (ItemsSatuanPriceMaster::model()->findAll() as $key => $value) {
-		$price = ItemsSatuanPrice::model()->find("price_type = '$value->name' and item_satuan_id='$_REQUEST[id]' ")->price;
+		$price = ItemsSatuanPrice::model()->find("price_type = '$value->name' and item_satuan_id='$_REQUEST[id]' ");
+		$item_satuan_id = $price->item_satuan_id;
+		
+		$price = $price->price;
 
 	?>
 
