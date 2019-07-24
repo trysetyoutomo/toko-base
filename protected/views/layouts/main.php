@@ -82,7 +82,9 @@ $parameter = Parameter::model()->findByPk(1);
     <div class="container-fluid" id="page">
         
         <style>
-
+         p,h1,h2,h3,h4,h5,a,td,th,label,body{
+           font-family: 'Open Sans', sans-serif!important;
+         }
         element.style {
         width: 100000px;
    		 }
@@ -96,7 +98,7 @@ $parameter = Parameter::model()->findByPk(1);
        }
 
    		 #navigasi,#footer,.tb_kanan{
-   		  background: rgba(163, 0, 0,1) !important;
+   		  background: #2E4057 !important;
    		  color:white;
    		 	
    		 }
@@ -125,7 +127,7 @@ $parameter = Parameter::model()->findByPk(1);
 <div id="footer">
 	<nav >
 		<ul style="font-size: 5px;width: 100000000000px;float: left;">
-    <li>Esc = Cancel </li>
+    <li>Esc = Batal </li>
     <li>F1 = Bayar </li>
     <li> F2 = Pilih Item </li>
     <li> F3 = Data Sementara</li>

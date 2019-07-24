@@ -31,14 +31,10 @@
 
 
       <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
-
-      <?php //Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-      
-      <!-- ui 
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-      <link rel="stylesheet" href="/resources/demos/style.css">
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+      <style type="text/css">
+              
+      </style>
 <script>
 
     function blinker() {
@@ -241,9 +237,8 @@
          src:url("font/Sahitya Regular.ttf");
          font-family: "Sahitya";
          }
-         p,h1,h2,h3,h4,h5,a,td,th,label{
-         font-family: "Arial";
-
+         p,h1,h2,h3,h4,h5,a,td,th,label,body{
+           font-family: 'Open Sans', sans-serif;
          }
          table.detail-view tr.odd {
          background: #dedede;

@@ -34,8 +34,8 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array("class"=>'btn btn-primary')); ?>
-	<button type="reset" class="btn btn-primary" id="reset-btn">reset</button>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Save',array("class"=>'btn btn-primary')); ?>
+	<button type="reset" class="btn btn-primary" id="reset-btn">Reset</button>
 	</div>
 
 <?php $this->endWidget(); ?>

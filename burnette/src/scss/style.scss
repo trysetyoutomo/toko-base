@@ -8403,7 +8403,7 @@ table.dataTable {
 /*Checkbox*/
 .custom-checkbox {
 	.custom-control-input:checked ~ .custom-control-label::before {
-		background-color: $brown;
+		background-color: #324148;
 	}
 	&.checkbox-sky {
 		.custom-control-input:checked ~ .custom-control-label::before {

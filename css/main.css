@@ -88,9 +88,7 @@ body
 	box-shadow: 0px 0px 6px rgba(0,0,0,.5);
 }
 .title-content{
-	background: -webkit-gradient(linear, left top, left bottom, from(#b60101), to(#980202));
-	background: -moz-linear-gradient(top,  #b60101, #980202);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#b60101', endColorstr='#980202');
+	background-color:#2E4057;
 	height:40px;
 	border: 0px solid #E90B00;
 	-webkit-border-radius: 5px 5px 0px 0px;
