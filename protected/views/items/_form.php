@@ -215,7 +215,7 @@
             )
 )); ?>
 <?php
-$nilai = Categories::model()->findAll("status=0");
+$nilai = Categories::model()->findAll("status=0",array('order'=>'category'));
 $data = CHtml::listData($nilai,'id','category');
 
 $motif = Motif::model()->findAll();

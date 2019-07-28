@@ -139,48 +139,17 @@ class JenisBebanController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		// if (isset($_REQUEST['cari'])){
-		// 	$value = $_REQUEST['cari'];
-		// 	$filter = " and nama like '%$value%' ";
-		// }
 
-		
-
-		$filtersForm=new FiltersForm;
-		if (isset($_GET['FiltersForm']))
-		$filtersForm->filters=$_GET['FiltersForm'];
-		// $idh = $_REQUEST['id'];
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('jenis_beban')
 		->where("1=1 $filter")
 		->queryAll();
-		// print_r($rawData);
 		
-		// $filteredData=$filtersForm->filter($rawData);
-		// $dataProvider=new CArrayDataProvider($filteredData,
-		// 	array(
-		// 		 'pagination'=>
-		// 		 	array(
-		// 				'pageSize'=>1000000,
-		// 		 	),
-		// 	)
-		// );
 		$this->render('admin', array(
 			// 'filtersForm' => $filtersForm,
 			'rawData' => $rawData,
 		));
-
-
-
-		// $model=new JenisBeban('search');
-		// $model->unsetAttributes();  // clear any default values
-		// if(isset($_GET['JenisBeban']))
-		// 	$model->attributes=$_GET['JenisBeban'];
-
-		// $this->render('admin',array(
-		// 	'model'=>$model,
-		// ));
 	}
 
 	/**

@@ -180,37 +180,14 @@ class MotifController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		if (isset($_REQUEST['cari'])){
-			$value = $_REQUEST['cari'];
-			$filter = " and nama like '%$value%' ";
-		}
-
-		
-
-		$filtersForm=new FiltersForm;
-		if (isset($_GET['FiltersForm']))
-		$filtersForm->filters=$_GET['FiltersForm'];
-		// $idh = $_REQUEST['id'];
 		$rawData = Yii::app()->db->createCommand()
-		->select('m.nama nama, c.category category, m.id id')
-		->from('categories c, motif m')
-		->where("status = 0 and c.id = m.category_id 	 $filter")
-		->order("c.id")
+		->select('*')
+		->from('motif')
+		->where("1=1 $filter")
 		->queryAll();
 		
-		
-		$filteredData=$filtersForm->filter($rawData);
-		$dataProvider=new CArrayDataProvider($filteredData,
-			array(
-				 'pagination'=>
-				 	array(
-						'pageSize'=>1000000,
-				 	),
-			)
-		);
 		$this->render('admin', array(
-			'filtersForm' => $filtersForm,
-			'model' => $dataProvider,
+			'rawData' => $rawData,
 		));
 
 	}

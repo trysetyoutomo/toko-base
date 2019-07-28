@@ -34,8 +34,8 @@
 		?>
 		<?php echo $form->dropDownList($model, 'level', $data,array('prompt'=>'Pilih'));?>
                     
-		<?php// echo $form->textField($model,'level'); ?>
-		<?php// echo $form->textField($model,'level'); ?>
+		<?php // echo $form->textField($model,'level'); ?>
+		<?php // echo $form->textField($model,'level'); ?>
 		
 		<?php echo $form->error($model,'level'); ?>
 	</div>

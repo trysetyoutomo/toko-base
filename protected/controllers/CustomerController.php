@@ -370,34 +370,13 @@ class CustomerController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$filtersForm=new FiltersForm;
-		if (isset($_GET['FiltersForm']))
-		$filtersForm->filters=$_GET['FiltersForm'];
-
-		if (isset($_REQUEST['cari'])){
-			$value = $_REQUEST['cari'];
-			$filter = " and nama like '%$value%' ";
-		}
-
-		// $idh = $_REQUEST['id'];
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('customer')
-		->where("1=1  $filter")
-		// ->group("u.id")
+		->where("1=1 $filter")
 		->queryAll();
-
-		
-		$filteredData=$filtersForm->filter($rawData);
-		$dataProvider=new CArrayDataProvider($filteredData,	array(
-				 'pagination'=>
-				 	array(
-						'pageSize'=>1000000,
-				 	),
-			));
 		$this->render('admin', array(
-			'filtersForm' => $filtersForm,
-			'model' => $dataProvider,
+			'rawData' => $rawData,
 		));
 	}
 

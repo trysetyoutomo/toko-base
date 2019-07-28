@@ -1,7 +1,5 @@
-<br>
-<br>
-<br>
-<h1>Melihat Customer #<?php echo $model->id; ?></h1>
+
+<h1>Rincian Customer #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -16,23 +14,24 @@
 
 <?php
 $sql  = "
-	select * from sales s, sales_items si where si.sale_id = s.id  and s.nama = '$model->nama'
+	select * from sales s, sales_items si 
+	where 
+	si.sale_id = s.id  and 
+	s.nama = '$model->nama'
 	order by s.date desc
   "; 
 $model = Yii::app()->db->createCommand($sql)->queryAll();
 ?>
 
-
+<hr>
+<h3>Riwayat Transaksi</h3>
 
 <table class="table">
 	<thead>		
-		<tr style="background:rgba(163, 0, 0,1) ;color:white">
+		<tr style="background: rgba(42, 63, 84,1);color:white">
 			<td>No</td>
 			<td>Sale ID</td>
 			<td>Tanggal </td>
-			<td>Item</td>
-			<td>Harga </td>
-			<td>Jumlah </td>
 			<td>Total </td>
 		</tr>
 
@@ -45,20 +44,17 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 			<td style=""><?php echo $no;?></td>
 			<td style=""><?php echo $m[id]; ?></td>
 			<td style=""><?php echo $m[date]; ?></td>
-			<td style=""><?php echo "Rp. ".number_format($m[item_price]); ?></td>
-			<td style=""><?php echo number_format($m[quantity_purchased]); ?></td>
-			<td style=""><?php echo "Rp. ".number_format($m[item_price]); ?></td>
-			<td style=""><?php echo "Rp. ".number_format($m[item_price]*$m[quantity_purchased]); ?></td>
+			<td style=""><?php echo "Rp. ".number_format($m['sale_total_cost']); ?></td>
 		</tr>
 			
 	<?php 
-	$total = $total +$m[total];
+	$total = $total +$m[sale_total_cost];
 	$no++;
 	endforeach; ?>
 	<tr>
 		<td colspan="8" style="text-align:right">
 			<?php 
-			echo number_format("$total");
+			echo "Total :".number_format("$total");
 			?>
 		</td>
 	</tr>

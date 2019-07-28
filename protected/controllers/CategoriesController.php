@@ -227,40 +227,15 @@ class CategoriesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		// $model->unsetAttributes();  // clear any default values
-		// if(isset($_GET['Categories']))
-			// $model->attributes=$_GET['Categories'];
-
-		// $this->render('admin',array(
-			// 'model'=>$model,
-		// ));
-
-		if (isset($_REQUEST['cari'])){
-			$value = $_REQUEST['cari'];
-			$filter = " and category like '%$value%' ";
-		}
-		$filtersForm=new FiltersForm;
-		if (isset($_GET['FiltersForm']))
-			$filtersForm->filters=$_GET['FiltersForm'];
-		// $idh = $_REQUEST['id'];
+		
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('categories')
-		->where("status = 0 $filter")
-		->order("category")
-
+		->where("1=1 $filter")
 		->queryAll();
 		
-		$filteredData=$filtersForm->filter($rawData);
-		$dataProvider=new CArrayDataProvider($filteredData,	array(
-				 'pagination'=>
-				 	array(
-						'pageSize'=>1000000,
-				 	),
-			));
 		$this->render('admin', array(
-			'filtersForm' => $filtersForm,
-			'model' => $dataProvider,
+			'rawData' => $rawData,
 		));
 	}
 

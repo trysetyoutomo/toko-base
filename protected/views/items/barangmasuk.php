@@ -85,7 +85,7 @@
 </style>
 
  <?php 
- $this->remder
+ $this->renderPartial('inc-pencarian-items');
  ?>
 
 
