@@ -42,7 +42,7 @@ class PenukaranItems extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('si_id, item_id_asal, item_qty_asal, item_id_baru, item_qty_baru, tanggal, keterangan', 'required'),
-			array('si_id, item_id_asal, item_id_baru', 'numerical', 'integerOnly'=>true),
+			// array('si_id, item_id_asal, item_id_baru'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, si_id, item_id_asal, item_qty_asal, item_id_baru, item_qty_baru, tanggal, keterangan', 'safe', 'on'=>'search'),

@@ -162,7 +162,13 @@
 
       
 
+    $(document).on("click",".hapus",function(e){
+      if (!confirm("Yakin ? ")){
+        return false;
+      }
 
+    });
+    
     $(".hapus,.delete").click(function(e){
       // e.preventDefault();
       if (!confirm("Yakin ? ")){
@@ -170,6 +176,7 @@
       }
 
     });
+
     $('a[href^="#"]').on('click',function (e) {
         e.preventDefault();
 

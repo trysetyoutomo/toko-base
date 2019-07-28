@@ -66,7 +66,7 @@ class ItemsController extends Controller
 		m.nama nama_subkategori,
 		concat(i.item_name,' - ',iss.nama_satuan,'') as item_name,
 		c.category as nama_kategori,
-		i.hapus hapus, iss.id as satuan_id, i.id id, i.barcode barcode
+		i.hapus hapus, iss.id as satuan_id, i.id id
 
 		from items i inner join items_satuan iss
 		on iss.item_id = i.id and i.is_stockable = 1 and i.hapus = 0
@@ -78,6 +78,8 @@ class ItemsController extends Controller
 		where  (iss.is_default = 1 ) $filter
 		group by iss.id
 		order by c.category, m.id  asc";
+		// echo $sql ;
+		// exit;
 		return $sql;
 	}
 
@@ -213,7 +215,7 @@ class ItemsController extends Controller
 			// var_dump($skrg);
 			// var_dump($before);
 			// exit;
-			$modelh = new barangmasuk;
+			$modelh = new Barangmasuk;
 			$modelh->tanggal = date(" Y-m-d H:i:s");
 			$modelh->user = Yii::app()->user->name;
 			$modelh->sumber = "Penyesuaian Stok ";
@@ -955,7 +957,7 @@ class ItemsController extends Controller
 			$head = $_REQUEST['head'];	
 
 
-			$modelh = new barangmasuk;
+			$modelh = new Barangmasuk;
 			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
 			$modelh->user = Yii::app()->user->name;
 			$modelh->sumber = $_REQUEST['head']['sumber'];

@@ -86,7 +86,15 @@ echo Items::model()->findByPk($_REQUEST['id'])->item_name;
         		<td><?php echo $value['barcode']; ?></td>
         		<td><?php echo $value['nama_satuan'] ?></td>
              <td><?php echo $value['satuan'] ?></td>
-            <td><?php echo number_format($value['harga']) ?></td>
+            
+            <td>
+            <a href="<?php echo Yii::app()->createUrl("ItemsSatuanPrice/create", array("id"=>$value[id])) ?>">
+              <?php echo number_format($value['harga']) ?>
+            </a>
+                
+
+              </td>
+
             <td><?php echo number_format($value['harga_beli']) ?></td>
             <!-- <td><?php echo $value['stok_minimum'] ?></td> -->
         		<td><?php 

@@ -1390,6 +1390,8 @@ class SalesController extends Controller {
 		// ->group('sales_items.id')
 		// ->queryAll();
 		$sql  = self::sqlSalesDetail($id);
+		// echo $sql;
+		// exit;
 		$row = Yii::app()->db->createCommand($sql)->queryAll();
 	
 		// echo $sql;
@@ -1422,6 +1424,7 @@ class SalesController extends Controller {
 			$sql_d = "
 		
 				SELECT
+				sales_items.id id,
 				'0' as is_paket,
 				sales_items.item_id item_id,
 				

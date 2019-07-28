@@ -48,6 +48,9 @@ class SalesItemsController extends Controller
 	}
 
 	public function actionTukarbarang($id){
+		// echo "<pre>";
+		// print_r($_REQUEST);
+		// exit;
 		if (isset($_REQUEST['PenukaranItems'])) {
 			$branch_id = Yii::app()->user->branch();
 			// echo "123";
@@ -69,7 +72,8 @@ class SalesItemsController extends Controller
 					// 	return;
 
 					//kurangi stok barang yang baru
-					$brg = Items::model()->findByPk($model->item_id_baru);
+					// $item_id_baru = 
+					// $brg = Items::model()->findByPk($model->item_id_baru);
 					$brg = ItemsSatuan::model()->find("barcode = '$model->item_id_baru' ");
 					// $brg->stok = $brg->stok - $model->item_qty_baru;
 					// if (!$brg->update())
@@ -81,7 +85,8 @@ class SalesItemsController extends Controller
 					// var_dump($model->item_id_baru);
 					// exit;
 					$si = Salesitems::model()->findByPk($id);
-					$si->item_id = $brg->id;
+					$si->item_id = $brg->item_id;
+					$si->sales_item_name = Items::model()->findByPk($brg->item_id)->item_name;
 					$si->item_satuan_id = $_REQUEST['item_satuan_id'];
 					$si->quantity_purchased = intval($model->item_qty_baru);
 					$si->item_tax = 0;

@@ -84,15 +84,11 @@
       }
 </style>
 
- <div id="full-screen"></div>
-   <div id="wrapper-item-search">
-      <p class="close">X</p>
-      <h1 >Pencarian Item</h1>
-     
-      <?php echo CHtml::dropDownList('e1', '1', Items::model()->data_items("ALL"), array('prompt'=>'Silahkan pilih','style'=>'width:100%') ); ?>
-      <input style="width: 100%;margin-top: 5px;" type="button" class="mybutton" name="tambah" value="Tambah" onclick="add_item($('#e1').val())">
+ <?php 
+ $this->remder
+ ?>
 
-   </div>
+
 <div id="wrap-selisih">
     <h1>Ringkasan</h1>
     <hr>
@@ -231,7 +227,7 @@
 			Pembelian Barang </h1>
 
 			<div id="accordion">
-			 <h3>Transaksi Pembelian</h3>
+			 <!-- <h3>Transaksi Pembelian</h3> -->
 			<div>
 			<table border="0" cellpadding="10" id="trx-b-masuk" style="width: 300px;">
 			<tr>
