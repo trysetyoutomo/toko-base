@@ -2397,7 +2397,7 @@ public function actionSalesoutletweekly(){
 
 						// set untuk multi satuan 
 						if ($sales->status=="1"){
-							$bkl = new BarangkeluarDetail;
+							$bkl = new BarangKeluarDetail;
 							$bkl->kode = $satuanUtamaKode_default ;
 							$bkl->jumlah = $satuan_total_keluar;
 							// $bkl->harga = intval($hm);

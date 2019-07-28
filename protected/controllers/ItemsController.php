@@ -273,7 +273,7 @@ class ItemsController extends Controller
 			
 
 			if ($modelh->save()){
-				$model = new BarangkeluarDetail;
+				$model = new BarangKeluarDetail;
 				$model->kode = $id;
 
 				$model->jumlah = $selisih ;
@@ -1348,7 +1348,7 @@ public function getHargamodal($id){
 			if ($modelh->save()){
 				echo "sukses";
 				// foreach ($nilai as $n){
-				// 	$model = new BarangkeluarDetail;
+				// 	$model = new BarangKeluarDetail;
 				// 	$model->kode = $n['idb'];
 				// 	$model->jumlah = $n['jml'];
 				// 	$model->head_id = $modelh->id;
@@ -1416,7 +1416,7 @@ public function getHargamodal($id){
 						$id = $item->id;
 
 						// simpan detai barang keluar
-						$model = new BarangkeluarDetail;
+						$model = new BarangKeluarDetail;
 						$model->kode = $id;
 						$model->jumlah = $n['jml'];
 						

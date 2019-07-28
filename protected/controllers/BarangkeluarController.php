@@ -45,7 +45,7 @@ class BarangKeluarController extends Controller
 	}
 
 	  public static function generateKodeBKS() {
-	     	$kode = 'TRK';
+	    $kode = 'TRK';
         $query = "SELECT
 				IFNULL(
 					CONCAT(
@@ -63,7 +63,7 @@ class BarangKeluarController extends Controller
                  ";
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return $model['urutan'];
-   }
+    }
 
 	/**
 	 * Displays a particular model.
