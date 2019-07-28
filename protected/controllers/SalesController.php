@@ -2310,7 +2310,7 @@ public function actionSalesoutletweekly(){
 				$total_cost = 0;
 
 				if ($sales->status=="1"){
-					$modelh = new Barangkeluar;
+					$modelh = new BarangKeluar;
 					$modelh->tanggal = date("Y-m-d H:i:s");
 					$modelh->user = Yii::app()->user->name;
 					$modelh->sumber = "sumber ";
