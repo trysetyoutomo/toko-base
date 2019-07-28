@@ -156,34 +156,10 @@ class ItemsSatuanMasterController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$filtersForm=new FiltersForm;
-		if (isset($_GET['FiltersForm']))
-		$filtersForm->filters=$_GET['FiltersForm'];
-
-		if (isset($_REQUEST['cari'])){
-			$value = $_REQUEST['cari'];
-			$filter = " and nama_satuan like '%$value%' ";
-		}
-
-		// $idh = $_REQUEST['id'];
-		$rawData = Yii::app()->db->createCommand()
-		->select('*')
-		->from('items_satuan_master')
-		->where("1=1  $filter")
-		// ->group("u.id")
-		->queryAll();
-
-		
-		$filteredData=$filtersForm->filter($rawData);
-		$dataProvider=new CArrayDataProvider($filteredData,	array(
-				 'pagination'=>
-				 	array(
-						'pageSize'=>1000000,
-				 	),
-			));
+		$query = "select * from items_satuan_master";
+		$rawData = Yii::app()->db->createCommand($query)->queryAll();
 		$this->render('admin', array(
-			'filtersForm' => $filtersForm,
-			'model' => $dataProvider,
+			'rawData' => $rawData,
 		));
 	}
 	/**

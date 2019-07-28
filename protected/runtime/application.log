@@ -15494,3 +15494,54 @@ Stack trace:
 #15 {main}
 REQUEST_URI=/toko-base/index.php?r=users/admin
 ---
+2019/07/28 17:32:50 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toko_base.item_satuan_master' doesn't exist. The SQL statement executed was: select * from item_satuan_master.
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanMasterController.php (160)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/07/28 17:32:50 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toko_base.item_satuan_master' doesn't exist. The SQL statement executed was: select * from item_satuan_master in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanMasterController.php(160): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsSatuanMasterController->actionAdmin()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('admin')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ItemsSatuanMast...')
+#8 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#10 {main}
+REQUEST_URI=/toko-base/index.php?r=ItemsSatuanMaster/admin
+---
+2019/07/28 17:34:31 [error] [exception.CHttpException.404] CHttpException: The requested page does not exist. in E:\xampp\htdocs\toko-base\protected\controllers\SupplierController.php:178
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\SupplierController.php(108): SupplierController->loadModel('91')
+#1 [internal function]: SupplierController->actionUpdate('91')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SupplierController), Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SupplierController), Object(ReflectionMethod), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Supplier/update')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Supplier/update&id=91
+HTTP_REFERER=http://localhost/toko-base/index.php?r=ItemsSatuanMaster/admin
+---
+2019/07/28 17:35:09 [error] [exception.CHttpException.404] CHttpException: The requested page does not exist. in E:\xampp\htdocs\toko-base\protected\controllers\SupplierController.php:178
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\SupplierController.php(108): SupplierController->loadModel('91')
+#1 [internal function]: SupplierController->actionUpdate('91')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(SupplierController), Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(SupplierController), Object(ReflectionMethod), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Supplier/update')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Supplier/update&id=91
+---

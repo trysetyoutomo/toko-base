@@ -1,84 +1,123 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('ItemsSatuanMaster/admin'); ?>">Kelola Satuan</a></li>
+</ol>
 
-<h1>Kelola Satuan</h1>
+<h1>
+<i class="fa fa-book"></i>
+Satuan
+</h1>
 <hr>
 <div class="row">
 	<div class="col-sm-8">
 		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
 		<button class="btn btn-primary">
-			<i class="fa fa-plus"></i> Tambah
+			<i class="fa fa-plus"></i> Tambah 
 		</button>
 		</a>
 
-		
 	</div>
-	<div class="col-sm-4">
+	<!-- <div class="col-sm-4">
 		<form action="">
-		<input type="hidden" name="r" value="itemsSatuanMaster/admin">
+		<input type="hidden" name="r" value="items/admin">
 		Cari Nama <input type="text" name="cari" value="<?php echo $_REQUEST['cari'] ?>">
 		<input type="submit"  value="cari" class="btn btn-primary">
 		</form>
-	</div>
+	</div> -->
 </div>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'customer-grid',
-	'dataProvider'=>$model,
-	// 'filter'=>$filtersForm,
-	'columns'=>array(
-		'id',
-		array(
-		'name'=>'nama_satuan',
-		'header'=>'Nama Satuan',
-		),
-		// 'alamat',
-		// 'no_telepon',
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{view}{delete}{update}',
-			'buttons'=>array
-			   (
-			   	'view' => array
-			        (
-			            // 'label'=>'',
-			            // 'class'=>'btn-tolak',
-			                 //  'options'=>array( 
-			                	// 'class'=>'aksi fa fa-send	',
-			                	// 'title'=>'Kirim Berkas' 
-			              		// ),
+   <table id="datatable" class="table table-striped table-bordered">
+       <thead>
+  		<tr>
+           <th>Aksi</th>
+          <th>ID</th>
+          <th>Nama</th>
+          
+  		</tr>
 
-			                  // 'visible'=>'$data[dokumen]==0 && $data[acc_1]==2 && $data[acc_2]==2 &&'."$level=='admin'",
-			            // 'imageUrl'=>Yii::app()->request->baseUrl.'/images/email.png',
-			            'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data[id]))',
-			        ),
-		        	'delete' => array
-			        (
-			            // 'label'=>'',
-			            'class'=>'hapus',
-			                 //  'options'=>array( 
-			                	// 'class'=>'aksi fa fa-send	',
-			                	// 'title'=>'Kirim Berkas' 
-			              		// ),
+          <!-- <th>Aksi</th> -->
+        </thead>
+        <tbody>
 
-			                  // 'visible'=>'$data[dokumen]==0 && $data[acc_1]==2 && $data[acc_2]==2 &&'."$level=='admin'",
-			            // 'imageUrl'=>Yii::app()->request->baseUrl.'/images/email.png',
-			            'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data[id]))',
-			        ),
-			        'update' => array
-			        (
-			            // 'label'=>'',
-			            'class'=>'update',
-			                 //  'options'=>array( 
-			                	// 'class'=>'aksi fa fa-send	',
-			                	// 'title'=>'Kirim Berkas' 
-			              		// ),
+        	<?php 
+        	$no = 1;
+        	foreach ($rawData as $key => $value) { ?>
+        	<tr>
+            <td>
+          
+            <!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Aksi <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+ 
+    <li>
+      
+          <a href="<?php echo Yii::app()->createUrl("ItemsSatuanMaster/update", array("id"=>$value[id],"status"=>"ubah")) ?>">
+            <i class="fa fa-pencil"></i> Ubah
+          </a>
+    </li>
+     <li>
+      
+          <a href="<?php echo Yii::app()->createUrl("ItemsSatuanMaster/view", array("id"=>$value[id],"status"=>"ubah")) ?>">
+            <i class="fa fa-eye"></i> Lihat
+          </a>
+    </li>
+    <li>
+        <a class="hapus" href="<?php echo Yii::app()->createUrl("ItemsSatuanMaster/hapus", array("id"=>$value[id])) ?>">
+                <i class="fa fa-times"></i> Hapus
+              </a>
+    </li>
+  </ul>
+</div>
 
-			                  // 'visible'=>'$data[dokumen]==0 && $data[acc_1]==2 && $data[acc_2]==2 &&'."$level=='admin'",
-			            // 'imageUrl'=>Yii::app()->request->baseUrl.'/images/email.png',
-			            'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data[id]))',
-			        )
-			  	)
+            
+              <!-- <a href=""></a> -->
+            </td>
+        		<td><?php echo $value['id']; ?></td>
+        		<td>
+					  <a href="<?php echo Yii::app()->createUrl("ItemsSatuanMaster/update", array("id"=>$value[id])) ?>">
+        					<?php echo $value['nama_satuan']; ?>
+            			</a>
+        		</td>        		
+        	
 
+        	
+        	</tr>
+        	<?php } ?>
+        </tbody>
+    </table>
 
-		),
-	),
-)); ?>
+<?php 
+// exit();
+?>
+ 
+
+<!-- Datatables -->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<!--
+-->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jszip/dist/jszip.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#datatable').dataTable({
+			"pageLength": 100,
+			 "autoWidth": true
+		});
+	});
+</script>

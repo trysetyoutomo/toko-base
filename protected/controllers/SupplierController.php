@@ -159,36 +159,10 @@ class SupplierController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		// $model=new Supplier('search');
-		// $model->unsetAttributes();  // clear any default values
-		// if(isset($_GET['Supplier']))
-		// 	$model->attributes=$_GET['Supplier'];
-
-		// $this->render('admin',array(
-		// 	'model'=>$model,
-		// ));
-		if (isset($_REQUEST['cari'])){
-			$value = $_REQUEST['cari'];
-			$filter = " and nama like '%$value%' ";
-		}
-
-		$filtersForm=new FiltersForm;
-		if (isset($_GET['FiltersForm']))
-		$filtersForm->filters=$_GET['FiltersForm'];
-		// $idh = $_REQUEST['id'];
-		$rawData = Yii::app()->db->createCommand()
-		->select('*')
-		->from('supplier s')
-		->where("1=1 $filter")
-		// ->group("u.id")
-		->queryAll();
-
-		
-		$filteredData=$filtersForm->filter($rawData);
-		$dataProvider=new CArrayDataProvider($filteredData);
+		$query = "select * from supplier as s  ";
+		$rawData = Yii::app()->db->createCommand($query)->queryAll();
 		$this->render('admin', array(
-			'filtersForm' => $filtersForm,
-			'model' => $dataProvider,
+			'rawData' => $rawData,
 		));
 	}
 
