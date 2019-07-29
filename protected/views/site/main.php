@@ -3050,7 +3050,7 @@ Ext.onReady(function() {
             ]
         }
         ],
-        height: 220,
+        height: 400,
 //        width :900,
         viewConfig: {
             stripeRows: true

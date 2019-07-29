@@ -4,6 +4,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -21,18 +29,29 @@
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
   <style type="text/css">
+      .list-button .btn-nevy{
+        width: 100%!important;
+      }
       .container-fluid{
-        width: 90%;
-       }
-       .content-pos-grid{
-        width: 75%!important;
-       }
-       .content-pos-kanan{
-        width: 25%!important;
-       }
-       /*x-box-item {
-        top: 15px!important;
-       }*/
+        width: 800px;
+      }      
+      #footer{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+
+      }
+      body{
+        margin:10px;
+      }
+      .btn-nevy,.btn-primary{
+        background: #2E4057 !important;
+        color:white!important;
+        margin-bottom: 5px!important;
+      }
+      .btn-danger{
+        margin-bottom: 5px!important;
+      }
   </style>
 </head>
 <?php  
@@ -54,7 +73,23 @@ $parameter = Parameter::model()->findByPk(1);
 <body>
 <?php //echo "user id : ".Yii::app()->user->name; ?>
 <div id="header">
+   
+
 	<div id="header-in">
+
+
+
+    <div class="admin-bar" style="float: left;width: 100px;position: absolute;left: 20px;text-align:center">
+      <?php 
+            $parameter = Parameter::model()->findByPk(1);
+      ?>
+                  <a class="auth-brand text-center" href="#">
+                      <img style="width: 65px"  class="brand-img img"  src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
+                  </a>
+     <!-- <h4 class="text-center"><?php  echo SiteController::getConfig("company_name"); ?></h4> -->
+    <span id="head-meja"></span><span id="head-meja-nilai"></span>
+
+    </div>
 		<div class="admin-bar">
             <ul>
                 <li><a href="#" id="data-user"><?php echo Yii::app()->user->name; ?></a></li>
@@ -79,7 +114,7 @@ $parameter = Parameter::model()->findByPk(1);
 
 </div>
 <div id="mid-content">
-    <div class="container-fluid" id="page">
+    <div class="" id="page">
         
         <style>
          p,h1,h2,h3,h4,h5,a,td,th,label,body{
@@ -110,17 +145,147 @@ $parameter = Parameter::model()->findByPk(1);
    		 }
         </style>
 
-        <div id="pos-content">
-            <div class="title-content"><h3>
-            <?php 
-            echo SiteController::getConfig("company_name");
-            ?>
-            <span id="head-meja"></span>
-            <span id="head-meja-nilai"></span>
+        <!-- <div id="pos-content">
+           
           </h3>
         </div>    
-            <?php echo $content; ?>
         </div>
+            -->
+      <div class="row main-itama" style="margin-top:30px;margin-left: 10px">
+
+
+
+          <div class="col-sm-2 list-button">
+            <div class="row">
+            <div class="col-12">
+              <b style="color:red">Tanggal Transaksi</b><br>
+              <input readonly="" type="text" name="tanggal" id="tanggal" 
+              value="<?php echo date("Y-m-d") ?>" style="padding: 1px;width: 100%">
+            </div>
+
+            <?php $list = CHtml::listData(CustomerType::model()->findAll(), 'id', 'customer_type');?>
+            <div class="col-12">
+              <b style="color:red">Tanggal Jatuh Tempo</b>
+              <input type="text" name="tanggal" id="tanggal_jt"
+              value="<?php //echo date("Y-m-d",strtotime()) ?>" style="padding: 1px;width: 100%">
+            </div>
+            <div class="col-12"> 
+              <b style="color:red">Customer</b>
+          
+              <div class="col" class="col-sm6">
+              <select style="width:100%;" class="select-pel" id="namapel"></select>
+               <input style="display: none;" type="text" style="display:inline;padding:5px;width: 100%" class="umum-value" id="umum-value" placeholder="Nama pelanggan Umum" >
+              </div>
+              <div class="col-sm6" >
+                
+               <button type="button"  class="btn btn-nevy"  id="tambah-pelanggan-2">Tambah</button>
+              </div>
+            </div>
+
+              <div style="display: none;">
+
+              <?php echo CHtml::button('Bayar Nanti', array('id' => 'tombol_meja', 'onclick' => 'klikmeja()', 'class' => ' btn btn-nevy', 'style'=>'text-align:center')); ?>
+
+              </div>
+
+              <!-- <input type=button onClick="print_bayar()" value="Cetak2" class="btn btn-nevy"> -->
+              <!-- <div class="row" class="list-button-action"> -->
+                <hr>
+                <div class="col-12">
+                  <input style="width:100%!important" id="pay" type="button" value="Bayar" onclick='list_action(112);' class="btn btn-danger" >
+                </div>
+
+                <div class="col-12">
+                  <input type=button onClick="editdiskongrid($('#discount').val())" value="Edit Diskon" class="btn btn-nevy" id="ditditvoc">
+                </div>
+                <div class="col-12">
+                  <input  type="button" onClick="hapusGrid()" value="Hapus Semua" class="btn btn-nevy">
+                  
+                </div>
+                <div class="col-12">
+                  <?php 
+                  if ($usaha=="Restauran"){ ?>
+                  <input type=button onClick="cetakbill()" value="Cetak" class="btn btn-nevy">
+                  <input  type="button" id="cetakrekap" value="Cetak Rekap" class="btn btn-nevy">
+                  <input type=button onClick="cetakbillterakhir()" value="Struk Terakhir" class="btn btn-nevy"> 
+                  <?php } ?>
+                  <input  type="button" value="Item Baru" id="btn-item-baru" class="btn btn-nevy">
+                </div>
+              </div>
+              <input style="display:none" type=button id="cetakdapur" onClick="cetakdapur()" value="Cetak Dapur" class="btn btn-nevy">
+              <input style="display:none" type=button id="cetakbar" onClick="cetakbar()" value="Cetak Bar" class="btn btn-nevy">
+              <!-- <input type=button  onClick="cetakbardapur()" value="Cetak Bar & Dapur" class="btn btn-nevy"> -->
+              <?php 
+              if ($usaha=="Restauran"){ ?>
+              <input type=button onClick="cetakbill()" value="Cetak" class="btn btn-nevy">
+              <input  type="button" id="cetakrekap" value="Cetak Rekap" class="btn btn-nevy">
+              <input type=button onClick="cetakbillterakhir()" value="Struk Terakhir" class="btn btn-nevy"> 
+              <?php } ?>
+              <!-- <input  type="button" value="Item Baru" id="btn-item-baru" class="btn btn-nevy"> -->
+
+
+          </div>
+          <div class="col-sm-7" >
+             <?php echo $content; ?>
+          </div>
+          <div class="col-sm-3" ">
+                  <div style="margin-left:0px;">
+                   <?php //echo "Jenis Customer : ".CHtml::dropDownList('custype', '0', $list, array('class' => 'myinput', 'onchange' => 'custype()', 'style'=>'margin-bottom:5px;width:100px;')); ?>
+                   <input  type="text" id="vouchernominal" placeholder="Potongan ">
+                </div>
+                   <table class="">
+                      <tr>
+                         <td class="left">Sub Total:</td>
+                         <td class="right">
+                            <div id="sum_sub_total">0</div>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td class="left">Discount :</td>
+                         <td class="right">
+                            <div id="sum_sale_discount">0<?php //echo CHtml::dropDownList('sum_sale_discount2', '5', array('5'=>'5%','10'=>'10%')); ?></div>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td class="left">
+                            Service (<script>document.write(var_service);</script>)% :
+                         </td>
+                         <td class="right">
+                            <div id="sum_sale_service">0</div>
+                         </td>
+                      </tr>
+                      <tr>
+                         <td class="left">Tax (<?php echo Parameter::model()->findByPk(1)->pajak ?>)%:</td>
+                         <td class="right">
+                            <div id="sum_sale_tax">
+                               0
+                         </td>
+                      </tr>
+                    <tr>
+                      <td class="left">Potongan :</td>
+                      <td class="right"><div id="sum_sale_voucher">0</td>
+                      </tr>
+                          <tr>
+                      <td class="left">Sisa Belum Bayar :</td>
+                      <td class="right"><div id="sum_sale_bayar">0</td>
+                      </tr>
+
+                   </table>
+                   <table class="tb_kanan kanan-footer">
+                   <tr style="display:none">
+                   <td class="left"><b>Total:</b></td>
+                   <td class="right"><b><div id="sum_sale_total">0</div></b></td>
+                   </tr>
+                   <tr>
+                   <td class="left"><b>Total:</b></td>
+                   <td class="right"><b><div id="sum_sale_total2">0</div></b></td>
+                   </tr>
+                   </table>
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+
         <div class="clear"></div>
     </div><!-- page -->
 </div><!--mid-content-->

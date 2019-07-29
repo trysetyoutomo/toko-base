@@ -41,8 +41,8 @@ $usaha = SiteController::getConfig("jenis_usaha");
 <?php 
 // include "js.php";
 ?>
-<div class="content-pos">
-<div>
+<!-- <div class="content-pos">
+<div> -->
    <style type="text/css">
       body{
         overflow-x: hidden;
@@ -92,16 +92,28 @@ $usaha = SiteController::getConfig("jenis_usaha");
       #s2id_e1{
         width: 100%;
       }
-   </style>
-   <div id="full-screen"></div>
-   <div id="wrapper-item-search">
-      <p class="close">X</p>
-      <h1 >Pencarian Item</h1>
-     
-      <?php echo CHtml::dropDownList('e1', '1', Items::model()->data_items("MENU"), array('prompt'=>'Silahkan pilih','style'=>'width:100%') ); ?>
-      <input style="width: 100%;margin-top: 5px;" type="button" class="mybutton" name="tambah" value="Tambah" onclick="add_item()">
+      #head tr td {
+     padding: 5px;
+     border: 0px solid black;
+     }
+     #head tr td *{
+     text-align: left;
+     }
+     #pos-content{
+     height: 500px;
+     }
+     .content-pos {
+     min-height: 450px;
+     }
+     #content{
+      padding: 0px!important;
+      margin: 0px!important;
 
-   </div>
+     }
+</style>
+   <?php 
+    $this->renderPartial("application.views.items.inc-pencarian-items");
+   ?>
    <script>
       $(document).ready(function(){
        //    $("#tambah-satuan-form,#tambah-kategori-form").dialog({
@@ -184,12 +196,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
           // $("#qty").click(function(){
           //     $(this).select();
           // });
-          $("#full-screen").click(function(){
-            $("#full-screen").hide();
-            $("#wrapper-item-search").hide();
-            $("#input_items").focus();
-
-          });
+         
           $("#cowork").click(function(){
               // var subtotal = $("#sum_sub_total").html();
               var service = $("#sum_sale_service").html();
@@ -352,66 +359,13 @@ $usaha = SiteController::getConfig("jenis_usaha");
                     // print_r($data);
                     // echo "</pre>";
       ?>
-</div>
-<style type="text/css">
-   #head tr td {
-   padding: 5px;
-   border: 0px solid black;
-   }
-   #head tr td *{
-   text-align: left;
-   }
-   #pos-content{
-   height: 500px;
-   }
-   .content-pos {
-   min-height: 450px;
-   }
-</style>
-<div class="content-pos-grid">
+<!-- </div> -->
+
+<div class="conten t-pos-grid">
    <div class="inputtab" >
       <form id="sales-hb" >
-         <?php //echo CHtml::textField('table'); ?>
-         <!-- <div > -->
          <table id="head" border="1" cellpadding="2"  >
-            <tr>
-               <td>
-                  Customer
-               </td>
-               <td >
-                  <select style="width:100%;" class="select-pel" id="namapel">
-                  </select>
-               </td>
-               <td >
-               <!-- <input type="button" name="btn-add-customer" id="btn-add-customer" value="Tambah" class="mybutton"> -->
-                  <input style="display: none;" type="text" style="display:inline;padding:5px;width: 100%" class="umum-value" id="umum-value" placeholder="Nama pelanggan Umum" >
-               </td>
-               <td>
-                  <button type="button"  class="mybutton"  id="tambah-pelanggan-2">
-                    Tambah
-                  </button>
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <b style="color:red">Tanggal Transaksi</b>
-               </td>
-               <td>
-                  <input readonly="" type="text" name="tanggal" id="tanggal" style="padding:2px"
-                     value="<?php echo date("Y-m-d") ?>">
-               </td>
-               <td>
-                  <?php $list = CHtml::listData(CustomerType::model()->findAll(), 'id', 'customer_type');?>
-                     </td>
-               <!-- <b style="color:red">Tanggal Jatuh Tempo</b> -->
-                  <!-- <hr style="margin-top: 2px;"> -->
-                                 
-            </tr>
-            <tr>
-               <td><b style="color:red">Tanggal Jatuh Tempo</b></td>
-               <td><input type="text" name="tanggal" id="tanggal_jt" style="padding:2px"
-                  value="<?php //echo date("Y-m-d",strtotime()) ?>"></td>
-            </tr>
+          
             <tr style="display: none;" >
                <td>Jenis Harga</td>
                <td>
@@ -423,7 +377,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
                </td>
             </tr>
          </table>
-         <hr>
+         
          <table>
             <tr>
                <td>
@@ -596,8 +550,6 @@ $usaha = SiteController::getConfig("jenis_usaha");
    </script>
    <div id="sales_items"></div>
 </div>
-<div class="content-pos-kanan">
-<!-- tombol -->
 <script type="text/javascript">
    function klikmeja(){
        // $('#dialog_meja').load('index.php?r=site/table');
@@ -605,65 +557,9 @@ $usaha = SiteController::getConfig("jenis_usaha");
 
    }
 </script>
-<div style="margin-left:0px;">
-   <?php //echo "Jenis Customer : ".CHtml::dropDownList('custype', '0', $list, array('class' => 'myinput', 'onchange' => 'custype()', 'style'=>'margin-bottom:5px;width:100px;')); ?>
-   <input  type="text" id="vouchernominal" placeholder="Potongan ">
-</div>
+<!-- tombol -->
+<!-- <div class="content-pos-kanan"></div> -->
 <!-- untuk div tax, subtotal, total -->
-<div class="pos-kanan-content">
-   <table class="tb_kanan">
-      <tr>
-         <td class="left">Sub Total:</td>
-         <td class="right">
-            <div id="sum_sub_total">0</div>
-         </td>
-      </tr>
-      <tr>
-         <td class="left">Discount :</td>
-         <td class="right">
-            <div id="sum_sale_discount">0<?php //echo CHtml::dropDownList('sum_sale_discount2', '5', array('5'=>'5%','10'=>'10%')); ?></div>
-         </td>
-      </tr>
-      <tr>
-         <td class="left">
-            Service (<script>document.write(var_service);</script>)% :
-         </td>
-         <td class="right">
-            <div id="sum_sale_service">0</div>
-         </td>
-      </tr>
-      <tr>
-         <td class="left">Tax (<?php echo Parameter::model()->findByPk(1)->pajak ?>)%:</td>
-         <td class="right">
-            <div id="sum_sale_tax">
-               0
-         </td>
-      </tr>
-    <tr>
-      <td class="left">Potongan :</td>
-      <td class="right"><div id="sum_sale_voucher">0</td>
-      </tr>
-          <tr>
-      <td class="left">Sisa Belum Bayar :</td>
-      <td class="right"><div id="sum_sale_bayar">0</td>
-      </tr>
-
-   </table>
-   <table class="tb_kanan kanan-footer">
-   <tr style="display:none">
-   <td class="left"><b>Total:</b></td>
-   <td class="right"><b><div id="sum_sale_total">0</div></b></td>
-   </tr>
-   <tr>
-   <td class="left"><b>Total:</b></td>
-   <td class="right"><b><div id="sum_sale_total2">0</div></b></td>
-   </tr>
-   </table>
-   </div>
-   <!-- <input type="button" id="travel()" value="No Tax And Service" class="mybutton"> -->
-   <div style="text-align:right;"><input type=button onClick="travel()" value="Tidak ada pajak" style="display:none" class="mybutton"></div>
-   </div>
-</div>
 <script>
 
   function numberWithCommas(x) {
@@ -2040,28 +1936,6 @@ function numberWithCommas(x) {
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');
    ?>
-<input id="pay" type="button" value="Bayar" onclick='list_action(112);' class="mybutton">
- <div style="display: none;">
-   
- <?php echo CHtml::button('Bayar Nanti', array('id' => 'tombol_meja', 'onclick' => 'klikmeja()', 'class' => ' mybutton', 'style'=>'text-align:center')); ?>
-
- </div>
-
-
-<!-- <input type=button onClick="print_bayar()" value="Cetak2" class="mybutton"> -->
-<input style="display:none" type=button id="cetakdapur" onClick="cetakdapur()" value="Cetak Dapur" class="mybutton">
-<input style="display:none" type=button id="cetakbar" onClick="cetakbar()" value="Cetak Bar" class="mybutton">
-<!-- <input type=button  onClick="cetakbardapur()" value="Cetak Bar & Dapur" class="mybutton"> -->
-<input type=button onClick="editdiskongrid($('#discount').val())" value="Edit Diskon" class="mybutton" id="ditditvoc">
-<input  type="button" onClick="hapusGrid()" value="Hapus Semua" class="mybutton">
-<?php 
-if ($usaha=="Restauran"){ ?>
-<input type=button onClick="cetakbill()" value="Cetak" class="mybutton">
-<input  type="button" id="cetakrekap" value="Cetak Rekap" class="mybutton">
-<input type=button onClick="cetakbillterakhir()" value="Struk Terakhir" class="mybutton"> 
-<?php } ?>
-<input  type="button" value="Item Baru" id="btn-item-baru" class="mybutton">
-
 
 <!--<input type=button onClick="opencash()" value="Buka Drawer" class="mybutton">-->
 <!--input type=button onClick="cekisigrid()" value="cek isi grid" class="mybutton"-->
@@ -2069,3 +1943,5 @@ if ($usaha=="Restauran"){ ?>
    <param name="printer" value="zebra">
 </applet>
 <!--div id="msg-keypress">here press</div-->
+
+ 

@@ -15545,3 +15545,51 @@ Stack trace:
 #11 {main}
 REQUEST_URI=/toko-base/index.php?r=Supplier/update&id=91
 ---
+2019/07/28 18:58:31 [error] [exception.CException] CException: SiteController cannot find the requested view "items.inc-pencarian-items". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:879
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\views\site\index.php(97): CController->renderPartial('items.inc-penca...')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#5 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(576): CController->render('index')
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('')
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('')
+#17 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#18 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#19 {main}
+REQUEST_URI=/toko-base/
+---
+2019/07/28 18:59:20 [error] [exception.CException] CException: SiteController cannot find the requested view "items.inc-pencarian-items". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:879
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\views\site\index.php(97): CController->renderPartial('items.inc-penca...')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#5 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(576): CController->render('index')
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('')
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('')
+#17 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#18 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#19 {main}
+REQUEST_URI=/toko-base/
+---
