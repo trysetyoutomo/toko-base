@@ -34,6 +34,40 @@ License: You must have a valid license purchased only from templatemonster to le
 	.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before{
 		background: #2A3F54;
 	}
+	#datatable_wrapper{
+         overflow: auto;
+         }
+         .errorMessage{
+         color: red;
+         display: none;
+         }
+         input.error,select.error{
+         border:1px solid red;
+         }
+         .modal-dialog {
+         width:700px!important;
+         }
+         .fa,.glyphicon{
+         cursor: pointer;
+         }
+         div.wide.form label
+         {
+         float: left;
+         margin-right: 10px;
+         position: relative;
+         text-align: right;
+         width: 100px;
+         }
+         div.wide.form .row
+         {
+         clear: left;
+         padding: 4px;
+         }
+         div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
+         {
+         clear: left;
+         padding-left: 110px;
+         }
 </style>
 </head>
 <body>
@@ -54,70 +88,10 @@ License: You must have a valid license purchased only from templatemonster to le
 			<a href="#" class="btn btn-outline-secondary">About Us</a>
 		</div>
 	</header>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xl-12 pa-0">
-				<div class="auth-form-wrap pt-xl-0 pt-70">
-					<div class="auth-form w-xl-30 w-lg-55 w-sm-75 w-100">
-						<?php 
-						  $parameter = Parameter::model()->findByPk(1);
-						?>
-						<a class="auth-brand text-center d-block mb-20" href="#">
-						    <img style="width: 100px"  class="brand-img img"  src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
-						</a>
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-'id'=>'login-form',
-'enableClientValidation'=>true,
-'clientOptions'=>array(
-'validateOnSubmit'=>true,
-),
-)); ?>
-
-							<h1 class="display-4 text-center mb-10">Selamat Datang</h1>
-							<p class="text-center mb-30">Gunakan username atau password untuk masuk ke sistem.</p> 
-							<div class="form-group">
-								<!-- <input class="form-control" placeholder="Email" type="email"> -->
-								<?php echo $form->textField($model,'username',array("class"=>"form-control","placeholder"=>"username")); ?>
-								<?php echo $form->error($model,'username'); ?>	
-							</div>
-							<div class="form-group">
-								<div class="input-group">
-								<?php echo $form->passwordField($model,'password',array("class"=>"form-control","placeholder"=>"Password")); ?>
-							
-								<div class="input-group-append">
-										<!-- <span class="input-group-text"><span class="feather-icon"><i data-feather="eye-off"></i></span></span> -->
-									</div>
-								</div>
-								<?php echo $form->error($model,'password'); ?>	
-
-							</div>
-							<div class="custom-control custom-checkbox mb-25">
-								<input class="custom-control-input" id="same-address" type="checkbox" checked>
-								<label class="custom-control-label font-14" for="same-address">Tetap masuk</label>
-							</div>
-							<button class="btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none">Masuk</button>
-							<p class="font-14 text-center mt-15">Belum Mendaftarkan <b>Usaha</b> anda ?</p>
-							<!-- <div class="option-sep">Silahkan daftar</div> -->
-							<div class="form-row">
-								<div class="col-sm-12 mb-20">
-									<a class="btn btn-danger btn-block btn-wth-icon" style="color:white"> 
-									<span class="icon-label"><i class="fa fa-user"></i> </span><span class="btn-text">
-									Daftar</span>
-								</a>
-							</div>
-								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
-							<!-- </div> -->
-							<!-- <p class="text-center">Do have an account yet? <a href="#">Sign Up</a></p> -->
-					
-							
-<?php $this->endWidget(); ?>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="container">
+	<?php echo $content;
+	 ?>
 	</div>
-</div>
 <!-- /Main Content -->
 
 </div>

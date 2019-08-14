@@ -24,20 +24,12 @@ $usaha = SiteController::getConfig("jenis_usaha");
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/grid-pos.css" />
-<!-- Bootstrap -->
-<link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- Font Awesome -->
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
               
-<script>
-   function print() {
-       document.jzebra.append("A37,503,0,1,2,3,N,PRINTED USING JZEBRA\n");
-       // ZPLII
-       // document.jzebra.append("^XA^FO50,50^ADN,36,20^FDPRINTED USING JZEBRA^FS^XZ");
-       document.jzebra.print();
-   }
-</script>
+
 <?php 
 // include "js.php";
 ?>
@@ -184,6 +176,10 @@ $usaha = SiteController::getConfig("jenis_usaha");
             // alert("123");
           }
         });
+         $(document).on("blur","input,select",function(e){
+            // $("#input_items").focus();
+          // alert('123');
+          });
           // setInterval(function(e){
           //     // alert("123");
           //     if (!$("#full-screen").is(':visible')){
@@ -539,10 +535,10 @@ $usaha = SiteController::getConfig("jenis_usaha");
       $('#sum_sale_total').html(total_cost-service);
       }else{
       // alert('unchecked');
-      service  =    var_service * (subtotal-discount)/ 100;
-      $('#sum_sale_service').html(service);
-      // $('#sum_sale_tax').html(0);
-      $('#sum_sale_total').html(parseInt(total_cost)+parseInt(service));
+       service  =    var_service * (subtotal-discount)/ 100;
+        $('#sum_sale_service').html(service);
+        // $('#sum_sale_tax').html(0);
+        $('#sum_sale_total').html(parseInt(total_cost)+parseInt(service));
       }
 
       // alert(chk);
@@ -691,7 +687,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
                   $('#dialog_meja').load('index.php?r=site/table');
                   $("#dialog_meja").dialog('close');
                     $("#head-meja").html("");
-					alert("Data berhasil disimpan di Meja "+no_meja+", Silahkan tekan OK untuk melanjutkan");
+					     alert("Data berhasil disimpan di Meja "+no_meja+", Silahkan tekan OK untuk melanjutkan");
 
                 }
               }
@@ -1495,17 +1491,17 @@ $usaha = SiteController::getConfig("jenis_usaha");
           var tax = 0;
           var svc = 0;
           var subtotal = 0;
-    var voucher = 0;
-    voucher = $("#vouchernominal").val();
-    var bayar = parseInt($("#sum_sale_bayar").html());
+          var voucher = 0;
+          voucher = $("#vouchernominal").val();
+          var bayar = parseInt($("#sum_sale_bayar").html());
           liveSearchPanel_SalesItems.store.each(function (rec) {
-              sum += rec.get('item_total_cost');
-              discount += rec.get('item_discount') * (rec.get('item_price')*rec.get('quantity_purchased')) /100 ;
+          sum += rec.get('item_total_cost');
+          discount += rec.get('item_discount') * (rec.get('item_price')*rec.get('quantity_purchased')) /100 ;
 
-              // tax += rec.get('item_tax')*rec.get('quantity_purchased');
-              tax += rec.get('item_tax');
-              svc += rec.get('item_service');
-              subtotal += (rec.get('item_price')*rec.get('quantity_purchased'));
+          // tax += rec.get('item_tax')*rec.get('quantity_purchased');
+          tax += rec.get('item_tax');
+          svc += rec.get('item_service');
+          subtotal += (rec.get('item_price')*rec.get('quantity_purchased'));
           });
 
     // tax = (subtotal-discount)/10;
@@ -1529,6 +1525,8 @@ $usaha = SiteController::getConfig("jenis_usaha");
 
 
       }
+
+
       var format = function(num){
           var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
           if(str.indexOf(".") > 0) {
@@ -1945,3 +1943,28 @@ function numberWithCommas(x) {
 <!--div id="msg-keypress">here press</div-->
 
  
+ <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-modal-preview" data-toggle="modal" data-target="#exampleModal" style="display: none;">
+  
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bukti Pembayaran</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body body-bukti">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

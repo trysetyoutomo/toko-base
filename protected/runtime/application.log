@@ -15593,3 +15593,236 @@ Stack trace:
 #19 {main}
 REQUEST_URI=/toko-base/
 ---
+2019/08/04 20:50:58 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:54:19 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "stpre". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stpre')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=stpre
+---
+2019/08/04 20:54:23 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:54:29 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:56:54 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:56:55 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:57:00 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:57:01 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:57:02 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:57:12 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:57:14 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:58:23 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:58:47 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:58:48 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:58:51 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/04 20:59:06 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/index". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/index')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/index
+---
+2019/08/04 21:00:08 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/index". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/index')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/index
+---
+2019/08/04 21:00:21 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/index". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/index')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/index
+---
+2019/08/04 21:00:24 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/index". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/index')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/index
+---
+2019/08/04 21:07:46 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/index". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/index')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/index
+---
+2019/08/04 21:07:57 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/abc". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/abc')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/abc
+---
+2019/08/04 21:08:27 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/abc". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/abc')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/abc
+---
+2019/08/04 21:08:28 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/abc". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/abc')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/abc
+---
+2019/08/04 21:08:32 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/abc". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/abc')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/abc
+---
+2019/08/04 21:08:32 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/abc". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/abc')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/abc
+---
+2019/08/04 21:08:33 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/abc". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/abc')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/abc
+---
+2019/08/04 21:33:15 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store
+---
+2019/08/05 20:56:52 [error] [exception.CHttpException.404] CHttpException: The requested page does not exist. in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php:2591
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1585): ItemsController->loadModel('14')
+#1 [internal function]: ItemsController->actionView('14')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('view')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/view')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=items/view&id=14
+HTTP_REFERER=http://localhost/toko-base/index.php?r=Sales/detailitems&id=11
+---

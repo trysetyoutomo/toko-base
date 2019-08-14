@@ -1,6 +1,6 @@
-
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+
 
 <style type="text/css">
     #wrap-selisih{
@@ -23,6 +23,13 @@
     <h5>Total Pergantian : <label id="total-ganti">0</label></h5>
     <h5>Selisih          : <label id="total-selisih">0</label></h5>
 </div>
+
+ <?php 
+ $this->renderPartial('application.views.items.inc-pencarian-items');
+ ?>
+
+
+
 <script type="text/javascript">
  var format = function(num){
         var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;

@@ -19,7 +19,14 @@
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
-	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+  <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jquery/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+	<?php //Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <?php Yii::app()->getClientScript()->registerCoreScript('jquery.ui'); ?>
 <!--
   <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui/jquery-ui-timepicker-addon.js"></script>
@@ -98,9 +105,9 @@ $parameter = Parameter::model()->findByPk(1);
 				 <!--waiterkasir-->
 <!--                <li><a href="#">Setting</a></li> -->
 				<?php if (!Yii::app()->user->isGuest) {?>
-                <li><a href="<?php echo $this->createUrl('site/logout'); ?>">Logout</a></li>		
+                <li><a href="<?php echo $this->createUrl('site/logout'); ?>">Keluar</a></li>		
 				<?php } else { ?>
-                <li><a href="<?php echo $this->createUrl('site/login');?>">Login</a></li>		
+                <li><a href="<?php echo $this->createUrl('site/login');?>">Masuk</a></li>		
 				<?php }?>
             </ul>
 		</div>

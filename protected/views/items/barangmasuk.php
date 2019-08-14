@@ -1,6 +1,3 @@
-<link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
-
 
 
 <style type="text/css">
@@ -41,56 +38,14 @@
         border: 3px solid black;
 
     }
-      #full-screen{
-      display: none;
-      width: 100%;
-      height: 100%;
-      z-index: 999;
-      background-color: rgba(0,0,0,0.4);
-      position: fixed;
-      top: 0px;
-      bottom: 0px;
-      left: 0px;
-      right: 0px;
-      margin: auto;
-      }
-     #wrapper-item-search{
-      display: none;
-      background-color: white;
-      width: 350px;
-      height: 140px;
-      border: 2px solid black;
-      position: fixed;
-      top: 0px;
-      bottom: 0px;
-      left: 0px;
-      right: 0px;
-      margin: auto;
-      z-index: 1000;
-      padding: 10px;
-      }
-      #wrapper-item-search h1{
-      font-size:20px;
-      font-weight: bolder;
-      }
-      #wrapper-item-search .close{
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      }
-      #s2id_e1{
-        width: 100%;
-      }
-</style>
-
+  </style>
  <?php 
  $this->renderPartial('inc-pencarian-items');
  ?>
+<!-- 
 
-
-<div id="wrap-selisih">
-    <h1>Ringkasan</h1>
+<div id="wrap-selisih" style="display: none;">
+	<legend style="font-weight:bolder">Masukan Menu</legend>
     <hr>
     <table>
     	<tr>
@@ -137,49 +92,13 @@
 
 
     </table>
-</div>
+</div> -->
 <script type="text/javascript">
-	function list_action(act)
-      {
-      	 switch(act)
-          {
-          	   case 113 :
-
-                  $("#full-screen").show();
-                  $("#wrapper-item-search").show();
-                  $("#e1").select2("open");
-
-                  // alert('123');
-                  break;
-                case 27:
-
-                  $("#full-screen").hide();
-                  $("#wrapper-item-search").hide();
-                break;
-             }
-
-      }
+	
 	$(document).ready(function(){
 
 
-		$('body').keydown(function(event){
-			var message = "";
-	    // var message = '<BR>ada tombol yg di pencet gan!, keyCode = ' + event.keyCode + ' which = ' + event.which;
-	    // alert(event.keyCode);
-          if (event.keyCode>=0 || event.charCode>=0 || event.which>=0 ){
-            // alert("123");
-              message = message + '<BR>F1 - F12 / enter pressed';
-              list_action(event.keyCode);
-          }else{
-            // alert("456");
-              // list_action_other(event.which);
-              // message = message + '<BR>key other than F1 - F12 pressed';
-          }
-
-          //print pesan
-          $('#msg-keypress').html(message)
-
-      });
+		
 		$( "#tambah-supplier-form" ).dialog({
 			minWidth : 650,
 			modal : true,
@@ -219,8 +138,9 @@
 	//   // }
 	// });
 </script>
-	<br>
-		<fieldset style="border:1px solid transparent;padding:20px;overflow:auto;">
+	<div class="row">
+		<div class="col-sm-6">
+			<fieldset style="border:1px solid transparent;padding:20px;overflow:auto;">
 				
 			<h1> 
 			<i class="fa fa-book"></i>
@@ -373,22 +293,72 @@
 					</td>
 				</tr>
 			</table>
+
+	<td colspan="4">
+	<legend style="font-weight:bolder">Ringkasan</legend>
+	</td>
+
+    <table>
+    	<tr>
+    		<td><h5>Sub Total</h5></td>
+    		<td style="width: 30px;">:</td>
+    		<td><label id="total-sub">0</label></td>
+    	</tr>
+    	<tr>
+    		<td>Diskon</td>
+    		<td>:</td>
+    		<td>
+    			<input type="number" id="total-diskon" value="0">
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>Grand Total</td>
+    		<td>:</td>
+    		<td>
+    			<label id="total-grand">0</label>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>Bayar</td>
+    		<td>:</td>
+    		<td>
+    			<input type="number" id="total-bayar" value="0">
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>Kembali</td>
+    		<td>:</td>
+    		<td>
+    			<input type="text" id="total-kembali" value="0">
+    		</td>
+    	</tr>
+    	<tr>
+    		<td colspan="2">
+					<button onclick="kirim()" class="btn btn-primary">Simpan</button>
+
+    		</td>
+    	</tr>
+
+
+
+
+    </table>
 			</div>
 			<div>
-			
-				
-			
-			
 
-		
-	
-		<div class="">
+
+				
+				
+				</fieldset>
+		</div>
+		<div class="col-sm-6" style="margin-top:90px;"> <!-- kolom kedua -->
+			<div class="">
 			<div class="" >
 				<input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
 	
 				
 				<div class="data-table">
-				<legend style="font-weight:bolder">Detail Items</legend>
+				<legend style="font-weight:bolder">Masukan Menu</legend>
 
 			
 
@@ -421,7 +391,125 @@
 			
 				</div>
 				<hr>
-				<script>
+			</div>
+		</div>
+		</div>
+
+			
+			<div class=" widget-table">	
+	
+					<div class="widget-content">
+						<table style="width:100%" id="users" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>Kategori</th>
+									<th>Sub Kategori</th>
+									<th>Nama Item</th>
+									<th>Jumlah</th>
+									<th>Satuan</th>
+									<th>Harga Satuan </th> 
+									<th>aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div> <!-- .widget-content -->
+				</div> <!-- .widget -->
+
+		</div>
+	</div>
+		
+			
+
+	
+<div id="tambah-supplier-form" title="Tambah Supplier" >
+<?php
+$model = new Supplier;
+$this->renderPartial('application.views.supplier._form',array("model"=>$model));
+ ?>
+</div>	
+
+	<script type="text/javascript">
+		$(document).ready(function(e){
+		$("#nama").focus();
+
+
+		$(document).on("change","#po-data",function(e){
+			var value = $(this).val();
+			$.ajax({
+				// data : "id="+val,
+				url : "<?php echo Yii::app()->createAbsoluteUrl('items/GetdataPO') ?>",
+				data : "poid="+value,
+				success : function(data){
+					$("#users tbody").html(" ");
+					var d = JSON.parse(data);
+					$("#supplier-data").val(d[0].sumber).trigger("change");
+					// alert(d[0].sumber);
+					$.each(d,function(i,v){
+						var idd = v.kode+"-"+v.id;
+						appendToBaris(v,idd,v.jumlah_po,v.harga_beli);
+					});
+
+				
+				}
+			});
+		})
+		$(document).on("click","#add-all",function(e){
+			if ($(this).prop("checked")){
+					$.ajax({
+						// data : "id="+val,
+						url : "<?php echo Yii::app()->createAbsoluteUrl('items/Data_all_items') ?>",
+						success : function(data){
+							var d = JSON.parse(data);
+							$.each(d,function(i,v){
+								var idd = v.kode+"-"+v.id;
+								appendToBaris(v,idd,0);
+							});
+							kalkulasiBeli();
+
+						
+						}
+					});
+			}else{
+				$("#users tbody").html("");
+				kalkulasiBeli();
+			}
+		});
+// users tbody
+		// $(document).on("click","#add-all",function(e){
+		// 	if ($(this).prop("checked")){
+		// 		$("#stok").val(0);
+		// 		$("#nama > option").each(function(i,v) {
+		// 			// setTimeout(function(e){
+		// 				// alert(this.value);
+		// 				// alert(this.value);
+		// 			var val = this.value;
+		// 		    setTimeout(function(){
+		// 		       add_item(val);
+		// 		    },500 + ( i * 500 ));
+		// 		  //   setTimeout(function(){
+		// 				// add_item(this.value);
+				     
+		// 		  //      }, 450);
+		// 		  //   },500 + ( i * 500 ));
+		// 			// },1000);
+		// 		    // alert(this.text + ' ' + this.value);
+		// 		});
+		// 		// $("#stok").val(1);
+		// 	}else{
+		// 		$("#users tbody").html("");
+		// 	}
+
+		// });
+	
+		});
+	</script>
+	</div>
+	</div>
+
+
+	<script>
 
 $(document).ready(function(){
 	$(document).on('keyup', '#total-diskon,#total-bayar', function(e) {
@@ -605,7 +693,7 @@ $(document).ready(function(){
 
 						subtotal+=total;
 					});
-					// alert("123");
+					// alert(subtotal);
 					var diskon = Math.round($("#total-diskon").val());
 					var bayar = Math.round($("#total-bayar").val());
 					var grand = subtotal-diskon;
@@ -920,132 +1008,3 @@ $(document).ready(function(){
 
 
 				</script>
-				<div class=" widget-table">	
-					<!-- <div class="widget-header">
-						<span class="icon-list"></span>
-						<h3 class="icon chart">Tabel Penjualan Barang</h3>		
-					</div> -->
-					<div class="widget-content">
-						<table style="width:100%" id="users" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>Kategori</th>
-									<th>Sub Kategori</th>
-									<th>Nama Item</th>
-									<th>Jumlah</th>
-									<th>Satuan</th>
-									<th>Harga Satuan </th> 
-									<!-- <th>Ukuran </th> 
-									<th>Panjang </th> 
-									<th>Ketebalan </th>  -->
-									<!-- <th>Supplier / Pemasok </th>  -->
-									<th>aksi</th>
-								</tr>
-							</thead>
-							<tbody>
-							<?php //foreach($model as $d):?>
-								<!--<tr class="gradeA">
-									<td><?php //echo $d->id; ?></td>
-									<td><?php //echo $d->nama_barang; ?></td>
-									<td><?php //echo $d->jumlah; ?></td>
-									<td>
-										<?php //echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'/images/view.png'),array('view', 'id'=>$d->id));?>
-										<?php //echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'/images/update.png'),array('update', 'id'=>$d->id));?>
-										<?php //echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'/images/delete.png'),array('delete', 'id'=>$d->id),array('confirm'=>'Yakin hapus?'));?>
-									</td>
-								</tr>-->
-							<?php //endforeach; ?>
-							</tbody>
-						</table>
-					</div> <!-- .widget-content -->
-				</div> <!-- .widget -->
-				</fieldset>
-				</div>
-			</div> <!-- .grid -->
-
-
-	
-<div id="tambah-supplier-form" title="Tambah Supplier" >
-<?php
-$model = new Supplier;
-$this->renderPartial('application.views.supplier._form',array("model"=>$model));
- ?>
-</div>	
-
-	<script type="text/javascript">
-		$(document).ready(function(e){
-		$("#nama").focus();
-
-
-		$(document).on("change","#po-data",function(e){
-			var value = $(this).val();
-			$.ajax({
-				// data : "id="+val,
-				url : "<?php echo Yii::app()->createAbsoluteUrl('items/GetdataPO') ?>",
-				data : "poid="+value,
-				success : function(data){
-					$("#users tbody").html(" ");
-					var d = JSON.parse(data);
-					$("#supplier-data").val(d[0].sumber).trigger("change");
-					// alert(d[0].sumber);
-					$.each(d,function(i,v){
-						var idd = v.kode+"-"+v.id;
-						appendToBaris(v,idd,v.jumlah_po,v.harga_beli);
-					});
-
-				
-				}
-			});
-		})
-		$(document).on("click","#add-all",function(e){
-			if ($(this).prop("checked")){
-					$.ajax({
-						// data : "id="+val,
-						url : "<?php echo Yii::app()->createAbsoluteUrl('items/Data_all_items') ?>",
-						success : function(data){
-							var d = JSON.parse(data);
-							$.each(d,function(i,v){
-								var idd = v.kode+"-"+v.id;
-								appendToBaris(v,idd,0);
-							});
-							kalkulasiBeli();
-
-						
-						}
-					});
-			}else{
-				$("#users tbody").html("");
-				kalkulasiBeli();
-			}
-		});
-// users tbody
-		// $(document).on("click","#add-all",function(e){
-		// 	if ($(this).prop("checked")){
-		// 		$("#stok").val(0);
-		// 		$("#nama > option").each(function(i,v) {
-		// 			// setTimeout(function(e){
-		// 				// alert(this.value);
-		// 				// alert(this.value);
-		// 			var val = this.value;
-		// 		    setTimeout(function(){
-		// 		       add_item(val);
-		// 		    },500 + ( i * 500 ));
-		// 		  //   setTimeout(function(){
-		// 				// add_item(this.value);
-				     
-		// 		  //      }, 450);
-		// 		  //   },500 + ( i * 500 ));
-		// 			// },1000);
-		// 		    // alert(this.text + ' ' + this.value);
-		// 		});
-		// 		// $("#stok").val(1);
-		// 	}else{
-		// 		$("#users tbody").html("");
-		// 	}
-
-		// });
-	
-		});
-	</script>
-	</div>
-	</div>

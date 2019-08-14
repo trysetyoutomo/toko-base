@@ -171,7 +171,7 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 <table class="x" style="width: 270px;"  border="0" cellpadding="20" 
 	>
 	<tr>
-		<td valign="top" align="center" >
+		<td valign="top" align="center" style="text-align: center;" >
 			<!-- <img src="<?php echo Yii::app()->request->baseUrl ?>/logo/<?php echo $parameter['gambar'] ?>" width="100" > -->
 			<h3 style="display: inline;"><?php echo $branch->branch_name ?></h3>
 		

@@ -101,11 +101,11 @@ class SalesController extends Controller {
 
     }
     public function actionCetakfaktur($id){
-		 $this->render('cetakfaktur', array('id'=>$id) ) ;
+		 $this->renderPartial('cetakfaktur', array('id'=>$id) ) ;
 
     }
     public function actionCetakfaktur_mini($id){
-		 $this->render('cetakfaktur_mini', array('id'=>$id) ) ;
+		 $this->renderPartial('cetakfaktur_mini', array('id'=>$id) ) ;
 
     }
 

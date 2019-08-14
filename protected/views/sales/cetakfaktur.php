@@ -231,9 +231,9 @@ if ($ukuranKertas == "24cmx14cm"){
 <div style="clear: both"></div>
 
 <br>
-<a href="<?php echo Yii::app()->createUrl("sales/") ?>">
-<button style="float: left;" class="btn btn-primary" > <i class="fa fa-chevron-left"></i> Kembali </button>
-</a>
+<!-- <a href="<?php echo Yii::app()->createUrl("sales/") ?>"> -->
+<!-- <button style="float: left;" class="btn btn-primary" > <i class="fa fa-chevron-left"></i> Kembali </button> -->
+<!-- </a> -->
 
 <button style="float: left;" class="btn btn-primary" onclick="$('#faktur').print();"> <i class="fa fa-print"></i> Cetak </button>
 

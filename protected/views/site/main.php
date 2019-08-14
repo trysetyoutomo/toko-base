@@ -2238,12 +2238,38 @@ function bayar(status,table,sale_id)
 
 		            if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
 
-						var c = confirm("Cetak Faktur ?? ");
+						var c = confirm("Cetak Bukti ?? ");
 						if (c){	
-						window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+                            $.ajax({
+                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
+                                data : {
+                                    id : idx
+                                },
+                                success:function(data){
+                                $('.body-bukti').html(data);
+                                $(".btn-modal-preview").trigger("click");
+
+                                }
+                            });
+						// window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
 						}
-						// return;
-		            }else{
+		            }else if (jenis_cetak=="80mm" || jenis_cetak=="58mm"){
+                        var c = confirm("Cetak Bukti ?? ");
+                        if (c){ 
+                            $.ajax({
+                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
+                                data : {
+                                    id : idx
+                                },
+                                success:function(data){
+                                $('.body-bukti').html(data);
+                                $(".btn-modal-preview").trigger("click");
+
+                                }
+                            });
+                        // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+                        }
+                    }else{
 						var i =1;
 						var ulang  =  1;<?php //echo Parameter::model()->findByPk(1)->qty_cb; ?>
 						function myLoop(){
