@@ -10,7 +10,7 @@
  * @property string $user
  * @property string $keterangan
  */
-class Barangkeluar extends CActiveRecord
+class BarangKeluar extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
