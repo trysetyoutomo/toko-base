@@ -24,6 +24,8 @@ License: You must have a valid license purchased only from templatemonster to le
 <!-- font google -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
+<!-- icon -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" rel="stylesheet"/>
 <!-- Custom CSS -->
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/burnette/dist/css/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -84,8 +86,7 @@ License: You must have a valid license purchased only from templatemonster to le
 <div class="hk-pg-wrapper hk-auth-wrapper">
 	<header class="d-flex justify-content-end align-items-center">
 		<div class="btn-group btn-group-sm">
-			<a href="#" class="btn btn-outline-secondary">Help</a>
-			<a href="#" class="btn btn-outline-secondary">About Us</a>
+			<a href="tel:08986044235" class="btn btn-outline-secondary">Hubungi kami</a>
 		</div>
 	</header>
 	<div class="container">

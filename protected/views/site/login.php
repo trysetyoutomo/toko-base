@@ -101,7 +101,7 @@ License: You must have a valid license purchased only from templatemonster to le
 							<!-- <div class="option-sep">Silahkan daftar</div> -->
 							<div class="form-row">
 								<div class="col-sm-12 mb-20">
-									<a class="btn btn-danger btn-block btn-wth-icon" style="color:white"> 
+									<a href="<?php echo Yii::app()->createUrl("stores/create") ?>" class="btn btn-danger btn-block btn-wth-icon" style="color:white"> 
 									<span class="icon-label"><i class="fa fa-user"></i> </span><span class="btn-text">
 									Daftar</span>
 								</a>

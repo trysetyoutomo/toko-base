@@ -23,26 +23,26 @@ class StoresController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('abc','index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('*'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
+	// public function accessRules()
+	// {
+	// 	return array(
+	// 		array('allow',  // allow all users to perform 'index' and 'view' actions
+	// 			'actions'=>array('abc','index','view'),
+	// 			'users'=>array('*'),
+	// 		),
+	// 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
+	// 			'actions'=>array('create','update'),
+	// 			'users'=>array('*'),
+	// 		),
+	// 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
+	// 			'actions'=>array('admin','delete'),
+	// 			'users'=>array('*'),
+	// 		),
+	// 		array('deny',  // deny all users
+	// 			'users'=>array('*'),
+	// 		),
+	// 	);
+	// }
 
 	/**
 	 * Displays a particular model.
@@ -64,21 +64,65 @@ class StoresController extends Controller
 	}
 	public function actionCreate()
 	{
+		$transaction= Yii::app()->db->beginTransaction();
+		try
+		{
 		$model=new Stores;
+		// echo "123";
+		// echo "<pre>";
+		// print_r($_FILES['Stores[logo]']);
+		// echo "</pre>";
+		// var_dump($_FILES['Stores']['logo']);
+		// exit;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Stores']))
 		{
+			$target_file = CUploadedFile::getInstance($model,'logo');
 			$model->attributes=$_POST['Stores'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$random = md5(date("YmdHis"));
+			$model->logo = $random;
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$model->logo=$target_file;
+			if($model->save()){
+				$transaction->commit();
+				$model->logo->saveAs('/logo/$random');
+				// $this->redirect(array('view','id'=>$model->id));
+				
+				
+				
+				
+				
+				// $msg = "Hai ".$_POST['Stores']['name'].", Verifikasi akun anda dengan cara klik link dibawah ini \n 
+				// <a href='verifikasi email.php'>Verifikasi email</a>
+				// ";
+				// $msg = wordwrap($msg,70);
+				// $kirimEmail = mail($_POST['Stores']['email'],"Verifikasi Email",$msg);
+				
+				// if ($kirimEmail)
+				// 	$this->redirect(array('view','id'=>$model->id));
+				// else{
+				// 	echo "Email tidak terkirim";
+				// }
+
+			}// end save
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
+		
+
+		}
+		catch(Exception $e)
+		{
+			echo $e;
+			// $transaction->rollback();
+		}
+
+
 	}
 
 	/**

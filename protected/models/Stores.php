@@ -50,9 +50,10 @@ class Stores extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, code, phone', 'required'),
+			array('name, code, phone, email,address1,address2,city, state, postal_code', 'required'),
 			array('name, address1, address2, nop', 'length', 'max'=>50),
 			array('code, city, state', 'length', 'max'=>20),
+			array('email', 'unique', 'message'=>"Email telah digunakan"),
 			array('logo', 'length', 'max'=>40),
 			array('email', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>15),
@@ -84,18 +85,18 @@ class Stores extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'code' => 'Code',
+			'id' => 'ID Stores',
+			'name' => 'Nama Toko',
+			'code' => 'Kode Toko',
 			'logo' => 'Logo',
-			'email' => 'Email',
-			'phone' => 'Phone',
-			'address1' => 'Address1',
-			'address2' => 'Address2',
-			'city' => 'City',
-			'state' => 'State',
-			'postal_code' => 'Postal Code',
-			'country' => 'Country',
+			'email' => 'Email ',
+			'phone' => 'Telepon',
+			'address1' => 'Alamat 1',
+			'address2' => 'Alamat 2',
+			'city' => 'Kota',
+			'state' => 'Provinsi',
+			'postal_code' => 'Kode POS',
+			'country' => 'Negara',
 			'currency_code' => 'Currency Code',
 			'receipt_header' => 'Receipt Header',
 			'receipt_footer' => 'Receipt Footer',

@@ -15826,3 +15826,53 @@ Stack trace:
 REQUEST_URI=/toko-base/index.php?r=items/view&id=14
 HTTP_REFERER=http://localhost/toko-base/index.php?r=Sales/detailitems&id=11
 ---
+2019/08/14 22:19:56 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "store/create". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('store/create')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=store/create
+---
+2019/08/14 22:46:33 [error] [exception.Error] Error: Call to a member function beginTransaction() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:67
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+---
+2019/08/15 07:09:23 [error] [exception.CDbException] CDbException: CDbTransaction is inactive and cannot perform commit or roll back operations. in E:\xampp\htdocs\toko-base\yii\framework\db\CDbTransaction.php:85
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php(119): CDbTransaction->rollback()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#7 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#8 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#9 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/15 08:30:31 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:91
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
