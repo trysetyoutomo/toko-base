@@ -36,11 +36,7 @@
 		<?php echo $form->error($model,'code'); ?>
 		</div>
 
-		<div class="row">
-		<?php echo $form->labelEx($model,'logo'); ?>
-		<?php echo $form->fileField($model,'logo'); ?>
-		<?php echo $form->error($model,'logo'); ?>
-		</div>
+
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>

@@ -15876,3 +15876,125 @@ Stack trace:
 REQUEST_URI=/toko-base/index.php?r=stores/create
 HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
 ---
+2019/08/19 08:13:37 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:91
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:14:17 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:90
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:21:45 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:90
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:21:49 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:90
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:22:04 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:90
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:23:16 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:90
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:27:52 [error] [exception.ParseError] ParseError: syntax error, unexpected ')' in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:89
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(270): CWebApplication->createController('create/')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#2 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#3 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#4 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=site/login
+---
+2019/08/19 08:28:55 [error] [exception.Error] Error: Call to a member function saveAs() on null in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:89
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---
+2019/08/19 08:30:50 [error] [exception.Error] Error: Class 'UploadedFile' not found in E:\xampp\htdocs\toko-base\protected\controllers\StoresController.php:90
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): StoresController->actionCreate()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('stores/create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#7 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#8 {main}
+REQUEST_URI=/toko-base/index.php?r=stores/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=stores/create
+---

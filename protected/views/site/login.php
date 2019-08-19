@@ -35,6 +35,15 @@ License: You must have a valid license purchased only from templatemonster to le
 		background: #2A3F54;
 	}
 </style>
+<script>
+  function initFreshChat() {
+    window.fcWidget.init({
+      token: "9008a611-28ae-4050-b54b-1f41c63c7b40",
+      host: "https://wchat.freshchat.com"
+    });
+  }
+  function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+</script>
 </head>
 <body>
 <!-- Preloader -->

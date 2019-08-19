@@ -71,6 +71,7 @@ License: You must have a valid license purchased only from templatemonster to le
          padding-left: 110px;
          }
 </style>
+
 </head>
 <body>
 <!-- Preloader -->

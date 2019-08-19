@@ -80,16 +80,27 @@ class StoresController extends Controller
 
 		if(isset($_POST['Stores']))
 		{
-			$target_file = CUploadedFile::getInstance($model,'logo');
+			// $target_file = ;
 			$model->attributes=$_POST['Stores'];
 			$random = md5(date("YmdHis"));
-			$model->logo = $random;
-			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			$model->logo=$target_file;
+			// $model->logo = CUploadedFile::getInstance($model,'logo');
+			// var_dump($model->logo);
+			// exit;
+			// $model->logo->saveAs('/logo/$random');
+			if ($model->logo = CUploadedFile::getInstance($model,'logo')) {
+				$model->logo->saveAs("/logo/{$random}.jpg");
+				// echo $random;
+				// exit;
+			}else{
+				// echo "tidak aman";
+				// exit;
+			}
+			// $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			// $model->logo=$target_file;
 			if($model->save()){
-				$transaction->commit();
-				$model->logo->saveAs('/logo/$random');
-				// $this->redirect(array('view','id'=>$model->id));
+					$transaction->commit();
+					$this->redirect(array('view','id'=>$model->id));
+			}
 				
 				
 				
@@ -107,7 +118,7 @@ class StoresController extends Controller
 				// 	echo "Email tidak terkirim";
 				// }
 
-			}// end save
+			// }// end save
 		}
 
 		$this->render('create',array(
