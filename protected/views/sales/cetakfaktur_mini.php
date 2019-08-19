@@ -15,6 +15,9 @@
 	#faktur .x{
 		float: left;
 	}
+	tfoot{
+		font-style: initial;
+	}
 </style>
 <?php 
 $bid = Yii::app()->user->branch();
@@ -45,81 +48,6 @@ group by s.id
 
 
 ";
-// union  all 
-
-// SELECT
-// 	*
-// FROM
-// 	(
-// 		SELECT
-// 			nama,
-// 			customer_id,
-
-// 		IF (
-// 			bayar < sum(
-// 				si.item_price * si.quantity_purchased
-// 			)
-// 			OR bayar = 0,
-// 			'Kredit',
-// 			'Lunas'
-// 		) AS sb,
-// 		s.bayar,
-// 		s.TABLE,
-// 		inserter,
-// 		s. COMMENT COMMENT,
-// 		s.id,
-// 		sum(si.quantity_purchased) AS total_items,
-// 		date,
-// 		tanggal_jt,
-// 		s.waiter waiter,
-// 		sum(
-// 			(
-// 				si.item_price * si.quantity_purchased
-// 			) - (
-// 				item_modal * si.quantity_purchased
-// 			)
-// 		) untung,
-// 		sum(
-// 			si.item_price * si.quantity_purchased
-// 		) sale_sub_total,
-// 		sum(
-// 			item_modal * si.quantity_purchased
-// 		) sale_sub_modal,
-// 		sum(si.item_service) sale_service,
-// 		sum(si.item_tax) sale_tax,
-// 		s.sale_voucher voucher,
-// 		sum(
-// 			si.item_discount / 100 * (
-// 				si.item_price * si.quantity_purchased
-// 			)
-// 		) sale_discount,
-// 		sum(
-// 			(
-// 				(
-// 					si.item_price * si.quantity_purchased
-// 				) + si.item_service + (si.item_tax) - (
-// 					si.item_discount / 100 * (
-// 						si.item_price * si.quantity_purchased
-// 					)
-// 				)
-// 			)
-// 		) - (sp.voucher) sale_total_cost
-// 	FROM
-// 		sales s,
-// 		sales_items_paket si,
-// 		users u,
-// 		paket i,
-// 		sales_payment sp
-// 	WHERE
-// 		sp.id = s.id
-// 	AND i.id_paket = si.item_idp
-// 	AND s.id = si.sale_id
-// 	AND s.id = $id
-// 	AND inserter = u.id
-// 	GROUP BY
-// 		s.id
-// 	) data2
-
 
 $model = Yii::app()->db->createCommand($sql)->queryRow();
 ?>
@@ -180,21 +108,18 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2">
-			<table border="0" style="width: 100%" >
-				<tr><td colspan="3" align="center"><?php echo $model['id'] ?></td></tr>
-				<tr><td colspan="3" align="center"><?php
+		<td colspan="2" align="center">
+			<table border="0" style="width: 100%;text-align: center" >
+				<tr><td colspan="3" style="text-align: center;"><?php echo $model['id'] ?></td></tr>
+				<tr><td colspan="3" style="text-align: center;"><?php
 				$u = Users::model()->findByPk($model['inserter']);
 				 echo $u->username;
 
 				  ?></td></tr>
-
-
-
-				<tr><td colspan="3" align="center"><?php echo date("d M Y H:i",strtotime($model['date']))  ?></td></tr>
+				<tr><td colspan="3" style="text-align: center;"><?php echo date("d M Y H:i",strtotime($model['date']))  ?></td></tr>
 				<!-- <tr><td>Kasir</td><td class="space">: </td><td><?php echo $model['inserter'] ?></td></tr> -->
 				<!-- <tr><td>Sales</td><td class="space">: </td><td>Asep</td></tr> -->
-				<tr><td colspan="3" align="center"><?php echo $model['nama'] ?></td></tr>
+				<tr><td colspan="3" style="text-align: center;"><?php echo $model['nama'] ?></td></tr>
 				<!-- <tr><td>Jatuh Tempo</td><td class="space">: </td><td>
 					<?php 
 					if ($model['tanggal_jt']=="0000-00-00"){

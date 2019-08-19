@@ -881,9 +881,11 @@ $usaha = SiteController::getConfig("jenis_usaha");
                     var c = confirm("Terdapat Diskon untuk member ini, terapkan diskon "+data.nilai_diskon+"% ?");
                     if (c==true){
                       editdiskongrid(data.nilai_diskon);
-                      kalkulasi1();
+                      
                     } 
                 }
+
+                kalkulasi1();
                   // $("#namapel").html(data).trigger("change");
                   // $("#namapel").val("umum").trigger("change");
                },
