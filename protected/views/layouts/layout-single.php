@@ -11,7 +11,7 @@ License: You must have a valid license purchased only from templatemonster to le
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>35 POS</title>
-<meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework" />
+<meta name="description" content="Aplikasi kasir terbaik untuk anda" />
 
 <!-- Favicon -->
 <link rel="shortcut icon" href="favicon.ico">

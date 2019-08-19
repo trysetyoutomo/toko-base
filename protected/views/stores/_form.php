@@ -56,23 +56,6 @@
 		<?php echo $form->error($model,'address1'); ?>
 		</div>
 
-		<div class="row">
-		<?php echo $form->labelEx($model,'address2'); ?>
-		<?php echo $form->textField($model,'address2',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'address2'); ?>
-		</div>
-
-		<div class="row">
-		<?php echo $form->labelEx($model,'city'); ?>
-		<?php echo $form->textField($model,'city',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'city'); ?>
-		</div>
-
-		<div class="row">
-		<?php echo $form->labelEx($model,'state'); ?>
-		<?php echo $form->textField($model,'state',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'state'); ?>
-		</div>
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'postal_code'); ?>

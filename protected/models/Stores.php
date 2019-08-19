@@ -50,7 +50,7 @@ class Stores extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, code, phone, email,address1,address2,city, state, postal_code', 'required'),
+			array('name, code, phone, email,address1, postal_code', 'required'),
 			array('name, address1, address2, nop', 'length', 'max'=>50),
 			array('code, city, state', 'length', 'max'=>20),
 			array('email', 'unique', 'message'=>"Email telah digunakan"),
