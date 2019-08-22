@@ -32,10 +32,13 @@
 
       <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-      <style type="text/css">
-              
-      </style>
+
+      <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
+      <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+
+
 <script>
+
 
     function blinker() {
       $('.blink_me').fadeOut(500).fadeIn(500);
@@ -143,6 +146,7 @@
 
 
     $(document).ready(function(){
+      $(".tobe-select2").select2();
       cek();
       // $(document).on("click",".fa-times",function(e){
         // $("#full").fadeOut();
@@ -723,28 +727,24 @@
             <div class="col-md-3 left_col">
                <div class="left_col scroll-view">
                   <div class="navbar nav_title" style="border: 0;">
-                     <a href="#" class="site_title" style="text-align: center;">
-                      <?php 
-                         $logo = Parameter::model()->findByPk(1)->gambar;
-                      ?>
-                        <!-- <img 
-                           style="width:90px;height:auto;z-index:100;margin:0 auto;"
-                           src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $logo ?>"> -->
-                        <p>
-                           <?php //echo Yii::app()->name ?>
-                        </p>
+                     <a href="#" class="site_title" style="text-align: center">
+                       <?php 
+                       $parameter = Parameter::model()->findByPk(1); ?>
+                         <img style="width:40%;margin:0 auto" class="profile_img" src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
                      </a>
                   </div>
                   <div class="clearfix"></div>
                   <!-- menu profile quick info -->
-                  <div class="profile" style="display:none">
+                  <div class="profile">
                      <div class="profile_pic">
-                        <img style="visibility:hidden" src="<?php echo Yii::app()->request->baseUrl; ?>/production/images/img.jpg" alt="..." class="img-circle profile_img">
+                        <!-- <img style="visibility:hidden" src="<?php echo Yii::app()->request->baseUrl; ?>/production/images/img.jpg" alt="..." class="img-circle profile_img"> -->
+                           
+
                      </div>
-                     <div class="profile_info">
+                   <!--   <div class="profile_info">
                         <span>Welcome,</span>
                         <h2><?php echo Yii::app()->user->name ?></h2>
-                     </div>
+                     </div> -->
                   </div>
                   <!-- /menu profile quick info -->
                   <br />

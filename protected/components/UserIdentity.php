@@ -33,7 +33,7 @@ class UserIdentity extends CUserIdentity
 		
 	$criteria = new CDbCriteria;
 	$criteria->select ='id';
-	$criteria->condition ="username='".$this->username."' AND password='".$this->password."' and branch_id = (select id from branch where hapus=0 limit 1)";
+	$criteria->condition ="username='".$this->username."' AND password='".$this->password."' and branch_id in (select id from branch where hapus=0 )";
 	$cek = Users::model()->exists($criteria);
 	
 	if($cek==1){

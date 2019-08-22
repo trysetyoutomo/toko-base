@@ -70,13 +70,13 @@ class Items extends CActiveRecord
 		b.id id ,
 		b.item_name,
 		IFNULL(SUM(db.jumlah),'0') stok
-
 		FROM 
-
 		items b
 		LEFT JOIN  items_detail db ON b.id = db.barang_id
+		INNER JOIN store s on s.id = b.store_id
 		WHERE 
 		b.id = '$id'
+		and s.id = ".Yii::app()->user->store_id()."
 		GROUP BY b.id";
 		$model = Yii::app()->db->createCommand($sql)->queryRow();
 
@@ -129,8 +129,9 @@ class Items extends CActiveRecord
 			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
 
 			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
 
-			AND i.hapus = 0
+			AND i.hapus = 0 and s.id = ".Yii::app()->user->store_id()."
 			where  1=1 $where 
 			group by iss.id
 #			group by i.id

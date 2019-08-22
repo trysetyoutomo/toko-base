@@ -58,7 +58,7 @@ License: You must have a valid license purchased only from templatemonster to le
          margin-right: 10px;
          position: relative;
          text-align: right;
-         width: 100px;
+         width: 130px;
          }
          div.wide.form .row
          {

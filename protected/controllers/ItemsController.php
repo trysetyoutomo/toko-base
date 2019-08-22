@@ -125,9 +125,10 @@ class ItemsController extends Controller
 		on iss.item_id = i.id and i.is_stockable = 1 
 		left join categories as c on c.id = i.category_id
 		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
 
 		$filter 
-		and iss.is_default = 1 and i.hapus=0
+		and iss.is_default = 1 and i.hapus=0 and s.id = ".Yii::app()->user->store_id()."
 		group by i.id
 		order by c.category, m.id, i.item_name  asc
 
@@ -2003,6 +2004,7 @@ public function getHargamodal($id){
 			$model->unit_price = "0";
 			$model->kode_outlet = 1;
 			$model->item_number = 1;
+			$model->store_id = Yii::app()->user->store_id();
 			$model->lokasi = $_POST['Items']['lokasi'];
 			$model->letak_id = $_POST['Items']['letak_id'];
 			if($model->save()){
@@ -2362,13 +2364,21 @@ public function getHargamodal($id){
 			left join categories as c on c.id = i.category_id
 			left join letak as l on l.id = i.letak_id
 			left join motif as m on m.id = i.motif
+			inner join stores s on s.id = i.store_id 
 
-			where i.hapus = 0 $filter 
+			where 
+			i.hapus = 0
+			and
+			s.id = ".Yii::app()->user->store_id()."
+			 $filter 
+
 			and iss.is_default = 1
 			group by i.id 
 			order by item_name asc
 
 		";
+		// echo $query ;
+		// exit;
 	    $recordsTotal = count($this->getAdminJSON($query));
 	      if(!empty($_REQUEST['search']['value'])){
 

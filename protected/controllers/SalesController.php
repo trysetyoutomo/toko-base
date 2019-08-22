@@ -1625,6 +1625,8 @@ class SalesController extends Controller {
 				left join items i on  i.id = si.item_id
 				inner join sales_payment sp  on  s.id = sp.id
 				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = ".Yii::app()->user->store_id()."
 				group by s.id
 
 		) AS A
@@ -3648,8 +3650,10 @@ public function actionCetakReportAll(){
 				$where_customer = " and nama='$customer' ";
 			}
 
+			 // month(D.date)='$month' and year(D.date)='$year' and day(D.date)='$day2'
 			$sql = " SELECT * FROM ($table) AS  D 
-			where month(D.date)='$month' and year(D.date)='$year' and day(D.date)='$day2' $where_branch $where_customer
+			where 1=1 
+			 $where_branch $where_customer
 			group by D.id
 			$this->status_bayar
 			";

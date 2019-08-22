@@ -46,7 +46,7 @@ for($x=1; $x<=31;$x++){
 echo CHtml::beginForm();
 ?>
 <table cellpadding="20" id="sales-filter">
-	<tr>
+	<tr style="display: none;">
 		<td>
 			<label>Transaksi</label>
 			
@@ -106,9 +106,9 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 			<label>Customer</label>
 		</td>
 		<td>
-	<?php  $nilai = Customer::model()->findAll();?>
+	<?php  $nilai = Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
 
-			<select id="customer" name="customer" class="form-control" style="display: inline;">
+			<select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
 
 <?php foreach($nilai as $k): ?>
 	<option <?php if ($k->nama==$_REQUEST['customer']) echo "selected" ?> value="<?php echo $k->nama ?>">
@@ -179,7 +179,9 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 	$a = false;
 ?>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+if (isset($_REQUEST['customer'])){
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'sales-grid',
 	'dataProvider'=>$dataProvider,
 	// 'filter'=>$model->search(),
@@ -445,7 +447,9 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 		
 		), 		
 	),
-)); ?>
+)); 
+}
+?>
 <?php
 // $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 //     'id' => 'dialog_export',

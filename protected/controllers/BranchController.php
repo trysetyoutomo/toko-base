@@ -141,7 +141,7 @@ class BranchController extends Controller
 	public function actionAdmin()
 	{
 
-			if (isset($_REQUEST['cari'])){
+		if (isset($_REQUEST['cari'])){
 			$value = $_REQUEST['cari'];
 			$filter = " and branch_name like '%$value%' ";
 		}
@@ -152,12 +152,14 @@ class BranchController extends Controller
 		// $idh = $_REQUEST['id'];
 
 		// $sql
+
+
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
-		->from(' branch as b  ')
+		->from(' branch as b, stores as s  ')
 		// ->
-		->where(" 1=1 and hapus = 0  $filter   ")
-		// ->group("i.id")
+		->where(" 1=1 and hapus = 0 and b.store_id = ".Yii::app()->user->store_id()."   $filter   ")
+		->group("b.id")
 		// ->order("item_name asc")
 		->queryAll();
 		

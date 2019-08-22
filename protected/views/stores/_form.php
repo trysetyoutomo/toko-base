@@ -31,12 +31,12 @@
 		</div>
 
 		<div class="row">
-		<?php echo $form->labelEx($model,'code'); ?>
-		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'code'); ?>
+		<?php echo $form->labelEx($model,'store_type'); ?>
+		<?php echo $form->textField($model,'store_type',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'store_type'); ?>
 		</div>
 
-
+	
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
@@ -68,7 +68,7 @@
 
 
 		<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Daftar' : 'Save',array("class"=>"btn btn-primary")); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Daftar' : 'Daftar ',array("class"=>"btn btn-primary")); ?>
 		</div>
 
 		<?php $this->endWidget(); ?>

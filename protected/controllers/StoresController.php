@@ -83,23 +83,42 @@ class StoresController extends Controller
 			// $target_file = ;
 			$model->attributes=$_POST['Stores'];
 			$random = md5(date("YmdHis"));
-			// $model->logo = CUploadedFile::getInstance($model,'logo');
-			// var_dump($model->logo);
-			// exit;
-			// $model->logo->saveAs('/logo/$random');
+			$model->code = rand(5,99999999999999999999); 
 			if ($model->logo = CUploadedFile::getInstance($model,'logo')) {
 				$model->logo->saveAs("/logo/{$random}.jpg");
-				// echo $random;
-				// exit;
 			}else{
-				// echo "tidak aman";
-				// exit;
 			}
-			// $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			// $model->logo=$target_file;
 			if($model->save()){
-					$transaction->commit();
-					$this->redirect(array('view','id'=>$model->id));
+				$br = new Branch;
+				$br->company = $model->name ;
+				$br->branch_name = "Pusat" ;
+				$br->address = $model->address1;
+				$br->telp = $model->phone;
+				$br->slogan = "Noting";
+				$br->is_utama = 1;
+				$br->hapus = 0;
+				$br->store_id = $model->id ;
+				if ($br->save(false)){
+
+					// simpan data user 
+					$u = new Users;
+					$u->username = $model->email;
+					$u->name = $model->email;
+					$u->email = $model->email;
+					$u->password = $model->email;
+					$u->level = 2; // level admin
+					$u->branch_id = $br->id;
+					if ($u->save(false)){
+
+						$transaction->commit();
+						$this->redirect(array('view','id'=>$model->id));
+					}else{
+						echo "Gagal Membuat user";
+
+					}
+				}else{
+					echo "Gagal Membuat cabang utama";
+				}
 			}
 				
 				

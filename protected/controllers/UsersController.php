@@ -141,7 +141,12 @@ class UsersController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$query = "select u.*, ug.nama as nama_level from users u inner join users_group ug on u.level = ug.id group by u.id ";
+		$query = "select u.*, ug.nama as nama_level 
+		from users u 
+		inner join users_group ug on u.level = ug.id 
+		inner join stores s on s.id = u.store_id 
+		where s.id = ".Yii::app()->user->store_id()."
+		group by u.id ";
 		$rawData = Yii::app()->db->createCommand($query)->queryAll();
 		$this->render('admin', array(
 			'rawData' => $rawData,

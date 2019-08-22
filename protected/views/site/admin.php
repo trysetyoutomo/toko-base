@@ -10,16 +10,12 @@
   }
 </style>
 <div id="test">
-    <?php
-    $parameter = Parameter::model()->findByPk(1);
-    ?>
+    <?php $parameter = Parameter::model()->findByPk(1);?>
     <img src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
     <br>
     <br> 
   <h1>
-    <?php 
-         echo SiteController::getConfig("company_name");
-    ?> 
+    <b><?php echo Stores::model()->findByPk(Yii::app()->user->store_id())->name;?> </b>
     <br> 
     <?php 
     $branch_id = Yii::app()->user->branch();

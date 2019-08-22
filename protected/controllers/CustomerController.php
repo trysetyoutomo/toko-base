@@ -45,6 +45,7 @@ class CustomerController extends Controller
 	// 	);
 	// }
 	public static function generateCustomerCode() {
+		$store_id = Yii::app()->user->store_id();
         $query = "SELECT
 				IFNULL(
 					CONCAT(
@@ -59,7 +60,10 @@ class CustomerController extends Controller
 				) AS urutan
 			FROM
 				customer
+				where 
+				store_id = {$store_id}
                  ";
+				// }
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return $model['urutan'];
    }
@@ -264,7 +268,7 @@ class CustomerController extends Controller
 	{
 		?>
 		 <option value="">Umum</option>
-            <?php foreach (Customer::model()->findAll() as $c) {?>
+            <?php foreach (Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ") as $c) {?>
                 <option value="<?php echo $c->nama ?>"><?php echo $c->id." - ".$c->nama ?></option>                            
             <?php } ?>
           <?php
@@ -281,6 +285,7 @@ class CustomerController extends Controller
 		{
 			$model->attributes=$_POST['Customer'];
 			$model->kode = CustomerController::generateCustomerCode();
+			$model->store_id = Yii::app()->user->store_id();
 			if($model->save()){
 				if (! isset($_POST['isajax']) )
 					$this->redirect(array('admin','id'=>$model->id));
@@ -338,8 +343,25 @@ class CustomerController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-			$this->loadModel($id)->delete();
-			$this->redirect(array('admin'));
+			$model = $this->loadModel($id);
+			if ($model){
+				$model->delete();
+				$this->redirect(array('admin'));
+			}else{
+				$this->redirect(array('admin'));
+				
+			}
+	}
+	public function actionHapus($id)
+	{
+			$model = $this->loadModel($id);
+			if ($model){
+				$model->delete();
+				$this->redirect(array('admin'));
+			}else{
+				$this->redirect(array('admin'));
+				
+			}
 	}
 		// if(Yii::app()->request->isPostRequest)
 		// {
@@ -373,7 +395,7 @@ class CustomerController extends Controller
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('customer')
-		->where("1=1 $filter")
+		->where("1=1 and store_id = ".Yii::app()->user->store_id()." $filter")
 		->queryAll();
 		$this->render('admin', array(
 			'rawData' => $rawData,

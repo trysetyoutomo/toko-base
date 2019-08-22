@@ -156,7 +156,7 @@ class ItemsSatuanMasterController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$query = "select * from items_satuan_master";
+		$query = "select * from items_satuan_master where store_id = ".Yii::app()->user->store_id()."  ";
 		$rawData = Yii::app()->db->createCommand($query)->queryAll();
 		$this->render('admin', array(
 			'rawData' => $rawData,

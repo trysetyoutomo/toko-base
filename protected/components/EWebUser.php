@@ -35,5 +35,16 @@ class EWebUser extends CWebUser{
 			return false;
 		}
 	}
+
+	function store_id(){
+		$user=$this->loadUser();
+		if($user){
+			$br = Branch::model()->findByPk($user->branch_id);
+			return $br->store_id;
+			// return $user->branch_id;
+		}else{
+			return false;
+		}
+	}
 }
 ?>
