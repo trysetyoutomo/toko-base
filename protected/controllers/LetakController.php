@@ -156,7 +156,7 @@ class LetakController extends Controller
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('letak')
-		->where("1=1 $filter")
+		->where("1=1 and store_id = '".Yii::app()->user->store_id()."' $filter")
 		->queryAll();
 		// print_r($rawData);
 		

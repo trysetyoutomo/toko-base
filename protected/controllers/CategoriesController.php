@@ -231,7 +231,7 @@ class CategoriesController extends Controller
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('categories')
-		->where("1=1 $filter")
+		->where("1=1 and store_id = '".Yii::app()->user->store_id()."' $filter")
 		->queryAll();
 		
 		$this->render('admin', array(

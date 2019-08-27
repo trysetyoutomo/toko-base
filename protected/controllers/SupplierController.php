@@ -159,7 +159,7 @@ class SupplierController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$query = "select * from supplier as s  ";
+		$query = "select * from supplier as s where s.store_id = '".Yii::app()->user->store_id()."'  ";
 		$rawData = Yii::app()->db->createCommand($query)->queryAll();
 		$this->render('admin', array(
 			'rawData' => $rawData,
