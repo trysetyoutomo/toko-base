@@ -1959,20 +1959,21 @@ public function getHargamodal($id){
 
    //   }
        public static function generateBarcode() {
+       	$store_id = Yii::app()->user->store_id();
         $query = "SELECT
 				IFNULL(
 					CONCAT(
-						'35U',
+						'$store_id',
 						LPAD(
 							MAX(SUBSTR(barcode, 4, 10)) + 1,
 							10,
 							'0'
 						)
 					),
-					'35U0000000001'
+					'{$store_id}0000000001'
 				) AS urutan
 			FROM
-				items_barcode
+				items_barcode where store_id = '{$store_id}'
                  ";
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return $model['urutan'];

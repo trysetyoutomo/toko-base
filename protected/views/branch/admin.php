@@ -74,9 +74,13 @@ Mengelola Tempat
     </li>
 
     <li>
+      <?php 
+      if ($value['is_utama']!="1"){
+      ?>
         <a class="hapus" href="<?php echo Yii::app()->createUrl("Branch/hapus", array("id"=>$value[id])) ?>">
-                <i class="fa fa-times"></i> Hapus
-              </a>
+        <i class="fa fa-times"></i> Hapus
+        </a>
+      <?php } ?>
     </li>
     <!-- <li role="separator" class="divider"></li> -->
     <!-- <li><a href="#">Separated link</a></li> -->

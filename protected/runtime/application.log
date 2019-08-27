@@ -62,3 +62,65 @@ Stack trace:
 #15 {main}
 REQUEST_URI=/toko-base/index.php?r=users/admin
 ---
+2019/08/27 22:10:20 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store_id' in 'where clause'. The SQL statement executed was: SELECT
+				IFNULL(
+					CONCAT(
+						'51',
+						LPAD(
+							MAX(SUBSTR(barcode, 4, 10)) + 1,
+							10,
+							'0'
+						)
+					),
+					'510000000001'
+				) AS urutan
+			FROM
+				items_barcode where store_id = '51'
+                 .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (1978)
+in E:\xampp\htdocs\toko-base\protected\views\items\_form.php (463)
+in E:\xampp\htdocs\toko-base\protected\views\site\index.php (1864)
+2019/08/27 22:10:20 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store_id' in 'where clause'. The SQL statement executed was: SELECT
+				IFNULL(
+					CONCAT(
+						'51',
+						LPAD(
+							MAX(SUBSTR(barcode, 4, 10)) + 1,
+							10,
+							'0'
+						)
+					),
+					'510000000001'
+				) AS urutan
+			FROM
+				items_barcode where store_id = '51'
+                  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(408): CDbCommand->queryInternal('fetch', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1978): CDbCommand->queryRow()
+#2 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(463): ItemsController::generateBarcode()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#6 E:\xampp\htdocs\toko-base\protected\views\site\index.php(1864): CController->renderPartial('application.vie...', Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#11 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(576): CController->render('index')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#22 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#23 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#24 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#25 {main}
+REQUEST_URI=/toko-base/index.php?r=site/index
+---
