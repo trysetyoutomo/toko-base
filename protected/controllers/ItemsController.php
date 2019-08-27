@@ -60,6 +60,7 @@ class ItemsController extends Controller
 		}
 	}
 	public static function queryStok($filter){
+		$store_id = Yii::app()->user->store_id();
 		$sql = "select 
 		iss.barcode as barcode,
 		i.stok_minimum as stok_minimum, 
@@ -73,9 +74,10 @@ class ItemsController extends Controller
 		
 		left join categories as c on c.id = i.category_id
 		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores st on st.id = i.store_id 
 
 		
-		where  (iss.is_default = 1 ) $filter
+		where  (iss.is_default = 1 ) and st.id = '{$store_id}'  $filter
 		group by iss.id
 		order by c.category, m.id  asc";
 		// echo $sql ;
