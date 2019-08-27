@@ -140,7 +140,7 @@ class BranchController extends Controller
 	 */
 	public function actionAdmin()
 	{
-
+		// $store_id = Yii::app()->user->store_id();
 		if (isset($_REQUEST['cari'])){
 			$value = $_REQUEST['cari'];
 			$filter = " and branch_name like '%$value%' ";

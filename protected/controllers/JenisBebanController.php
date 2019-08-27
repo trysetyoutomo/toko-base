@@ -139,11 +139,11 @@ class JenisBebanController extends Controller
 	 */
 	public function actionAdmin()
 	{
-
+		$store_id = Yii::app()->user->store_id();
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('jenis_beban')
-		->where("1=1 $filter")
+		->where("1=1 and store_id = '{$store_id}' $filter")
 		->queryAll();
 		
 		$this->render('admin', array(
