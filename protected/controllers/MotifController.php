@@ -83,6 +83,7 @@ class MotifController extends Controller
 		if(isset($_POST['Motif']))
 		{
 			$model->attributes=$_POST['Motif'];
+			$model->store_id = Yii::app()->user->store_id();
 			if($model->save()){
 				if (isset($_REQUEST['isajax'])){	
 					echo "sukses";

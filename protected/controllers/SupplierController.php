@@ -75,6 +75,7 @@ class SupplierController extends Controller
 		if(isset($_POST['Supplier']))
 		{
 			$model->attributes=$_POST['Supplier'];
+			$model->store_id = Yii::app()->user->store_id();
 			if($model->save()){
 				if (! isset($_POST['isajax']) )
 					$this->redirect(array('admin','id'=>$model->id));

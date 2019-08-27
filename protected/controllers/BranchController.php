@@ -70,6 +70,7 @@ class BranchController extends Controller
 		if(isset($_POST['Branch']))
 		{
 			$model->attributes=$_POST['Branch'];
+			$model->store_id = Yii::app()->user->store_id();
 			if($model->save())
 				$this->redirect(array('admin'));
 

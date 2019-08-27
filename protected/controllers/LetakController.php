@@ -69,6 +69,7 @@ class LetakController extends Controller
 		if(isset($_POST['Letak']))
 		{
 			$model->attributes=$_POST['Letak'];
+			$model->store_id = Yii::app()->user->store_id();
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
