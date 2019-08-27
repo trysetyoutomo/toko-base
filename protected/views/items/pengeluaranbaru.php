@@ -56,7 +56,7 @@
 			<div class="row">
 				<label for="jumlah" >Jenis Keluar</label>
 			<select class="form-control" style="width: 200px;display: inline" name="jeniskeluar" id="jeniskeluar">
-			<?php foreach (JenisBeban::model()->findAll() as $jb) { ?>
+			<?php foreach (JenisBeban::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ") as $jb) { ?>
 				<option value="<?php echo $jb->nama ?>"><?php echo $jb->nama ?></option>
 			<?php } ?>
 			</select>
