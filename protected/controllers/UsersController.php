@@ -142,7 +142,8 @@ class UsersController extends Controller
 	public function actionAdmin()
 	{
 		$query = "select u.*, ug.nama as nama_level 
-		from users u 
+		from 
+		users u 
 		inner join users_group ug on u.level = ug.id 
 		inner join stores s on s.id = u.store_id 
 		where s.id = ".Yii::app()->user->store_id()."

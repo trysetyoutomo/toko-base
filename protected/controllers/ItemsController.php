@@ -1343,6 +1343,7 @@ public function getHargamodal($id){
 			$modelh->branch_id = Yii::app()->user->branch();
 			$modelh->jenis_pengeluaran = $_REQUEST['head']['jeniskeluar'];
 			$modelh->keterangan = $_REQUEST['head']['keterangan'];
+			$modelh->keterangan = $_REQUEST['head']['keterangan'];
 			$modelh->total = $_REQUEST['head']['total'];
 			
 

@@ -185,7 +185,7 @@ function list_action(act)
 					Kode Transaksi			
 				</td>
 				<td>
-					<input readonly="" type="text" value="<?php echo BarangkeluarController::generateKodeBKS(); ?>" style="display:inline;padding:5px"  id="kode_trx">
+					<input readonly="" type="text" value="<?php echo BarangKeluarController::generateKodeBKS(); ?>" style="display:inline;padding:5px"  id="kode_trx">
 				</td>
 				
 			</tr>

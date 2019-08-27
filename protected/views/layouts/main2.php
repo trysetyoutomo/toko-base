@@ -730,7 +730,7 @@
                      <a href="#" class="site_title" style="text-align: center">
                        <?php 
                        $parameter = Parameter::model()->findByPk(1); ?>
-                         <img style="width:40%;margin:0 auto" class="profile_img" src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
+                         <img style="width:40%;margin:0 auto" class="profile_img" src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar_putih ?>" alt="">
                      </a>
                   </div>
                   <div class="clearfix"></div>
