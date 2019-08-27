@@ -5,7 +5,7 @@
 				<i class="fa fa-check fa-4x" style="color:green"></i>
 				<h2>Selamat, Toko <b><?php echo ucfirst(strtolower($model->name)) ?></b> 
 				berhasil kami daftarkan, silahkan cek email untuk melakukan verifikasi akun, 
-				klik <a href="<?php echo Yii::app()->create("site/login") ?>">disini</a> untuk masuk 
+				klik <a href="<?php echo Yii::app()->createUrl("site/login") ?>">disini</a> untuk masuk 
 				 <!-- <a style="text-decoration:underline" href="<?php echo Yii::app()->createUrl("site/login") ?>">disini</a> -->
 				 </h2>
 			<div>
