@@ -156,7 +156,7 @@ class BranchController extends Controller
 
 
 		$rawData = Yii::app()->db->createCommand()
-		->select('*')
+		->select('b.*')
 		->from(' branch as b, stores as s  ')
 		// ->
 		->where(" 1=1 and hapus = 0 and b.store_id = ".Yii::app()->user->store_id()."   $filter   ")
