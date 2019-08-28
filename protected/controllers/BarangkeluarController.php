@@ -45,7 +45,8 @@ class BarangKeluarController extends Controller
 	}
 
 	  public static function generateKodeBKS() {
-	    $kode = 'TRK';
+       	$store_id = Yii::app()->user->store_id();
+	    $kode = 'TRK'.$store_id;
         $query = "SELECT
 				IFNULL(
 					CONCAT(

@@ -60,17 +60,18 @@ class BarangmasukController extends Controller
    //   }
 
   public static function generateKodePO() {
+       	$store_id = Yii::app()->user->store_id();
         $query = "SELECT
 				IFNULL(
 					CONCAT(
-						'POX',
+						'PO{$store_id}',
 						LPAD(
 							MAX(SUBSTR(kode_trx, 4, 10)) + 1,
 							10,
 							'0'
 						)
 					),
-					'POX0000000001'
+					'PO{$store_id}0000000001'
 				) AS urutan
 			FROM
 				purchase_order
@@ -79,17 +80,19 @@ class BarangmasukController extends Controller
         return $model['urutan'];
    }
       public static function generateKodeBMS() {
+       	$store_id = Yii::app()->user->store_id();
+       	$kode = "TRK";
         $query = "SELECT
 				IFNULL(
 					CONCAT(
-						'TRX',
+						'{$kode}',
 						LPAD(
 							MAX(SUBSTR(kode_trx, 4, 10)) + 1,
 							10,
 							'0'
 						)
 					),
-					'TRX0000000001'
+					'{$kode}0000000001'
 				) AS urutan
 			FROM
 				barangmasuk
