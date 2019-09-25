@@ -120,6 +120,7 @@ class ItemsController extends Controller
 		m.nama nama_sub_kategori,
 		concat(i.item_name,'  ','') as item_name,
 		c.category as nama_kategori,
+		m.nama as motif,
 		i.hapus hapus, iss.id as satuan_id, i.id id, 
 		iss.barcode barcode
 
@@ -736,6 +737,11 @@ class ItemsController extends Controller
 
 
 	public static function sqlAverage($id,$satuan_id,$branch_id){
+		if ($satuan_id==""){
+			$querySatuan = " ";
+		}else{
+			$querySatuan = " and iss.id = '$satuan_id' ";
+		}
 		// $branch_id = Yii::app()->user->branch();
 		// var_dump($branch_id);
 		// $satuan_id 
@@ -748,7 +754,7 @@ class ItemsController extends Controller
 		WHERE bmd.kode = '$id' 
 		and
 		bm.branch_id = '$branch_id'
-		and iss.id = '$satuan_id'
+		{$querySatuan}
 		GROUP BY bmd.id
 
 		UNION
@@ -2458,7 +2464,9 @@ public function getHargamodal($id){
 
 
   	foreach ($rawData as $key => $value) {
-		$stok = ItemsController::getStok($value['id'],$value['satuan_id'],$branch_id);
+		$stok = ItemsController::getStok($value['id'],"",$branch_id);
+		// echo $stok;
+		// exit;
 		$harga = round(ItemsController::getAverage($value['id'],$value['satuan_id'],$branch_id));
 
 		// echo $stok;

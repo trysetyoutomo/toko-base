@@ -38,7 +38,7 @@ class Categories extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('category', 'required'),
-			array('category', 'unique'),
+			// array('category', 'unique'),
 			array('id, status', 'numerical', 'integerOnly'=>true),
 			array('category', 'length', 'max'=>50),
 			array('image', 'length', 'max'=>200),

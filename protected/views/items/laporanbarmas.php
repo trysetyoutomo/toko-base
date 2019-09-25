@@ -387,7 +387,7 @@ else
 						// $sisa = 0;
 						$sql = "SELECT 
 						supplier_id,s.id, i.item_name, si.jumlah qty, si.id sid, si.harga, i.id iid,
-						iss.nama_satuan nama_satuan
+						iss.nama_satuan nama_satuan, jumlah_satuan
 						FROM
 						barangmasuk s, barangmasuk_detail si, items i,items_satuan iss
 						WHERE 
@@ -418,10 +418,13 @@ else
 							<td style="width:10%"><?php 
 
 							// echo $q[qty];
-							$satuanlist = ItemsController::getSatuanItems($q['iid'],$q['qty']);
-							// echo $satuanlist;
+							// $satuanlist = ItemsController::getSatuanItems($q['iid'],$q['qty']);
+							// echo $q['qty'];
+
+							// echo "<br>";
 							// $string = "Hello! 123 test this? 456. done? 100%";
-							$int = intval(preg_replace('/[^0-9]+/', '', $satuanlist), 10);
+							// $int = intval(preg_replace('/[^0-9]+/', '', $satuanlist), 10);
+							$int =  $q['jumlah_satuan'];
 							echo $int;
 			
 
@@ -444,6 +447,8 @@ else
 						</tr>
 						<?php 
 						$no2++;
+
+							$grandtotal += $q['harga']*$int;
 						} ?>
 					</table>
 					<!-- <hr style="color: red;border:1px solid red"> -->
@@ -457,11 +462,13 @@ else
 		
 	<?php 
 	$no++;
-	$grandtotal += $q[harga]*$int;
+	$total_qty +=$int;
 	
 	$sisaa += $sisa;
 
-	endforeach; ?>
+	endforeach; 
+
+	?>
 	</tbody>
 	<tfoot>
 		<tr>

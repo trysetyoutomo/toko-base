@@ -2226,3 +2226,33 @@ in E:\xampp\htdocs\toko-base\index.php (22)
 2019/09/25 21:21:28 [warning] [application] Failed to set unsafe attribute "stok_minimum" of "ItemsSatuan".
 in E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanController.php (108)
 in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:48:05 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2020)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:49:40 [warning] [application] Failed to set unsafe attribute "stok_minimum" of "ItemsSatuan".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanController.php (108)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:50:00 [warning] [application] Failed to set unsafe attribute "stok_minimum" of "ItemsSatuan".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanController.php (108)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/25 22:50:15 [warning] [application] Failed to set unsafe attribute "stok_minimum" of "ItemsSatuan".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanController.php (108)
+in E:\xampp\htdocs\toko-base\index.php (22)
