@@ -81,7 +81,7 @@ class BarangmasukController extends Controller
    }
       public static function generateKodeBMS() {
        	$store_id = Yii::app()->user->store_id();
-       	$kode = "TRK";
+       	$kode = "TRM";
         $query = "SELECT
 				IFNULL(
 					CONCAT(

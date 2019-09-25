@@ -1654,7 +1654,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
                         success:function(data){
                             // alert('success :'+data);
                             bayar(0,number_meja,data);
-                            alert("Meja Nomor "+number_meja+" telah berhasil di update!");
+                            alert("Slot Nomor "+number_meja+" telah berhasil di update!");
                             $("#head-meja").html("");
 
 

@@ -69,6 +69,7 @@ class UsersController extends Controller
 		if(isset($_POST['Users']))
 		{
 			$model->attributes=$_POST['Users'];
+			$model->store_id = Yii::app()->user->store_id();
 			if($model->save())
 				$this->redirect(array('admin','id'=>$model->id));
 		}

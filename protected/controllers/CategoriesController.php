@@ -53,7 +53,9 @@ class CategoriesController extends Controller
 	public function actionGetKategori()
 	{
 		?>
-            <?php foreach (Categories::model()->findAll() as $c) {?>
+            <?php 
+    	  	$store_id = Yii::app()->user->store_id();     
+            foreach (Categories::model()->findAll(" store_id = '".$store_id."' ") as $c) {?>
                 <option value="<?php echo $c->id ?>"><?php echo $c->category ?></option>                            
             <?php } ?>
           <?php

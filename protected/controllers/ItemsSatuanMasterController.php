@@ -45,8 +45,10 @@ class ItemsSatuanMasterController extends Controller
 	// }
 	public function actionGetSatuan()
 	{
+		$store_id = Yii::app()->user->store_id();
+
 		?>
-            <?php foreach (ItemsSatuanMaster::model()->findAll() as $c) {?>
+            <?php foreach (ItemsSatuanMaster::model()->findAll("store_id = '$store_id'") as $c) {?>
                 <option value="<?php echo $c->id ?>"><?php echo $c->nama_satuan ?></option>                            
             <?php } ?>
           <?php
@@ -78,7 +80,9 @@ class ItemsSatuanMasterController extends Controller
 
 		if(isset($_POST['ItemsSatuanMaster']))
 		{
+			$store_id = Yii::app()->user->store_id();
 			$model->attributes=$_POST['ItemsSatuanMaster'];
+			$model->store_id = $store_id;
 			if($model->save()){
 				if (isset($_REQUEST['isajax'])){	
 					echo "sukses";
@@ -112,6 +116,7 @@ class ItemsSatuanMasterController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		// exit;
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -135,6 +140,11 @@ class ItemsSatuanMasterController extends Controller
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDelete($id)
+	{
+			$this->loadModel($id)->delete();
+			$this->redirect(array('admin'));
+	}
+	public function actionHapus($id)
 	{
 			$this->loadModel($id)->delete();
 			$this->redirect(array('admin'));

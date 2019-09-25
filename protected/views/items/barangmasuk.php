@@ -358,7 +358,7 @@
 	
 				
 				<div class="data-table">
-				<legend style="font-weight:bolder">Masukan Menu</legend>
+				<legend style="font-weight:bolder">Masukan Item</legend>
 
 			
 
@@ -372,12 +372,12 @@
 				}
 				 ?>
 
-				<div class="row">
-					<label for="nama" >Nama</label>
+				<div class="row" >
+					<label for="nama" >Barcode</label>
 					<?php //secho CHtml::dropDownList('nama2', '1', Items::model()->data_items("BAHAN"),array('class'=>'for m-control')  );?>
 					<input type="text" name="nama" id="nama">
 
-					<label for="add-all" style="width: 200px;">
+					<label for="add-all" style="width: 200px;display: none">
 						<input type="checkbox" name="add-all" id="add-all" > Tambah Semua Item						
 					</label>
 				</div>

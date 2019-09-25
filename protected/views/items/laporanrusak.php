@@ -103,7 +103,7 @@ foreach ($data as $key => $value) {
 <?php
 
 
-$sql  = "select * from barangkeluar where 1=1 $filter order by tanggal asc";
+$sql  = "select * from barangkeluar where status_keluar = 1 and  1=1 $filter order by tanggal asc";
 
 $model = Yii::app()->db->createCommand($sql)->queryAll();
 

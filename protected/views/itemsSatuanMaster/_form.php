@@ -1,12 +1,11 @@
 <div class="form wide">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl("itemsSatuanMaster/create"),
+	<?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'items-satuan-master-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<p class="note">Input dengan <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 

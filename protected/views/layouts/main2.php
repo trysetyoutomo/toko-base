@@ -166,14 +166,14 @@
 
       
 
-    $(document).on("click",".hapus",function(e){
-      if (!confirm("Yakin ? ")){
-        return false;
-      }
+    // $(document).on("click",".hapus",function(e){
+    //   if (!confirm("Yakin ? ")){
+    //     return false;
+    //   }
 
-    });
+    // });
     
-    $(".hapus,.delete").click(function(e){
+     $(document).on("click",".hapus,.delete",function(e){
       // e.preventDefault();
       if (!confirm("Yakin ? ")){
         return false;
@@ -899,8 +899,5 @@
             <!-- /footer content -->
          </div>
       </div>
-      <?php 
-      include "js.php";
-      ?>
    </body>
 </html>

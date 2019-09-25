@@ -12,4 +12,12 @@ $this->menu=array(
 
 <h1>Satuan Baru</h1>
 
+<?php 
+// $form=$this->beginWidget('CActiveForm', array(
+// 	'action'=>Yii::app()->createUrl("itemsSatuanMaster/create"),
+// 	'id'=>'items-satuan-master-form',
+// 	'enableAjaxValidation'=>false,
+//)); ?>
+
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php // $this->endWidget(); ?>

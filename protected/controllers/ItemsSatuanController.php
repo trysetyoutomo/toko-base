@@ -110,6 +110,7 @@ class ItemsSatuanController extends Controller
 			if($model->save()){
 				$ib = new ItemsBarcode;
 				$ib->barcode = $_REQUEST['ItemsSatuan']['barcode'];
+				$ib->store_id = Yii::app()->user->store_id();
 				$ib->save();
 
 				if ($model->is_default=="1"){

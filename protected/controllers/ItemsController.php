@@ -441,12 +441,21 @@ class ItemsController extends Controller
 		// echo $id;
 		$model = BarangKeluar::model()->findByPk($id);
 		$pm = BarangkeluarDetail::model()->findAll("head_id = '$id'");
-		foreach ($pm as $p) {
-			$brg = Items::model()->findByPk($p->kode);
-			$brg->stok = $brg->stok + $p->jumlah;
-			$brg->update();
-		}
-		if ($model->delete()){
+		// foreach ($pm as $p) {
+		// 	$brg = Items::model()->findByPk($p->kode);
+		// 	$brg->stok = $brg->stok + $p->jumlah;
+		// 	$brg->update();
+		// }
+		//ambil data dari user yg login
+		$username = Yii::app()->user->name;
+		$user = Users::model()->find('username=:un',array(':un'=>$username));
+
+		//UPDATE DATA
+		$model->status_keluar = 2;
+		$model->deleted_by =  $user->id;
+		$model->deleted_at = date("Y-m-d H:i:s");
+
+		if ($model->update()){
 			$this->redirect(array('items/laporanrusak'));	
 			// echo "sukses";
 		}	
@@ -480,11 +489,11 @@ class ItemsController extends Controller
 		$this->render("masukubahdetail",array('model'=>$model));
 	}	
 	public function actionHapusdetail($id){
-		$sql = "delete from barangmasuk where id = '$id'";
-		$sql2 = "delete from barangmasuk_detail where head_id = '$id'";
+		$sql = "update  barangmasuk set status_masuk = 2 where id = '$id'";
+		// $sql2 = "delete from barangmasuk_detail where head_id = '$id'";
 		$q1 = Yii::app()->db->createCommand($sql)->execute();
-		$q2 = Yii::app()->db->createCommand($sql2)->execute();
-		if ($q1 && $q2)
+		// $q2 = Yii::app()->db->createCommand($sql2)->execute();
+		if ($q1)
 			$this->redirect(array('items/laporanmasuk'));	
 
 
@@ -593,10 +602,11 @@ class ItemsController extends Controller
 		}
 	}
 	public function actionGetMotif($id){
+	  	$store_id = Yii::app()->user->store_id();     
 		if (empty($id))
-			$model = Motif::model()->findAll();
+			$model = Motif::model()->findAll(" store_id = '".$store_id."' ");
 		else
-			$model = Motif::model()->findAll(" category_id = '$id'");
+			$model = Motif::model()->findAll(" category_id = '$id' and  store_id = '".$store_id."'  ");
 
 		echo "<option>Pilih</option>";
 		foreach ($model as $k ) {
@@ -759,8 +769,8 @@ class ItemsController extends Controller
 		INNER JOIN barangkeluar_detail bmd ON bk.id = bmd.head_id
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
 	
-		WHERE bmd.kode = '$id' and bk.branch_id = '$branch_id'
-				and iss.id = '$satuan_id'
+		WHERE bmd.kode = '$id' and bk.branch_id = '$branch_id' 
+				and iss.id = '$satuan_id' and bk.status_keluar = 1
 
 
 		GROUP BY bmd.id
@@ -781,7 +791,7 @@ class ItemsController extends Controller
 		INNER JOIN paket p on p.id_paket = si.item_id
 		inner join paket_detail pd on pd.paket_id = p.id_paket
 		inner join items i on i.id = pd.item_id
-		where i.id = '$id' and s.branch = '$branch_id'
+		where i.id = '$id' and s.branch = '$branch_id' and s.status = 1
 		
 		group by s.id
 
@@ -884,6 +894,11 @@ class ItemsController extends Controller
 			$sqlx = " SELECT  * FROM items_satuan WHERE item_id = '$item_id' order by urutan asc";
 			 // $datastauan = ItemsSatuan::model()->findAll(" item_id = '$m[id]' ");
 			$datastauan = Yii::app()->db->createCommand($sqlx)->queryAll();
+			// echo "<pre>";
+			// print_r($datastauan);
+			// echo $stok;
+			// echo "<br>";
+			// exit;
 			$stok2 = $stok;
 			// echo $stok;
 			$return = "";
@@ -1959,7 +1974,8 @@ public function getHargamodal($id){
 
    //   }
        public static function generateBarcode() {
-       	$store_id = Yii::app()->user->store_id();
+       	$store_id_real = Yii::app()->user->store_id();
+       	$store_id = str_pad($store_id_real,3,"0",STR_PAD_LEFT);
         $query = "SELECT
 				IFNULL(
 					CONCAT(
@@ -1973,7 +1989,7 @@ public function getHargamodal($id){
 					'{$store_id}0000000001'
 				) AS urutan
 			FROM
-				items_barcode where store_id = '{$store_id}'
+				items_barcode where store_id = '{$store_id_real}'
                  ";
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return $model['urutan'];
@@ -2018,6 +2034,7 @@ public function getHargamodal($id){
 					if ($_REQUEST['is_generate']=="on"){
 						$ib = new ItemsBarcode;
 						$ib->barcode = $_REQUEST['Items']['barcode'];
+						$ib->store_id = Yii::app()->user->store_id();
 						$ib->save();
 					}
 				}
@@ -2441,7 +2458,12 @@ public function getHargamodal($id){
   	foreach ($rawData as $key => $value) {
 		$stok = ItemsController::getStok($value['id'],$value['satuan_id'],$branch_id);
 		$harga = round(ItemsController::getAverage($value['id'],$value['satuan_id'],$branch_id));
+
+		// echo $stok;
+		// exit;
 		$satuanlist = ItemsController::getSatuanItems($value['id'],$stok);
+		// $satuanlist = "123";
+
 	  	$input = "<input type='text' name='stok_real' value='$stok' 
 				class='stok_real' style='width: 70px'>
 				<button harga='$harga'  stok-before='$stok'  class='set-stok btn btn-primary' 

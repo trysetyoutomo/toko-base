@@ -16,7 +16,7 @@
 Mengelola Tempat
 </h1>
 <hr>
-<div class="row">
+<!-- <div class="row">
 	<div class="col-sm-8">
 		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
 		<button class="btn btn-primary">
@@ -24,7 +24,7 @@ Mengelola Tempat
 		</button>
 		</a>
 	</div>
-</div>
+</div> -->
 
    <table id="datatable" class="table table-striped table-bordered">
        <thead>

@@ -248,7 +248,7 @@ from barangmasuk
 left join branch b on b.id = barangmasuk.branch_id
 inner join barangmasuk_detail bmd on bmd.head_id = barangmasuk.id
 
-where b.id = '$branch_id' 
+where b.id = '$branch_id' and barangmasuk.status_masuk = 1
  $filter 
 group by barangmasuk.id
  order by tanggal desc

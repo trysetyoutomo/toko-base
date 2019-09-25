@@ -168,8 +168,9 @@
                success:function(data){
                    // alert(data);
                    if (data=="sukses"){
-                    getSatuan();
+                        getSatuan();
                         $("#tambah-satuan-form").dialog("close");
+                        alert("Sukses");
                    }
                    else
                        alert(data);

@@ -9,7 +9,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 	<?php 
-	$nilai = Categories::model()->findAll("");
+	$nilai = Categories::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");
 	$data = CHtml::listData($nilai,'id','category');
 
 	?>

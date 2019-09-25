@@ -5,7 +5,7 @@
 </ol>
 
 
-<h1>Rincian Item #<?php echo $model->id; ?></h1>
+<h1>Rincian Item #<?php echo $model->item_name; ?></h1>
 <hr>
 <div class="row">
     <div class="col-sm-12">
@@ -50,7 +50,7 @@
 <?php $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
     'attributes'=>array(
-        'id',
+        // 'id',
         'item_name',
         // 'item_number',
         'description',
@@ -59,7 +59,8 @@
             "label"=>"Kategori",
             "value"=>Categories::model()->findByPk($model[category_id])->category,
         ),
-        // 'category_id',
+        'stok_minimum',
+        'discount',
         // 'unit_price',
         // array(
         //     "header"=>"Modal",
@@ -84,11 +85,11 @@
         // 'status',
         // 'ketebalan',
         // 'ukuran',
-        array(
-            "name"=>"barcode",
-            "label"=>"Barcode",
-            // "value"=>number_format($model[persentasi]),
-        ),
+        // array(
+        //     "name"=>"barcode",
+        //     "label"=>"Barcode",
+        //     // "value"=>number_format($model[persentasi]),
+        // ),
         // '',
     ),
 )); ?>

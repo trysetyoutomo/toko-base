@@ -215,14 +215,16 @@
             )
 )); ?>
 <?php
-$nilai = Categories::model()->findAll("status=0",array('order'=>'category'));
+$store_id = Yii::app()->user->store_id();
+
+$nilai = Categories::model()->findAll("status=0 and store_id = '$store_id' ",array('order'=>'category'));
 $data = CHtml::listData($nilai,'id','category');
 
 $motif = Motif::model()->findAll();
 $motif = CHtml::listData($motif,'id','nama');
 
 
-$nilai2 = ItemsSatuanMaster::model()->findAll();
+$nilai2 = ItemsSatuanMaster::model()->findAll(" store_id = '$store_id' ");
 $satuan = CHtml::listData($nilai2,'id','nama_satuan');
 $branch_id = Yii::app()->user->branch();
 

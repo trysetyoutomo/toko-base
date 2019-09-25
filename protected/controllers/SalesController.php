@@ -27,15 +27,17 @@ class SalesController extends Controller {
         );
     }
     public function GenerateSalesFakturMethod(){
-    	$branch_id = Yii::app()->user->branch();
-     	$kode = 'BRP';
+
+    	$branch_id_real = Yii::app()->user->branch();
+       	$branch_id = str_pad($branch_id_real,3,"0",STR_PAD_LEFT);
+     	$kode = 'TRP';
         $query = "SELECT
 				IFNULL(
 					CONCAT(
 						'$branch_id',
 						'$kode',
 						LPAD(
-							MAX(SUBSTR(faktur_id, 5, 6)) + 1,
+							MAX(SUBSTR(faktur_id, 7, 6)) + 1,
 							6,
 							'0'
 						)
@@ -44,8 +46,9 @@ class SalesController extends Controller {
 				) AS urutan
 			FROM
 				sales
-			WHERE branch = '$branch_id'
+			WHERE branch = '$branch_id_real'
                  ";
+                 // echo $query;
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return   $model['urutan'];
     }
@@ -62,7 +65,7 @@ class SalesController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
+                'actions' => array('TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -2256,8 +2259,9 @@ public function actionSalesoutletweekly(){
     		
             if ($data['status']=="1"){	
 	            $sales->bayar = round($data['bayar']);
-	            $sales->faktur_id = $this->GenerateSalesFakturMethod();	
-            	$_REQUEST['data']['faktur_id'] = $this->GenerateSalesFakturMethod();
+	            $fd =  $this->GenerateSalesFakturMethod();
+	            $sales->faktur_id = $fd;	
+            	$_REQUEST['data']['faktur_id'] = $fd;
             }else{
 	            $sales->bayar = 0;    		
             }
@@ -2288,6 +2292,7 @@ public function actionSalesoutletweekly(){
             $sales->user_id = 1;
             $sales->table = $data['table'];
             $sales->status = $data['status'];
+            $sales->keterangan = $data['keterangan'];
             if (!empty($data['namapelanggan'])){		
 	            $sales->nama = $data['namapelanggan'];
             }else{
@@ -2319,6 +2324,8 @@ public function actionSalesoutletweekly(){
 					$modelh->jenis = "keluar";
 					$modelh->jenis_keluar = "penjualan";
 					$modelh->keterangan = "-";
+					$modelh->sales_id = $sales->id;
+					$modelh->status_keluar = 1;
 					$modelh->kode_trx = BarangKeluarController::generateKodeBKS();
 					$modelh->branch_id = Yii::app()->user->branch();
 					$modelh->keluar_ke = Yii::app()->user->branch();
@@ -3167,13 +3174,24 @@ public function actionCetakReportAll(){
     public function actionHapus($id) {
         $model = $this->loadModel($id);
         $model->status = 2;
+
+
+		//ambil data dari user yg login
+		$username = Yii::app()->user->name;
+		$user = Users::model()->find('username=:un',array(':un'=>$username));
+		
+        $model->deleted_by = $user->id;
+        $model->deleted_at = date("Y-m-d H:i:s");
         if ($model->update()){
-			$sd = SalesItems::model()->findAll("sale_id = '$id' ");
-			foreach($sd as $s){
-				$brg = Items::model()->findByPk($s->item_id);
-				$brg->stok = $brg->stok + $s->quantity_purchased;
-				$brg->update();		
-			}
+        	$keluar = BarangKeluar::model()->find(" sales_id = '$id' ");
+        	$keluar->status_keluar = 2;
+        	$keluar->update();
+			// $sd = SalesItems::model()->findAll("sale_id = '$id' ");
+			// foreach($sd as $s){
+			// 	$brg = Items::model()->findByPk($s->item_id);
+			// 	$brg->stok = $brg->stok + $s->quantity_purchased;
+			// 	$brg->update();		
+			// }
 		}
 		$this->redirect(array('sales/index'));	
     }
@@ -5176,6 +5194,12 @@ public function actionCetakReportAll(){
             return new Sales();
         else
             return $model;
+    }
+
+ 	 public function actionTransaksiHapus(){
+    	$this->layout = "main2";
+		$this->render('transaksihapus',array(
+		));
     }
 
     /**

@@ -65,17 +65,20 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 	</tr>
 	<tr >
 		<td>
-				<?php  $nilai = Branch::model()->findAllNew();?>
+<?php  $nilai = Branch::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");?>
 <label>
-	Cabang
+	Tempat
 </label>
 			
 		</td>
 		<td>
+			<?php 
+
+			?>
 <select id="cabang" name="cabang" class="form-control" style="display: inline;">
 
 <?php foreach($nilai as $k): ?>
-	<option <?php if ($k->id==$_REQUEST['cabang']) echo "selected" ?> value="<?php echo $k->id ?>">
+	<option <?php if ($k->id==Yii::app()->user->store_id()) echo "selected" ?> value="<?php echo $k->id ?>">
 	<?php echo $k->branch_name ?>
 		
 	</option>
@@ -286,11 +289,13 @@ $columnaja = array(
 		array(
 			'name'=>'sale_sub_modal',
 			'header'=>'total modal',
+			'visible'=>Yii::app()->user->getLevel()==2,
+
 			'type'=>'number',
 			'htmlOptions'=>array('style'=>'text-align:right'),
 			'class'=>'ext.gridcolumns.TotalColumn',
 //			'value'=>'$data->nilai',
-			'visible'=>$a,
+			// 'visible'=>$a,
 			'type'=>'number',
 			'footer'=>true,
 			'htmlOptions'=>array('style'=>'text-align:right'),
@@ -305,6 +310,8 @@ $columnaja = array(
 //			'value'=>'$data->nilai',
 			'type'=>'number',
 			'footer'=>true,
+			'visible'=>Yii::app()->user->getLevel()==2,
+
 			'htmlOptions'=>array('style'=>'text-align:right'),
 
 		),	
@@ -349,6 +356,7 @@ $columnaja = array(
 			'name'=>'sale_discount',
 			'header'=>'total diskon',
 			'type'=>'number',
+			'visible'=>Yii::app()->user->getLevel()==2,
 			'htmlOptions'=>array('style'=>'text-align:right'),
 			'class'=>'ext.gridcolumns.TotalColumn',
 //			'value'=>'$data->nilai',
@@ -365,6 +373,8 @@ $columnaja = array(
 //			'value'=>'$data->nilai',
 			'type'=>'number',
 			'footer'=>true,
+					'visible'=>Yii::app()->user->getLevel()==2,
+
 			'htmlOptions'=>array('style'=>'text-align:right'),
 
 		),
@@ -374,6 +384,8 @@ $columnaja = array(
 			'name'=>'sale_total_cost',
 			'header'=>'total Bersih',
 			'type'=>'number',
+			'visible'=>Yii::app()->user->getLevel()==2,
+
 			'htmlOptions'=>array('style'=>'text-align:right'),
 			'class'=>'ext.gridcolumns.TotalColumn',
 //			'value'=>'$data->nilai',
@@ -448,6 +460,7 @@ $columnaja = array(
 		array(
 		'type'=>'raw',
 		'header'=>'hapus',
+		'visible'=>Yii::app()->user->getLevel()==2,
 		'value'=>'CHtml::link("",array("Sales/hapus","id"=>$data[id]),array("style"=>"text-decoration:none","class"=>"fa fa-times hapus "))',
 		
 		),

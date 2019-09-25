@@ -1986,6 +1986,7 @@ function load_bill(meja,data)
                 item_discount: val.item_discount,
                 lokasi: val.lokasi,
                 permintaan: val.permintaan,
+                keterangan: val.keterangan,
                 item_total_cost:val.item_total_cost,
                 kode:val.kode,
                 panjang:val.panjang,
@@ -2167,6 +2168,7 @@ function bayar(status,table,sale_id)
             "item_price":rec.get('item_price'),
             "item_total_cost":rec.get('item_total_cost'),
             "permintaan":rec.get('permintaan'),
+            "keterangan":rec.get('keterangan'),
             "is_paket":rec.get('is_paket')
         };
         inc=inc+1;
@@ -3045,17 +3047,17 @@ Ext.onReady(function() {
                 // allowBlank:false
             // }
         },
-        //  {
-        //     text:'Permintaan',
-        //     flex:1,
-        //     sortable:true,
-        //     dataIndex:'permintaan',
-        //      hidden : true
-        //     // editor   : {
-        //     //     xtype:'textarea',
-        //     //     allowBlank:true
-        //     // }
-        // },
+         {
+            text:'keterangan',
+            flex:1,
+            sortable:true,
+            dataIndex:'keterangan',
+             // hidden : false,
+            editor   : {
+                xtype:'textarea',
+                allowBlank:true
+            }
+        },
 		
         {
             text:'Action',

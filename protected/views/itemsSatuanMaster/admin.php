@@ -30,7 +30,7 @@ Satuan
        <thead>
   		<tr>
            <th>Aksi</th>
-          <th>ID</th>
+          <!-- <th>ID</th> -->
           <th>Nama</th>
           
   		</tr>
@@ -75,7 +75,7 @@ Satuan
             
               <!-- <a href=""></a> -->
             </td>
-        		<td><?php echo $value['id']; ?></td>
+        		<!-- <td><?php echo $value['id']; ?></td> -->
         		<td>
 					  <a href="<?php echo Yii::app()->createUrl("ItemsSatuanMaster/update", array("id"=>$value[id])) ?>">
         					<?php echo $value['nama_satuan']; ?>
