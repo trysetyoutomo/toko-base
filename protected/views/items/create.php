@@ -12,4 +12,5 @@
 <i class="fa fa-plus"></i>
 Item baru</h1>
 <hr>
-<?php echo $this->renderPartial('application.views.items._form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('application.views.items._form', array('model'=>$model,'datasatuan'=>$datasatuan)); ?>
+<?php echo $this->renderPartial('application.views.layouts.js'); ?>

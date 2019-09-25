@@ -1884,6 +1884,7 @@ function add_item(id)
                 panjang:obj.panjang,
                 ketebalan:obj.ketebalan,
                 is_paket:obj.is_paket,
+                permintaan:"-",
                 kode:obj.kode
             
             });
@@ -3051,7 +3052,7 @@ Ext.onReady(function() {
             text:'keterangan',
             flex:1,
             sortable:true,
-            dataIndex:'keterangan',
+            dataIndex:'permintaan',
              // hidden : false,
             editor   : {
                 xtype:'textarea',

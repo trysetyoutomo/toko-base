@@ -2,36 +2,9 @@
 <h3 class="well"><a href="#" onclick="window.history.back()" style="">
 <i class="fa fa-arrow-left"></i>
 </a> 
- Detail penjualan <?php echo ' Faktur '.$_GET['id']; ?></h3>
+ Detail penjualan #<?php echo ' Faktur '.$_GET['id']; ?></h3>
 </legend>	
-
-
-<?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php 
-?></div><!-- search-form -->
-
-
 <div class="well">
- 
-<?php 
-// $this->widget('zii.widgets.grid.CGridView', array(
-	// 'dataProvider'=>$detailtransaksi,
-    // 'filter'=>$model,
-	// //'htmlOptions'=>('class'=>'well'),
-	 // //'template'=>"{items}",
-	 // 'itemsCssClass'=>'gridtablecss',
-	 // 'emptyText'=>'Pelanggan masih tidak ada',
-
-
-	// 'item_name',
-	
-	// ),
-	// ),
-// );	
-?>
-
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	//'id'=>'outlet-grid',
 	'dataProvider'=>$detailtransaksi,
@@ -66,6 +39,8 @@
 		array(
 		'name'=>'price_modal',
 		'header'=>'Harga Modal ',
+		'visible'=>Yii::app()->user->getLevel()==2,
+
 		'footer'=>true,
 		'class'=>'ext.gridcolumns.TotalColumn',
 		'type'=>'number',
@@ -107,6 +82,8 @@
 		array(
 		'name'=>'submodal',
 		'header'=>'Total Modal ',
+					'visible'=>Yii::app()->user->getLevel()==2,
+
 		'footer'=>true,
 		'class'=>'ext.gridcolumns.TotalColumn',
 		'type'=>'number',
@@ -117,6 +94,8 @@
 		array(
 		'name'=>'tax',
 		'header'=>'pajak',
+		'visible'=>Yii::app()->user->getLevel()==2,
+
 		'footer'=>true,
 		'class'=>'ext.gridcolumns.TotalColumn',
 		'type'=>'number',
@@ -126,6 +105,8 @@
 		),
 		array(
 		'name'=>'service',
+		'visible'=>Yii::app()->user->getLevel()==2,
+
 		'header'=>'service',
 		'footer'=>true,
 		'class'=>'ext.gridcolumns.TotalColumn',
@@ -146,13 +127,23 @@
 		),
 		
 		array(
-		'name'=>'total',
+		'name'=>'Total',
 		'header'=>'total',
 		'footer'=>true,
 		'type'=>'number',
 		'class'=>'ext.gridcolumns.TotalColumn',
 		'htmlOptions'=>array('style'=>'text-align:right'),
 		'footerHtmlOptions'=>array('style'=>'text-align:right;font-weight:bold;'),
+
+		),
+		array(
+		'name'=>'permintaan',
+		'header'=>'Keterangan',
+		// 'footer'=>true,
+		// 'type'=>'number',
+		// 'class'=>'ext.gridcolumns.TotalColumn',
+		'htmlOptions'=>array('style'=>'text-align:right'),
+		// 'footerHtmlOptions'=>array('style'=>'text-align:right;font-weight:bold;'),
 
 		),
 		array( 

@@ -891,14 +891,14 @@ class ItemsController extends Controller
 	}
 
 	public static function getSatuanItems($item_id,$stok){
-			$sqlx = " SELECT  * FROM items_satuan WHERE item_id = '$item_id' order by urutan asc";
+			$sqlx = " SELECT  * FROM items_satuan WHERE item_id = '$item_id' order by satuan desc";
 			 // $datastauan = ItemsSatuan::model()->findAll(" item_id = '$m[id]' ");
 			$datastauan = Yii::app()->db->createCommand($sqlx)->queryAll();
 			// echo "<pre>";
 			// print_r($datastauan);
+			// exit;
 			// echo $stok;
 			// echo "<br>";
-			// exit;
 			$stok2 = $stok;
 			// echo $stok;
 			$return = "";
@@ -907,6 +907,8 @@ class ItemsController extends Controller
 				$return .= $value['nama_satuan']." :"." ";			
 				$satuan = $value['nama_satuan'];
 				$satuan_jml = $value['satuan'];
+				// echo $stok2 . " - ". $stok;
+				// exit;
 				if ($stok2>=$stok){
 					$s = $stok % $satuan_jml;
 					if ($s==0){ // jika ga ada sisa maka
@@ -945,12 +947,15 @@ class ItemsController extends Controller
 
 					//echo "-"."<br>";
 				}
+				// echo $stok2;
+				// exit;
 
 				if ($stok2<>0){	
 					$return .= "<br>";
 				}else{
 					break;
 					// echo $return;
+					// exit;
 					// return $return;
 					// return false;
 				}
@@ -1017,7 +1022,6 @@ class ItemsController extends Controller
 					$satuanUtama_jumlah_1 = $satuanUtama1->satuan;
 
 
-
 					//get satuan utama
                     // $satuanUtama2 = ItemsSatuan::model()->find(" is_default = '1' and item_id ='$' ");
 
@@ -1041,13 +1045,15 @@ class ItemsController extends Controller
 
 					$model = new BarangmasukDetail;
 					$model->kode = $satuanUtamaKode_default;
-
 					// $model->jumlah =  $n['jml']*$n['satuan'];
 					$spp = $n['supplier'];
 					// $model->jumlah =  $n['jml'];
 					$model->jumlah =  $satuan_total_masuk;
-					// $model->satuan = $n['satuan'];
-					$model->satuan = $satuanUtamaID_default;
+					$model->satuan = $n['satuan'];
+					
+					// $model->satuan = $satuanUtamaID_default;
+
+
 					$model->jumlah_satuan = $n['jml'];
 					$model->harga = $n['harga'];
 					$model->supplier_id = $spp;
@@ -2001,15 +2007,9 @@ public function getHargamodal($id){
 
 	public function actionCreate()
 	{
+		$transaction = Yii::app()->db->beginTransaction();
 		$model=new Items;
-		// echo)
-		// echo "<pre>";
-		// print_r($_REQUEST);
-		// echo "</pre>";
-		// exit;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$satuan = new ItemsSatuan;
 
 		if(isset($_POST['Items']))
 		{
@@ -2040,68 +2040,65 @@ public function getHargamodal($id){
 				}
 
 
-				// buat satuan baru
-				$satuan = new ItemsSatuan;
-				$satuan->item_id = $model->id;
-				// $satuan->nama_satuan = ItemsSatuanMaster::model()->findByPk($_REQUEST['Items']['satuan_id'])->nama_satuan;
-				$satuan->nama_satuan = ItemsSatuanMaster::model()->findByPk($_REQUEST['Items']['satuan_id'])->nama_satuan;
-				$satuan->harga =  $_REQUEST['Items']['total_cost'];
-				$satuan->harga_beli =  $_REQUEST['Items']['modal'];
-				$satuan->satuan = 1;
-				$satuan->letak_id = $_REQUEST['Items']['letak_id'] ;
-				$satuan->is_default = 1;
-				$satuan->letak_id = $_REQUEST['Items']['letak_id'];
-				$satuan->barcode = $_REQUEST['Items']['barcode'];
-				$satuan->stok_minimum = $_REQUEST['Items']['stok_minimum'];
+					// buat satuan baru
+					$satuan->item_id = $model->id;
+					// $satuan->nama_satuan = ItemsSatuanMaster::model()->findByPk($_REQUEST['Items']['satuan_id'])->nama_satuan;
+					$satuan->nama_satuan = ItemsSatuanMaster::model()->findByPk($_REQUEST['Items']['satuan_id'])->nama_satuan;
+					$satuan->harga =  $_REQUEST['Items']['total_cost'];
+					$satuan->harga_beli =  $_REQUEST['Items']['modal'];
+					$satuan->satuan = 1;
+					$satuan->letak_id = $_REQUEST['Items']['letak_id'] ;
+					$satuan->is_default = 1;
+					$satuan->letak_id = $_REQUEST['Items']['letak_id'];
+					$satuan->barcode = $_REQUEST['Items']['barcode'];
+					$satuan->stok_minimum = $_REQUEST['Items']['stok_minimum'];
 
-				if ($satuan->save()){
-
-					//save to itemprice
-					$price = new ItemsSatuanPrice;
-					$price->item_satuan_id = $satuan->id;
-					$price->price_type = "HARGA 1";
-					$price->price = $_REQUEST['Items']['total_cost'];
-					$price->default = 1;
-					$save = $price->save();
+					if ($satuan->save()){
+						//save to itemprice
+						$price = new ItemsSatuanPrice;
+						$price->item_satuan_id = $satuan->id;
+						$price->price_type = "HARGA 1";
+						$price->price = $_REQUEST['Items']['total_cost'];
+						$price->default = 1;
+						$save = $price->save();
 
 
-					$price = new ItemsSatuanPrice;
-					$price->item_satuan_id = $satuan->id;
-					$price->price_type = "HARGA 2";
-					$price->price = 0;
-					$price->default = 0;
+						$price = new ItemsSatuanPrice;
+						$price->item_satuan_id = $satuan->id;
+						$price->price_type = "HARGA 2";
+						$price->price = 0;
+						$price->default = 0;
 
-					$save = $price->save();
+						$save = $price->save();
 
-					$price = new ItemsSatuanPrice;
-					$price->item_satuan_id = $satuan->id;
-					$price->price_type = "HARGA 3";
-					$price->price = 0;
-					$price->default = 0;
+						$price = new ItemsSatuanPrice;
+						$price->item_satuan_id = $satuan->id;
+						$price->price_type = "HARGA 3";
+						$price->price = 0;
+						$price->default = 0;
 
-					$save = $price->save();
-					
-							// $this->redirect(array('admin','id'=>$model->id));
-					if ($save){
-						if (! isset($_POST['isajax'])){
-							$this->redirect(array('view',"id"=>$model->id));
-						}
-						else{
-							echo "sukses";
-							exit;
-						}
-					}else{
+						$save = $price->save();
+						
+								// $this->redirect(array('admin','id'=>$model->id));
+						if ($save){// jika berhasil simpan maka
+							$transaction->commit();
+							if (! isset($_POST['isajax'])){ $this->redirect(array('view',"id"=>$model->id));}
+							else{ echo "sukses"; exit;}
+						}else{// jika gagal save maka
 							if (isset($_POST['isajax'])){
 								foreach ($model->getErrors() as $key => $value) {
-								// echo $value."<br>";
-									foreach ($value as $z => $b) {
-										echo " $b \n";
-									}
+									foreach ($value as $z => $b) {echo " $b \n";}
 								}
 								exit;
+							}else{
+								echo "wkwkw";
 							}
-				}
+						}
+					}else{  // jika gagal save satuan maka
+						// echo "gagal simpan satuan";
+						// exit;
 					}
+
 				}else{ // if set items set false
 						if (isset($_POST['isajax'])){
 							foreach ($model->getErrors() as $key => $value) {
@@ -2111,6 +2108,10 @@ public function getHargamodal($id){
 								}
 							}
 							exit;
+						}else{
+							// echo "<pre>";
+							// print_r($model->getErrors());
+							// echo "</pre>";
 						}
 				}
 			}
@@ -2128,6 +2129,7 @@ public function getHargamodal($id){
 
 		$this->render('create',array(
 			'model'=>$model,
+			'datasatuan'=>$satuan
 		));
 	}
 	public static function GetKodePaket(){

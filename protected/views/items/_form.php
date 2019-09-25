@@ -240,7 +240,8 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 ?>
 
         <div class="mws-form-inline">
-                         <?php echo $form->errorSummary($model); ?>
+                 <?php echo $form->errorSummary($model); ?>
+                 <?php echo $form->errorSummary($datasatuan); ?>
 
 <!--
             <p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -608,10 +609,5 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
         <?php $this->endWidget(); ?>
     </div>
 </div>
-<div class="col-sm-6">
-
-
-</div>
-
 </div>
 

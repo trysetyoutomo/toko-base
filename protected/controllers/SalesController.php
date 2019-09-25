@@ -30,7 +30,7 @@ class SalesController extends Controller {
 
     	$branch_id_real = Yii::app()->user->branch();
        	$branch_id = str_pad($branch_id_real,3,"0",STR_PAD_LEFT);
-     	$kode = 'TRP';
+     	$kode = '35J';
         $query = "SELECT
 				IFNULL(
 					CONCAT(
@@ -46,7 +46,7 @@ class SalesController extends Controller {
 				) AS urutan
 			FROM
 				sales
-			WHERE branch = '$branch_id_real'
+			WHERE branch = '$branch_id_real' and sales.status = 1
                  ";
                  // echo $query;
         $model = Yii::app()->db->createCommand($query)->queryRow();
@@ -1444,6 +1444,7 @@ class SalesController extends Controller {
 				item_modal*quantity_purchased submodal,
 				(item_discount * (item_price*quantity_purchased)/100) idc,
 				item_discount,
+				permintaan,
 
 				sum(quantity_purchased) as qty,
 				sales_items.item_tax tax,
@@ -2194,7 +2195,9 @@ public function actionSalesoutletweekly(){
 	}
 
     public function actionBayar() {
-	
+	// echo "<pre>";
+	// print_r($_REQUEST);
+	// echo "</pre>";
 	$transaction = Yii::app()->db->beginTransaction();
 	try {
 	
@@ -2227,8 +2230,6 @@ public function actionSalesoutletweekly(){
 	                $sales = Sales::model()->findByPk($sales->id);
 	            else
 	                $sales = new Sales();
-
-	            // echo "masuk sini";
 				
 			}else{
 	            // echo "masuk sini 2";
@@ -2429,29 +2430,21 @@ public function actionSalesoutletweekly(){
 							$bkl->save();	
 						}						
 
-
-
-
-
-
 	                    $di->item_satuan_id = $detail['item_satuan_id'];
 	                    // $di->item_satuan_id = $satuanUtamaID;
 	                    // $di->quantity_purchased = round($detail['quantity_purchased']/$satuanNowSatuan,2)*$detail['quantity_purchased'];
 	                    //lama 
 						$di->quantity_purchased = $detail['quantity_purchased'];
-
-
 	                    $di->item_tax = $detail['item_tax'];
 	                    $di->item_discount = $detail['item_discount'];
-	                    
-						
 						$di->item_service =  $detail['item_service'];
 	                    $di->item_price = $detail['item_price'];
 	                	$di->item_total_cost =  $total_cost;
-	                    // $di->permintaan =  $detail['permintaan'];
-	                    $di->permintaan =  "-";
+	                    $di->permintaan =  $detail['permintaan'];
+	                    // $di->permintaan =  "-";
 	                    if (!$di->save()){
 	                    	echo json_encode($di->getErrors());
+							$transaction->rollback();
 	                    	exit;
 	                    	// print_r($di->getErrors());
 	                    	// echo "Paket ".$detail['is_paket'] ;

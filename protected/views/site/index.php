@@ -1861,7 +1861,11 @@ function numberWithCommas(x) {
        ),
   ));
     $model = new Items;
-   $this->renderPartial('application.views.items._form',array("model"=>$model));
+    $datasatuan= new ItemsSatuan;
+   $this->renderPartial('application.views.items._form',array(
+    "model"=>$model,
+    "datasatuan"=>$datasatuan
+    ));
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');
 

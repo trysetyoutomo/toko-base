@@ -40,13 +40,17 @@ if (isset($_REQUEST[tanggal])){
 		
 			$date = date('Y-m-d');
 		}
-
+		$branch_id = Yii::app()->user->branch();
 		$sql  = "select  
 		s.*,u.username from 
 		sales s 
 		left join users u on u.id = s.deleted_by
-
-		where s.status = 2  and date(s.date)='$date' ";
+		where 
+		s.branch = '".$branch_id."'
+		and
+		s.status = 2  
+		and
+		date(s.date)='$date' ";
 		$model = Yii::app()->db->createCommand($sql)->queryAll();
 
 			// $sql = "select *,s.id sid from sales_items si inner join sales s on s.id = si.sale_id 
@@ -77,47 +81,3 @@ if (isset($_REQUEST[tanggal])){
 		
 	</tbody>
 </table>
-<script>
-// $(document).ready(function(e){
-// 	$('.hapus').click(function(){
-// 		var c = confirm("Yakin ?");
-
-// 		var id = $(this).attr("user-id");
-// 		var tanggal = $("#tanggal").val();
-
-	
-
-// 		if (!c){return false};
-
-// 		var href = "index.php?r=setor/HapusByTanggal&id="+id+"&tanggal="+tanggal;
-// 		window.location.assign(href);
-		
-
-// 		});
-// 	$('.cetak').click(function(){
-// 		var tanggal = $(this).attr("tanggal");
-// 		var inserter = $(this).attr("inserter");
-		
-// 		if(tanggal==''){
-// 			alert('Pilih tanggal terlebih dahulu');
-// 			return false;
-// 		}else{
-// 			$.ajax({
-// 				url:'<?php echo Yii::app()->createUrl("sales/cetakrekap") ?>',
-// 				data:'tanggal_rekap='+tanggal+"&inserter="+inserter,
-// 				success: function(data){
-// 					// alert(data);
-// 					var json = jQuery.parseJSON(data);
-// 					// $('#hasiljson').html(data);
-// 					print_rekap(json,false);
-// 					// console.log(data);
-					
-// 				},
-// 				error: function(data){
-// 					alert('error');
-// 				}
-// 			});
-// 		}
-// 	});
-// });
-</script>

@@ -378,7 +378,7 @@ else
 							<td>Jumlah</td>
 							<td>Harga</td>
 							<td>Total</td>
-							<td>Supplier</td>
+							<!-- <td>Satuan</td> -->
 							<td>Aksi</td>
 							
 						</tr>
@@ -420,7 +420,7 @@ else
 							// echo $q[qty];
 							$satuanlist = ItemsController::getSatuanItems($q['iid'],$q['qty']);
 							// echo $satuanlist;
-							$string = "Hello! 123 test this? 456. done? 100%";
+							// $string = "Hello! 123 test this? 456. done? 100%";
 							$int = intval(preg_replace('/[^0-9]+/', '', $satuanlist), 10);
 							echo $int;
 			
@@ -429,11 +429,9 @@ else
 							<td style="width:10%">
 								<?php echo number_format($q[harga]); ?>
 							</td>
-							<td>
-							<?php echo number_format($q[harga]*$int)  ?>
-								
-							</td>
-							<td><?php echo Supplier::model()->findByPk($q[supplier_id])->nama  ?></td>
+							<td><?php echo number_format($q[harga]*$int) ?></td>
+							<!-- <td><?php echo $q['nama_satuan']?></td> -->
+							<!-- <td><?php //echo Supplier::model()->findByPk($q[supplier_id])->nama  ?></td> -->
 							<td style="width:10%">
 								<a href="<?php echo Yii::app()->controller->createUrl('masukhapusdetail',array("id"=>$q['sid'])) ?>" class="hapus-detail" href="#">
 										<i class="fa fa-times"></i>

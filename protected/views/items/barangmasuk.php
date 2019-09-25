@@ -144,7 +144,7 @@
 				
 			<h1> 
 			<i class="fa fa-book"></i>
-			Pembelian Barang </h1>
+			Pembelian</h1>
 
 			<div id="accordion">
 			 <!-- <h3>Transaksi Pembelian</h3> -->
