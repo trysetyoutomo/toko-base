@@ -2256,3 +2256,920 @@ in E:\xampp\htdocs\toko-base\index.php (22)
 2019/09/25 22:50:15 [warning] [application] Failed to set unsafe attribute "stok_minimum" of "ItemsSatuan".
 in E:\xampp\htdocs\toko-base\protected\controllers\ItemsSatuanController.php (108)
 in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 16:44:52 [error] [exception.CHttpException.400] CHttpException: Your request is invalid. in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:337
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(310): CController->invalidActionParams(Object(CInlineAction))
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('kartu')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ItemsSatuan/kar...')
+#10 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#11 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#12 {main}
+REQUEST_URI=/toko-base/index.php?r=ItemsSatuan/kartu&id=39
+---
+2019/09/26 22:57:51 [error] [exception.ParseError] ParseError: syntax error, unexpected '"' "' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ')' in E:\xampp\htdocs\toko-base\protected\views\items\purchase_order.php:248
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('purchase_order', NULL, true)
+#3 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1504): CController->render('purchase_order')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionPurchase_order()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('purchase_order')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/purchase_...')
+#10 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#11 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#12 {main}
+REQUEST_URI=/toko-base/index.php?r=items/purchase_order
+---
+2019/09/26 23:07:55 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 's.store_id' in 'where clause'. The SQL statement executed was: 
+		SELECT
+		CONCAT(
+		SUBSTR(i.item_name, 1, 50),
+		'-',iss.nama_satuan
+		) nama,
+		sum(quantity_purchased) jumlah
+		FROM
+		sales s
+		INNER JOIN sales_items si ON s.id = si.sale_id
+		left JOIN items i ON si.item_id = i.id
+		INNER JOIN items_satuan iss on iss.item_id = i.id 
+		WHERE
+		s.status = 1
+		and
+		s.store_id = '56'
+		and 
+		date(s.date) >= '2019-09-19' and date(s.date) <= '2019-09-26'
+		
+
+		group by i.id
+		order by jumlah desc
+		
+			
+		.
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (1007)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:07:55 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 's.store_id' in 'where clause'. The SQL statement executed was: 
+		SELECT
+		CONCAT(
+		SUBSTR(i.item_name, 1, 50),
+		'-',iss.nama_satuan
+		) nama,
+		sum(quantity_purchased) jumlah
+		FROM
+		sales s
+		INNER JOIN sales_items si ON s.id = si.sale_id
+		left JOIN items i ON si.item_id = i.id
+		INNER JOIN items_satuan iss on iss.item_id = i.id 
+		WHERE
+		s.status = 1
+		and
+		s.store_id = '56'
+		and 
+		date(s.date) >= '2019-09-19' and date(s.date) <= '2019-09-26'
+		
+
+		group by i.id
+		order by jumlah desc
+		
+			
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(1007): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionGrafik()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('grafik')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/grafik')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/grafik
+---
+2019/09/26 23:08:39 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 's.branch_id' in 'where clause'. The SQL statement executed was: 
+		SELECT
+		CONCAT(
+		SUBSTR(i.item_name, 1, 50),
+		'-',iss.nama_satuan
+		) nama,
+		sum(quantity_purchased) jumlah
+		FROM
+		sales s
+		INNER JOIN sales_items si ON s.id = si.sale_id
+		left JOIN items i ON si.item_id = i.id
+		INNER JOIN items_satuan iss on iss.item_id = i.id 
+		WHERE
+		s.status = 1
+		and
+		s.branch_id = '18'
+		and 
+		date(s.date) >= '2019-09-19' and date(s.date) <= '2019-09-26'
+		
+
+		group by i.id
+		order by jumlah desc
+		
+			
+		.
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (1009)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:08:39 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 's.branch_id' in 'where clause'. The SQL statement executed was: 
+		SELECT
+		CONCAT(
+		SUBSTR(i.item_name, 1, 50),
+		'-',iss.nama_satuan
+		) nama,
+		sum(quantity_purchased) jumlah
+		FROM
+		sales s
+		INNER JOIN sales_items si ON s.id = si.sale_id
+		left JOIN items i ON si.item_id = i.id
+		INNER JOIN items_satuan iss on iss.item_id = i.id 
+		WHERE
+		s.status = 1
+		and
+		s.branch_id = '18'
+		and 
+		date(s.date) >= '2019-09-19' and date(s.date) <= '2019-09-26'
+		
+
+		group by i.id
+		order by jumlah desc
+		
+			
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(1009): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionGrafik()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('grafik')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/grafik')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/grafik
+---
+2019/09/26 23:09:21 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 's.store_id' in 'where clause'. The SQL statement executed was: SELECT dua.month_name,
+
+		IFNULL(stt,'0')  AS stt  
+		FROM (
+		SELECT
+		MONTH(DATE) MONTH,
+		YEAR(DATE) YEAR,
+		SUM(si.item_price*si.quantity_purchased) sst,
+		SUM(si.item_tax) tax,
+		SUM(si.item_service) service ,
+		SUM( si.item_discount/100 * (si.item_price*si.quantity_purchased) ) sd,
+		SUM(
+		(
+		(si.item_price*si.quantity_purchased)
+		+
+		(si.item_tax)
+		+
+		(si.item_service)
+		-
+		(si.item_discount*(si.item_price*si.quantity_purchased)/100) - sp.voucher )
+
+		) stt
+		FROM sales s, sales_items si, items i,sales_payment sp
+		WHERE 
+		i.id = si.item_id  AND YEAR(DATE)='2019' 
+		AND s.status=1 AND s.id = si.sale_id
+		and s.store_id = '56'
+		GROUP BY MONTH(s.date)
+		ORDER BY DATE(s.date) ASC 
+		) AS satu RIGHT JOIN 
+
+		(SELECT * FROM time_dimension GROUP BY MONTH) AS dua
+
+		ON  satu.month = dua.month
+
+
+
+
+		.
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (1154)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:09:21 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 's.store_id' in 'where clause'. The SQL statement executed was: SELECT dua.month_name,
+
+		IFNULL(stt,'0')  AS stt  
+		FROM (
+		SELECT
+		MONTH(DATE) MONTH,
+		YEAR(DATE) YEAR,
+		SUM(si.item_price*si.quantity_purchased) sst,
+		SUM(si.item_tax) tax,
+		SUM(si.item_service) service ,
+		SUM( si.item_discount/100 * (si.item_price*si.quantity_purchased) ) sd,
+		SUM(
+		(
+		(si.item_price*si.quantity_purchased)
+		+
+		(si.item_tax)
+		+
+		(si.item_service)
+		-
+		(si.item_discount*(si.item_price*si.quantity_purchased)/100) - sp.voucher )
+
+		) stt
+		FROM sales s, sales_items si, items i,sales_payment sp
+		WHERE 
+		i.id = si.item_id  AND YEAR(DATE)='2019' 
+		AND s.status=1 AND s.id = si.sale_id
+		and s.store_id = '56'
+		GROUP BY MONTH(s.date)
+		ORDER BY DATE(s.date) ASC 
+		) AS satu RIGHT JOIN 
+
+		(SELECT * FROM time_dimension GROUP BY MONTH) AS dua
+
+		ON  satu.month = dua.month
+
+
+
+
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(1154): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionGrafikPenjualan()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('grafikpenjualan')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/grafikpen...')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/grafikpenjualan
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/grafik
+---
+2019/09/26 23:16:28 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store_id' in 'where clause'. The SQL statement executed was: SELECT * FROM `purchase_order` `t` WHERE  status_aktif = 1 and store_id = '56' .
+in E:\xampp\htdocs\toko-base\protected\views\items\barangmasuk.php (210)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (1509)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:16:28 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store_id' in 'where clause'. The SQL statement executed was: SELECT * FROM `purchase_order` `t` WHERE  status_aktif = 1 and store_id = '56'  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(1287): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(1410): CActiveRecord->query(Object(CDbCriteria), true)
+#3 E:\xampp\htdocs\toko-base\protected\views\items\barangmasuk.php(210): CActiveRecord->findAll(' status_aktif =...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('barangmasuk', NULL, true)
+#8 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1509): CController->render('barangmasuk')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionBarangmasuk()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('barangmasuk')
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/barangmas...')
+#15 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#16 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#17 {main}
+REQUEST_URI=/toko-base/index.php?r=items/barangmasuk
+---
+2019/09/26 23:50:20 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty. The SQL statement executed was: .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (1898)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:50:20 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty. The SQL statement executed was:  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1898): CDbCommand->queryAll()
+#2 [internal function]: ItemsController->actionGetdataPO('055POR000000000...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('GetdataPO')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/GetdataPO')
+#10 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#11 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#12 {main}
+REQUEST_URI=/toko-base/index.php?r=items/GetdataPO&poid=055POR0000000002
+---
+2019/09/26 23:50:22 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty. The SQL statement executed was: .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (1898)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:50:22 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty. The SQL statement executed was:  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1898): CDbCommand->queryAll()
+#2 [internal function]: ItemsController->actionGetdataPO('055POR000000000...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('GetdataPO')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/GetdataPO')
+#10 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#11 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#12 {main}
+REQUEST_URI=/toko-base/index.php?r=items/GetdataPO&poid=055POR0000000002
+---
+2019/09/26 23:57:45 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pod.satuan' in 'on clause'. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			po.sumber as sumber,
+			pod.jumlah as jumlah_po,
+			pod.harga harga_beli,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.id = pod.satuan
+			INNER JOIN purchase_order_detail pod on pod.kode = i.id
+			INNER JOIN purchase_order  po on po.id = pod.head_id 
+
+			AND i.hapus = 0
+			where  1=1 
+			and po.kode_trx  = '055POR0000000001'
+
+			group by pod.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		.
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (1898)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/26 23:57:45 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'pod.satuan' in 'on clause'. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			po.sumber as sumber,
+			pod.jumlah as jumlah_po,
+			pod.harga harga_beli,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.id = pod.satuan
+			INNER JOIN purchase_order_detail pod on pod.kode = i.id
+			INNER JOIN purchase_order  po on po.id = pod.head_id 
+
+			AND i.hapus = 0
+			where  1=1 
+			and po.kode_trx  = '055POR0000000001'
+
+			group by pod.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1898): CDbCommand->queryAll()
+#2 [internal function]: ItemsController->actionGetdataPO('055POR000000000...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('GetdataPO')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/GetdataPO')
+#10 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#11 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#12 {main}
+REQUEST_URI=/toko-base/index.php?r=items/GetdataPO&poid=055POR0000000001
+---
+2019/09/27 00:36:19 [error] [exception.ParseError] ParseError: syntax error, unexpected 'if' (T_IF) in E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php:95
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(270): CWebApplication->createController('update/')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Parameter/updat...')
+#2 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#3 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#4 {main}
+REQUEST_URI=/toko-base/index.php?r=Parameter/update&id=1
+---
+2019/09/27 00:36:29 [error] [exception.Error] Error: Using $this when not in object context in E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php:1390
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php(90): CActiveRecord::find('store_id = '56'...')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ParameterController->actionUpdate()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Parameter/updat...')
+#12 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#13 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#14 {main}
+REQUEST_URI=/toko-base/index.php?r=Parameter/update&id=1
+---
+2019/09/27 00:39:54 [error] [exception.Error] Error: Using $this when not in object context in E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php:1390
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php(90): CActiveRecord::find('store_id = '56'...')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ParameterController->actionUpdate()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Parameter/updat...')
+#12 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#13 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#14 {main}
+REQUEST_URI=/toko-base/index.php?r=Parameter/update&id=1
+HTTP_REFERER=http://localhost/toko-base/index.php?r=Setting/index
+---
+2019/09/27 00:40:35 [error] [exception.Error] Error: Using $this when not in object context in E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php:1390
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php(90): CActiveRecord::find('store_id = '56'...')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ParameterController->actionUpdate()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Parameter/updat...')
+#12 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#13 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#14 {main}
+REQUEST_URI=/toko-base/index.php?r=Parameter/update&id=1
+---
+2019/09/27 00:43:11 [warning] [application] Failed to set unsafe attribute "diskon" of "Parameter".
+in E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php (97)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 00:56:00 [warning] [application] Failed to set unsafe attribute "slogan" of "Branch".
+in E:\xampp\htdocs\toko-base\protected\controllers\BranchController.php (98)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:11:01 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		.
+in E:\xampp\htdocs\toko-base\protected\models\Items.php (245)
+in E:\xampp\htdocs\toko-base\protected\views\items\inc-pencarian-items.php (109)
+in E:\xampp\htdocs\toko-base\protected\views\items\barangmasuk.php (37)
+2019/09/27 01:11:01 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(372): CDbCommand->queryInternal('', 0, Array)
+#1 E:\xampp\htdocs\toko-base\protected\models\Items.php(245): CDbCommand->query()
+#2 E:\xampp\htdocs\toko-base\protected\views\items\inc-pencarian-items.php(109): Items->data_items('ALL')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\xampp\htdocs\toko-base\protected\views\items\barangmasuk.php(37): CController->renderPartial('inc-pencarian-i...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('barangmasuk', NULL, true)
+#11 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1509): CController->render('barangmasuk')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionBarangmasuk()
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('barangmasuk')
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/barangmas...')
+#18 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#19 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#20 {main}
+REQUEST_URI=/toko-base/index.php?r=items/barangmasuk
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/index
+---
+2019/09/27 01:22:46 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		.
+in E:\xampp\htdocs\toko-base\protected\models\Items.php (245)
+in E:\xampp\htdocs\toko-base\protected\views\items\inc-pencarian-items.php (109)
+in E:\xampp\htdocs\toko-base\protected\views\items\barangmasuk.php (37)
+2019/09/27 01:22:46 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(372): CDbCommand->queryInternal('', 0, Array)
+#1 E:\xampp\htdocs\toko-base\protected\models\Items.php(245): CDbCommand->query()
+#2 E:\xampp\htdocs\toko-base\protected\views\items\inc-pencarian-items.php(109): Items->data_items('ALL')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\xampp\htdocs\toko-base\protected\views\items\barangmasuk.php(37): CController->renderPartial('inc-pencarian-i...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('barangmasuk', NULL, true)
+#11 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(1509): CController->render('barangmasuk')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionBarangmasuk()
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('barangmasuk')
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/barangmas...')
+#18 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#19 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#20 {main}
+REQUEST_URI=/toko-base/index.php?r=items/barangmasuk
+---
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:38:44 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2031)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/09/27 01:40:15 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\parameter\_form.php(10): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\parameter\update.php(6): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php(108): CController->render('update', Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ParameterController->actionUpdate()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Parameter/updat...')
+#22 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#23 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#24 {main}
+REQUEST_URI=/toko-base/index.php?r=Parameter/update&id=1
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/index
+---
+2019/09/27 01:40:26 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\parameter\_form.php(10): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\parameter\update.php(6): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ParameterController.php(108): CController->render('update', Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ParameterController->actionUpdate()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Parameter/updat...')
+#22 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#23 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#24 {main}
+REQUEST_URI=/toko-base/index.php?r=Parameter/update&id=1
+HTTP_REFERER=http://localhost/toko-base/index.php?r=site/pengaturan
+---
+2019/09/27 01:43:46 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(244): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\items\update.php(16): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2319): CController->render('update', Array)
+#11 [internal function]: ItemsController->actionUpdate('41')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/update')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=items/update&id=41
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/view&id=41&status=ubah
+---
+2019/09/27 01:43:55 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(244): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\items\update.php(16): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2319): CController->render('update', Array)
+#11 [internal function]: ItemsController->actionUpdate('41')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/update')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=items/update&id=41
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/view&id=41&status=ubah
+---

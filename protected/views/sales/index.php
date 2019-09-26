@@ -262,7 +262,7 @@ $columnaja = array(
 		),
 		array(
 		'name'=>'faktur_id',
-		'header'=>'ID'
+		'header'=>'ID Penjualan'
 		),
 		array(
 		'name'=>'date',

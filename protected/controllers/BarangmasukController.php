@@ -61,20 +61,25 @@ class BarangmasukController extends Controller
 
   public static function generateKodePO() {
        	$store_id = Yii::app()->user->store_id();
+   	  	$store_id2 = str_pad($store_id,3,"0",STR_PAD_LEFT);
+		$kode = "POR";
         $query = "SELECT
 				IFNULL(
 					CONCAT(
-						'PO{$store_id}',
+						'{$store_id2}{$kode}',
 						LPAD(
-							MAX(SUBSTR(kode_trx, 4, 10)) + 1,
+							MAX(SUBSTR(kode_trx, 7, 10)) + 1,
 							10,
 							'0'
 						)
 					),
-					'PO{$store_id}0000000001'
+					'{$store_id2}{$kode}0000000001'
 				) AS urutan
 			FROM
 				purchase_order
+				inner join 
+				branch b on b.id = purchase_order.branch_id
+				where store_id = '$store_id'
                  ";
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return $model['urutan'];
@@ -93,7 +98,7 @@ class BarangmasukController extends Controller
 							'0'
 						)
 					),
-					'{$kode}0000000001'
+					'{$store_id2}{$kode}0000000001'
 				) AS urutan
 			FROM
 				barangmasuk

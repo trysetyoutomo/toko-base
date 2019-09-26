@@ -1,3 +1,6 @@
+
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
 <style type="text/css">
 	.table tr td{
 		border: 0px solid white!important;
@@ -6,11 +9,8 @@
 		padding:7px;
 	}
 </style>
-<h1>		
-<i class="fa fa-money"></i>
-Laporan Pembayaran Per Faktur </h1>
-	</legend>
-
+<h1>Laporan Pembayaran </h1>
+<hr>
 
 <?php
 $data = array(
@@ -36,8 +36,13 @@ for($x=$curr_year-5; $x<$curr_year+5;$x++){
 echo CHtml::beginForm();
 echo CHtml::dropDownList('month', $month, $data);
 echo CHtml::dropDownList('year', $year, $arr_year);
+?>
+&nbsp;
+<?php
 // echo CHtml::submitButton('Cari', array('submit' => array('sales/cashReport'),"class"=>'btn btn-primary' ));
 echo CHtml::submitButton("Cari", array('id' => 'btSubmit', 'class' => 'btn btn-primary', 'name' => 'files', 'title' => 'Save the updates to these files'));
+
+echo CHtml::Button("CETAK", array('class' => 'btn btn-primary','onclick'=>'$("#sales-grid").print()'));
 
 
 echo CHtml::endForm();
@@ -62,8 +67,8 @@ echo CHtml::endForm();
 		// 'id',
 		// 'date',
 		array(
-			'name'=>'id',
-			'header'=>'no faktur',
+			'name'=>'faktur_id',
+			'header'=>'ID Penjualan',
 			//'value'=>$data->date
 			// 'value'=>'date("Y-m-d",strtotime($data->date))',
 			// 'value'=>'date('d M Y', strtotime($model['date'])'

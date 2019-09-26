@@ -193,15 +193,15 @@ class Items extends CActiveRecord
 			LEFT JOIN categories AS c ON c.id = i.category_id
 			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
 
-			INNER JOIN items_satuan iss on iss.item_id = i.id
 			INNER JOIN purchase_order_detail pod on pod.kode = i.id
+			INNER JOIN items_satuan iss on iss.id = pod.satuan
 			INNER JOIN purchase_order  po on po.id = pod.head_id 
 
 			AND i.hapus = 0
 			where  1=1 
 			and po.kode_trx  = '$poid'
 
-			group by iss.id
+			group by pod.id
 #			group by i.id
 			order by nama_kategori,nama_sub_kategori desc
 			
@@ -214,6 +214,8 @@ class Items extends CActiveRecord
 		
 		";
 		return $que;
+		// echo $que;
+		// exit;
 	}
 	
 	

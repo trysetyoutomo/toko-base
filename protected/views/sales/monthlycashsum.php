@@ -1,4 +1,5 @@
 
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 <style type="text/css">
 	select{
 		padding:7px;
@@ -34,6 +35,7 @@ for($x=$curr_year-5; $x<$curr_year+5;$x++){
 // echo CHtml::beginForm();
 echo CHtml::dropDownList('month', $month, $data);
 echo CHtml::dropDownList('year', $year, $arr_year);
+
 // echo CHtml::button('Cari', array('submit' => array('sales/Salescashmonthly'),"class"=>'btn btn-primary' ));
 // echo CHtml::endForm();
 
@@ -44,7 +46,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 // echo "<BR>";
 echo "<BR>";
 
-echo "<table class='table items'>";
+echo "<table class='table items' >";
 echo "<thead>";
 	echo "<tr>";
 		echo "<th>No.</th>";

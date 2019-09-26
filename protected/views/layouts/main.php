@@ -86,7 +86,7 @@ $parameter = Parameter::model()->findByPk(1);
 
 
 
-    <div class="admin-bar" style="float: left;width: 100px;position: absolute;left: 20px;text-align:center">
+    <div class="admin-bar" style="float: left;width: 100px;position: absolute;left: 40px;text-align:center">
       <?php 
             $parameter = Parameter::model()->findByPk(1);
       ?>
@@ -97,7 +97,7 @@ $parameter = Parameter::model()->findByPk(1);
     <span id="head-meja"></span><span id="head-meja-nilai"></span>
 
     </div>
-		<div class="admin-bar">
+		<div class="admin-bar" style="float: right;width: 250px;position: absolute;right: 20px;text-align:center">
             <ul>
                 <li><a href="#" id="data-user"><?php echo Yii::app()->user->name; ?></a></li>
 				<li><a href="<?php echo $this->createUrl('sales/index');?>">Laporan</a></li>

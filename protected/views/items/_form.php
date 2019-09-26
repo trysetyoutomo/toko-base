@@ -81,8 +81,8 @@
 		if ($model->isNewRecord){
 			
 		?>
-		$("#Items_barcode").val(hidden_barcode);
-		$("#Items_barcode").attr("readonly",true);
+			$("#Items_barcode").val(hidden_barcode);
+			$("#Items_barcode").attr("readonly",true);
 		<?php 
 		}
 		?>
@@ -241,7 +241,10 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 
         <div class="mws-form-inline">
                  <?php echo $form->errorSummary($model); ?>
-                 <?php echo $form->errorSummary($datasatuan); ?>
+                 <?php 
+                 if ($model->isNewRecord)
+	                 echo $form->errorSummary($datasatuan); 
+                 ?>
 
 <!--
             <p class="note">Fields with <span class="required">*</span> are required.</p>

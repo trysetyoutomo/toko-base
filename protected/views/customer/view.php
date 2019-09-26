@@ -18,6 +18,7 @@ $sql  = "
 	where 
 	si.sale_id = s.id  and 
 	s.nama = '$model->nama'
+	and branch = ".Yii::app()->user->branch()."
 	order by s.date desc
   "; 
 $model = Yii::app()->db->createCommand($sql)->queryAll();
@@ -30,7 +31,7 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 	<thead>		
 		<tr style="background: rgba(42, 63, 84,1);color:white">
 			<td>No</td>
-			<td>Sale ID</td>
+			<td>ID Penjualan</td>
 			<td>Tanggal </td>
 			<td>Total </td>
 		</tr>
@@ -42,7 +43,7 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 		foreach ($model as $m): ?>
 		<tr>
 			<td style=""><?php echo $no;?></td>
-			<td style=""><?php echo $m[id]; ?></td>
+			<td style=""><?php echo $m[faktur_id]; ?></td>
 			<td style=""><?php echo $m[date]; ?></td>
 			<td style=""><?php echo "Rp. ".number_format($m['sale_total_cost']); ?></td>
 		</tr>

@@ -27,7 +27,10 @@ echo "&nbsp;&nbsp;&nbsp;";
 <select name="kategori">
 	<optgroup>Pilih Kategori</optgroup>
 	<option value="semua">Semua</option>
-	<?php foreach (Categories::model()->findAll("status=0") as $c) {
+
+	<?php 
+	$store_id = Yii::app()->user->store_id();
+	foreach (Categories::model()->findAll("status=0 and store_id = '$store_id'") as $c) {
 	?>
 	<option <?php if ($_REQUEST[kategori]==$c[id]) echo "selected"; ?> value="<?php echo $c[id] ?>"><?php echo $c[category] ?></option>
 	<?php 

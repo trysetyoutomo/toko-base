@@ -188,7 +188,7 @@
 
       });
 </script>
-  <div id="tambah-satuan-form" title="Tambah Satuan" style="width: 500px;display: none;" >
+  <div id="tambah-satuan-form" title="Tambah Satuan" style="width: 600px;display: none;" >
         <?php
         $model = new ItemsSatuanMaster;
         $this->renderPartial('application.views.itemsSatuanMaster._form',array("model"=>$model));

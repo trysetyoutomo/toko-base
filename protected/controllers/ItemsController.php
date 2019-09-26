@@ -641,7 +641,7 @@ class ItemsController extends Controller
 		foreach ($model as $key => $value) {
 			// $array['data']['nama'][] = $value['item_name'] ;
 			// $array['data']['stok'][] = $this->getStok($value['id'],$value['satuan_id'],$branch_id) ;
-			$stok = $this->getStok($value['id'],$value['satuan_id'],$branch_id);
+			$stok = $this->getStok($value['id'],"",$branch_id);
 			if ($stok<$value['stok_minimum']){	
 				$count++;
 				array_push($array['data'], array("barcode"=>$value['barcode'],"nama"=>$value['item_name'],"stok"=>$stok,"stok_minimum"=>$value['stok_minimum']));
@@ -776,7 +776,10 @@ class ItemsController extends Controller
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
 	
 		WHERE bmd.kode = '$id' and bk.branch_id = '$branch_id' 
-				and iss.id = '$satuan_id' and bk.status_keluar = 1
+				
+		{$querySatuan}
+
+				 and bk.status_keluar = 1
 
 
 		GROUP BY bmd.id
@@ -897,6 +900,8 @@ class ItemsController extends Controller
 	}
 
 	public static function getSatuanItems($item_id,$stok){
+		// echo $stok;
+		// exit;
 			$sqlx = " SELECT  * FROM items_satuan WHERE item_id = '$item_id' order by satuan desc";
 			 // $datastauan = ItemsSatuan::model()->findAll(" item_id = '$m[id]' ");
 			$datastauan = Yii::app()->db->createCommand($sqlx)->queryAll();
@@ -2486,7 +2491,7 @@ public function getHargamodal($id){
   			$value['nama_kategori'],
   			$value['motif'],
   			// $aksi,
-			'<a target="_blank" 
+			'<a 
 			href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
 			$satuanlist,
 

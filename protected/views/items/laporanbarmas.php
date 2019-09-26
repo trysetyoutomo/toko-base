@@ -183,7 +183,7 @@ if (isset($status_aktif) && $status_aktif!="" ){
 	<!-- <option>Pilih </option> -->
 		
 		<option <?php if($_REQUEST[tipemasuk]=='1') echo "selected" ?> value="1">SUPPLIER</option>
-		<option <?php if($_REQUEST[tipemasuk]=='0') echo "selected" ?> value="0">CABANG</option>
+		<!-- <option <?php if($_REQUEST[tipemasuk]=='0') echo "selected" ?> value="0">CABANG</option> -->
 </select>	
 <select id="cabang" name="cabang" style="display:none;padding:2px">
 		<?php 
@@ -203,8 +203,9 @@ if (isset($status_aktif) && $status_aktif!="" ){
 <select id="supplier" name="supplier" style="display:none;padding:2px">
 		<?php 
 		 // $branch = Yii::app()->user->branch();
-
-		$data = Supplier::model()->findAll();
+		$store_id = Yii::app()->user->store_id();
+		
+		$data = Supplier::model()->findAll("store_id = '{$store_id}' ");
 		foreach ($data as $key => $value) { ?>
 			<option 
 			<?php if($_REQUEST[supplier]==$value->id ) echo "selected" ?>

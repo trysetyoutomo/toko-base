@@ -3,25 +3,26 @@
 $cabang = Yii::app()->user->branch();
 
 //riwayat
-$sql = ItemsController::sqlAverage($_REQUEST['id'],$_REQUEST['satuan_id'],$cabang);
+// $sql = ItemsController::sqlAverage($_REQUEST['id'],$_REQUEST['satuan_id'],$cabang);
+$sql = ItemsController::sqlAverage($_REQUEST['id'],"",$cabang);
 // where bmd.kode = $model->id
 $model = Yii::app()->db->createCommand($sql)->queryAll();
 
 
 ?>
-
-<h1>
-<i class="fa fa-book"></i>
-    Kartu Persediaan
-</h1>
-<h2>
-    <?php 
+  <?php 
     $item = Items::model()->findByPk($_REQUEST['id']);
     $item_satuan = ItemsSatuan::model()->findByPk($_REQUEST['satuan_id']);
-    echo $item->item_name;
-    echo " - ";
-    echo $item_satuan->nama_satuan;
+    
+    // echo " - ";
+    // echo $item_satuan->nama_satuan;
     ?>
+<h1>
+<!-- <i class="fa fa-book"></i> -->
+    Kartu Persediaan #<?php echo $item->item_name;?>
+</h1>
+<h2>
+  
 </h2>
 <hr>
 <table class="items table" id="data-log">

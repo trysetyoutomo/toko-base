@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
 <style type="text/css">
 	select{
 		padding: 7px;
@@ -39,16 +41,15 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 //echo CHtml::button('Cari', array('submit' => array('sales/Salesmonthly'),'class'=>'btn btn-primary' ) );
 ?>
 &nbsp;
-<button class="btn btn-primary" type="submit">
-<!-- <i class="fa fa-search"></i> -->
-Cari</button>
+<button class="btn btn-primary" type="submit">Cari</button>
+<button type="button" class="btn btn-primary" onclick="$('#table-rekap-harian').print()">Cetak</button>
+
 <?php 
 echo CHtml::endForm();
 
 echo "<BR>";
-echo "<BR>";
 echo "<div class='grid-view'>";
-echo "<table class='items table'>";
+echo "<table class='items table' id='table-rekap-harian'>";
 echo "<thead>";
 	echo "<tr>";
 		echo "<th>No.</th>";

@@ -1401,6 +1401,10 @@ abstract class CActiveRecord extends CModel
 	 */
 	public function findAll($condition='',$params=array())
 	{
+		// $store_id = Yii::app()->user->store_id();
+		// echo "ini store :".$store_id;
+		// exit;
+
 		Yii::trace(get_class($this).'.findAll()','system.db.ar.CActiveRecord');
 		$criteria=$this->getCommandBuilder()->createCriteria($condition,$params);
 		return $this->query($criteria,true);

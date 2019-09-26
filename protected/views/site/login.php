@@ -59,8 +59,8 @@ License: You must have a valid license purchased only from templatemonster to le
 <div class="hk-pg-wrapper hk-auth-wrapper">
 	<header class="d-flex justify-content-end align-items-center">
 		<div class="btn-group btn-group-sm">
-			<a href="#" class="btn btn-outline-secondary">Help</a>
-			<a href="#" class="btn btn-outline-secondary">About Us</a>
+			<a href="tel:08986044235" class="btn btn-outline-secondary">Hubungi Saya</a>
+			<!-- <a href="#" class="btn btn-outline-secondary">About Us</a> -->
 		</div>
 	</header>
 	<div class="container-fluid">
@@ -92,7 +92,8 @@ License: You must have a valid license purchased only from templatemonster to le
 							</div>
 							<div class="form-group">
 								<div class="input-group">
-								<?php echo $form->passwordField($model,'password',array("class"=>"form-control","placeholder"=>"Password")); ?>
+								<?php echo $form->passwordField($model,'password',
+								array("class"=>"form-control","placeholder"=>"Password","style"=>"width:100%")); ?>
 							
 								<div class="input-group-append">
 										<!-- <span class="input-group-text"><span class="feather-icon"><i data-feather="eye-off"></i></span></span> -->
@@ -105,15 +106,23 @@ License: You must have a valid license purchased only from templatemonster to le
 								<input class="custom-control-input" id="same-address" type="checkbox" checked>
 								<label class="custom-control-label font-14" for="same-address">Tetap masuk</label>
 							</div>
-							<button class="btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none">Masuk</button>
-							<p class="font-14 text-center mt-15">Belum Mendaftarkan <b>Usaha</b> anda ?</p>
+							<!-- <p class="font-14 text-center mt-15">Belum Mendaftarkan <b>Usaha</b> anda ?</p> -->
 							<!-- <div class="option-sep">Silahkan daftar</div> -->
 							<div class="form-row">
+
 								<div class="col-sm-12 mb-20">
-									<a href="<?php echo Yii::app()->createUrl("stores/create") ?>" class="btn btn-danger btn-block btn-wth-icon" style="color:white"> 
-									<span class="icon-label"><i class="fa fa-user"></i> </span><span class="btn-text">
-									Daftar</span>
-								</a>
+									<input  class=" btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none;width:100%" value="masuk">
+
+								</div>
+								<div class="col-sm-12 mb-20">
+									<button href="<?php echo Yii::app()->createUrl("stores/create") ?>" class="btn btn-danger btn-block" style="color:white"> 
+									
+									<span class="icon-label"><i class="fa fa-user"></i> </span>
+									
+									<span class="btn-text">
+									Daftar
+									</span>
+								</button>
 							</div>
 								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
 							<!-- </div> -->

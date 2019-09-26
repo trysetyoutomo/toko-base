@@ -384,7 +384,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
                   <?php echo CHtml::dropDownList('discount', '0', Chtml::listdata(Diskon::model()->findAll(),'diskon','diskon'),array('class' => 'myinput')); ?> %
                   Jumlah
                   <input maxlength="2" class="myinput" type="text" value="1" name="qty" id="qty">
-                   <input style="display: inline;" type="button" value="Tambah" onClick="add_item($('#input_items').val())" class="mybutton">
+                   <input style="display: inline;" type="button" value="Tambah" onClick="add_item($('#input_items').val())" class="btn btn-primary">
 
                   <?php //echo CHtml::textField('qty', '1', array('maxlength' => '2','class' => 'myinput', 'onkeypress' => 'return runScript(event,"add_item($(''))")')); ?>
                </td>
@@ -1552,8 +1552,8 @@ $usaha = SiteController::getConfig("jenis_usaha");
 
     function list_action(act)
       {
-    var sum_sale_total = $("#sum_sale_total").html();
-    var kembalian = estimate($("#total_bayar").html())-sum_sale_total;
+      var sum_sale_total = $("#sum_sale_total").html();
+      var kembalian = estimate($("#total_bayar").html())-sum_sale_total;
     // alert(act);
           switch(act)
           {

@@ -946,6 +946,9 @@ class SalesController extends Controller {
 		$mode = "top";
 		
 		$connection = Yii::app()->db;
+		$store_id = Yii::app()->user->store_id();
+		$branch_id = Yii::app()->user->branch();
+			
 		if ($mode=='top'){
 			if (isset($_REQUEST['limit'])){	
 				$limit = " limit $_REQUEST[limit]";
@@ -975,6 +978,8 @@ class SalesController extends Controller {
 		WHERE
 		s.status = 1
 		and
+		s.branch = '$branch_id'
+		and 
 		date(s.date) >= '$tgl' and date(s.date) <= '$tgl2'
 		$filter
 
@@ -1101,7 +1106,8 @@ class SalesController extends Controller {
 			$year = intval(Date('Y'));
 		}
 		
-		
+		$branch_id = Yii::app()->user->branch();
+
 		$connection = Yii::app()->db;
 
 		$command = $connection->createCommand("SELECT dua.month_name,
@@ -1130,6 +1136,7 @@ class SalesController extends Controller {
 		WHERE 
 		i.id = si.item_id  AND YEAR(DATE)='$year' 
 		AND s.status=1 AND s.id = si.sale_id
+		and s.branch = '$branch_id'
 		GROUP BY MONTH(s.date)
 		ORDER BY DATE(s.date) ASC 
 		) AS satu RIGHT JOIN 
@@ -2342,7 +2349,7 @@ public function actionSalesoutletweekly(){
 						}else{
 							$di = new SalesItems();
 							$model_average = ItemsController::getAverage($detail['item_id'],$detail['item_satuan_id'],$branch_id);
-
+						
 							if ($model_average<=0){
 								$a = ItemsController::GetModal2($detail['item_id'],$detail['item_satuan_id'],$branch_id);
 			                    $di->item_modal = $a;
@@ -2353,14 +2360,11 @@ public function actionSalesoutletweekly(){
 							}
 						}
 
-
 						
 						// set source of item
 						$items = Items::model()->findByPk($detail['item_id']);
 						if ($items->has_bahan=="1"){
 							$this->kalkulasiBahanBaku($detail,$sales);
-						}else{ // jika tidak memiliki bahan baku maka
-
 						}
 
 
@@ -2413,20 +2417,29 @@ public function actionSalesoutletweekly(){
 							// $bkl->harga = intval($hm);
 							
 							$harga_mdl = ItemsController::getAverage($detail[item_id],$satuanUtamaID_default,Yii::app()->user->branch());
-							if ($harga_mdl<=0){
-								$satuanharga = ItemsSatuan::model()->find("item_id = '$id' and id= '$satuanUtamaID_default' ")->harga_beli;
 
-								if ($satuanharga>0){
+
+							
+							if ($harga_mdl<=0){ //jika di
+								// $satuanharga = ItemsSatuan::model()->find("item_id = '$id' and id= '$satuanUtamaID_default' ")->harga_beli;
+								$satuanharga = ItemsSatuan::model()->find("item_id = '".$detail['item_id']."' and id='".$detail['item_satuan_id']."' ")->harga_beli;
+
+								// if ($satuanharga>0){
 									$harga_mdl = $satuanharga;
-								}else{
-									$harga_mdl = 0;
-								}
+									// var_dump($harga_mdl);
+									// var_dump($detail['item_satuan_id']);
+									// var_dump($id);
+							// exit;
+								// }else{
+									// $harga_mdl = 0;
+								// }
 							}	
 
 							$bkl->harga = $harga_mdl;
 
 							$bkl->head_id = $modelh->id;
-							$bkl->satuan = $satuanUtamaID_default;
+							// $bkl->satuan = $satuanUtamaID_default;
+							$bkl->satuan = $detail['item_satuan_id'];
 							$bkl->save();	
 						}						
 
@@ -3306,7 +3319,7 @@ public function actionCetakReportAll(){
 			$row = Yii::app()->db->createCommand()
 
 
-			->select('pembayaran_via,s.id,s.date,cash,edc_bca,edc_niaga,compliment,dll,voucher ,credit_mandiri, credit_bca, SUM(cash+edc_bca+edc_niaga+compliment+dll+credit_mandiri+credit_bca) total')
+			->select('faktur_id,pembayaran_via,s.id,s.date,cash,edc_bca,edc_niaga,compliment,dll,voucher ,credit_mandiri, credit_bca, SUM(cash+edc_bca+edc_niaga+compliment+dll+credit_mandiri+credit_bca) total')
 			->from('sales s,sales_payment ')
 			->where("   year(s.date)=$year and month(s.date)=$month    and s.id = sales_payment.id and s.status = 1 and s.branch='$branch_id' ")
 			->group('s.id')

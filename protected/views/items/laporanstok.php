@@ -31,7 +31,7 @@ Laporan Stok Items</h1>
 $usaha = SiteController::getConfig("jenis_usaha");
 if ($usaha!="Toko"){
 ?>
-<button id="cetak-all-stok" class="btn btn-primary" name="cetak-all-stok">
+<button style="display: none;" id="cetak-all-stok" class="btn btn-primary" name="cetak-all-stok">
 	<i class="fa fa-print"></i>
 		Cetak
 </button>

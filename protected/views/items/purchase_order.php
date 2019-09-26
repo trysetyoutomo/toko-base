@@ -243,7 +243,9 @@
 					</td>
 					<td>
 					<select id='supplier-data' style='width:70%;padding:4px;' maxlength='15'>					
-					<?php foreach (Supplier::model()->findAll() as $s):  ?>
+					<?php
+					$store_id = Yii::app()->user->store_id();
+					 foreach (Supplier::model()->findAll(" store_id = '$store_id' ") as $s):  ?>
 					<option value='<?php echo $s->nama ?>'><?php echo $s->nama ?></option>
 					 <?php endforeach; ?>	
 					 </select>
@@ -347,7 +349,7 @@
 
 					
 
-					<label for="add-all" style="width: 200px;">
+					<label for="add-all" style="width: 200px;display: none;">
 						<input type="checkbox" name="add-all" id="add-all" > Tambah Semua						
 					</label>
 				</div>
