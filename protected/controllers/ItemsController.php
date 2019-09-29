@@ -1486,7 +1486,8 @@ public function getHargamodal($id){
 						$dm->status_pengiriman = 0;
 
 						if (!$dm->save()){
-							print_r($dm->getErrors());
+							// print_r($dm->getErrors());
+							echo json_encode(array("success"=>false,"error"=>$dm->getErrors()));
 						}
 
 

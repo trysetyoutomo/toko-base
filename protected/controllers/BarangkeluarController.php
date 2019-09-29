@@ -46,13 +46,14 @@ class BarangKeluarController extends Controller
 
 	  public static function generateKodeBKS() {
        	$store_id = Yii::app()->user->store_id();
-	    $kode = 'TRK';
+   		$store_id2 = str_pad($store_id,3,"0",STR_PAD_LEFT);
+	    $kode = $store_id2.'35K';
         $query = "SELECT
 				IFNULL(
 					CONCAT(
 						'$kode',
 						LPAD(
-							MAX(SUBSTR(kode_trx, 4, 10)) + 1,
+							MAX(SUBSTR(kode_trx, 7, 10)) + 1,
 							10,
 							'0'
 						)
@@ -61,6 +62,9 @@ class BarangKeluarController extends Controller
 				) AS urutan
 			FROM
 				barangkeluar
+				inner join 
+				branch b on b.id = barangkeluar.branch_id
+				where store_id = '$store_id'
                  ";
         $model = Yii::app()->db->createCommand($query)->queryRow();
         return $model['urutan'];

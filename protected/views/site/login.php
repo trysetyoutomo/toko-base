@@ -111,18 +111,18 @@ License: You must have a valid license purchased only from templatemonster to le
 							<div class="form-row">
 
 								<div class="col-sm-12 mb-20">
-									<input  class=" btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none;width:100%" value="masuk">
+									<input  class=" btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none;width:100%" value="masuk" />
 
 								</div>
 								<div class="col-sm-12 mb-20">
-									<button href="<?php echo Yii::app()->createUrl("stores/create") ?>" class="btn btn-danger btn-block" style="color:white"> 
+									<a href="<?php echo Yii::app()->createUrl("stores/create") ?>" class="btn btn-danger btn-block" style="color:white"> 
 									
 									<span class="icon-label"><i class="fa fa-user"></i> </span>
 									
 									<span class="btn-text">
 									Daftar
 									</span>
-								</button>
+								</a>
 							</div>
 								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
 							<!-- </div> -->
