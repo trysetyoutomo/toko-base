@@ -1725,8 +1725,6 @@ function add_item(id)
          data : 'id='+id+"&name="+name,
         success : function(data)
         {
-            // console.log(data);
-
     		$("#input_items").val("");
     		if (isbarcode==false){
                $("#e1").select2("open");
@@ -1734,11 +1732,6 @@ function add_item(id)
     		}else{
 	    		$("#input_items").focus();
     		}
-
-
-
-
-    	
 							
             var obj = jQuery.parseJSON(data);
             // alert(obj.discount_customer);
@@ -1773,8 +1766,19 @@ function add_item(id)
                 }
                 ?>
 				$("#qty").val(c);
-
         	}
+
+
+            // jika produk pulsa maka 
+            if (obj.is_pulsa=="1"){
+                // alert("123");
+                var no_hp= 0;
+                while (no_hp==0 || !isNumeric(no_hp)){       
+                    no_hp = prompt("Masukan Nomor Handphone ","08");
+                }
+            }
+
+            // end produk pulsa
 
             // alert("123")
             // alert($("#qty").val());
@@ -1884,7 +1888,7 @@ function add_item(id)
                 panjang:obj.panjang,
                 ketebalan:obj.ketebalan,
                 is_paket:obj.is_paket,
-                permintaan:"-",
+                permintaan:no_hp,
                 kode:obj.kode
             
             });

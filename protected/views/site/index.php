@@ -104,7 +104,10 @@ $usaha = SiteController::getConfig("jenis_usaha");
      }
 </style>
    <?php 
-    $this->renderPartial("application.views.items.inc-pencarian-items");
+     $model = Items::model()->data_items("ALL");
+    $this->renderPartial("application.views.items.inc-pencarian-items",
+      array("model"=>$model)
+    );
    ?>
    <script>
       $(document).ready(function(){
@@ -215,8 +218,8 @@ $usaha = SiteController::getConfig("jenis_usaha");
                   vouchernominal = 0;
               }
               var setelahvouchernominal = subtotal - vouchernominal;
-              var nilai_tax = "<?php echo Parameter::model()->findByPk('1')->pajak ?>";
-              var nilai_service = "<?php echo Parameter::model()->findByPk('1')->service ?>";
+              var nilai_tax = "<?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->pajak ?>";
+              var nilai_service = "<?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->service ?>";
               var real_tax = nilai_tax / 100;
               var real_service = nilai_service / 100;
               var vtax = setelahvouchernominal * real_tax;
@@ -234,8 +237,8 @@ $usaha = SiteController::getConfig("jenis_usaha");
                   vouchernominal = 0;
               }
               var setelahvouchernominal = subtotal - vouchernominal;
-              var nilai_tax = "<?php echo Parameter::model()->findByPk('1')->pajak ?>";
-              var nilai_service = "<?php echo Parameter::model()->findByPk('1')->service ?>";
+              var nilai_tax = "<?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->pajak ?>";
+              var nilai_service = "<?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->service ?>";
               var real_tax = nilai_tax / 100;
               var real_service = nilai_service / 100;
               var vtax = setelahvouchernominal * real_tax;

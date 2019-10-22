@@ -23,11 +23,7 @@
     echo "<br>";
     ?>
   </h1>
-  <h2>
-  <?php
-    echo Branch::model()->findByPk($branch_id)->address;
-    ?>
-    </h2>
+  <h3><?php echo Branch::model()->findByPk($branch_id)->address; ?></h3>
     <br>
  
 </div>

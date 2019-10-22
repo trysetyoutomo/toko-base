@@ -34,7 +34,8 @@
    }
 </style>
 <?php 
-   $this->renderPartial('inc-pencarian-items');
+  $model = Items::model()->data_items("ALL");
+   $this->renderPartial('inc-pencarian-items',array('model'=>$model));
    ?>
 <!-- 
    <div id="wrap-selisih" style="display: none;">
@@ -136,7 +137,7 @@
   ?>
 <div class="row">
    <div class="col-sm-6">
-      <h1> <i class="fa fa-book"></i>Pembelian</h1>
+      <h1> <i class="fa fa-book"></i>&nbsp;Pembelian</h1>
       <table border="0" cellpadding="0" id="trx-b-masuk" >
          <tr>
             <td colspan="4">
@@ -262,7 +263,9 @@
             </td>
          </tr>
       </table>
-      <h2>Ringkasan</h2>
+      <legend>
+      <h2><b>Ringkasan</b></h2>
+      </legend>
       <table>
          <tr>
             <td>
@@ -307,13 +310,13 @@
       </table>
    </div>
 
-   <div class="col-sm-6" style="margin-top:65px;border-left: 2px solid gray;min-height: 100vh">
+   <div class="col-sm-6" style="margin-top:65px;">
       <!-- kolom kedua -->
       <div class="">
          <div class="" >
             <input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
             <div class="data-table">
-               <legend style="font-weight:bolder">Masukan Item</legend>
+               <legend style="font-weight:bolder">Keranjang</legend>
                <?php 
                   $dataa = CHtml::listdata(Items::model()->findAll("hapus = 0 "),'id','item_name'); 
                   $array = array();
@@ -333,7 +336,7 @@
                <div class="row">
                   <label for="jumlah" style="margin-left: 10px;">Jumlah</label>
                   <?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
-                  <button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke Table</button>
+                  <button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke keranjang</button>
                </div>
                <hr>
             </div>
@@ -491,16 +494,30 @@
       ?>
    });
    
-   	$(document).on('keydown', '#nama', function(e) {
-   		// e.preventDefault();
-   		if (e.keyCode==13 || e.which==13){
-   			 
-   			 add_item($('#nama').val());
-   				$(this).val("");
-   				$("#nama").focus(); 
-   		}
+    $(document).on('keydown', '#nama', function(e) {
+      // e.preventDefault();
+      if (e.keyCode==13 || e.which==13){
+         
+         add_item($('#nama').val());
+          $(this).val("");
+          $("#nama").focus(); 
+      }
    
-   	});
+    });
+    //class="jumlah"
+    $(document).on('keydown', '.jumlah,.harga', function(e) {
+        if (e.keyCode==13 || e.which==13){
+            $("#total-bayar").focus();
+            $("#total-bayar").selectAll();
+        }      
+    });
+    $(document).on('keydown', '#total-bayar', function(e) {
+         if (e.keyCode==13 || e.which==13){
+            kirim();
+         }
+    });
+
+
    	 $(document).on("change","#e1",function(e){
           var item_id = $("#e1").val();
           if (item_id!=''){
@@ -805,8 +822,13 @@
    					var bayar = $("#total-bayar").val();
    					var kembali = $("#total-kembali").attr("asli");
    
-   					// al
+   					// alclass="jumlah"
    					
+
+            // if (parseInt(bayar) <= 0){
+            //   alert("");
+            //   return;              
+            // }
    
    					if (isbayar=="1"){
    						if (faktur==""){
@@ -912,7 +934,7 @@
    						 
    						var kembali = $("#total-kembali").attr("asli");
    						if (kembali<0){
-   							alert(" Total bayar dibawah total semua barang, sisa dari pembelian akan disimpan ke data piutang")
+   							alert(" Pembayaran dibawah harga total barang, sisa dari pembelian akan disimpan ke data piutang");
    						}
    						if (confirm("Yakin ?")==false){return}
    

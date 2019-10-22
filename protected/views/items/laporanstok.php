@@ -22,7 +22,11 @@ $this->renderPartial('application.views.site.main');
 ?>
 
 <h1><i class="fa fa-book"></i>
-Laporan Stok Items</h1>
+	Laporan Stok
+</h1>
+<h4>
+	Stok items tidak sesuai ?? sesuaikan <a href="<?php echo Yii::app()->createUrl("sales/laporanstok") ?>">disini</a>
+</h4>
 <br>
 
 
@@ -214,9 +218,9 @@ $(document).ready(function(){
 
             [  
               {
-                title: "Barcode ",
-                name:'barcode',
-                "searchable":true,                
+                title: "No ",
+                name:'nomor',
+                "searchable":false,                
               },
               {
                 title: "Kategori ",

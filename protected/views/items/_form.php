@@ -1,6 +1,7 @@
 	
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/selectric/public/jquery.selectric.min.js"></script>
 
 <style type="text/css">
 	/*table{
@@ -16,6 +17,14 @@
 <script type="text/javascript">
 	generateBarcodeAction();
 
+	$(document).on("change","#Items_is_pulsa",function(e){
+		var val = $(this).val();
+		// alert(val);
+		if (val=="0")
+			$("#row-provider").hide();
+		else	
+			$("#row-provider").show();
+	});
 	$(document).on("change","#Items_is_bahan",function(e){
 		// alert("123");
 		var val = $(this).val();
@@ -291,7 +300,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 				<?php 
 				// if ($model->isNewRecord){
 				?>
-					<tr > 
+					<tr style="display: none;" > 
 					<td><label>Letak</label></td>
 					<td><?php echo $form->dropDownList($model,'letak_id', $letak, array('empty' => 'Pilih ','separator'=>'|','class'=>'form-control'))?></td>
 					<TD>
@@ -509,34 +518,74 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
                 else
                 	$style = 'style="display: block;" ';
                 ?>
-                   <tr id="row_is_bahan" >
-					<td><?php echo $form->labelEx($model,'is_bahan'); ?></td>
-	              <td><?php echo $form->dropDownList($model,'is_bahan',
-	              array(
-	              	'0'=>'Tidak',
-	              	'1'=>'Ya')
-              	  ); ?></td>
-	                  <td><?php echo $form->error($model,'is_bahan'); ?></td>
-                </tr>
-                 <tr id="row_has_bahan">
-					<td><?php echo $form->labelEx($model,'has_bahan'); ?></td>
-	              <td><?php echo $form->dropDownList($model,'has_bahan',
-	              array(
-	              	'0'=>'Tidak',
-	              	'1'=>'Ya')
-              	  ); ?></td>
-	                  <td><?php echo $form->error($model,'has_bahan'); ?></td>
-                </tr>
-                 <tr style="display: none;" >
-					<td><?php echo $form->labelEx($model,'is_stockable'); ?></td>
-	              <td><?php echo $form->dropDownList($model,'is_stockable',
-	              array(
-	              	'1'=>'Ya',
-	              	'0'=>'Tidak'
-	              	)
-              	  ); ?></td>
-	                  <td><?php echo $form->error($model,'is_stockable'); ?></td>
-                </tr>
+
+                	<?php 
+				$usaha = SiteController::getConfig("jenis_usaha");
+				if ($usaha=="Restauran"){
+				?>
+		                   <tr id="row_is_bahan" >
+							<td><?php echo $form->labelEx($model,'is_bahan'); ?></td>
+			              <td><?php echo $form->dropDownList($model,'is_bahan',
+			              array(
+			              	'0'=>'Tidak',
+			              	'1'=>'Ya')
+		              	  ); ?></td>
+			                  <td><?php echo $form->error($model,'is_bahan'); ?></td>
+		                </tr>
+		                 <tr id="row_has_bahan">
+							<td><?php echo $form->labelEx($model,'has_bahan'); ?></td>
+			              <td><?php echo $form->dropDownList($model,'has_bahan',
+			              array(
+			              	'0'=>'Tidak',
+			              	'1'=>'Ya')
+		              	  ); ?></td>
+			                  <td><?php echo $form->error($model,'has_bahan'); ?></td>
+		                </tr>
+		                 <tr style="display: none;" >
+							<td><?php echo $form->labelEx($model,'is_stockable'); ?></td>
+			              <td><?php echo $form->dropDownList($model,'is_stockable',
+			              array(
+			              	'1'=>'Ya',
+			              	'0'=>'Tidak'
+			              	)
+		              	  ); ?></td>
+			                  <td><?php echo $form->error($model,'is_stockable'); ?></td>
+		                </tr>
+            	<?php } ?>
+
+            	<?php  if ($usaha=="Konter"){ ?>
+            		 <tr id="row_is_pulsa" >
+							<td><?php echo $form->labelEx($model,'is_pulsa'); ?></td>
+			              <td><?php echo $form->dropDownList($model,'is_pulsa',
+			              array(
+			              	'0'=>'Tidak',
+			              	'1'=>'Ya'
+			              ),array("class"=>"form-control")
+
+		              	  ); ?></td>
+			                  <td><?php echo $form->error($model,'is_pulsa'); ?></td>
+		                </tr>
+
+		                <?php 
+							$data_provider = Provider::model()->findAll();
+							$data_provider = CHtml::listData($data_provider,'id','nama_provider');
+
+		                ?>
+		                 <tr id="row-provider"  style="display: none;">
+							<td><?php echo $form->labelEx($model,'provider_id'); ?></td>
+			              <td><?php echo $form->dropDownList($model,'provider_id',$data_provider,array("class"=>"form-control")
+		              	  ); ?></td>
+			                  <td><?php echo $form->error($model,'provider_id'); ?></td>
+		                </tr>
+
+            	<?php  } ?>
+
+				
+
+
+
+
+
                 <!-- <tr> -->
                   <?php 
 

@@ -66,7 +66,10 @@ class BarangKeluarController extends Controller
 				branch b on b.id = barangkeluar.branch_id
 				where store_id = '$store_id'
                  ";
+                 // echo $query;
+                 // exit;
         $model = Yii::app()->db->createCommand($query)->queryRow();
+
         return $model['urutan'];
     }
 

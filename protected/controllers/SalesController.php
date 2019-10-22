@@ -65,7 +65,7 @@ class SalesController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
+                'actions' => array('laporanpulsa','TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -227,6 +227,12 @@ class SalesController extends Controller {
     	// $this->layout = "main2";
     	$this->render('rekapkasir', array());
     }
+
+	public function actionLaporanPulsa(){
+    	// $this->layout = "main2";
+    	$this->render('laporanpulsa', array());
+    }
+
      public function actionRekapdetail(){
     	// $this->layout = "main2";
     	$this->render('rekapkasirdetail', array());

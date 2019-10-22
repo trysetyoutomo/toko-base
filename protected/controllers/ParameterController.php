@@ -88,25 +88,46 @@ class ParameterController extends Controller
 		$store_id = Yii::app()->user->store_id();
 		// $model=$this->loadModel($id);
 		$model = Parameter::model()->find("store_id = '{$store_id}' ");
+		if ($model){
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+			// Uncomment the following line if AJAX validation is needed
+			// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Parameter']))
-		{
-			$model->attributes=$_POST['Parameter'];
-			if($model->save()){
-				echo "<script>
-					alert('update parameter sukses');
-					// window.location.reload();
-				</script>";
-				// $this->redirect(array('update','id'=>$model->id));
+			if(isset($_POST['Parameter']))
+			{
+				$model->attributes=$_POST['Parameter'];
+				if($model->save()){
+					echo "<script>
+						alert('update parameter sukses');
+						// window.location.reload();
+					</script>";
+					// $this->redirect(array('update','id'=>$model->id));
+				}
 			}
-		}
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+			$this->render('update',array(
+				'model'=>$model,
+			));
+		}else{
+			$prm = new Parameter;
+			$prm->store_id = $store_id ;
+			$prm->pajak = 0 ;
+			$prm->meja = 0;
+			$prm->service = 0 ;
+			$prm->printer_utama = "Star TSP100 Cutter (TSP143) (Copy 1)" ;
+			$prm->qty_cb = 2;
+			$prm->cetak_per_ketegori =  1;
+			$prm->drawer = 1;
+			$prm->gambar =  "35_POS_LOGO.png";
+			$prm->gambar_putih =  "35_POS_LOGO.png";
+			if ($prm->save()){
+
+				$this->render('update',array(
+					'model'=>$prm,
+				));
+			}
+
+		}
 	}
 
 	/**

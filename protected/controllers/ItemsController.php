@@ -746,7 +746,7 @@ class ItemsController extends Controller
 		// var_dump($branch_id);
 		// $satuan_id 
 		$sql = "
-		SELECT bm.tanggal tanggal, bm.tanggal nama, bmd.harga harga, bmd.jumlah, bm.jenis jenis, concat(bm.keterangan,' - ID ',bm.id) keterangan
+		SELECT bm.tanggal tanggal, bm.tanggal nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan, bm.jenis jenis, concat(bm.keterangan,' - ID ',bm.id) keterangan
 		FROM barangmasuk bm
 		INNER JOIN barangmasuk_detail bmd ON bm.id = bmd.head_id
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
@@ -759,18 +759,9 @@ class ItemsController extends Controller
 
 		UNION
 
-		#SELECT s.date tanggal,s.id nama, si.item_modal, si.quantity_purchased,s.jenis jenis, concat(s.comment,' - ID ',s.id) keterangan 
-		#FROM sales s
-		#INNER JOIN sales_items si ON si.sale_id = s.id 
-		#INNER JOIN items_satuan iss on iss.id = si.item_satuan_id
-		#AND si.item_id = '$id'
-		#where  s.branch = '$branch_id'
-		#and iss.id = '$satuan_id' and s.status <> 2 
 		
-		
-		#UNION	
 
-		SELECT bk.tanggal tanggal, bk.id nama, bmd.harga harga, bmd.jumlah,bk.jenis jenis,bk.keterangan keterangan
+		SELECT bk.tanggal tanggal, bk.id nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan,bk.jenis jenis,bk.keterangan keterangan
 		FROM barangkeluar bk
 		INNER JOIN barangkeluar_detail bmd ON bk.id = bmd.head_id
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
@@ -785,12 +776,12 @@ class ItemsController extends Controller
 		GROUP BY bmd.id
 		
 		UNION 
-		#FROM PAKET#
 
 		SELECT
 		s.date tanggal,
 		s.id nama,
 		si.item_modal,
+		si.quantity_purchased,
 		si.quantity_purchased,
 		s.jenis jenis,
 		concat(s. COMMENT, ' - ID ', s.id) keterangan
@@ -811,6 +802,16 @@ class ItemsController extends Controller
 		// exit;
 		return $sql;
 	}
+	#SELECT s.date tanggal,s.id nama, si.item_modal, si.quantity_purchased,s.jenis jenis, concat(s.comment,' - ID ',s.id) keterangan 
+		#FROM sales s
+		#INNER JOIN sales_items si ON si.sale_id = s.id 
+		#INNER JOIN items_satuan iss on iss.id = si.item_satuan_id
+		#AND si.item_id = '$id'
+		#where  s.branch = '$branch_id'
+		#and iss.id = '$satuan_id' and s.status <> 2 
+		
+		
+		#UNION	
 	public static function GetStok($id,$satuan_id,$branch_id){
 		$sql = ItemsController::sqlAverage($id,$satuan_id,$branch_id);
 		// echo $sql;
@@ -831,11 +832,9 @@ class ItemsController extends Controller
 			endif;
 		
 		}
-		return $qty_awal;
-
-
-		
+		return $qty_awal;		
 	}
+
 	public static function ActionAverage($id,$val){ // mendapatkan via ajax
 		$av = ItemsController::getAverage($id);
 		$one = $av *0.01; // untung 1 %
@@ -915,7 +914,7 @@ class ItemsController extends Controller
 			$return = "";
 			foreach ($datastauan as $key => $value) {
 			
-				$return .= $value['nama_satuan']." :"." ";			
+				$return .= $value['barcode']." - ".$value['nama_satuan']." :"." ";			
 				$satuan = $value['nama_satuan'];
 				$satuan_jml = $value['satuan'];
 				// echo $stok2 . " - ". $stok;
@@ -1404,8 +1403,8 @@ public function getHargamodal($id){
 			$this->render('pengeluaranbaru');
 		}
 		public function actionProsesrusakbarang(){
-			// print_r($_REQUEST);
-			// exit;
+			$transaction = Yii::app()->db->beginTransaction();
+
 			$nilai = $_REQUEST['jsonObj'];
 			$head = $_REQUEST['head'];	
 
@@ -1417,7 +1416,7 @@ public function getHargamodal($id){
 			$modelh->jenis = "keluar";
 			$modelh->jenis_keluar = $_REQUEST['head']['jeniskeluar'];
 			$modelh->keterangan = $_REQUEST['head']['keterangan'];
-			$modelh->kode_trx = $_REQUEST['head']['kode_trx'];
+			$modelh->kode_trx = BarangKeluarController::generateKodeBKS();
 			$modelh->branch_id = Yii::app()->user->branch();
 			$modelh->keluar_ke = $_REQUEST['head']['cabang'];
 
@@ -1446,10 +1445,20 @@ public function getHargamodal($id){
 					// if ($nilai>)
 					foreach ($nilai as $n){
 						$nilai = explode("-", $n['idb']);
+						// var_dump($nilai);
 						$barcode = $nilai[0];
 						$satuan_id = $nilai[1];
-						$item = Items::model()->find("barcode = '$barcode' ");
-						$id = $item->id;
+
+						$itemsSatuan  = ItemsSatuan::model()->find("barcode='$barcode' ");
+						// $item = Items::model()->find("barcode = '$itemsSatuan->barcode' ");
+						
+						// $id = $item->id;
+						$id = $itemsSatuan->item_id;
+						// var_dump($id);
+						// exit;
+
+
+
 
 						// simpan detai barang keluar
 						$model = new BarangKeluarDetail;
@@ -1458,7 +1467,7 @@ public function getHargamodal($id){
 						
 						$harga_mdl = ItemsController::getAverage($id,$satuan_id,Yii::app()->user->branch());
 						if ($harga_mdl<=0){
-							$satuanharga = ItemsSatuan::model()->find("item_id = '$id' and id= '$satuan_id' ")->harga_beli;
+							$satuanharga = ItemsSatuan::model()->find("item_id = '$id' and id='$satuan_id' ")->harga_beli;
 
 							if ($satuanharga>0){
 								$harga_mdl = $satuanharga;
@@ -1472,7 +1481,9 @@ public function getHargamodal($id){
 						$model->head_id = $modelh->id;
 						$model->satuan = $satuan_id;
 						if (!$model->save()){
-							print_r($model->getErrors());
+							// print_r($model->getErrors());
+							echo json_encode(array("success"=>false,"error"=>$model->getErrors()));
+							exit;
 						}
 
 						//simpan detail barang masuk
@@ -1488,12 +1499,14 @@ public function getHargamodal($id){
 						if (!$dm->save()){
 							// print_r($dm->getErrors());
 							echo json_encode(array("success"=>false,"error"=>$dm->getErrors()));
+							exit;
 						}
 
 
 
 					}
 				}
+				$transaction->commit();	
 				echo json_encode(array("success"=>true));
 			}else{
 				// print_r();
@@ -1684,8 +1697,13 @@ public function getHargamodal($id){
         	$id = explode("-", $id);
         	$satuan_id = $id[1];
         	$id  = $id[0];
-            $ms = ItemsSatuan::model()->find("barcode = '$id'");	
-            $id = $ms->item_id;
+            $ms = ItemsSatuan::model()->find("barcode = '$id'");
+            $id =  $ms->item_id;
+
+            // echo count($ms);
+            // exit;	
+
+            // $id = $ms->item_id;
             // var_dump($id);
             // exit;
             // $m = Items::model()->findByPk($m->id);
@@ -1702,6 +1720,7 @@ public function getHargamodal($id){
 						m.nama nama_sub_kategori,
 						'0' as service_angka,
 						'0' as pajak_angka,
+						is_pulsa as is_pulsa,
 						-- iisp.price as harga_jual,
 						#iis.harga as harga_jual,
 						iis.harga as harga_jual,
@@ -1719,6 +1738,7 @@ public function getHargamodal($id){
 						
 					group by iis.id";
 					// echo $query;
+					// exit;
 			$m = Yii::app()->db->createCommand($query)->queryRow();
 
 
@@ -1744,17 +1764,21 @@ public function getHargamodal($id){
 			$priceDetail = Yii::app()->db->createCommand($priceDetail)->queryAll();
 
 
-			// echo "<pre>";
-			// print_r($mDetail);
-			// echo "</pre>";
-			// exit;
 			$branch_id = Yii::app()->user->branch();
 
-
+			// echo 
 			$stoknow = ItemsController::getStok($m['id'],$m['nama_satuan_id'],$branch_id);
+
+			$itemsSatuan = ItemsSatuan::model()->findByPk($m['nama_satuan_id']);
+			$stoknow = $stoknow / $itemsSatuan->satuan;			
+
+
+			// var_dump($stoknow);
+			// exit;
             $model2 = array();
              if (count($m)>0){
 	        	$model2['stok']  = $stoknow ;
+	        	$model2['is_pulsa']  = $m['is_pulsa'] ;
 	        	$model2['service_angka']  = $m['service_angka'] ;
 	        	$model2['pajak_angka']  = $m['pajak_angka'] ;
 	        	$model2['nama_kategori']  = $m['nama_kategori'] ;
@@ -1945,7 +1969,7 @@ public function getHargamodal($id){
             
         public function actionCheckBarcode($id)
         {
-            $m = Items::model()->find("barcode = '$id' ");
+            $m = ItemsSatuan::model()->find("barcode = '$id' ");
         if (count($m)!=0){
 	            // echo json_encode($model->getAttributes(array('lokasi','id','item_name','item_number','unit_price','tax_percent','total_cost','discount')));
 	         // $m = Items::model()->findByPk($id);
@@ -2014,6 +2038,30 @@ public function getHargamodal($id){
    }
    public function actionGenerateBarcodeAction(){
    		echo self::generateBarcode();
+   }
+
+    public function actionImportFromItems(){
+    	// echo "123";
+    	$model = Items::model()->findAll();
+    	foreach ($model as $key => $value) {
+    		$bcd = $this->generateBarcode();
+    		$ItemsSatuan = ItemsSatuan::model()->find("item_id = '$value->id' ");
+
+    		if ($ItemsSatuan->barcode!=""){
+	    		$ItemsSatuan->barcode = $bcd;
+	    		$ItemsSatuan->update();
+
+				$ib = new ItemsBarcode;
+				$ib->barcode = $bcd;
+				$ib->store_id = Yii::app()->user->store_id();
+				$ib->save();
+    		} 
+
+
+
+    		
+    	}
+   		// echo self::generateBarcode();
    }
 
 
@@ -2468,7 +2516,7 @@ public function getHargamodal($id){
   	$rawData = Yii::app()->db->createCommand($query)->queryAll();
   	$array = array();
 
-
+  	$no = 1;
   	foreach ($rawData as $key => $value) {
 		$stok = ItemsController::getStok($value['id'],"",$branch_id);
 		// echo $stok;
@@ -2488,7 +2536,8 @@ public function getHargamodal($id){
 
 
   		$json = array(
-  			$value['barcode'],
+  			// $value['barcode'],
+  			$no++,
   			$value['nama_kategori'],
   			$value['motif'],
   			// $aksi,
@@ -2502,6 +2551,7 @@ public function getHargamodal($id){
   			array_push($json, $input);
   		}
   		array_push($array, $json);
+
   	}
   	return $array;
   }

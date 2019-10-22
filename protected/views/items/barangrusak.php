@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
 <style type="text/css">
+  #shorcut nav ul li {
+      display: block;
+      float: left;
+      font-size: 15px;
+      padding: 7px;
+  }
    .stok-stokan tr td{
    border:1px solid transparent!important;
    }
@@ -32,7 +38,7 @@
    }
    #full-screen{
    display: none;
-   width: 100%;
+   ;
    height: 100%;
    z-index: 999;
    background-color: rgba(0,0,0,0.4);
@@ -69,30 +75,28 @@
    cursor: pointer;
    }
    #s2id_e1{
-   width: 100%;
+   ;
    }
 </style>
 <script type="text/javascript">
-   function list_action(act)
-         {
-         	 switch(act)
-             {
-             	   case 113 :
-   
-                     $("#full-screen").show();
-                     $("#wrapper-item-search").show();
-                     $("#e1").select2("open");
-   
-                     // alert('123');
-                     break;
-                   case 27:
-   
-                     $("#full-screen").hide();
-                     $("#wrapper-item-search").hide();
-                   break;
-                }
-   
-         }
+  function list_action(act){
+   	 switch(act)
+       {
+           case 112 :
+               alert("123");
+               break;
+       	   case 113 :
+               $("#full-screen").show();
+               $("#wrapper-item-search").show();
+               $("#e1").select2("open");
+               break;
+           case 27:
+               $("#full-screen").hide();
+               $("#wrapper-item-search").hide();
+             break;
+          }
+
+   }
    
    
    	$(document).ready(function(){
@@ -103,12 +107,22 @@
    		    // alert(this.text + ' ' + this.value);
    		// });
    
+      $('.close').click(function(event){
+        $("#full-screen").hide();
+        $("#wrapper-item-search").hide();
+        $("#e1").select2("close");
+      });
+
+       $('body').keyup(function(e){
+        // alert(e.which);
+        if(e.which === 114 || e.which === 112) {
+         return false;   
+        }
+      });
+       
    		$('body').keydown(function(event){
    			var message = "";
-   	    // var message = '<BR>ada tombol yg di pencet gan!, keyCode = ' + event.keyCode + ' which = ' + event.which;
-   	    // alert(event.keyCode);
              if (event.keyCode>=0 || event.charCode>=0 || event.which>=0 ){
-               // alert("123");
                  message = message + '<BR>F1 - F12 / enter pressed';
                  list_action(event.keyCode);
              }else{
@@ -117,7 +131,6 @@
                  // message = message + '<BR>key other than F1 - F12 pressed';
              }
    
-             //print pesan
              $('#msg-keypress').html(message)
    
          });
@@ -151,19 +164,35 @@
 </script>
 <br>
 <?php 
-$this->renderPartial('inc-pencarian-items');
+$model = Items::model()->data_items("ALL");
+$this->renderPartial('inc-pencarian-items',array("model"=>$model));
 ?>
 
-<h1> <i class="fa fa-book"></i> Transaksi Barang Keluar</h1>
+<h1> <i class="fa fa-book"></i>Barang Keluar</h1>
+<hr>
 <div class="row">
-<div class="col-sm-5">
+  <div class="col-sm-12 alert alert-success " role="alert">
+    <div id="shorcut"  >
+      <nav   >
+
+        <ul style="font-size: 5px;width: 100000000000px;float: left;">
+          <li>Esc = Batal </li>
+          <li> F2 = Pilih Item </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+<div>
+
+<div class="row" >
+<div class="col-sm-3">
 <table  cellpadding="10" id="trx-b-keluar">
 <tr>
  <td>
     Tanggal Transaksi			
  </td>
  <td>
-    <input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px;width: 100%" name="tanggal" id="tanggal">
+    <input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px;" name="tanggal" id="tanggal">
  </td>
 </tr>
 <tr>
@@ -171,15 +200,15 @@ $this->renderPartial('inc-pencarian-items');
     Kode Transaksi			
  </td>
  <td>
-    <input readonly="" type="text" value="<?php echo BarangKeluarController::generateKodeBKS(); ?>" style="display:inline;padding:5px;width: 100%"  id="kode_trx">
+    <input readonly="" type="text" value="<?php echo BarangKeluarController::generateKodeBKS(); ?>" style="display:inline;padding:5px;"  id="kode_trx">
  </td>
 </tr>
 <tr>
  <td>
-    Jenis Keluar	
+    Alasan Keluar	
  </td>
  <td>
-    <select name="jeniskeluar" id="jeniskeluar" style="width: 100%">
+    <select name="jeniskeluar" id="jeniskeluar" >
        <?php 
           $data = JenisKeluar::model()->findAll();
           foreach ($data as $key => $value) {
@@ -188,6 +217,7 @@ $this->renderPartial('inc-pencarian-items');
           value="<?php echo $value->nama ?>"><?php echo $value->nama ?></option>
        <?php } ?>
     </select>
+
  </td>
 </tr>
 <tr class="row-keluar-ke" style="display: none;">
@@ -215,12 +245,20 @@ $this->renderPartial('inc-pencarian-items');
     Keterangan
  </td>
  <td>
-    <textarea id="keterangan" style=";width:403px;height:70px">-</textarea>
+    <textarea id="keterangan" style="height:70px;width:160px">-</textarea>
  </td>
+
 </tr>
+<tr>
+  <td colspan="2" align="left"> 
+     <button onclick="kirim()" class="btn btn-primary">Simpan Transaksi</button>
+
+  </td>
+<tr>
+
 </table>
 </div>
-<div class="col-sm-7">
+<div class="col-sm-9 ">
 <input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
 <div class="data-table">
  <h2>Masukan Items</h2>
@@ -228,7 +266,7 @@ $this->renderPartial('inc-pencarian-items');
  <div class="row">
     <label for="nama" >Nama</label>
     <input type="text" name="nama" id="nama">
-    <label for="add-all" style="width: 200px;">
+    <label for="add-all" style="width: 200px;display: none;">
     <input type="checkbox" id="add-all" name="add-all" > Tambah Semua						
     </label>
     <?php //echo CHtml::dropDownList('nama', '1', Items::model()->data_items("BAHAN"),array('class'=>'form -control','style'=>'width:450px;')  );
@@ -246,9 +284,10 @@ $this->renderPartial('inc-pencarian-items');
        <h3 class="icon chart">Tabel Penjualan Barang</h3>		
        </div> -->
     <div class="widget-content">
-       <table style="width:100%" id="users" class="table table-bordered table-striped">
+       <table style="" id="users" class="table table-bordered table-striped">
           <thead>
              <tr>
+                <th>Satuan</th>
                 <th>Kategori</th>
                 <th>Sub Kategori</th>
                 <th>Nama Item</th>
@@ -264,6 +303,9 @@ $this->renderPartial('inc-pencarian-items');
              </tr>
           </thead>
           <tbody>
+            <tr class="td-null">
+                <td align="center" colspan="8" style="color:red;font-style:italic">Item belum tersedia</td>
+            </tr>
              <?php //foreach($model as $d):?>
              <!--<tr class="gradeA">
                 <td><?php //echo $d->id; ?></td>
@@ -282,7 +324,6 @@ $this->renderPartial('inc-pencarian-items');
     <!-- .widget-content -->
  </div>
  <!-- .widget -->
- <button onclick="kirim()" class="btn btn-primary">Simpan</button>
 </div>
 </div> <!-- .grid -->
      <script>
@@ -300,7 +341,7 @@ $this->renderPartial('inc-pencarian-items');
             	 //         minimumInputLength: 2,
             		// });
             
-            	$("#jeniskeluar").select2();
+            	//$("#jeniskeluar").select2();
                       // $("#nama").select2("open");
             
             	$(document).on('click', '.hapus', function(e) {
@@ -325,7 +366,13 @@ $this->renderPartial('inc-pencarian-items');
             			var count = $('.pk[nilai="'+val+'"]').length;
             			if (count==0){
             				// data_stok = " ";
-            				appendToBaris(d,val,stok.val());
+                    // alert(val);
+                    // if (!isNaN(val)) { 
+                      appendToBaris(d,val,stok.val());
+                    // }else{
+                    //   alert("Silahkan pilih item terlebih dahulu");
+                    //   return false;
+                    // }
             			}
             			else{
             				var now = $('.pk[nilai="'+val+'"]').closest('.baris').find('.jumlah').val();
@@ -342,9 +389,10 @@ $this->renderPartial('inc-pencarian-items');
             		}
             }
             function appendToBaris(d,barcode,jumlah){
-            
+              $(".td-null").remove();
             	$('#users tbody').append(
             		"<tr class='baris'>" +
+                  "<td>"+d.nama_satuan+"</td>"+
             			"<td>"+d.nama_kategori+"</td>"+
             			"<td>"+d.nama_sub_kategori+"</td>"+
             			"<td style='display:none' class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
@@ -421,6 +469,7 @@ $this->renderPartial('inc-pencarian-items');
             		var jml = $(this).find('.jumlah').val();
             		
             		var kode = $(this).find('.kode').val();
+                // alert(kode);
             		var status = $(this).find('.statusbarang').val();
             		var harga = $(this).find('.harga').val();
             		
@@ -436,7 +485,7 @@ $this->renderPartial('inc-pencarian-items');
             	});
             	// alert(JSON.stringify(jsonObj));
             	// exit;
-            	// alert(JSON.stringify(jsonObj));
+            	// alert(JSON.stringify(jsonObj));idb
             		 
             		 $.ajax({
             			url: '<?php echo Yii::app()->createAbsoluteUrl('items/prosesrusakbarang'); ?>', 

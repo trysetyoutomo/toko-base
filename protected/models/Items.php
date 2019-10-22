@@ -47,11 +47,15 @@ class Items extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('is_stockable,satuan_id,has_bahan,is_bahan,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
+			// is_stockable
+// is_bahan
+			// has_bahan
+			array('is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
 
-
-			array('is_stockable,is_bahan,has_bahan,panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required','on'=>'update','message'=>'{attribute} tidak boleh kosong'),
+// is_stockable,is_bahan,has_bahan,
+			array('panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required','on'=>'update','message'=>'{attribute} tidak boleh kosong'),
 			array('persentasi,modal,category_id, tax_percent, total_cost, discount, status', 'numerical', 'integerOnly'=>true),
+
 			// array('barcode', 'unique','message'=>'Kode telah ada, tidak boleh sama '),
 			// array('gambar', 'file'),
 			array('item_name', 'length', 'max'=>30),
@@ -316,6 +320,8 @@ $data[$item['barcode']."-".$item['satuan_id']] = trim($item['barcode'])." - ".tr
 			'persentasi' => 'Persentasi Keuntungan ',
 			'motif' => 'Sub Kategori ',
 			'iskembali' => 'iskembali ',
+			'is_pulsa' => 'Produk Pulsa ? ',
+			'provider_id' => 'Nama Provifer',
 		);
 	}
 

@@ -62,10 +62,10 @@
   </style>
 </head>
 <?php  
-$service =  Parameter::model()->findByPk(1); 
+$service =  Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' "); 
 $service =  $service->service;
 
-$parameter = Parameter::model()->findByPk(1);
+$parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ");
 ?> 
 <input type="text" value="<?=$service?>" id="parameter-service" style="display:none"/>
 <input id="parameter-pajak" type="text" value="<?=$parameter->pajak?>" style="display:none"/>
@@ -100,7 +100,7 @@ $parameter = Parameter::model()->findByPk(1);
 		<div class="admin-bar" style="float: right;width: 250px;position: absolute;right: 20px;text-align:center">
             <ul>
                 <li><a href="#" id="data-user"><?php echo Yii::app()->user->name; ?></a></li>
-				<li><a href="<?php echo $this->createUrl('sales/index');?>">Laporan</a></li>
+				<li><a href="<?php echo $this->createUrl('sales/index');?>">Pengaturan</a></li>
 				 <!-- <li><a href="<?php echo $this->createUrl('site/waiter');?>">Halaman Waiter</a></li> -->
 				 <!--waiterkasir-->
 <!--                <li><a href="#">Setting</a></li> -->

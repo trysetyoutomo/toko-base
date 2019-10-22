@@ -110,8 +110,16 @@ class StoresController extends Controller
 					$u->branch_id = $br->id;
 					if ($u->save(false)){
 
-						$transaction->commit();
-						$this->redirect(array('view','id'=>$model->id));
+						$Parameter=new Parameter
+						$Parameter->store_id = $model->id ;
+						$Parameter->pajak = 0 ;
+						$Parameter->service = 0 ;
+						$Parameter->gambar = "35_POS_LOGO.png";
+						$Parameter->gambar_putih = "35_POS_LOGO_putih.png";
+						if ($Parameter->save()){
+							$transaction->commit();
+							$this->redirect(array('view','id'=>$model->id));
+						}
 					}else{
 						echo "Gagal Membuat user";
 
