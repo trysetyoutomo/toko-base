@@ -5,7 +5,7 @@
 
 <style type="text/css">
 	#trx-b-masuk tr td{
-		padding: 10px;
+		padding: 5px;
 	}
 	#footer{
 		display: none;
@@ -83,15 +83,12 @@
         width: 100%;
       }
 </style>
- <div id="full-screen"></div>
-   <div id="wrapper-item-search">
-      <p class="close">X</p>
-      <h1 >Pencarian Item</h1>
-     
-      <?php echo CHtml::dropDownList('e1', '1', Items::model()->data_items("MENU"), array('prompt'=>'Silahkan pilih','style'=>'width:100%') ); ?>
-      <input style="width: 100%;margin-top: 5px;" type="button" class="mybutton" name="tambah" value="Tambah" onclick="add_item($('#e1').val())">
-
-   </div>
+  <?php 
+     $model = Items::model()->data_items("TANPA_PULSA");
+    $this->renderPartial("application.views.items.inc-pencarian-items",
+      array("model"=>$model)
+    );
+   ?>
 
 <script type="text/javascript">
 	function list_action(act)
@@ -181,14 +178,15 @@
 	// });
 </script>
 	<br>
-		<fieldset style="border:1px solid transparent;padding:20px;overflow:auto;">
 				
 			<h1> 
 			<i class="fa fa-book"></i>
 			Purchase Order (PO) </h1>
+			<hr>
 
-
-			<table cellpadding="10" id="trx-b-masuk">
+			<div class="row">
+				<div class="col-sm-3">
+			<table cellpadding="0" id="trx-b-masuk">
 			<tr>
 				<td colspan="2">
 						<legend style="font-weight:bolder">Data Transaksi</legend>
@@ -242,7 +240,7 @@
 			Supplier
 					</td>
 					<td>
-					<select id='supplier-data' style='width:70%;padding:4px;' maxlength='15'>					
+					<select id='supplier-data' style='padding:4px;width:150px' maxlength='15'>					
 					<?php
 					$store_id = Yii::app()->user->store_id();
 					 foreach (Supplier::model()->findAll(" store_id = '$store_id' ") as $s):  ?>
@@ -309,26 +307,18 @@
 						Keterangan
 					</td>
 					<td>
-						<textarea placeholder="barang masuk" id="keterangan" style="display:inline;width:403px;height:70px">-</textarea>
+						<textarea placeholder="barang masuk" id="keterangan" style="display:inline;height:70px">-</textarea>
 					</td>
 				</tr>
 			</table>
-			<br>
-		
-			<br>
-				
-			
-			
-
-		
+		</div>
 	
-		<div class="">
-			<div class="" >
+			<div class="col-sm-7" >
 				<input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
 	
 				
 				<div class="data-table">
-				<legend style="font-weight:bolder">Data Barang</legend>
+				<legend style="font-weight:bolder">Keranjang</legend>
 
 			
 
@@ -343,7 +333,7 @@
 				 ?>
 
 				<div class="row">
-					<label for="nama" >Nama</label>
+					<label for="nama" >Barcode</label>
 					<?php // echo CHtml::dropDownList('nama', '1', Items::model()->data_items("BAHAN"),array('class'=>'for m-control')  );?>
 					<input type="text" name="nama" id="nama">
 
@@ -358,7 +348,7 @@
 				<div class="row">
 					<label for="jumlah" >Jumlah</label>
 					<?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
-					<button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke Table</button>
+					<button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke Keranjang</button>
 			
 				</div>
 				<hr>
@@ -563,11 +553,19 @@ function add_item(val){
 						}
 				}
 				function appendToBaris(d,barcode,jumlah){
+					var nama_sub_kategori ;
+					if (d.nama_sub_kategori==null){
+						nama_sub_kategori = "-";
+					}else{
+						nama_sub_kategori = d.nama_sub_kategori;
+					}
+
+
 					$('#users tbody').append(
 					"<tr class='baris'>" +
 					// "<td></td>";
 					"<td>"+d.nama_kategori+"</td>"+
-					"<td>"+d.nama_sub_kategori+"</td>"+
+					"<td>"+nama_sub_kategori+"</td>"+
 					// "<td>1</td>"+
 					"<td style='display:none'  class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
 					"<td>" + d.item_name + "</td>" +
@@ -797,7 +795,6 @@ function add_item(val){
 					</div> <!-- .widget-content -->
 				</div> <!-- .widget -->
 				<button onclick="kirim()" class="btn btn-primary">Simpan</button>
-				</fieldset>
 				</div>
 			</div> <!-- .grid -->
 

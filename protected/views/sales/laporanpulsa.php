@@ -54,6 +54,7 @@ $sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal']);
 			<td>Total Keluar</td>
 			<td>Total Masuk</td>
 			<td>Provider</td>
+			<td>Nomor</td>
 			<td>Saldo Akhir</td>
 		</tr>
 		
@@ -69,11 +70,13 @@ select * from (
 
 SELECT
 	i.id item_id,
+	si.permintaan as nomor,
 	i.item_name,
 	pr.nama_provider,
-	si.item_total_cost item_total_cost,
+	si.item_modal * si.quantity_purchased as item_total_cost,
 	u.username nama_user,
 	sum( si.quantity_purchased ) AS total_items,
+
 	date AS tanggal
 	
 FROM
@@ -95,9 +98,10 @@ si.id
 union all 
 
 select 
-'1',
+'1' as item_id,
+'0' as nomor,
 'DEPOSIT' as item_name,
-'DEPOSIT',
+'DEPOSIT' as nama_provider,
 nominal,
 'admin',
 '1',
@@ -152,6 +156,8 @@ order by tbl.tanggal asc
 				<?php 
 				if ($m['item_name']!="DEPOSIT")
 					echo number_format($m['item_total_cost']); 
+				else
+					echo "0";
 				
 				?></td>
 			
@@ -159,11 +165,13 @@ order by tbl.tanggal asc
 				<?php 
 				if ($m['item_name']=="DEPOSIT")
 					echo number_format($m['item_total_cost']);
+				else
+					echo "0";
 				?>
 			</td>
 			
-			<td style="text-align:left">
-				<?php echo $m['nama_provider']; ?></td>
+			<td style="text-align:left"><?php echo $m['nama_provider']; ?></td>
+			<td style="text-align:left"><?php echo $m['nomor']; ?></td>
 			<td align="right" >
 				<?php 
 			if ($m['item_name']=="DEPOSIT"){	
@@ -215,7 +223,7 @@ order by tbl.tanggal asc
 		endforeach; ?>
 		<tfoot >
 			<tr>
-				<td colspan="7"><h2>Sisa Saldo</h2> </td>
+				<td colspan="8"><h2>Sisa Saldo</h2> </td>
 				<td align="right" style="color:green" ><h2><b><?php echo number_format($nilai_sisa)   ?></b><h2></td>
 				
 				

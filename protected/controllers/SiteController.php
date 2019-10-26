@@ -634,6 +634,11 @@ class SiteController extends Controller
 		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
+			// print_r($_POST['LoginForm']);
+			// exit;
+// 			echo "21";
+// 				exit;
+// // 
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			// if($model->validate() && $model->login())
@@ -641,12 +646,12 @@ class SiteController extends Controller
 			if($model->validate() && $model->login()){
 
 				$level = Yii::app()->user->getLevel(); 
-				if ($level==2 || $level==3 || $level==4 || $level==1)
+				// if ($level==2 || $level==3 || $level==4 || $level==1)
 					$this->redirect(array('site/admin'));
-				if ($level==6)
-					$this->redirect(array('site/admin'));
-				if ($level==7)
-					$this->redirect(array('site/admin'));
+				// if ($level==6)
+					// $this->redirect(array('site/admin'));
+				// if ($level==7)
+					// $this->redirect(array('site/admin'));
 				
 			}
 		}

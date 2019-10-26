@@ -34,7 +34,7 @@
    }
 </style>
 <?php 
-  $model = Items::model()->data_items("ALL");
+  $model = Items::model()->data_items("TANPA_PULSA");
    $this->renderPartial('inc-pencarian-items',array('model'=>$model));
    ?>
 <!-- 

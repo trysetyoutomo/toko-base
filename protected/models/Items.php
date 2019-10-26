@@ -101,6 +101,8 @@ class Items extends CActiveRecord
 			$where = " and i.is_bahan = 0 ";
 		}else if ($with_bahan=="ALL"){ 
 			$where = "  ";
+		}else if ($with_bahan=="TANPA_PULSA"){
+			$where = " and i.is_pulsa <> 1 ";
 		}
 
 		$que = "

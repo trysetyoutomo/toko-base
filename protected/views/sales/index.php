@@ -266,19 +266,19 @@ $columnaja = array(
 		),
 		array(
 		'name'=>'date',
-		'header'=>'Tanggal'
+		'header'=>'Tgl Transaksi'
 		),
-		// array(
-		// 'name'=>'tanggal_jt',
-		// 'header'=>'jatuh Tempo'
-		// ),
+		array(
+		'name'=>'tanggal_jt',
+		'header'=>'Tgl jatuh Tempo'
+		),
 		array(
 		'name'=>'nama',
 		'header'=>'Nama pembeli'
 		),
 		// 'date',
 // 		array(
-// 		'name'=>'total_items',
+// 		'name'=>'Total_items',
 // 		'header'=>'Total Item',
 // 			'class'=>'ext.gridcolumns.TotalColumn',
 // //			'value'=>'$data->nilai',
@@ -288,7 +288,7 @@ $columnaja = array(
 	
 		array(
 			'name'=>'sale_sub_modal',
-			'header'=>'total modal',
+			'header'=>'Total modal',
 			'visible'=>Yii::app()->user->getLevel()==2,
 
 			'type'=>'number',
@@ -303,7 +303,7 @@ $columnaja = array(
 		),	
 		array(
 			'name'=>'sale_sub_total',
-			'header'=>'total Kotor',
+			'header'=>'Total Kotor',
 			'type'=>'number',
 			'htmlOptions'=>array('style'=>'text-align:right'),
 			'class'=>'ext.gridcolumns.TotalColumn',
@@ -317,7 +317,7 @@ $columnaja = array(
 		),	
 // 			array(
 // 			'name'=>'untung',
-// 			'header'=>'total Keuntungan',
+// 			'header'=>'Total Keuntungan',
 // 			'type'=>'number',
 // 			// 'htmlOptions'=>array('style'=>'text-align:right'),
 // 			'class'=>'ext.gridcolumns.TotalColumn',
@@ -330,7 +330,7 @@ $columnaja = array(
 // 		),	
 // 		array(
 // 			'name'=>'sale_tax',
-// 			'header'=>'total pajak',
+// 			'header'=>'Total pajak',
 // 			'type'=>'number',
 // 			'htmlOptions'=>array('style'=>'text-align:right'),
 // //			'value'=>'$data->nilai',
@@ -342,7 +342,7 @@ $columnaja = array(
 // 		),	
 // 		array(
 // 			'name'=>'sale_service',
-// 			'header'=>'total service',
+// 			'header'=>'Total service',
 // 			'type'=>'number',
 // 			'htmlOptions'=>array('style'=>'text-align:right'),
 // 			'class'=>'ext.gridcolumns.TotalColumn',
@@ -354,7 +354,7 @@ $columnaja = array(
 // 		),	
 		array(
 			'name'=>'sale_discount',
-			'header'=>'total diskon',
+			'header'=>'Total diskon',
 			'type'=>'number',
 			'visible'=>Yii::app()->user->getLevel()==2,
 			'htmlOptions'=>array('style'=>'text-align:right'),
@@ -382,7 +382,7 @@ $columnaja = array(
 		
 		array(
 			'name'=>'sale_total_cost',
-			'header'=>'total Bersih',
+			'header'=>'Total Bersih',
 			'type'=>'number',
 			'visible'=>Yii::app()->user->getLevel()==2,
 

@@ -13,7 +13,7 @@
 		
 <h1>
 <i class="fa fa-book"></i>
-Laporan Penjualan Per Hari </h1>
+Rekap Penjualan Harian </h1>
 <br>
 <?php
 $data = array(
@@ -59,7 +59,7 @@ echo "<thead>";
 		}
 		echo "<th>Total Kotor</th>";
 		echo "<th>Total  Diskon</th>";
-		echo "<th>Total Biaya Pelayanan</th>";
+		echo "<th>Total  Biaya Layanan</th>";
 		echo "<th>Voucher</th>";
 		echo "<th>Total  Pajak </th>";
 		echo "<th>Total Bersih</th>";
@@ -83,26 +83,27 @@ foreach($tot as $a){
 		echo "<td>".number_format($a['tax'])."</td>";
 		echo "<td>".number_format($a['sale_total_cost'])."</td>";
 	echo "</tr>";
-	$ttm +=$a['sale_sub_modal'];
-	$sst +=$a['sale_sub_total'];
-	$sd +=$a['service'];
-	$ss +=$a['voucher'];
-	$tax +=$a['tax'];
-	$stt +=$a['tax'];
-	$ttv+=$a['sale_total_cost'];
+	$t_modal +=$a['sale_sub_modal'];
+	$t_discount +=$a['sale_discount'];
+	$t_kotor +=$a['sale_sub_total'];
+	$t_service +=$a['service'];
+	$t_voucher +=$a['voucher'];
+	$t_tax +=$a['tax'];
+	$t_total+=$a['sale_total_cost'];
 }
 echo "</tbody>";
 echo "<tfoot style='background-color:#ccc;'>";
 	echo "<tr>";
 		echo "<td>&nbsp;</td>";
 		echo "<td>&nbsp;</td>";
-		echo "<td>".number_format($ttm)."</td>";
-		echo "<td>".number_format($sst)."</td>";
-		echo "<td>".number_format($sd)."</td>";
-		echo "<td>".number_format($ss)."</td>";
-		echo "<td>".number_format($tax)."</td>";
-		echo "<td>".number_format($stt)."</td>";
-		echo "<td>".number_format($ttv)."</td>";
+		echo "<td>".number_format($t_modal)."</td>";
+		echo "<td>".number_format($t_kotor)."</td>";
+		echo "<td>".number_format($t_discount)."</td>";
+		echo "<td>".number_format($t_service)."</td>";
+		echo "<td>".number_format($t_voucher)."</td>";
+		echo "<td>".number_format($t_tax)."</td>";
+		echo "<td>".number_format($t_total)."</td>";
+		// echo "<td>".number_format($ttv)."</td>";
 	echo "</tr>";
 echo "</tfoot>";
 echo "</table>";

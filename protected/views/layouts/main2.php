@@ -756,9 +756,9 @@
                         <li>
                               <a href="<?php echo Yii::app()->createUrl("site/admin") ?>"><i class="fa fa-home"></i> Beranda  </a>
                           </li>
-                             <li>
+                           <!--   <li>
                               <a class="btn-notif-stok" href="<?php echo Yii::app()->createUrl("items/notifikasi") ?>"><i class="fa fa-bell"></i> Pemberitahuan  </a>
-                          </li>
+                          </li> -->
                         <?php 
 
                         $role_id = Yii::app()->user->level();
@@ -848,14 +848,7 @@
                            <span class=" fa fa-angle-down"></span>
                            </a>
                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                              <li style="display:none"><a href="javascript:;">  Profile</a>
-                              </li>
-                              <li style="display:none">
-                                 <a href="javascript:;">
-                                 <span class="badge bg-red pull-right">50%</span>
-                                 <span>Settings</span>
-                                 </a>
-                              </li>
+                             
                               <li style="display:none">
                                  <a href="javascript:;">Help</a>
                               </li>

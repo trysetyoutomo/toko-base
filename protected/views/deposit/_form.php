@@ -5,7 +5,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">untuk penyesuaian saldo, anda dapat menggunakan minus (-).</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -42,7 +42,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array("class"=>"btn btn-primary")); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Tambah' : 'Tambah',array("class"=>"btn btn-primary")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -127,8 +127,8 @@
 		),
 		
 		array(
-		'name'=>'Total',
-		'header'=>'total',
+		'name'=>'total',
+		'header'=>'Total',
 		'footer'=>true,
 		'type'=>'number',
 		'class'=>'ext.gridcolumns.TotalColumn',

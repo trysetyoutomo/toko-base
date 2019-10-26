@@ -23,7 +23,7 @@ class DepositController extends Controller
 
 	public static function getSaldoAkhir($tanggal){
 		$queryKeluar  = "select 
-		sum(si.item_total_cost) keluar
+		sum(si.item_modal * si.quantity_purchased )keluar
 		from 
 		sales s inner join 
 		sales_items si on s.id = si.sale_id inner join 
@@ -40,6 +40,7 @@ class DepositController extends Controller
         $modelDeposit = Yii::app()->db->createCommand($queryDeposit)->queryRow();
 
         // echo $modelDeposit['masuk'];
+        // echo "<br>";
         // echo $modelKeluar['keluar'];
         // exit;
         $sisa = intval($modelDeposit['masuk']) - intval($modelKeluar['keluar']);

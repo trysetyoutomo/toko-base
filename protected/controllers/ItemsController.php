@@ -2087,6 +2087,7 @@ public function getHargamodal($id){
 			$model->store_id = Yii::app()->user->store_id();
 			$model->lokasi = $_POST['Items']['lokasi'];
 			$model->letak_id = $_POST['Items']['letak_id'];
+			$model->provider_id = $_POST['Items']['provider_id'];
 			if($model->save()){
 
 				// jika generate

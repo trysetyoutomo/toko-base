@@ -2,6 +2,15 @@
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
 
 
+
+<?php 
+$model2 = Items::model()->data_items("ALL");
+$this->renderPartial("application.views.items.inc-pencarian-items",
+array("model"=>$model2)
+);
+?>
+
+
 <style type="text/css">
     #wrap-selisih{
         position: fixed;
@@ -24,9 +33,6 @@
     <h5>Selisih          : <label id="total-selisih">0</label></h5>
 </div>
 
- <?php 
- $this->renderPartial('application.views.items.inc-pencarian-items');
- ?>
 
 
 
@@ -88,6 +94,7 @@
                     {
                          $("#harga_baru").html(" ");
                         var data = JSON.parse(data);
+                        $("#nama-item-baru").html(data.item_name);
                         var price_detail = data.price_detail;
                         $.each( price_detail, function( key, value ) {
                             $("#harga_baru").append("<option value="+value.price+">"+value.price_type+" - "+value.price+"</option>");
@@ -208,7 +215,7 @@
             <?php echo $form->error($penukaran,'item_qty_asal'); ?>
         </div>
 
-
+        <hr>
         <legend>diganti menjadi</legend>
          <div class="row">
             <?php 
@@ -216,8 +223,10 @@
             $data = CHtml::listdata(Items::model()->findAll("1=0"),'id','item_name');
             ?>        
             <?php echo $form->labelEx($penukaran,'Barcode Item'); ?>
+           
             <?php  echo $form->textField($penukaran,'item_id_baru'); ?> 
-              <?php 
+            
+            <?php 
                 // ,
             // array(
             //     'empty' => 'Pilih Item',
@@ -226,6 +235,10 @@
             // )
               ?>
             <?php echo $form->error($model,'item_id_baru'); ?>
+        </div>
+        <div class="row" style="margin:0px;padding:0px">
+             <!-- <div class="col-sm-3"><b>Nama item Baru</b></div> -->
+             <div class="col-sm-7" id="nama-item-baru"></div>
         </div>
         <div class="row">
             <?php // echo $form->labelEx($penukaran,'Jumlah '); ?>

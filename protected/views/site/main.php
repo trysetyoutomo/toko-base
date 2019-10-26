@@ -2866,10 +2866,10 @@ Ext.onReady(function() {
             flex:1,
             sortable:true,
             dataIndex:'item_id',
-            editor   : {
-                xtype:'textfield',
-                allowBlank:false
-            },
+            // editor   : {
+            //     xtype:'textfield',
+            //     allowBlank:false
+            // },
             hidden:true
         },
         {

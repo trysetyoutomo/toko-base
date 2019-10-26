@@ -28,7 +28,8 @@
 	</div>
 	<div class="row">
 	<?php
-$motif = Branch::model()->findAllnew();
+$store_id = Yii::app()->user->store_id();
+$motif = Branch::model()->findAll("store_id = '$store_id' ");
 $motif = CHtml::listData($motif,'id','branch_name');
 
 	?>
@@ -38,7 +39,7 @@ $motif = CHtml::listData($motif,'id','branch_name');
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Ubah',array("class"=>"btn btn-primary")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -199,8 +199,10 @@
 		 ?>
 	 	 	$("#Items_category_id").trigger("change");
 	 	 <?php
-	 	 }
+	 	 }else{
 	 	 ?>
+	 	 $("#row-provider").show();
+	 	<?php } ?>
 	});
 
 	

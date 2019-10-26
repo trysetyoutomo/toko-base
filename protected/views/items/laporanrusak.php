@@ -10,6 +10,9 @@ $this->renderPartial('application.views.site.main');
 
 <div id="hasil"></div>
 <style type="text/css">
+	#trx-b-masuk tr td{
+		padding: 10px!important;
+	}
 	.dalem{
 		width:100%;
 	}

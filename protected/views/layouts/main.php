@@ -24,6 +24,25 @@
   <!-- Bootstrap -->
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('txt').innerHTML =
+  h + ":" + m + ":" + s;
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+startTime();
+</script>
+
 
 
 	<?php //Yii::app()->clientScript->registerCoreScript('jquery'); ?>
@@ -79,6 +98,8 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
 </script>
 <body>
 <?php //echo "user id : ".Yii::app()->user->name; ?>
+    <div id="txt"></div>
+
 <div id="header">
    
 
@@ -90,9 +111,9 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
       <?php 
             $parameter = Parameter::model()->findByPk(1);
       ?>
-                  <a class="auth-brand text-center" href="#">
-                      <img style="width: 65px"  class="brand-img img"  src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
-                  </a>
+  <a class="auth-brand text-center" href="#">
+      <img style="width: 65px"  class="brand-img img"  src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
+  </a>
      <!-- <h4 class="text-center"><?php  echo SiteController::getConfig("company_name"); ?></h4> -->
     <span id="head-meja"></span><span id="head-meja-nilai"></span>
 

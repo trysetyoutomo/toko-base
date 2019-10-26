@@ -33,10 +33,16 @@ class UserIdentity extends CUserIdentity
 		
 	$criteria = new CDbCriteria;
 	$criteria->select ='id';
-	$criteria->condition ="username='".$this->username."' AND password='".$this->password."' and branch_id in (select id from branch where hapus=0 )";
-	$cek = Users::model()->exists($criteria);
-	
-	if($cek==1){
+	$criteria->condition ="username='".$this->username."' AND password='".$this->password."'  and hapus = 0 ";
+	$cek = Users::model()->find($criteria);
+		// and branch_id in (select id from branch where hapus=0 )
+
+	// var_dump($cek);
+	// echo count($cek);
+	// var_dump($cek);
+	// exit;
+	if($cek){
+		// $users = Users::model()->find(" ")
 		// $this->errorCode=self::ERROR_USERNAME_INVALID
 		$users[$this->username] = $this->password;
 	}
