@@ -36,6 +36,11 @@ for($x=$curr_year-5; $x<$curr_year+5;$x++){
 }
 
 echo CHtml::beginForm();
+?>
+<label>
+	Bulan 
+</label>
+<?php 
 echo CHtml::dropDownList('month', $month, $data);
 echo CHtml::dropDownList('year', $year, $arr_year);
 //echo CHtml::button('Cari', array('submit' => array('sales/Salesmonthly'),'class'=>'btn btn-primary' ) );

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 
 <h1><i class="fa fa-book"></i> Transaksi Cancel </h1><hr>
 <?php 
@@ -14,9 +15,11 @@ if (isset($_REQUEST[tanggal])){
 			
 		
 	<input type="submit" class="btn btn-primary" name="Cari" value="Cari" />
+	<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+
 </form>
 <br>
-<table class="table">
+<table class="table" id="data-cetak">
 	<thead>
 		
 		<tr style="background:rgba(42, 63, 84,1) ;color:white">

@@ -1,6 +1,8 @@
 <applet name="jzebra" code="jzebra.PrintApplet.class" archive="jZebra/jzebra/jzebra.jar" width="0" height="0">
     <param name="printer" value="zebra">
 </applet> 
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
 
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
@@ -225,7 +227,9 @@ if (isset($status_aktif) && $status_aktif!="" ){
 
 	<!-- </div> -->
 	<!-- <input type="text" name="" > -->
-			<?php echo CHtml::submitButton('Cari',array("class"=>"btn btn-primary")); ?>
+<?php echo CHtml::submitButton('Cari',array("class"=>"btn btn-primary")); ?>
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+
 			<?php //echo CHtml::button('Export to CSV',array('id'=>'export')); ?>
 <?php $this->endWidget(); ?>
 
@@ -273,7 +277,7 @@ if (count($model)>0)
 else
 	echo "<h2 style='color:red'>Data tidak ditemukan : </h2>";
 ?>
-<table class="table items">
+<table class="table items" id="data-cetak">
 	<thead>
 		
 	<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >

@@ -1,6 +1,11 @@
 <?php 
 ?>
 <style type="text/css">
+	@media print{
+		#data-cetak table tr td,#data-cetak table tr th{
+			border:1px solid black;
+		}
+	}
 	select{
 		padding:7px;
 	}
@@ -10,6 +15,9 @@
 </style>
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
+
 
 <?php 
 $this->renderPartial('application.views.site.main');
@@ -147,6 +155,8 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 
 	<!-- </div> -->
 <?php echo CHtml::submitButton('Cari',array('class'=>'btn btn-primary')); ?>
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+
 <!-- <a href="<?php echo Yii::app()->createUrl('sales/cetakrekap&noprint=true') ?>" type="button" class="btn btn-primary"  name="btn-preview">
 Preview Rekap
 </a> -->
@@ -496,12 +506,17 @@ $columnaja = array(
 		// ), 		
 	);
 	array_push($columnaja, $array_cetak);
+	?>
+<div id="data-cetak">
+	
+<?php
  $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'sales-grid',
 	'dataProvider'=>$dataProvider,
 	// 'filter'=>$model->search(),
 	'columns'=>$columnaja
 )); ?>
+</div>
 <?php
 // $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 //     'id' => 'dialog_export',

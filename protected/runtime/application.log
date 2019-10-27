@@ -5761,3 +5761,237 @@ REQUEST_URI=/toko-base/index.php?r=Salesitems/tukarbarang&id=1
 2019/10/25 22:31:09 [warning] [application] Failed to set unsafe attribute "item_harga_asal" of "PenukaranItems".
 in E:\xampp\htdocs\toko-base\protected\controllers\SalesItemsController.php (61)
 in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 18:07:47 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1 .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2517)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (171)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 18:07:47 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2517): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(171): ItemsController->getLaporanStokJSON('SELECT * FROM (...', 0)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionLaporanstokJSON()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('laporanstokJSON')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Items/laporanst...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Items/laporanstokJSON&draw=2&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=nomor&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=nama_kategori&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=nama_sub_kategori&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=item_name&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=stok&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=-1&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572174465356
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/laporanstok
+---
+2019/10/27 18:08:15 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1 .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2517)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (171)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 18:08:15 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2517): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(171): ItemsController->getLaporanStokJSON('SELECT * FROM (...', 0)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionLaporanstokJSON()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('laporanstokJSON')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Items/laporanst...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Items/laporanstokJSON&draw=2&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=nomor&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=nama_kategori&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=nama_sub_kategori&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=item_name&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=stok&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=-1&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572174477236
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/laporanstok
+---
+2019/10/27 18:08:16 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1 .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2517)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (171)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 18:08:16 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2517): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(171): ItemsController->getLaporanStokJSON('SELECT * FROM (...', 0)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionLaporanstokJSON()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('laporanstokJSON')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Items/laporanst...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Items/laporanstokJSON&draw=2&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=nomor&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=nama_kategori&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=nama_sub_kategori&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=item_name&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=stok&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=-1&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572174477236
+---
+2019/10/27 18:11:09 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1 .
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2517)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (171)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 18:11:09 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-1' at line 20. The SQL statement executed was: SELECT * FROM (select 
+		m.nama nama_sub_kategori,
+		concat(i.item_name,'  ','') as item_name,
+		c.category as nama_kategori,
+		m.nama as motif,
+		i.hapus hapus, iss.id as satuan_id, i.id id, 
+		iss.barcode barcode
+
+		from items i inner join items_satuan iss 
+		on iss.item_id = i.id and i.is_stockable = 1 
+		left join categories as c on c.id = i.category_id
+		left join motif m on m.category_id = c.id and m.id = i.motif
+		inner join stores s on s.id =  i.store_id 
+
+		 
+		and iss.is_default = 1 and i.hapus=0 and s.id = 55
+		group by i.id
+		order by c.category, m.id, i.item_name  asc
+
+		) as d  ORDER BY id asc limit  0,-1  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2517): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(171): ItemsController->getLaporanStokJSON('SELECT * FROM (...', 0)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionLaporanstokJSON()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('laporanstokJSON')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Items/laporanst...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Items/laporanstokJSON&draw=2&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=nomor&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=nama_kategori&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=nama_sub_kategori&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=item_name&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=stok&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=-1&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572174477236
+---

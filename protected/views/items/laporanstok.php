@@ -1,6 +1,7 @@
 <applet name="jzebra" code="jzebra.PrintApplet.class" archive="jZebra/jzebra/jzebra.jar" width="0" height="0">
     <param name="printer" value="zebra">
 </applet> 
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
@@ -29,8 +30,11 @@ $this->renderPartial('application.views.site.main');
 </h4>
 <br>
 
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
 
+<div id="data-cetak">
 <table  id="datatable" class="table" ></table>
+</div>
 <?php 
 $usaha = SiteController::getConfig("jenis_usaha");
 if ($usaha!="Toko"){
@@ -205,6 +209,7 @@ $(document).ready(function(){
           // $(".loader").show();
           myTable =  $('#datatable').DataTable({
             "processing": true,
+            "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "All"]],
             "serverSide": true,
             "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",
             "fnDrawCallback": function( oSettings ) {

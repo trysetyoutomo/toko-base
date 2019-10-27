@@ -6,6 +6,7 @@ $this->renderPartial('application.views.site.main');
 ?>
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 
 
 <div id="hasil"></div>
@@ -88,6 +89,8 @@ foreach ($data as $key => $value) {
 
 
 <?php echo CHtml::submitButton('Cari',array("class"=>"btn btn-primary")); ?>
+	<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+
 <?php //echo CHtml::button('Export to CSV',array('id'=>'export')); ?>
 <?php $this->endWidget(); ?>
 
@@ -117,7 +120,8 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 	}
 </style>
 <br>
-<table class="table">
+
+<table class="table" id="data-cetak">
 	<thead>
 		
 		<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
