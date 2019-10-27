@@ -219,7 +219,7 @@ class ItemsController extends Controller
 			// var_dump($skrg);
 			// var_dump($before);
 			// exit;
-			$modelh = new Barangmasuk;
+			$modelh = new BarangMasuk;
 			$modelh->tanggal = date(" Y-m-d H:i:s");
 			$modelh->user = Yii::app()->user->name;
 			$modelh->sumber = "Penyesuaian Stok ";
@@ -230,7 +230,7 @@ class ItemsController extends Controller
 			
 
 			if ($modelh->save()){
-				$model = new BarangmasukDetail;
+				$model = new BarangMasukDetail;
 				$model->kode = $id;
 				$model->jumlah = $selisih ;
 				$model->harga = $harga;
@@ -427,7 +427,7 @@ class ItemsController extends Controller
 	public function actionMasukHapus($id){
 		// echo $id;
 		$model = BarangMasuk::model()->findByPk($id);
-		$pm = BarangmasukDetail::model()->findAll("head_id = '$id'");
+		$pm = BarangMasukDetail::model()->findAll("head_id = '$id'");
 		foreach ($pm as $p) {
 			$brg = Items::model()->findByPk($p->kode);
 			$brg->stok = $brg->stok - $p->jumlah;
@@ -441,7 +441,7 @@ class ItemsController extends Controller
 	public function actionKeluarHapus($id){
 		// echo $id;
 		$model = BarangKeluar::model()->findByPk($id);
-		$pm = BarangkeluarDetail::model()->findAll("head_id = '$id'");
+		$pm = BarangKeluarDetail::model()->findAll("head_id = '$id'");
 		// foreach ($pm as $p) {
 		// 	$brg = Items::model()->findByPk($p->kode);
 		// 	$brg->stok = $brg->stok + $p->jumlah;
@@ -469,13 +469,13 @@ class ItemsController extends Controller
 		}	
 	}
 	public function actionMasukUbahDetail($id){
-		$model = BarangmasukDetail::model()->findByPk($id);
-		if (isset($_REQUEST['BarangmasukDetail'])){
+		$model = BarangMasukDetail::model()->findByPk($id);
+		if (isset($_REQUEST['BarangMasukDetail'])){
 			// echo "124";
-			$jml = $_REQUEST['BarangmasukDetail']['ubahke'] - $_REQUEST['BarangmasukDetail']['jumlah'];
-			$model->jumlah =   $_REQUEST['BarangmasukDetail']['jumlah'];
-			$model->supplier_id =   $_REQUEST['BarangmasukDetail']['supplier_id'];
-			$model->harga =   $_REQUEST['BarangmasukDetail']['harga'];
+			$jml = $_REQUEST['BarangMasukDetail']['ubahke'] - $_REQUEST['BarangMasukDetail']['jumlah'];
+			$model->jumlah =   $_REQUEST['BarangMasukDetail']['jumlah'];
+			$model->supplier_id =   $_REQUEST['BarangMasukDetail']['supplier_id'];
+			$model->harga =   $_REQUEST['BarangMasukDetail']['harga'];
 			if ($model->update()){
 				$brg = Items::model()->findByPk($model->kode);
 				$brg->stok = $brg->stok + $jml;
@@ -499,12 +499,12 @@ class ItemsController extends Controller
 
 
 
-		// BarangmasukDetail::model()->findByPk($id);
+		// BarangMasukDetail::model()->findByPk($id);
 	}
 	public function actionMasukHapusDetail($id){
 		// echo $id;
 		// $model = BarangMasuk::model()->findByPk($id);
-		$pm = BarangmasukDetail::model()->findByPk($id);
+		$pm = BarangMasukDetail::model()->findByPk($id);
 		// echo $pm-kode;
 		$brg = Items::model()->findByPk($pm->kode);
 		$brg->stok = $brg->stok - $pm->jumlah;
@@ -990,7 +990,7 @@ class ItemsController extends Controller
 			$head = $_REQUEST['head'];	
 
 
-			$modelh = new Barangmasuk;
+			$modelh = new BarangMasuk;
 			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
 			$modelh->user = Yii::app()->user->name;
 			$modelh->sumber = $_REQUEST['head']['sumber'];
@@ -1053,7 +1053,7 @@ class ItemsController extends Controller
 
 
 
-					$model = new BarangmasukDetail;
+					$model = new BarangMasukDetail;
 					$model->kode = $satuanUtamaKode_default;
 					// $model->jumlah =  $n['jml']*$n['satuan'];
 					$spp = $n['supplier'];
@@ -1143,7 +1143,7 @@ class ItemsController extends Controller
 						echo json_encode(
 							array(
 								"status"=>0,
-								"error"=>"BarangmasukDetail : ".$model->getErrors(),
+								"error"=>"BarangMasukDetail : ".$model->getErrors(),
 								"error 2"=>$d->getErrors(),
 							)
 						);
@@ -1409,7 +1409,7 @@ public function getHargamodal($id){
 			$head = $_REQUEST['head'];	
 
 
-			$modelh = new Barangkeluar;
+			$modelh = new BarangKeluar;
 			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
 			$modelh->user = Yii::app()->user->name;
 			$modelh->sumber = "sumber ";
@@ -1426,7 +1426,7 @@ public function getHargamodal($id){
 				$status_aktif = 1;
 			}
 			// keluar dan masukan ke tujuan 
-			$bms = new Barangmasuk;
+			$bms = new BarangMasuk;
 			$bms->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
 			$bms->user = Yii::app()->user->name;
 			$bms->sumber =  Yii::app()->user->branch();
@@ -1434,7 +1434,7 @@ public function getHargamodal($id){
 			$bms->faktur = $_REQUEST['head']['faktur'];
 			$bms->keterangan = $_REQUEST['head']['keterangan'];
 			$bms->branch_id = $_REQUEST['head']['cabang'];
-			$bms->kode_trx = BarangmasukController::generateKodeBMS();
+			$bms->kode_trx = BarangMasukController::generateKodeBMS();
 			$bms->status_aktif = $status_aktif;
 
 
@@ -1488,7 +1488,7 @@ public function getHargamodal($id){
 
 						//simpan detail barang masuk
 
-						$dm = new BarangmasukDetail;
+						$dm = new BarangMasukDetail;
 						$dm->kode = $id;
 						$dm->jumlah = $n['jml'];
 						$dm->satuan = $satuan_id;
@@ -1518,7 +1518,7 @@ public function getHargamodal($id){
 		$this->render('purchase_order');
 	}
 
-	public function actionBarangmasuk(){
+	public function actionBarangMasuk(){
 
 		$this->render('barangmasuk');
 	}
@@ -1597,7 +1597,7 @@ public function getHargamodal($id){
 			$this->render('pinjam');
 		}
 	}
-	// public function actionBarangmasuk(){
+	// public function actionBarangMasuk(){
 
 	// 	$this->render('barangmasuk');
 	// }
