@@ -9,6 +9,9 @@
 </style>
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
+
 
 <?php 
 $this->renderPartial('application.views.site.main');
@@ -161,7 +164,11 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 
 
 	<!-- </div> -->
+			<div style="margin-top:10px;">
 			<?php echo CHtml::submitButton('Cari',array('class'=>'btn btn-primary')); ?>
+			<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+			</div>
+
 			<?php //echo CHtml::button('Cetak Rekap',array('id'=>'cetakrekap','class'=>'btn btn-primary')); ?>
 			<?php //echo CHtml::button('Export to CSV',array('id'=>'export')); ?>
 <?php //$this->endWidget(); ?>
@@ -178,7 +185,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 	else
 	$a = false;
 ?>
-
+<div id="data-cetak">
 <?php 
 if (isset($_REQUEST['customer'])){
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -450,6 +457,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 )); 
 }
 ?>
+</div>
 <?php
 // $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 //     'id' => 'dialog_export',

@@ -2260,22 +2260,22 @@ function bayar(status,table,sale_id)
                             });
 						// window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
 						}
-		            }else if (jenis_cetak=="80mm" || jenis_cetak=="58mm"){
-                        var c = confirm("Cetak Bukti ?? ");
-                        if (c){ 
-                            $.ajax({
-                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
-                                data : {
-                                    id : idx
-                                },
-                                success:function(data){
-                                $('.body-bukti').html(data);
-                                $(".btn-modal-preview").trigger("click");
+		            // }else if (jenis_cetak=="80mm" || jenis_cetak=="58mm"){
+              //           var c = confirm("Cetak Bukti ?? ");
+              //           if (c){ 
+              //               $.ajax({
+              //                   url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
+              //                   data : {
+              //                       id : idx
+              //                   },
+              //                   success:function(data){
+              //                   $('.body-bukti').html(data);
+              //                   $(".btn-modal-preview").trigger("click");
 
-                                }
-                            });
-                        // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-                        }
+              //                   }
+              //               });
+              //           // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+              //           }
                     }else{
 						var i =1;
 						var ulang  =  1;<?php //echo Parameter::model()->findByPk(1)->qty_cb; ?>
@@ -2822,10 +2822,10 @@ Ext.onReady(function() {
             flex:1,
             sortable:true,
             dataIndex:'kode',
-            editor   : {
-                xtype:'textfield',
-                allowBlank:false
-            },
+            // editor   : {
+            //     xtype:'textfield',
+            //     allowBlank:false
+            // },
             hidden : false
         },
         {

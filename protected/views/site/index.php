@@ -19,7 +19,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
    $this->renderPartial('main');
    ?>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/app/SalesItems/_form.js"></script>
-<!-- <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/include/dist/plugins/jqplot.barRenderer.min.js"></script> -->
+
 <!-- select 2-->
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>

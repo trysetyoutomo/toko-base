@@ -3,6 +3,9 @@
 <applet name="jzebra" code="jzebra.PrintApplet.class" archive="jZebra/jzebra/jzebra.jar" width="0" height="0">
     <param name="printer" value="zebra">
 </applet> 
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
+
 <?php 
 $this->renderPartial('application.views.site.main');
 ?>
@@ -26,8 +29,9 @@ Laporan Pulsa
 			<input type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
 		
 
-	<input type="submit" name="Cari" value="Cari" class="btn btn-primary" style="display:inline" />
-	<a href="<?php echo Yii::app()->createUrl("Deposit/create") ?>" class="btn btn-primary" style="display:inline" ><i class="fa fa-plus"></i> Deposit</a>
+	<input type="submit" name="Cari" value="Cari" class="btn btn-primary"  />
+	<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+	<a href="<?php echo Yii::app()->createUrl("Deposit/create") ?>" class="btn btn-primary" ><i class="fa fa-plus"></i> Deposit</a>
 </form>
 <br>
 <?php 
@@ -38,6 +42,7 @@ if (isset($_REQUEST['tanggal'])){
 $sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal']);
 // echo $sisa;
 ?>
+<div id="data-cetak">
 <div class="alert alert-success">
 	Sisa Deposit Sebelum <?php echo date("d M Y",strtotime($_REQUEST['tanggal'])) ?>
 	<br>
@@ -190,11 +195,13 @@ order by tbl.tanggal asc
 				<i class="fa fa-print" style="color:white!important"></i>
 				Cetak Rekap</button>
 
+				<button class="btn-primary btn" >
 				<a 
 				href="<?php echo Yii::app()->createUrl("sales/cetakrekap&tanggal_rekap=$date&noprint=true") ?>"
-				class="btn-primary btn" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+				 inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
 				<i class="fa fa-print" style="color:white!important"></i>
 				Preview </a>
+				</button>
  
  
 				<!-- <a href="<?php 
@@ -224,7 +231,7 @@ order by tbl.tanggal asc
 		<tfoot >
 			<tr>
 				<td colspan="8"><h2>Sisa Saldo</h2> </td>
-				<td align="right" style="color:green" ><h2><b><?php echo number_format($nilai_sisa)   ?></b><h2></td>
+				<td align="right" style="color:green" ><h2><b><?php echo number_format($nilai_sisa)   ?></b></h2></td>
 				
 				
 			</tr>
@@ -232,6 +239,7 @@ order by tbl.tanggal asc
 		
 	</tbody>
 </table>
+</div>
 <?php } ?>
 <script>
 $(document).ready(function(e){

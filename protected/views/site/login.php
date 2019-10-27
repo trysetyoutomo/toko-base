@@ -59,7 +59,7 @@ License: You must have a valid license purchased only from templatemonster to le
 <div class="hk-pg-wrapper hk-auth-wrapper">
 	<header class="d-flex justify-content-end align-items-center">
 		<div class="btn-group btn-group-sm">
-			<a href="tel:08986044235" class="btn btn-outline-secondary">Hubungi Saya</a>
+			<!-- <a href="tel:08986044235" class="btn btn-outline-secondary">Hubungi Saya</a> -->
 			<!-- <a href="#" class="btn btn-outline-secondary">About Us</a> -->
 		</div>
 	</header>
@@ -110,20 +110,23 @@ License: You must have a valid license purchased only from templatemonster to le
 							<!-- <div class="option-sep">Silahkan daftar</div> -->
 							<div class="form-row">
 
-								<div class="col-sm-12 mb-20">
-									<input  class=" btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none;width:100%" value="masuk" />
+				<div class="col-sm-12 mb-20">
+				<button  class="btn btn-primary btn-block" type="submit" style="background:#2A3F54;border:none;" >
+					<span class="btn-text">
+						Masuk
+					</span>
+				</button>
+				</div>
+				<div class="col-sm-12 mb-20">
+				<button class="btn btn-danger btn-block">
+				<a href="<?php echo Yii::app()->createUrl("stores/create") ?>"  style="color:white"> 
+					<span class="btn-text">
+						Daftar
+					</span>
+				</a>
+				</button>
+				</div>
 
-								</div>
-								<div class="col-sm-12 mb-20">
-									<a href="<?php echo Yii::app()->createUrl("stores/create") ?>" class="btn btn-danger btn-block" style="color:white"> 
-									
-									<span class="icon-label"><i class="fa fa-user"></i> </span>
-									
-									<span class="btn-text">
-									Daftar
-									</span>
-								</a>
-							</div>
 								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
 							<!-- </div> -->
 							<!-- <p class="text-center">Do have an account yet? <a href="#">Sign Up</a></p> -->
