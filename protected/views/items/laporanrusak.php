@@ -68,7 +68,7 @@ $filter .= " and branch_id = '$branch_id'";
 ?>
 <?php $form=$this->beginWidget('CActiveForm',array(
 	'action'=>Yii::app()->createUrl('items/laporanrusak'),
-	'method'=>'get',
+	'method'=>'POST',
 )); ?>
 
 <label>Tanggal 1</label>

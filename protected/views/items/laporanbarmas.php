@@ -128,7 +128,7 @@ if (isset($status_aktif) && $status_aktif!="" ){
 ?>
 <?php $form=$this->beginWidget('CActiveForm',array(
 	'action'=>Yii::app()->createUrl('items/laporanmasuk'),
-	'method'=>'get',
+	'method'=>'POST',
 )); ?>
 <table cellpadding="10" id="filter">
 <tr>

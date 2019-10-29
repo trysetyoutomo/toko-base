@@ -22,7 +22,12 @@ $this->menu=array(
 	<p class="note">untuk penyesuaian saldo, anda dapat menggunakan minus (-).</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	<div class="row">
+		<?php echo $form->labelEx($model,'created_at'); ?>
+		<?php echo $form->textField($model,'created_at',array("value"=>date("Y-m-d"),"readonly"=>true)); ?>
+		<?php echo $form->error($model,'created_at'); ?>
+	</div>
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'nominal'); ?>
 		<?php echo $form->textField($model,'nominal'); ?>

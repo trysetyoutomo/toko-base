@@ -164,6 +164,10 @@ class SiteController extends Controller
 
 		$que = "truncate pengeluaran";
 		$e1 = Yii::app()->db->createCommand($que)->execute();
+
+		$que = "truncate deposit";
+		$e1 = Yii::app()->db->createCommand($que)->execute();
+
 		// if ($e1){	
 			// echo "ok";
 			$this->redirect(array('site/pengaturan'));

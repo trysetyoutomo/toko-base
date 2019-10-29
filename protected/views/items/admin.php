@@ -160,6 +160,7 @@ Mengelola Item
           myTable =  $('#datatable').DataTable({
             "processing": true,
             "serverSide": true,
+            "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "ajax" : "<?php echo Yii::app()->createUrl("Items/adminJSON") ?>",
             "fnDrawCallback": function( oSettings ) {
                    // $(".loader").hide();

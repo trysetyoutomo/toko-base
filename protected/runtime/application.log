@@ -6268,3 +6268,43 @@ Stack trace:
 #15 {main}
 REQUEST_URI=/toko-base/index.php?r=customer/admin
 ---
+2019/10/29 12:23:46 [error] [exception.CException] CException: Property "Deposit.customer_name" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:174
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(160): CComponent->__set('customer_name', 'NINDI LARASATI')
+#1 E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php(113): CActiveRecord->__set('customer_name', 'NINDI LARASATI')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): DepositController->actionDeposit_agen()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('deposit_agen')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Deposit/deposit...')
+#8 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#10 {main}
+REQUEST_URI=/toko-base/index.php?r=Deposit/deposit_agen
+HTTP_REFERER=http://localhost/toko-base/index.php?r=Deposit/deposit_agen
+---
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:50:38 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)

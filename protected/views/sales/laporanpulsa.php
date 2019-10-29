@@ -21,7 +21,7 @@ Laporan Pulsa
 			$date = date("Y-m-d");
 		}
 ?>
-<form>
+<form method="POST">
 	<input type="hidden" name="r" value="sales/laporanpulsa"  />
 			<label>
 				Tanggal

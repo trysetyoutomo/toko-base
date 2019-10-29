@@ -40,6 +40,7 @@ class Deposit extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nominal, created_by, updated_by', 'numerical', 'integerOnly'=>true),
+			array('nominal', 'required'),
 			array('customer_id', 'required',"on"=>"deposit_agen"),
 
 			array('created_at, updated_at', 'safe'),
@@ -71,7 +72,7 @@ class Deposit extends CActiveRecord
 			'customer_id' => 'Agen',
 			'created_by' => 'Created By',
 			'updated_by' => 'Updated By',
-			'created_at' => 'Created At',
+			'created_at' => 'Tanggal Transaksi ',
 			'updated_at' => 'Updated At',
 		);
 	}

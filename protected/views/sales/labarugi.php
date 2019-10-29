@@ -43,9 +43,9 @@
 Laporan Laba Rugi </h1>
 
 <?php 
-if (isset($_REQUEST['tgl'])){
-	$tgl = $_REQUEST['tgl'];
-	$tgl2 = $_REQUEST['tgl2'];
+if (isset($_REQUEST['Sales']['date'])){
+	$tgl = $_REQUEST['Sales']['date'];
+	$tgl2 = $_REQUEST['Sales']['date2'];
 	$filter = " and date(tanggal) >= '$tgl' and date(tanggal)<='$tgl2' ";
 
 }else{
@@ -53,7 +53,7 @@ if (isset($_REQUEST['tgl'])){
 	$tgl2 = date('Y-m-d');
 	$filter = "";
 
-}
+} 
 ?>
 <br>
 	<?php
@@ -78,9 +78,9 @@ if (isset($_REQUEST['tgl'])){
 
 // echo CHtml::beginForm();
 ?>
-<form>
+<form method="POST">
 <input type="hidden" name="r" value="sales/labarugi">
-<label>Tanggal 1</label>
+<label>Tanggal</label>
 <input name="Sales[date]" type="text" value="<?php echo $tgl; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
 <label>sampai</label>
 <input name="Sales[date2]" type="text" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
@@ -111,17 +111,8 @@ select sum(nominal) as total
 from 
 (
 SELECT
-	'1' AS item_id,
-	'0' AS nomor,
-IF
-	( customer_id = 0, 'DEPOSIT', concat( 'DEPOSIT_AGEN', '
-	', c.nama ) ) AS item_name,
-IF
-	( customer_id = 0, 'DEPOSIT', 'DEPOSIT_AGEN' ) AS nama_provider,
 	nominal,
-	'admin',
-	'1',
-	created_at AS tanggal 
+	date(created_at) AS tanggal 
 FROM
 	deposit
 	LEFT JOIN customer c ON c.id = deposit.customer_id 
@@ -168,11 +159,11 @@ $omset = $tot['sale_sub_total'];
 $modal = $tot['sale_sub_modal'];
 $omset_agen = $data_agen['total'];
 
-$kotor = $omset_agen - $omset - $modal;
+$kotor =  $omset - $modal;
 ?>
 <tr>
 	<td colspan="3">
-		<b>Pendapatan Agen Pulsa</b>
+		<b>Pendapatan Deposit Agen Pulsa</b>
 	</td>
 </tr>
 <tr>
@@ -243,11 +234,18 @@ $kotor = $omset_agen - $omset - $modal;
 	<td style="text-align: left;">
 		Laba / Rugi 
 	</td>
-	<td colspan="2"  style="text-align: right;color:red">
+	<td colspan="2"  style="text-align: right;">
+		<h4>
 		<?php 
-			echo number_format($kotor - $total_e);
+		$total = ($omset_agen + $kotor) - $total_e;
+			if ($total>0)
+				echo "<b style='color:green'>".number_format($total)."</b>";
+			else
+				echo "<b style='color:red'>".number_format($total)."</b>";
 
 		?>
+	</h4>
+
 	</td>
 
 	

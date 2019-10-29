@@ -8,7 +8,7 @@ if (isset($_REQUEST[tanggal])){
 			$date = date("Y-m-d");
 		}
 ?>
-<form>
+<form method="POST">
 	<input type="hidden" name="r" value="sales/transaksihapus"  />
 			Tanggal Transaksi 
 			<input type="date" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" name="tanggal" id="tanggal">

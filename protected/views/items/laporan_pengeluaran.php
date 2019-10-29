@@ -37,7 +37,7 @@ if (isset($_REQUEST['tanggal'])){
 ?>
 <?php $form=$this->beginWidget('CActiveForm',array(
 	'action'=>Yii::app()->createUrl('items/laporan_pengeluaran'),
-	'method'=>'get',
+	'method'=>'POST',
 )); ?>
 
 <label>Tanggal 1</label>
