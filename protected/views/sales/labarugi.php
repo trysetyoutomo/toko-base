@@ -81,9 +81,9 @@ if (isset($_REQUEST['tgl'])){
 <form>
 <input type="hidden" name="r" value="sales/labarugi">
 <label>Tanggal 1</label>
-<input name="Sales[date]" type="date" value="<?php echo $tgl; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
+<input name="Sales[date]" type="text" value="<?php echo $tgl; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
 <label>sampai</label>
-<input name="Sales[date2]" type="date" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
+<input name="Sales[date2]" type="text" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
 <input type="submit" name="submit" value="cari" class="btn btn-primary">
 <input onclick="$('#data-cetak').print()" type="button" name="cetak" value="cetak" class="btn btn-primary">
 </form>
@@ -92,7 +92,7 @@ if (isset($_REQUEST['tgl'])){
 // echo CHtml::button('Cari', array('submit' => array('sales/labarugi'),'class'=>'btn btn-primary' ) );
 ?>
 
-<table class="table items" id="data-cetak">
+<table class="table items" id="data-cetak" style="width:500px">
 <tr class="print">
 	<td colspan="3">
 		<h1>Laporan Laba Rugi</h1>
@@ -106,6 +106,42 @@ if (isset($_REQUEST['tgl'])){
 <?php 
 // $omset =  SalesController::GetOmset($month,$year,"omset");
 // $modal =  SalesController::GetOmset($month,$year,"modal");
+$sql_agen  = "
+select sum(nominal) as total
+from 
+(
+SELECT
+	'1' AS item_id,
+	'0' AS nomor,
+IF
+	( customer_id = 0, 'DEPOSIT', concat( 'DEPOSIT_AGEN', '
+	', c.nama ) ) AS item_name,
+IF
+	( customer_id = 0, 'DEPOSIT', 'DEPOSIT_AGEN' ) AS nama_provider,
+	nominal,
+	'admin',
+	'1',
+	created_at AS tanggal 
+FROM
+	deposit
+	LEFT JOIN customer c ON c.id = deposit.customer_id 
+WHERE
+
+	customer_id != '0' 
+ 
+ORDER BY
+	deposit.created_at asc
+) as tbl
+where tbl.tanggal  between '$tgl' and '$tgl2'
+";
+$data_agen = Yii::app()->db->createCommand($sql_agen)->queryRow();
+
+
+
+// echo $sql_agen;
+
+
+
 $table = SalesController::sqlSales();
 	$sql = "SELECT ID AS id,
 				tanggal_jt,
@@ -130,9 +166,25 @@ $table = SalesController::sqlSales();
 
 $omset = $tot['sale_sub_total'];
 $modal = $tot['sale_sub_modal'];
+$omset_agen = $data_agen['total'];
 
-$kotor = $omset - $modal;
+$kotor = $omset_agen - $omset - $modal;
 ?>
+<tr>
+	<td colspan="3">
+		<b>Pendapatan Agen Pulsa</b>
+	</td>
+</tr>
+<tr>
+	<td  style="text-align: left;">Total Laba Kotor</td>
+		<td style="text-align: right;"><?php echo number_format($data_agen['total']) ?></td>
+	</tr>
+
+<tr>
+	<td colspan="3">
+		<b>Pendapatan Penjualan Barang</b>
+	</td>
+</tr>
 	<tr>
 		<td  style="text-align: left;">Omzet</td>
 		<!-- <td style="width:10px;">:</td> -->
@@ -149,13 +201,11 @@ $kotor = $omset - $modal;
 		<td style="text-align: right;color:red"><?php echo number_format($kotor); ?></td>
 	</tr>
 <tr>
-	<td colspan="3" style="text-align: center;">
-		<h2 style="text-align: left;">Pengeluaran
-		<hr style="border:1px solid black">
-
-		</h2>
+	<td colspan="3">
+		<b>Pengeluaran</b>
 	</td>
-	<?php 
+</tr>
+<?php 
 	$branch = Yii::app()->user->branch();
 	$sql = "SELECT  sum( total ) total,jb.nama nama
 	FROM `pengeluaran` p
@@ -170,7 +220,6 @@ $kotor = $omset - $modal;
 	// print_r($model);
 
 	 ?>
-</tr>
 	<?php 
 	$total_e = 0;
 	foreach ($model as $key => $value) { ?>
@@ -186,11 +235,11 @@ $kotor = $omset - $modal;
 		<td>Total Pengeluaran</td>
 		<td colspan="2" style="text-align: right;color:red">(<?php echo number_format($total_e); ?>)</td>
 	</tr>
-	<tr>
-		<td colspan="3" style="text-align: center;">
-			<h2 style="text-align: left;">Laba Rugi<hr style="border:1px solid black"></h2>
-		</td>
-	</tr>
+<tr>
+	<td colspan="3">
+		<b>Laba/Rugi</b>
+	</td>
+</tr>
 	<td style="text-align: left;">
 		Laba / Rugi 
 	</td>
