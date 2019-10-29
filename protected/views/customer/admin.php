@@ -5,7 +5,7 @@
 
 <h1>
 <i class="fa fa-book"></i>
-Pelanggan
+Konsumen
 </h1>
 <hr>
 <div class="row">
@@ -34,6 +34,7 @@ Pelanggan
           <th>Nama </th>
           <th>Alamat</th>
           <th>Telepon</th>
+          <th>Tipe Konsumen</th>
 
   		</tr>
        
@@ -86,7 +87,12 @@ Pelanggan
         			
         		</td>
         		<td><?php echo $value['alamat']; ?></td>
-        		<td><?php echo $value['no_telepon']; ?></td>
+            <td><?php echo $value['no_telepon']; ?></td>
+        		<td><?php 
+            
+            echo CustomerType::model()->findByPk($value['customer_type'])->customer_type;
+
+             ?></td>
         		
         	
         	</tr>

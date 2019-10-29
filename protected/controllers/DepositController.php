@@ -103,6 +103,7 @@ class DepositController extends Controller
 			$model->attributes=$_POST['Deposit'];
 			$model->created_at = date("Y-m-d H:i:s");
 			$model->customer_id = $_POST['Deposit']['customer_id'];
+			$model->customer_name = Customer::model()->findByPk($_POST['Deposit']['customer_id'])->nama;
 
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));

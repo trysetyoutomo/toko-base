@@ -6248,3 +6248,23 @@ in E:\xampp\htdocs\toko-base\index.php (22)
 2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
 in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
 in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 12:17:09 [error] [exception.CException] CException: Property "CustomerType.nama" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('nama')
+#1 E:\xampp\htdocs\toko-base\protected\views\customer\admin.php(93): CActiveRecord->__get('nama')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('admin', Array, true)
+#6 E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php(402): CController->render('admin', Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): CustomerController->actionAdmin()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('admin')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('customer/admin')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=customer/admin
+---
