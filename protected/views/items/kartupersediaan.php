@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 <?php 
 $cabang = Yii::app()->user->branch();
 
@@ -17,14 +17,15 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
     // echo " - ";
     // echo $item_satuan->nama_satuan;
     ?>
+<div id="data-cetak">
 <h1>
-<!-- <i class="fa fa-book"></i> -->
     Kartu Persediaan #<?php echo $item->item_name;?>
 </h1>
 <h2>
   
 </h2>
 <hr>
+
 <table class="items table" id="data-log">
 <thead>
     <th rowspan="2">No</th>
@@ -161,6 +162,8 @@ foreach ($model as $key => $value) {
 
 
 </table>
+</div>
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
 <?php 
     // echo number_format($saldo_awal);
     // echo number_format($saldo_awal/$qty_awal);

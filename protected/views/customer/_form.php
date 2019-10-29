@@ -45,7 +45,7 @@
 
 	?>
 		<?php echo $form->labelEx($model,'customer_type'); ?>
-	<td ><?php echo $form->dropDownList($model,'customer_type', $data, array('empty' => 'Pilih ','separator'=>'|','class'=>'fo rm-control'))?>
+	<td ><?php echo $form->dropDownList($model,'customer_type', $data, array('empty' => 'Pilih ','separator'=>'|','class'=>'form-control','style'=>"width:200px"))?>
 			<?php echo $form->error($model,'customer_type'); ?>
 	</div>
 

@@ -2514,6 +2514,8 @@ public function getHargamodal($id){
   public function getLaporanStokJSON($query,$adjust) {
   	// var_dump($adjust);
   	$branch_id = Yii::app()->user->branch();
+  	// echo $query;
+  	// exit;
   	$rawData = Yii::app()->db->createCommand($query)->queryAll();
   	$array = array();
 

@@ -11,6 +11,7 @@
 )); ?>
 <div class="row">
 	<input name="mode" type ="hidden" value="<?php echo $mode; ?>" />
+	<span>Tanggal</span>
 		<input type="text" value="<?php echo $tgl ?>" style="display:inline;padding:5px" name="Sales[date]" id="Sales_date" class="tanggal">
 
 	<?php
@@ -23,7 +24,7 @@ echo "&nbsp;&nbsp;&nbsp;";
 ?>
 <!-- 
 -->
-<!-- Pilih Kategori -->
+Pilih Kategori
 <select name="kategori">
 	<optgroup>Pilih Kategori</optgroup>
 	<option value="semua">Semua</option>

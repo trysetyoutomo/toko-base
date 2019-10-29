@@ -30,7 +30,7 @@ Kategori
        <thead>
   		<tr>
            <th>Aksi</th>
-          <th>ID Kategori</th>
+          <!-- <th>ID Kategori</th> -->
     
           <th>Nama </th>
 
@@ -82,7 +82,7 @@ Kategori
             
               <!-- <a href=""></a> -->
             </td>
-        		<td><?php echo $value['id']; ?></td>
+        		<!-- <td><?php echo $value['id']; ?></td> -->
         		
         		<td>
  	           <a href="<?php echo Yii::app()->createUrl("Categories/update", array("id"=>$value[id])) ?>">

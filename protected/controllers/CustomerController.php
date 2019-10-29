@@ -45,13 +45,14 @@ class CustomerController extends Controller
 	// 	);
 	// }
 	public static function generateCustomerCode() {
-		$store_id = Yii::app()->user->store_id();
+		$store_id_real = Yii::app()->user->store_id();
+		$store_id = str_pad($store_id_real,3,"0",STR_PAD_LEFT);
         $query = "SELECT
 				IFNULL(
 					CONCAT(
-						'CSM',
+						'{$store_id}CSM',
 						LPAD(
-							MAX(SUBSTR(kode, 4, 10)) + 1,
+							MAX(SUBSTR(kode, 7, 10)) + 1,
 							10,
 							'0'
 						)

@@ -3215,13 +3215,24 @@ public function actionCetakReportAll(){
 	 
 	 public function actionSalescashmonthly(){
 		$branch_id = Yii::app()->user->branch();
-		if ($_POST['month']){
-			$month = $_POST['month'];
-			$year = $_POST['year'];
+		if (isset($_REQUEST['month'])){
+			$month = $_REQUEST['month'];
+			$year = $_REQUEST['year'];
+			
 		}else{
 			$month = intval(Date('m'));
 			$year = intval(Date('Y'));
+			
 		}
+		$filterBank = "";
+		if ($_REQUEST['pembayaran']!=""){
+			$bank = $_REQUEST['pembayaran'];
+			$filterBank = " and pembayaran_via = '$bank'";
+		}else{
+			$filterBank = " ";
+			$bank = "";
+		}
+		// echo $filterBank;
 		// exit;
 		// $month = Date('m');
 		$model = new Sales;
@@ -3234,7 +3245,7 @@ public function actionCetakReportAll(){
 		$tot = Yii::app()->db->createCommand()
 			->select('pembayaran_via,date(s.date) tanggal,s.id,s.date,sum(cash)cash,sum(edc_bca)edc_bca,sum(edc_niaga)edc_niaga,sum(compliment)compliment,sum(credit_bca) transfer,sum(dll)dll, SUM(IFNULL(cash,0)+IFNULL(edc_bca,0)+IFNULL(edc_niaga,0)+IFNULL(compliment,0)+IFNULL(dll,0)+IFNULL(credit_bca,0)) grandtotal	')
 			->from('sales s,sales_payment ')
-			->where("month(date) =  '$month' and year(date)='$year'  and sales_payment.id = s.id and s.status = 1 and s.branch = '$branch_id' ")
+			->where("month(date) =  '$month' and year(date)='$year'  and sales_payment.id = s.id and s.status = 1 and s.branch = '$branch_id' {$filterBank} ")
 			->group('day(s.date)')
 			->queryAll();
 			
@@ -3245,6 +3256,7 @@ public function actionCetakReportAll(){
 				'tot'=>$tot,
 				'month'=>$month,
 				'year'=>$year,
+				'bank'=>$bank,
 			));
 		
 		

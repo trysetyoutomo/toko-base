@@ -28,7 +28,7 @@ echo "'$brg->item_name'";
 		<?php echo $form->error($model,'harga'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row" style="display: none;">
 		<?php echo $form->labelEx($model,'supplier_id'); ?>
 		<?php echo $form->dropdownlist($model,'supplier_id',CHtml::listdata(Supplier::model()->findAll(),"id","nama")); ?>
 		<?php echo $form->error($model,'supplier_id'); ?>
@@ -38,7 +38,7 @@ echo "'$brg->item_name'";
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Simpan',array("class"=>"btn btn-primary")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

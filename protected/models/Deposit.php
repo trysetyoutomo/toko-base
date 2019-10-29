@@ -40,6 +40,8 @@ class Deposit extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nominal, created_by, updated_by', 'numerical', 'integerOnly'=>true),
+			array('customer_id', 'required',"on"=>"deposit_agen"),
+
 			array('created_at, updated_at', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -66,6 +68,7 @@ class Deposit extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nominal' => 'Nominal',
+			'customer_id' => 'Agen',
 			'created_by' => 'Created By',
 			'updated_by' => 'Updated By',
 			'created_at' => 'Created At',

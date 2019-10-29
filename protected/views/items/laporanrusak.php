@@ -89,7 +89,7 @@ foreach ($data as $key => $value) {
 
 
 <?php echo CHtml::submitButton('Cari',array("class"=>"btn btn-primary")); ?>
-	<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
 
 <?php //echo CHtml::button('Export to CSV',array('id'=>'export')); ?>
 <?php $this->endWidget(); ?>

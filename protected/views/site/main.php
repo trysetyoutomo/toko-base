@@ -6,6 +6,10 @@ if ($usaha=="Toko"){
 	$bool_tipe_harga_hidden = 'false';
     $bool_tipe_satuan_hidden = 'false';
     $bool_input_qty = 'false';
+}else if ($usaha=="Konter"){
+    $bool_tipe_harga_hidden = 'false';
+    $bool_tipe_satuan_hidden = 'true';
+    $bool_input_qty = 'false';
 }else{
     $bool_tipe_harga_hidden = 'true';
     $bool_tipe_satuan_hidden = 'true';
@@ -2197,6 +2201,7 @@ function bayar(status,table,sale_id)
             $("#bank-kredit").val(0);
             $("#bank-debit").val(0);
             var sales = jQuery.parseJSON(data);
+            console.log(sales);
             data2 = sales;
             idx  = sales.id;
 
@@ -2277,6 +2282,7 @@ function bayar(status,table,sale_id)
               //           // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
               //           }
                     }else{
+                        // alert('123');
 						var i =1;
 						var ulang  =  1;<?php //echo Parameter::model()->findByPk(1)->qty_cb; ?>
 						function myLoop(){

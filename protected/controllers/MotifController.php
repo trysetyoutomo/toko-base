@@ -186,6 +186,7 @@ class MotifController extends Controller
 		$rawData = Yii::app()->db->createCommand()
 		->select('*')
 		->from('motif')
+		// ->('motif')
 		->where("1=1 and store_id='{$store_id}' $filter")
 		->queryAll();
 		

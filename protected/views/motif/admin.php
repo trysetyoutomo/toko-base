@@ -30,9 +30,9 @@ SubKategori
        <thead>
   		<tr>
            <th>Aksi</th>
-          <th>ID Sub Kategori</th>
+          <th>Kategori</th>
     
-          <th>Nama </th>
+          <th>Sub Kategori </th>
 
   		</tr>
        
@@ -82,7 +82,11 @@ SubKategori
             
               <!-- <a href=""></a> -->
             </td>
-        		<td><?php echo $value['id']; ?></td>
+        		<td><?php 
+            
+            echo Categories::model()->findByPk($value['category_id'])->category; 
+
+            ?></td>
         		
         		<td>
  	           <a href="<?php echo Yii::app()->createUrl("Motif/update", array("id"=>$value[id])) ?>">

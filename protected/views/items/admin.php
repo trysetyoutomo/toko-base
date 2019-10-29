@@ -15,7 +15,7 @@ Mengelola Item
 			<i class="fa fa-plus"></i> Tambah Item
 		</button>
 		</a>
-    <a href="<?php echo Yii::app()->controller->createUrl("cetaklabel") ?>">
+    <a style="display: none;"> href="<?php echo Yii::app()->controller->createUrl("cetaklabel") ?>">
     <button class="btn btn-primary">
       <i class="fa fa-print"></i> Cetak Label Item
     </button>

@@ -15,7 +15,7 @@
 	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->dropDownList($model,'category_id', $data, array('empty' => 'Pilih Kategori','separator'=>'|'))?>
+		<?php echo $form->dropDownList($model,'category_id', $data, array('empty' => 'Pilih Kategori','separator'=>'|',"class"=>"form-control","style"=>"width:200px"))?>
 		<?php echo $form->error($model,'category_id'); ?>
 	</div>
 

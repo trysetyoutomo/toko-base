@@ -209,7 +209,7 @@ $(document).ready(function(){
           // $(".loader").show();
           myTable =  $('#datatable').DataTable({
             "processing": true,
-            "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "All"]],
+            "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "serverSide": true,
             "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",
             "fnDrawCallback": function( oSettings ) {

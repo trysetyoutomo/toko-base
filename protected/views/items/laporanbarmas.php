@@ -95,6 +95,17 @@ if (isset($kode_trx) && !empty($kode_trx)){
 	$filter .= " and  barangmasuk.kode_trx = '$kode_trx' ";
 }
 
+$status_pembayaran = $_REQUEST['status_pembayaran'];
+if (isset($status_pembayaran)){
+	if ($status_pembayaran=="0"){
+		$filter .= " ";	
+	}else if ($status_pembayaran=="1"){
+		$filter .= " and  barangmasuk.bayar < grand ";	
+	}else if ($status_pembayaran=="2"){
+		$filter .= " and  barangmasuk.bayar >= grand ";	
+	}
+}
+
 $status_aktif = $_REQUEST['tipemasuk'];
 $cabang = $_REQUEST['cabang'];
 $supplier = $_REQUEST['supplier'];
@@ -219,6 +230,21 @@ if (isset($status_aktif) && $status_aktif!="" ){
 </select>
 	</td>
 </tr>
+<tr>
+	<td>
+		<label>
+			
+		Status Pembayaran
+		</label>
+	</td>
+	<td>
+		<select name="status_pembayaran" id="status_pembayaran">
+			<option value="0">Semua</option>
+			<option value="1">Belum</option>
+			<option value="2">Lunas</option>
+		</select>
+	</td>
+</tr>
 </table>
 
 
@@ -333,7 +359,22 @@ else
 			<td ><?php echo number_format($m[subtotal]); ?></td>
 			<td ><?php echo number_format($m[diskon]); ?></td>
 			<td ><?php echo number_format($m[grand]); ?></td>
-			<td ><?php echo number_format($m[bayar]); ?></td>
+			<td >
+
+				<?php 
+				if ($m['bayar']>=$m['grand'])
+					echo number_format($m[bayar]); 
+				else{
+					?>
+					<input style="width:80%" type="text" name="input-bayar" id="input-bayar" value="<?php echo $m['bayar'] ?>">
+					<button data-kode="<?php  echo $m['kode_trx'] ?> " id="input-ok">Ubah Bayar</button>
+					<?php
+				}
+
+				?>
+					
+
+				</td>
 
 			<td ><?php 
 			$sisa  = $m[grand]-$m[bayar];

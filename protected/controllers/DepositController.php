@@ -74,6 +74,7 @@ class DepositController extends Controller
 		{
 			$model->attributes=$_POST['Deposit'];
 			$model->created_at = date("Y-m-d H:i:s");
+	
 
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));
@@ -87,6 +88,35 @@ class DepositController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	public function actionDeposit_agen()
+	{
+		$model=new Deposit;
+		$model->scenario = "deposit_agen";
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Deposit']))
+		{
+
+			$model->attributes=$_POST['Deposit'];
+			$model->created_at = date("Y-m-d H:i:s");
+			$model->customer_id = $_POST['Deposit']['customer_id'];
+
+			$username = Yii::app()->user->name;
+			$user = Users::model()->find('username=:un',array(':un'=>$username));
+			$model->created_by = $user->id;
+
+			if($model->save())
+				$this->redirect(array('sales/laporanpulsa','tanggal'=>date("Y-m-d") ));
+		}
+
+		$this->render('deposit_agen',array(
+			'model'=>$model,
+		));
+	}
+
 
 	/**
 	 * Updates a particular model.

@@ -29,9 +29,20 @@ Laporan Pulsa
 			<input type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
 		
 
-	<input type="submit" name="Cari" value="Cari" class="btn btn-primary"  />
-	<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
-	<a href="<?php echo Yii::app()->createUrl("Deposit/create") ?>" class="btn btn-primary" ><i class="fa fa-plus"></i> Deposit</a>
+	<button type="submit" name="" value="Cari" class="btn btn-primary" >
+		<i class="fa fa-search"></i>
+	Cari</button>
+	<button type="button" name="" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" >
+	<i class="fa fa-print"></i>
+	Cetak</button>
+	<a href="<?php echo Yii::app()->createUrl("Deposit/create") ?>" class="btn btn-primary" >
+		<i class="fa fa-plus"></i> 
+		Deposit
+	</a>
+	<a href="<?php echo Yii::app()->createUrl("Deposit/deposit_agen") ?>" class="btn btn-primary" >
+		<i class="fa fa-plus"></i> 
+		Deposit Agen
+	</a>
 </form>
 <br>
 <?php 
@@ -105,13 +116,15 @@ union all
 select 
 '1' as item_id,
 '0' as nomor,
-'DEPOSIT' as item_name,
-'DEPOSIT' as nama_provider,
+if(customer_id=0,'DEPOSIT',concat('DEPOSIT_AGEN','<br>',c.nama) ) as item_name,
+if(customer_id=0,'DEPOSIT','DEPOSIT_AGEN' ) as nama_provider,
 nominal,
 'admin',
 '1',
 created_at as tanggal
 from deposit 
+left join customer c 
+on c.id = deposit.customer_id
 where 
 date( created_at) = '$date' 
 

@@ -5995,3 +5995,256 @@ Stack trace:
 #11 {main}
 REQUEST_URI=/toko-base/index.php?r=Items/laporanstokJSON&draw=2&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=nomor&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=nama_kategori&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=nama_sub_kategori&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=item_name&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=stok&columns%5B4%5D%5Bsearchable%5D=false&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=-1&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572174477236
 ---
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:04 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:46:10 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "is_pulsa" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 22:49:44 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 23:17:28 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'p' in 'field list'. The SQL statement executed was: SELECT p embayaran_via,date(s.date) tanggal,s.id,s.date,sum(cash)cash,sum(edc_bca)edc_bca,sum(edc_niaga)edc_niaga,sum(compliment)compliment,sum(credit_bca) transfer,sum(dll)dll, SUM(IFNULL(cash,0)+IFNULL(edc_bca,0)+IFNULL(edc_niaga,0)+IFNULL(compliment,0)+IFNULL(dll,0)+IFNULL(credit_bca,0)) grandtotal	
+FROM `sales` `s`, `sales_payment`
+WHERE month(date) =  '10' and year(date)='2019'  and sales_payment.id = s.id and s.status = 1 and s.branch = '17'  
+GROUP BY day(s.date).
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (3248)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 23:17:28 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'p' in 'field list'. The SQL statement executed was: SELECT p embayaran_via,date(s.date) tanggal,s.id,s.date,sum(cash)cash,sum(edc_bca)edc_bca,sum(edc_niaga)edc_niaga,sum(compliment)compliment,sum(credit_bca) transfer,sum(dll)dll, SUM(IFNULL(cash,0)+IFNULL(edc_bca,0)+IFNULL(edc_niaga,0)+IFNULL(compliment,0)+IFNULL(dll,0)+IFNULL(credit_bca,0)) grandtotal	
+FROM `sales` `s`, `sales_payment`
+WHERE month(date) =  '10' and year(date)='2019'  and sales_payment.id = s.id and s.status = 1 and s.branch = '17'  
+GROUP BY day(s.date) in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(3248): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionSalescashmonthly()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('Salescashmonthl...')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/Salescash...')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=sales%2FSalescashmonthly&month=10&year=2019&pembayaran=GOPAY
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales%2FSalescashmonthly&month=10&year=2019&pembayaran=BCA
+---
+2019/10/27 23:17:44 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'p' in 'field list'. The SQL statement executed was: SELECT p embayaran_via,date(s.date) tanggal,s.id,s.date,sum(cash)cash,sum(edc_bca)edc_bca,sum(edc_niaga)edc_niaga,sum(compliment)compliment,sum(credit_bca) transfer,sum(dll)dll, SUM(IFNULL(cash,0)+IFNULL(edc_bca,0)+IFNULL(edc_niaga,0)+IFNULL(compliment,0)+IFNULL(dll,0)+IFNULL(credit_bca,0)) grandtotal	
+FROM `sales` `s`, `sales_payment`
+WHERE month(date) =  '10' and year(date)='2019'  and sales_payment.id = s.id and s.status = 1 and s.branch = '17'  
+GROUP BY day(s.date).
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (3248)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/27 23:17:44 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'p' in 'field list'. The SQL statement executed was: SELECT p embayaran_via,date(s.date) tanggal,s.id,s.date,sum(cash)cash,sum(edc_bca)edc_bca,sum(edc_niaga)edc_niaga,sum(compliment)compliment,sum(credit_bca) transfer,sum(dll)dll, SUM(IFNULL(cash,0)+IFNULL(edc_bca,0)+IFNULL(edc_niaga,0)+IFNULL(compliment,0)+IFNULL(dll,0)+IFNULL(credit_bca,0)) grandtotal	
+FROM `sales` `s`, `sales_payment`
+WHERE month(date) =  '10' and year(date)='2019'  and sales_payment.id = s.id and s.status = 1 and s.branch = '17'  
+GROUP BY day(s.date) in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(3248): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionSalescashmonthly()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('Salescashmonthl...')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/Salescash...')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=sales%2FSalescashmonthly&month=10&year=2019&pembayaran=GOPAY
+---
+2019/10/28 19:26:13 [error] [exception.CException] CException: Property "Categories.nama" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('nama')
+#1 E:\xampp\htdocs\toko-base\protected\views\motif\admin.php(87): CActiveRecord->__get('nama')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('admin', Array, true)
+#6 E:\xampp\htdocs\toko-base\protected\controllers\MotifController.php(194): CController->render('admin', Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): MotifController->actionAdmin()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('admin')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('motif/admin')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=motif/admin
+---
+2019/10/28 19:26:21 [error] [exception.CException] CException: Property "Categories.categories" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('categories')
+#1 E:\xampp\htdocs\toko-base\protected\views\motif\admin.php(87): CActiveRecord->__get('categories')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('admin', Array, true)
+#6 E:\xampp\htdocs\toko-base\protected\controllers\MotifController.php(194): CController->render('admin', Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): MotifController->actionAdmin()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('admin')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('motif/admin')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=motif/admin
+---
+2019/10/28 19:44:39 [warning] [application] Failed to set unsafe attribute "slogan" of "Branch".
+in E:\xampp\htdocs\toko-base\protected\controllers\BranchController.php (98)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/28 21:08:57 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "create_agen". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:484
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(271): CController->missingAction('create_agen')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create_agen')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Deposit/create_...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#5 {main}
+REQUEST_URI=/toko-base/index.php?r=Deposit/create_agen
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales%2Flaporanpulsa&tanggal=2019-10-25&Cari=Cari
+---
+2019/10/28 21:09:44 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "create_agen". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:484
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(271): CController->missingAction('create_agen')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create_agen')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Deposit/create_...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#5 {main}
+REQUEST_URI=/toko-base/index.php?r=Deposit/create_agen
+---
+2019/10/28 21:16:04 [error] [exception.CException] CException: Property "Customer.category" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('category')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php(1696): CActiveRecord->__get('category')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php(1660): CHtml::value(Object(Customer), 'category')
+#3 E:\xampp\htdocs\toko-base\protected\views\deposit\deposit_agen.php(33): CHtml::listData(Array, 'id', 'category')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('deposit_agen', Array, true)
+#8 E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php(112): CController->render('deposit_agen', Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): DepositController->actionDeposit_agen()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('deposit_agen')
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Deposit/deposit...')
+#15 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#16 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#17 {main}
+REQUEST_URI=/toko-base/index.php?r=Deposit/deposit_agen
+---
+2019/10/28 21:36:46 [warning] [application] Failed to set unsafe attribute "customer_id" of "Deposit".
+in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php (100)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/28 21:49:53 [warning] [application] Failed to set unsafe attribute "customer_id" of "Deposit".
+in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php (102)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/28 21:56:07 [warning] [application] Failed to set unsafe attribute "customer_id" of "Deposit".
+in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php (102)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/28 21:56:31 [warning] [application] Failed to set unsafe attribute "customer_id" of "Deposit".
+in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php (102)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/28 21:56:41 [warning] [application] Failed to set unsafe attribute "customer_id" of "Deposit".
+in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php (102)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/28 21:57:13 [warning] [application] Failed to set unsafe attribute "customer_id" of "Deposit".
+in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php (102)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "is_pulsa" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/29 08:05:26 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2359)
+in E:\xampp\htdocs\toko-base\index.php (22)

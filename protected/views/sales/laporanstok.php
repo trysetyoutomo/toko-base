@@ -155,6 +155,7 @@ var myTableMember;
           myTable =  $('#datatable').DataTable({
             "processing": true,
             "serverSide": true,
+             "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON&adjust=1") ?>",
             "fnDrawCallback": function( oSettings ) {
                    // $(".loader").hide();

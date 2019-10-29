@@ -173,7 +173,7 @@
     <div class="line metode"  isi="bca"  > 
     	<label style="font-size:20px"> DEBIT
     	</label>
-    		<input value="0" onkeyup="changebayar()" id="edcbca" type="text" placeholder="Bayar" class="myinput langsung" style="width:200px;height:50px;font-size:20px">
+    		<input readonly="" value="0" onkeyup="changebayar()" id="edcbca" type="text" placeholder="Bayar" class="myinput langsung" style="width:200px;height:50px;font-size:20px">
     		<input type="hidden" name="no_kartu_debit" id="no_kartu_debit">
     		<!-- <input type="" name=""> -->
     		<select id="bank-debit" style="width:150px;height:50px;font-size:20px" class="myinput">
@@ -191,7 +191,7 @@
     <div class="line metode" isi="niaga"  >
 	    <label style="font-size:20px">KREDIT
 	    </label> 
-		    <input value="0" onkeyup="changebayar()" id="edcniaga" type="text" placeholder="Bayar" class="myinput langsung" style="width:200px;height:50px;font-size:20px">
+		    <input  readonly="" value="0" onkeyup="changebayar()" id="edcniaga" type="text" placeholder="Bayar" class="myinput langsung" style="width:200px;height:50px;font-size:20px">
     		<input type="hidden" name="no_kartu_kredit" id="no_kartu_kredit">
     		<span style="margin-top: 10px;">
     		<select id="bank-kredit" style="width:150px;height:50px;font-size:20px" class="myinput">

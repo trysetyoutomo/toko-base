@@ -389,12 +389,19 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
             		}
             }
             function appendToBaris(d,barcode,jumlah){
+              var subkategori = "-";
+              if (d.nama_sub_kategori==null){
+                subkategori = "-";
+              }else{
+                subkategori = d.nama_sub_kategori;
+              }
+
               $(".td-null").remove();
             	$('#users tbody').append(
             		"<tr class='baris'>" +
                   "<td>"+d.nama_satuan+"</td>"+
             			"<td>"+d.nama_kategori+"</td>"+
-            			"<td>"+d.nama_sub_kategori+"</td>"+
+            			"<td>"+subkategori+"</td>"+
             			"<td style='display:none' class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
             			"<td>" + d.item_name +"</td>" +
             			// "<td>"+

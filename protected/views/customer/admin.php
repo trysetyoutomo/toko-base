@@ -30,7 +30,7 @@ Pelanggan
        <thead>
   		<tr>
            <th>Aksi</th>
-          <th>ID</th>
+          <th>Kode</th>
           <th>Nama </th>
           <th>Alamat</th>
           <th>Telepon</th>
@@ -78,9 +78,9 @@ Pelanggan
             
               <!-- <a href=""></a> -->
             </td>
-        		<td><?php echo $value['id']; ?></td>
+        		<td><?php echo $value['kode']; ?></td>
         		<td>
-					<a href="<?php echo Yii::app()->createUrl("Customer/update", array("id"=>$value[id])) ?>">
+					<a href="<?php echo Yii::app()->createUrl("Customer/update", array("id"=>$value['id'])) ?>">
         			<?php echo $value['nama']; ?>
         			</a>
         			

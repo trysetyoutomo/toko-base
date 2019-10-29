@@ -6,8 +6,8 @@
 	}
 </style>
 <h1>
-<i class="fa fa-money"></i>
-Laporan Pembayaran Per Hari </h1>
+<i class="fa fa-book"></i>
+Rekap Pembayaran </h1>
 <hr>
 <?php
 $data = array(
@@ -28,14 +28,31 @@ $curr_year = Date('Y');
 for($x=$curr_year-5; $x<$curr_year+5;$x++){
 	$arr_year[$x] = $x;
 }
+$arr_bank = array();
+$banks = Bank::model()->findAll("aktif=1");
+foreach ($banks as $key => $value) {
+	$arr_bank[$value->nama] = $value->nama; 
+}
+$arr_bank["0"] = "CASH"; 
+
 ?>
 <form >
 <input type="hidden" name="r" value="sales/Salescashmonthly">
 <?php 
 // echo CHtml::beginForm();
+?>
+<label>Bulan</label>
+<?php 
 echo CHtml::dropDownList('month', $month, $data);
+?>&nbsp;<?php
 echo CHtml::dropDownList('year', $year, $arr_year);
-
+?>
+&nbsp;
+<label> Pembayaran</label>
+&nbsp;
+<?php
+echo CHtml::dropDownList('pembayaran', $bank, $arr_bank,array("empty"=>"Pilih"));
+?>&nbsp;<?php
 // echo CHtml::button('Cari', array('submit' => array('sales/Salescashmonthly'),"class"=>'btn btn-primary' ));
 // echo CHtml::endForm();
 
@@ -52,7 +69,7 @@ echo "<thead>";
 		echo "<th>No.</th>";
 		echo "<th>Tanggal</th>";
 		// echo "<th>Kartu</th>";
-		echo "<th>total</th>";
+		echo "<th>Total</th>";
 		echo "<th>Cash</th>";
 		// echo "<th>Compliment</th>";
 		echo "<th>Debit</th>";
@@ -68,7 +85,7 @@ $x=1;
 foreach($tot as $a){
 	echo "<tr>";
 		echo "<td>".$x++."</td>";
-		echo "<td>".$a['tanggal']."</td>";
+		echo "<td>".date("d M Y",strtotime($a['tanggal']) )."</td>";
 		// echo "<td>".$a['pembayaran_via	']."</td>";
 		echo "<td>".number_format($a['grandtotal'])."</td>";
 		echo "<td>".number_format($a['cash'])."</td>";

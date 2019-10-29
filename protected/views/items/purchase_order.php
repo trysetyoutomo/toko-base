@@ -310,6 +310,11 @@
 						<textarea placeholder="barang masuk" id="keterangan" style="display:inline;height:70px">-</textarea>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2">
+							<button onclick="kirim()" class="btn btn-primary">Simpan</button>
+					</td>
+				</tr>
 			</table>
 		</div>
 	
@@ -794,7 +799,7 @@ function add_item(val){
 						</table>
 					</div> <!-- .widget-content -->
 				</div> <!-- .widget -->
-				<button onclick="kirim()" class="btn btn-primary">Simpan</button>
+			
 				</div>
 			</div> <!-- .grid -->
 

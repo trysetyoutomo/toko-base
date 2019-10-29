@@ -120,7 +120,7 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
     <span id="head-meja"></span><span id="head-meja-nilai"></span>
 
     </div>
-		<div class="admin-bar" style="float: right;width: 250px;position: absolute;right: 20px;text-align:center">
+		<div class="admin-bar" style="float: right;width: 350px;position: absolute;right: 20px;text-align:center">
             <ul>
                 <li><a href="#" id="data-user"><?php echo Yii::app()->user->name; ?></a></li>
 				<li><a href="<?php echo $this->createUrl('sales/index');?>">Pengaturan</a></li>
