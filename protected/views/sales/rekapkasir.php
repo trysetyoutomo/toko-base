@@ -7,7 +7,7 @@
 $this->renderPartial('application.views.site.main');
 ?>
 <h1>
-Rekap Penjualan (Per User)
+Laporan Kasir
 </h1>
 <hr>
 <?php 
@@ -17,7 +17,7 @@ Rekap Penjualan (Per User)
 			$date = date("Y-m-d");
 		}
 ?>
-<form>
+<form method="post">
 	<input type="hidden" name="r" value="sales/rekap"  />
 			<label>
 				Tanggal
@@ -48,6 +48,7 @@ Rekap Penjualan (Per User)
 
 			?>
 	<input type="submit" name="Cari" value="Cari" class="btn btn-primary" style="display:inline" />
+	<!-- <input type="button" name="kirim" value="Kirim Email" class="btn btn-primary btn-kirim-email" style="display:inline" /> -->
 </form>
 <br>
 <?php 
@@ -248,6 +249,23 @@ group by A.nama_user
 <script>
 $(document).ready(function(e){
 	 $('.tanggal').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
+
+	$('.btn-kirim-email').click(function(){
+		$.ajax({
+		url:'<?php echo Yii::app()->createUrl("site/KirimEMail") ?>',
+		// data:'tanggal_rekap='+tanggal+"&inserter="+inserter,
+		success: function(data){
+			alert(data);
+			
+
+		},
+		error: function(data){
+		alert('error');
+		}
+		});
+
+	});
+
 
 	$('.hapus').click(function(){
 		var c = confirm("Yakin ?");

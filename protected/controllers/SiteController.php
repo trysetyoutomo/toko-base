@@ -19,7 +19,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('hapusAll','pajak','waiterhapus','ubahpassword','uservoid','cekpassword','gabungmeja','reloadoptionmeja','reloadMeja','updatetable','getmenutable','waiterkirim','login','logout','setting','hutang','pengaturan'),
+				'actions'=>array('KirimEMail','hapusAll','pajak','waiterhapus','ubahpassword','uservoid','cekpassword','gabungmeja','reloadoptionmeja','reloadMeja','updatetable','getmenutable','waiterkirim','login','logout','setting','hutang','pengaturan'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -30,6 +30,18 @@ class SiteController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionKirimEMail(){
+				// the message
+		$msg = "First line of text\nSecond line of text";
+
+		// use wordwrap() if lines are longer than 70 characters
+		$msg = wordwrap($msg,70);
+
+		// send email
+		$bOK = mail("try35u@gmail.com","My subject",$msg);
+		var_dump($bOK);
 	}
 
 	

@@ -30,7 +30,7 @@ Pengguna
        <thead>
   		<tr>
            <th>Aksi</th>
-          <th>ID Pengguna</th>
+          <!-- <th>ID Pengguna</th> -->
           <th>username</th>
           <th>level</th>
 
@@ -78,7 +78,7 @@ Pengguna
             
               <!-- <a href=""></a> -->
             </td>
-        		<td><?php echo $value['id']; ?></td>
+        		<!-- <td><?php echo $value['id']; ?></td> -->
         		<td>
 					  <a href="<?php echo Yii::app()->createUrl("Users/update", array("id"=>$value[id])) ?>">
         			<?php echo $value['username']; ?>

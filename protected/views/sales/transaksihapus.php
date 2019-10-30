@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 
-<h1><i class="fa fa-book"></i> Transaksi Cancel </h1><hr>
+<h1><i class="fa fa-book"></i> Laporan Cancel </h1><hr>
 <?php 
 if (isset($_REQUEST[tanggal])){
 			$date = $_REQUEST[tanggal];

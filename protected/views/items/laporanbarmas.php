@@ -174,7 +174,7 @@ if (isset($status_aktif) && $status_aktif!="" ){
 		<label>No Faktur</label>
 	</td>
 	<td>
-			<input name="faktur" type="text" value="<?php echo $_REQUEST['faktur']; ?>" style="display:inline;padding:5px" name="faktur">
+			<input id="faktur" name="faktur" type="text" value="<?php echo $_REQUEST['faktur']; ?>" style="display:inline;padding:5px" name="faktur">
 
 	</td>
 </tr>
@@ -183,7 +183,7 @@ if (isset($status_aktif) && $status_aktif!="" ){
 		<label>Kode TRX</label>
 	</td>
 	<td>
-			<input  type="text" value="<?php echo $_REQUEST['kode_trx']; ?>" style="display:inline;padding:5px" name="kode_trx">
+			<input id="kode_trx"  type="text" value="<?php echo $_REQUEST['kode_trx']; ?>" style="display:inline;padding:5px" name="kode_trx">
 
 	</td>
 </tr>
@@ -239,9 +239,9 @@ if (isset($status_aktif) && $status_aktif!="" ){
 	</td>
 	<td>
 		<select name="status_pembayaran" id="status_pembayaran">
-			<option value="0">Semua</option>
-			<option value="1">Belum</option>
-			<option value="2">Lunas</option>
+			<option value="0">SEMUA</option>
+			<option value="1">BELUM LUNAS</option>
+			<option value="2">SUDAH LUNAS</option>
 		</select>
 	</td>
 </tr>
@@ -367,7 +367,7 @@ else
 				else{
 					?>
 					<input style="width:80%" type="text" name="input-bayar" id="input-bayar" value="<?php echo $m['bayar'] ?>">
-					<button data-kode="<?php  echo $m['kode_trx'] ?> " id="input-ok">Ubah Bayar</button>
+					<button data-kode="<?php echo $m['kode_trx']?> " id="input-ok">Ubah Bayar</button>
 					<?php
 				}
 
@@ -565,6 +565,44 @@ $(document).ready(function(){
 				// alert('data gagal di export');
 			}
 		});
+	});
+
+
+	$('#input-ok').click(function(){
+			var data_kode = $(this).attr("data-kode");
+			var input_bayar  = $("#input-bayar").val();
+			var c = confirm("Yakin ?");
+			if (!c){
+				return;	
+			}
+				// alert(data_kode);
+		
+			$.ajax({
+				url:'<?php echo Yii::app()->createUrl("BarangMasuk/bayar") ?>',
+				data:{
+					id : data_kode,
+					input_bayar : input_bayar
+				},
+				success: function(data){
+					// alert(data);
+					var json = jQuery.parseJSON(data);
+					if (json.success=="1"){
+						$("#kode_trx").val(data_kode);
+						alert("Berhasil");
+						$("#yw0").submit();
+					}else{
+						alert("Tidak Berhasil");
+					}
+					// $('#hasiljson').html(data);
+					// print_keluar(json);
+					// console.log(data);
+					
+				},
+				error: function(data){
+					alert(data);
+				}
+			});
+		
 	});
 	$('.cetak').click(function(){
 		var id = $(this).attr("data-id");

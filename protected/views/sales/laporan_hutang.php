@@ -48,6 +48,7 @@ for($x=1; $x<=31;$x++){
 
 echo CHtml::beginForm();
 ?>
+<hr>
 <table cellpadding="20" id="sales-filter">
 	<tr style="display: none;">
 		<td>

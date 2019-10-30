@@ -146,7 +146,7 @@
 	});
 </script>
 <?php 
-$permission = ConfigMenu::model()->findAll(array("order"=>"value asc"));
+$permission = ConfigMenu::model()->findAll("hapus = 0",array("order"=>"value asc"));
 $user = Users::model()->findAll("level = 1 or level=2 ");
 $no = 1;
 ?>

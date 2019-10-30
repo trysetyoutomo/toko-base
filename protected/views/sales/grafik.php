@@ -7,7 +7,7 @@
 <center>
 <?php $form=$this->beginWidget('CActiveForm',array(
 	'action'=>Yii::app()->createUrl('sales/grafik'),
-	'method'=>'get',
+	'method'=>'post',
 )); ?>
 <div class="row">
 	<input name="mode" type ="hidden" value="<?php echo $mode; ?>" />

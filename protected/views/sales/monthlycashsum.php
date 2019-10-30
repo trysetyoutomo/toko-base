@@ -36,7 +36,7 @@ foreach ($banks as $key => $value) {
 $arr_bank["0"] = "CASH"; 
 
 ?>
-<form >
+<form method="POST" >
 <input type="hidden" name="r" value="sales/Salescashmonthly">
 <?php 
 // echo CHtml::beginForm();

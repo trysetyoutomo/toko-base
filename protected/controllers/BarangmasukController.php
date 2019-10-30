@@ -11,38 +11,38 @@ class BarangmasukController extends Controller
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // perform access control for CRUD operations
-		);
-	}
+	// public function filters()
+	// {
+	// 	return array(
+	// 		'accessControl', // perform access control for CRUD operations
+	// 	);
+	// }
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','requestmasuk'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
+	// /**
+	//  * Specifies the access control rules.
+	//  * This method is used by the 'accessControl' filter.
+	//  * @return array access control rules
+	//  */
+	// public function accessRules()
+	// {
+	// 	return array(
+	// 		array('allow',  // allow all users to perform 'index' and 'view' actions
+	// 			'actions'=>array('index','view'),
+	// 			'users'=>array('*'),
+	// 		),
+	// 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
+	// 			'actions'=>array('create','update','requestmasuk'),
+	// 			'users'=>array('@'),
+	// 		),
+	// 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
+	// 			'actions'=>array('admin','delete'),
+	// 			'users'=>array('admin'),
+	// 		),
+	// 		array('deny',  // deny all users
+	// 			'users'=>array('*'),
+	// 		),
+	// 	);
+	// }
 
 	  // public static function generateKodeBMS() {
    //      $query = "SELECT
@@ -59,6 +59,28 @@ class BarangmasukController extends Controller
 
    //   }
 
+
+  public function actionBayar(){
+  	if (isset($_REQUEST['id'])){
+  		$id = $_REQUEST['id'];
+  		// var_dump($id);
+  		// exit;;
+  		$BarangMasuk = BarangMasuk::model()->find("kode_trx = '$id' ");
+  		if ($BarangMasuk){
+	  		$BarangMasuk->bayar = $_REQUEST['input_bayar'];
+	  		if ($BarangMasuk->update()){
+	  			echo json_encode(array("success"=>1));
+	  		}else{
+	  			echo json_encode(array("success"=>0));
+	  		}
+  		}else{
+  			echo "Not Found";
+  		}
+
+  	// echo "123";
+  	// $kode = $_REQUEST['id'];
+  	}
+  }
   public static function generateKodePO() {
        	$store_id = Yii::app()->user->store_id();
    	  	$store_id2 = str_pad($store_id,3,"0",STR_PAD_LEFT);

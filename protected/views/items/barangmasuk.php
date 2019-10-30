@@ -1,6 +1,6 @@
 <style type="text/css">
    tr td{
-   padding: 5px;
+   padding: 2px;
    }
    #footer{
    display: none;
@@ -138,7 +138,7 @@
 <div class="row">
    <div class="col-sm-6">
       <h1> <i class="fa fa-book"></i>&nbsp;Pembelian</h1>
-      <table border="0" cellpadding="0" id="trx-b-masuk" >
+      <table border="0" cellpadding="0" id="trx-b-masuk"  >
          <tr>
             <td colspan="4">
                <legend style="font-weight:bolder">Data Transaksi</legend>
@@ -347,6 +347,7 @@
             <table style="width:100%" id="users" class="table table-bordered table-striped">
                <thead>
                   <tr>
+                     <th>No</th>
                      <th>Kategori</th>
                      <th>Sub Kategori</th>
                      <th>Nama Item</th>
@@ -559,10 +560,10 @@
    
    
    	});
-   	$(document).on('click', '.hapus', function(e) {
+   	$(document).on('click', '.hapus-baris', function(e) {
    		// alert('masuk');
-   		var index = $('.hapus').index(this);
-   		$('.baris').eq(index).remove();
+   		var index = $('.hapus-baris').index(this);
+   		$('.baris-baris').eq(index).remove();
    		kalkulasiBeli();
    	});
    
@@ -737,6 +738,7 @@
    							$('#stok').val(1);
    						}
    				}
+          var no = 0;
    				function appendToBaris(d,barcode,jumlah,harga=""){
    					var subkategori = "-";
    					if (d.nama_sub_kategori==null){
@@ -744,9 +746,11 @@
    					}else{
    						subkategori = d.nama_sub_kategori;
    					}
+            // no++;
+            no = $(".baris").length+1;
    					$('#users tbody').append(
    					"<tr class='baris'>" +
-   					// "<td></td>";
+   					"<td>"+no+"</td>"+
    					"<td>"+d.nama_kategori+"</td>"+
    					"<td>"+subkategori+"</td>"+
    					// "<td>1</td>"+
@@ -774,7 +778,7 @@
    					// "<button  class='btn btn-primary tambah-supplier' >Tambah Supplier</button>"+
    					// "&nbsp;&nbsp;"+
    					// "</td>" +
-   					"<td >&nbsp;<i  class='hapus fa fa-times'></i > "+
+   					"<td >&nbsp;<i  class='hapus-baris fa fa-times'></i > "+
    
    					"</td> " +
    

@@ -72,6 +72,7 @@ $sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal']);
 			<td>Provider</td>
 			<td>Nomor</td>
 			<td>Saldo Akhir</td>
+			<td>Aksi</td>
 		</tr>
 		
 
@@ -114,7 +115,7 @@ si.id
 union all 
 
 select 
-'1' as item_id,
+deposit.id as item_id,
 '0' as nomor,
 if(customer_id=0,'DEPOSIT',concat('DEPOSIT_AGEN','<br>',c.nama) ) as item_name,
 if(customer_id=0,'DEPOSIT','DEPOSIT_AGEN' ) as nama_provider,
@@ -201,7 +202,15 @@ order by tbl.tanggal asc
 			echo  number_format($nilai_sisa);
 
 			 ?></td>
-
+			 <td align="center">
+			 	<?php
+			 	// echo $m['item_name']; 
+			 	if ($m['nama_provider']=="DEPOSIT_AGEN"){
+			 	?>
+			 	<button data-id="<?php echo $m[item_id] ?>" href="#" class="btn btn-primary cetak-deposit">
+			 		<i style="color:white!important" class="fa fa-print"></i> Cetak</button>
+			 	<?php } ?>
+			 </td>
 
 			<td style="display:none;">
 				<button class="cetak btn-primary btn" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
@@ -243,7 +252,7 @@ order by tbl.tanggal asc
 		endforeach; ?>
 		<tfoot >
 			<tr>
-				<td colspan="8"><h2>Sisa Saldo</h2> </td>
+				<td colspan="9"><h2>Sisa Saldo</h2> </td>
 				<td align="right" style="color:green" ><h2><b><?php echo number_format($nilai_sisa)   ?></b></h2></td>
 				
 				
@@ -257,6 +266,30 @@ order by tbl.tanggal asc
 <script>
 $(document).ready(function(e){
 	 $('.tanggal').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
+
+	 $('.cetak-deposit').click(function(){
+			var id = $(this).attr("data-id");
+		
+			$.ajax({
+				url:'<?php echo Yii::app()->createUrl("Deposit/CetakDeposit") ?>',
+				data:'id='+id,
+				success: function(data){
+					// alert(data);
+					var json = jQuery.parseJSON(data);
+					console.log(json);
+					// $('#hasiljson').html(data);
+					cetak_deposit(json);
+					// console.log(data);
+					
+				},
+				error: function(data){
+					alert('error');
+				}
+			});
+		
+	});
+
+
 
 	$('.hapus').click(function(){
 		var c = confirm("Yakin ?");

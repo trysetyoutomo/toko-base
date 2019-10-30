@@ -3938,7 +3938,7 @@ public function actionCetakReportAll(){
 		$this->tlp =  Branch::model()->findByPk($branch_id)->telp;
 		$this->slg =  Branch::model()->findByPk($branch_id)->slogan;
 
-		$html_noprint .= "<table>
+		$html_noprint .= "<table style='width:200px'>
 		<tr>
 			<td align='center'><h2>$this->comp</h2></td>
 		</tr>
@@ -5150,7 +5150,8 @@ public function actionCetakReportAll(){
 		// print_r($temp_data);
 		// echo "</pre>";
 	}
-		
+
+
 
 	public function actionPrintnPrintrekap(){
 	

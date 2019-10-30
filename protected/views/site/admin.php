@@ -15,17 +15,17 @@
     <br>
     <br> 
   <h1>
-    <b><?php echo Stores::model()->findByPk(Yii::app()->user->store_id())->name;?> </b>
-    <br> 
+    <!-- <b><?php echo Stores::model()->findByPk(Yii::app()->user->store_id())->name;?> </b> -->
+    <!-- <br>  -->
     <?php 
     $branch_id = Yii::app()->user->branch();
     echo Branch::model()->findByPk($branch_id)->branch_name;
     echo "<br>";
     ?>
   </h1>
-  <div style="width: 100px">
+  <div style="width: 400px">
     
-  <h3  class=" text-center"><?php echo Branch::model()->findByPk($branch_id)->address; ?></h3>
+  <h4  class=" text-center"><?php echo Branch::model()->findByPk($branch_id)->address; ?></h4>
   </div>
     <br>
  

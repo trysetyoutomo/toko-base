@@ -629,6 +629,49 @@ try{
 	}
 }
 
+function cetak_deposit(data) {
+
+    useDefaultPrinter();
+    var applet = document.jzebra;
+
+    applet.append(chr(27)+chr(69)+"\r");//perintah untuk bold
+    // applet.append(chr(27)+"\x61"+"\x31"); //perintah untuk center
+    applet.append(chr(27) + "\x61" + "\x31"); // center justify
+    applet.append(chr(27) + chr(33) + chr(128));//underliner
+    
+    applet.append(data.logo+"\r\n\n");
+    applet.append(chr(27) + chr(64));//cancel character sets            
+    applet.append(chr(27) + "\x61" + "\x31"); // center justify
+    // applet.append(data.per+"\r\n");
+    applet.append(data.alamat+"\r\n");
+    applet.append(data.no_telp+"\r\n");
+    applet.append(data.tgl_deposit+"\r\n");
+    applet.append("---------------------------------");
+    applet.append("Nama Agen :"+data.customer_name+"\r\n");
+    applet.append("Deposit   :"+data.nominal+"\r\n");
+    applet.append("---------------------------------");
+    applet.append("Terima kasih ");
+    applet.append("---------------------------------");
+   
+
+    applet.append("\n");
+    applet.append("\n");
+    applet.append("\n");
+    applet.append("\n");
+    applet.append("\n");
+    applet.append("\n");
+    applet.append("\n");
+    applet.append("\x1Bm"); 
+    // alert(data);
+            
+        // Send characters/raw commands to printer
+      
+    applet.print();
+
+
+
+}
+
 function print_items(lokasi,lokindex) {
 	// alert(lokasi);
 	try { 
@@ -2282,6 +2325,9 @@ function bayar(status,table,sale_id)
               //           // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
               //           }
                     }else{
+
+                        var c = confirm("Cetak Bukti ?? ");
+                        if (!c) return false;
                         // alert('123');
 						var i =1;
 						var ulang  =  1;<?php //echo Parameter::model()->findByPk(1)->qty_cb; ?>

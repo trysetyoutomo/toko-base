@@ -24,7 +24,8 @@ $this->renderPartial('application.views.site.main');
 ?>
 <div id="hasil"></div>
 <h1>
-<i class="fa fa-book"></i> Laporan Penjualan Per Faktur </h1>
+<i class="fa fa-book"></i> Laporan Penjualan Harian </h1>
+<hr>
 
 <?php
 $data = array(
@@ -114,46 +115,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 		</td>
 	</tr>
 </table>
-	
-
-<?php
-// 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-// 		'name'=>'Sales[date2]',
-// 		'attribute'=>'date',
-// //		'model'=>$model,
-// 		// additional javascript options for the date picker plugin
-// 		'options'=>array(
-// 			'dateFormat'=>'yy-mm-dd',
-// 			'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-// 			'showOn'=>'button', // 'focus', 'button', 'both'
-// 			'buttonText'=>Yii::t('ui','Select form calendar'),
-// 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.png',
-// 			'buttonImageOnly'=>true,
-// 		),
-// 		'value'=>$tgl2,
-// 		'htmlOptions'=>array(
-// 			// 'style'=>'height:20px;'
-// 			'style'=>'height:20px;;width:80px;display:inline-block'
-// 		),
-// 	));
-
-
-	
-// $this->renderPartial('summary',array('summary'=>$summary));
-
-?>
-<!-- Status -->
-	
-
-
-<?php 
-
-?>
-
-
-
-
-	<!-- </div> -->
+<hr>
 <?php echo CHtml::submitButton('Cari',array('class'=>'btn btn-primary')); ?>
 <input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
 

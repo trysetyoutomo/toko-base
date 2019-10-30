@@ -20,6 +20,41 @@ class DepositController extends Controller
 	 * @param integer $id the ID of the model to be displayed
 	 */
 
+	function actionCetakDeposit($id){
+		// if (isset($_REQUEST['inserter'])){
+		// 	$username = $_REQUEST['inserter'];
+		// 	$username = Users::model()->findByPk($username)->username;
+		// }else{
+		$username = Yii::app()->user->name;
+		// }
+		$branch_id = Yii::app()->user->branch();
+		$comp = Branch::model()->findByPk($branch_id)->branch_name;
+		$adr =  Branch::model()->findByPk($branch_id)->address;
+		$tlp =  Branch::model()->findByPk($branch_id)->telp;
+		$slg =  Branch::model()->findByPk($branch_id)->slogan;
+        
+
+		$temp_data['logo'] = $comp;
+        $temp_data['alamat'] = $adr;
+        $temp_data['no_telp'] = $tlp;
+
+        $deposit = Deposit::model()->findByPk($id);
+		$temp_data['nominal'] = "Rp. ".number_format($deposit->nominal);
+		$temp_data['customer_name'] = $deposit->customer_name;
+		$temp_data['tgl_deposit'] = date("d M Y",strtotime($deposit->created_at));
+
+
+		
+		
+		
+
+		echo json_encode($temp_data);
+		// echo "<pre>";
+		// print_r($temp_data);
+		// echo "</pre>";
+	}
+		
+
 
 	public static function getSaldoAkhir($tanggal){
 		$queryKeluar  = "select 

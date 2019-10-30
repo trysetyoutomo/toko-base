@@ -37,6 +37,13 @@ return array(
     ),
     // application components
     'components' => array(
+        'mailer' => array(
+            'class' => 'application.extensions.mailer.EMailer',
+            'pathViews' => 'application.views.email',
+            'pathLayouts' => 'application.views.email.layouts'
+        ),
+
+        
         'file' => array(
             'class' => 'application.extensions.file.CFile',
         ),
