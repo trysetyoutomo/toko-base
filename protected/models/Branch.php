@@ -38,7 +38,7 @@ class Branch extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			// array('id', 'numerical', 'integerOnly'=>true),
-			array('branch_name, address,telp', 'required'),
+			array('branch_name, address,telp,slogan', 'required'),
 			array('branch_name', 'length', 'max'=>150),
 			array('address', 'length', 'max'=>225),
 			array('telp', 'length', 'max'=>40),

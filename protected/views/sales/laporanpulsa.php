@@ -20,14 +20,26 @@ Laporan Pulsa
 		}else{
 			$date = date("Y-m-d");
 		}
+
+	if (isset($_REQUEST['jenis-transaksi'])){
+		$jenis_transaksi = $_REQUEST['jenis-transaksi'];
+	}else{
+		$jenis_transaksi = 1;
+	}
 ?>
 <form method="POST">
 	<input type="hidden" name="r" value="sales/laporanpulsa"  />
-			<label>
-				Tanggal
-			</label>
-			<input type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
-		
+	<label>
+		Jenis Transaksi 
+		<select id="jenis-transaksi" name="jenis-transaksi">
+			<option <?php if ($jenis_transaksi=="1") echo "selected" ?> value="1">Agen</option>
+			<option <?php if ($jenis_transaksi=="2") echo "selected" ?> value="2">Ritel</option>
+		</select>
+	</label>
+	<label>
+		Tanggal
+		<input type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
+	</label>
 
 	<button type="submit" name="" value="Cari" class="btn btn-primary" >
 		<i class="fa fa-search"></i>
@@ -37,7 +49,7 @@ Laporan Pulsa
 	Cetak</button>
 	<a href="<?php echo Yii::app()->createUrl("Deposit/create") ?>" class="btn btn-primary" >
 		<i class="fa fa-plus"></i> 
-		Deposit
+		Deposit Saya
 	</a>
 	<a href="<?php echo Yii::app()->createUrl("Deposit/deposit_agen") ?>" class="btn btn-primary" >
 		<i class="fa fa-plus"></i> 
@@ -50,12 +62,12 @@ if (isset($_REQUEST['tanggal'])){
 ?>
 
 <?php 
-$sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal']);
+$sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal'],$jenis_transaksi);
 // echo $sisa;
 ?>
 <div id="data-cetak">
 <div class="alert alert-success">
-	Sisa Deposit Sebelum <?php echo date("d M Y",strtotime($_REQUEST['tanggal'])) ?>
+	Sisa Saldo Sebelum <?php echo date("d M Y",strtotime($_REQUEST['tanggal'])) ?>
 	<br>
 	Rp. <?php echo number_format($sisa); ?>
 </div>
@@ -64,7 +76,9 @@ $sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal']);
 		
 		<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
 			<td>No</td>
+			<td>ID Transaksi</td>
 			<td>Tanggal Transaksi</td>
+			<td>Petugas</td>
 			<td>Nama Item</td>
 			<td>QTY</td>
 			<td>Total Keluar</td>
@@ -81,45 +95,58 @@ $sisa =  DepositController::getSaldoAkhir($_REQUEST['tanggal']);
 	<?php 
 		
 $branch_id = Yii::app()->user->branch();
+
+
+if ($jenis_transaksi=="2"){ // jika ritel
+	$queryAdt = "
+		SELECT
+			s.inserter as kasir,
+			s.faktur_id trx,
+			i.id item_id,
+			si.permintaan as nomor,
+			i.item_name,
+			pr.nama_provider,
+			si.item_modal * si.quantity_purchased as item_total_cost,
+			u.username nama_user,
+			sum( si.quantity_purchased ) AS total_items,
+
+			date AS tanggal
+			
+		FROM
+			sales s
+			INNER JOIN sales_items si ON s.id = si.sale_id
+			INNER JOIN users u ON s.inserter = u.id
+			INNER JOIN items i ON i.id = si.item_id
+			INNER JOIN provider pr on pr.id = i.provider_id
+			INNER JOIN sales_payment sp ON sp.id = s.id
+		WHERE
+			
+		 date(s.date) = '$date'
+		AND s.STATUS = 1
+		and branch = '$branch_id'
+		and i.is_pulsa = 1
+		GROUP BY
+		si.id
+
+		union all 
+	" ;
+}else if ($jenis_transaksi=="1"){ // jika agen maka
+
+}
+
 $sql  = "
 
 select * from (
 
-SELECT
-	i.id item_id,
-	si.permintaan as nomor,
-	i.item_name,
-	pr.nama_provider,
-	si.item_modal * si.quantity_purchased as item_total_cost,
-	u.username nama_user,
-	sum( si.quantity_purchased ) AS total_items,
-
-	date AS tanggal
-	
-FROM
-	sales s
-	INNER JOIN sales_items si ON s.id = si.sale_id
-	INNER JOIN users u ON s.inserter = u.id
-	INNER JOIN items i ON i.id = si.item_id
-	INNER JOIN provider pr on pr.id = i.provider_id
-	INNER JOIN sales_payment sp ON sp.id = s.id
-WHERE
-	
- date(s.date) = '$date'
-AND s.STATUS = 1
-and branch = '$branch_id'
-and i.is_pulsa = 1
-GROUP BY
-si.id
-
-union all 
-
+{$queryAdt}
 select 
+deposit.created_by as kasir,
+deposit.id as trx,
 deposit.id as item_id,
 '0' as nomor,
 if(customer_id=0,'DEPOSIT',concat('DEPOSIT_AGEN','<br>',c.nama) ) as item_name,
 if(customer_id=0,'DEPOSIT','DEPOSIT_AGEN' ) as nama_provider,
-nominal,
+nominal item_total_cost,
 'admin',
 '1',
 created_at as tanggal
@@ -128,6 +155,8 @@ left join customer c
 on c.id = deposit.customer_id
 where 
 date( created_at) = '$date' 
+and 
+jenis_transaksi = '$jenis_transaksi'
 
 ) as tbl
 
@@ -165,7 +194,9 @@ order by tbl.tanggal asc
 
 		>
 			<td><?php echo $no ?></td>
+			<td><?php echo $m['trx']; ?></td>
 			<td><?php echo $m['tanggal']; ?></td>
+			<td><?php echo Users::model()->findByPk($m['kasir'])->username; ?></td>
 			<?php 
 			// $total_akhir = ($m['total_biaya']+$m['total_omset'])-$m['voucher'];
 			?>
@@ -252,7 +283,7 @@ order by tbl.tanggal asc
 		endforeach; ?>
 		<tfoot >
 			<tr>
-				<td colspan="9"><h2>Sisa Saldo</h2> </td>
+				<td colspan="11"><h2>Sisa Saldo</h2> </td>
 				<td align="right" style="color:green" ><h2><b><?php echo number_format($nilai_sisa)   ?></b></h2></td>
 				
 				

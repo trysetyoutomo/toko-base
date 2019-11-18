@@ -286,6 +286,7 @@ class CustomerController extends Controller
 		{
 			$model->attributes=$_POST['Customer'];
 			$model->kode = CustomerController::generateCustomerCode();
+			$model->kode_agen = $_POST['Customer']['kode_agen'];
 			$model->store_id = Yii::app()->user->store_id();
 			if($model->save()){
 				if (! isset($_POST['isajax']) )
@@ -326,8 +327,10 @@ class CustomerController extends Controller
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Customer']))
+
 		{
 			$model->attributes=$_POST['Customer'];
+			$model->kode_agen = $_POST['Customer']['kode_agen'];
 			if($model->save())
 				$this->redirect(array('admin','id'=>$model->id));
 		}

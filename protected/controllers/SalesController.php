@@ -65,7 +65,7 @@ class SalesController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('laporanpulsa','TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
+                'actions' => array('hapusregister','GetOmsetByUser','laporanpulsa','TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -81,6 +81,112 @@ class SalesController extends Controller {
             ),
         );
     }
+
+      public function actionHapusregister(){
+      	if (isset($_REQUEST['tanggal_rekap'])){	
+	      	$setor = Setor::model()->find("tanggal = '$_REQUEST[tanggal_rekap]' and user_id='$_REQUEST[inserter]' ");
+	      	if ($setor->delete()){
+				$this->redirect(array('sales/rekap'));
+	      	}
+      	}
+      }
+
+
+      public function actionGetOmsetByUser($date,$user_id){
+	
+		$sql = "select 
+
+
+		nama_user,
+		total_awal,
+		sum(sale_total_cost) total_omset,
+		sum(adt_cost) as total_biaya,
+		sum(cash) as cash,
+		sum(voucher) as voucher,
+		sum(total_fisik) as total_fisik,
+		sum(total_fisik) - sum(sale_total_cost) as selisih	
+
+		from 
+		(
+
+		SELECT
+		total_awal,
+		sp.voucher voucher,
+		sp.cash cash,
+		#SUM(adt_cost)/total_items as total_biaya,
+		adt_cost,
+		u.username nama_user,
+		s.inserter sia,
+		se.id seid,
+		u.id userid,
+		se.total total_fisik,
+		s.bayar,
+		s.TABLE,
+		inserter,
+		s.id,
+		sum(si.quantity_purchased) AS total_items,
+		date AS tanggal,
+		sum(
+		si.item_price * si.quantity_purchased
+		) sale_sub_total,
+		s.sale_tax,
+		s.sale_service,
+		s.sale_discount,
+		sum(
+		(
+			(
+				si.item_price * si.quantity_purchased
+			) + (si.item_service) + (si.item_tax) - (
+				si.item_discount * (
+					si.item_price * si.quantity_purchased
+				) / 100
+			)
+		)
+		) sale_total_cost
+		FROM
+		sales s
+		INNER JOIN sales_items si ON s.id = si.sale_id
+		INNER JOIN users u ON s.inserter = u.id
+		INNER JOIN items i ON i.id = si.item_id
+		INNER JOIN sales_payment sp ON sp.id = s.id
+		LEFT JOIN (
+		SELECT DISTINCT
+		tanggal,
+		user_id,
+		total,
+		total_awal,
+		id
+		FROM
+		setor
+		) AS se ON se.tanggal = date(s.date)
+		AND se.user_id = s.inserter
+		WHERE
+		i.category_id != 4
+		AND date(s.date) = '$date'
+		AND s. STATUS = 1
+		GROUP BY
+		s.inserter,s.id
+		) as A
+		where A.userid = '$user_id'
+		group by A.nama_user
+
+		";
+
+
+
+		$dta = Yii::app()->db->createCommand($sql)->queryRow();
+		// echo  $dta['cash'];
+
+		echo json_encode(array(
+			"cash"=>$dta['cash'],
+			"total_awal"=>$dta['total_awal']
+		));
+
+
+
+
+    }
+
     
     public function actionCetakBillTerakhir(){
 		$id = Yii::app()->user->id;
@@ -2276,6 +2382,7 @@ public function actionSalesoutletweekly(){
 	            $fd =  $this->GenerateSalesFakturMethod();
 	            $sales->faktur_id = $fd;	
             	$_REQUEST['data']['faktur_id'] = $fd;
+            	$data['faktur_id'] = $fd;	
             }else{
 	            $sales->bayar = 0;    		
             }
@@ -2673,7 +2780,7 @@ public function actionSalesoutletweekly(){
         $temp_data['hit'] = $hit;
         $temp_data['id'] = $id;
         $temp_data['trx_tgl'] = date('d M Y, H:i', strtotime($data['date']));
-		$temp_data['logo'] = $this->comphead." \n ".$this->comp;
+		$temp_data['logo'] = $this->comp;
         $temp_data['alamat'] = $this->adr;
         $temp_data['no_telp'] = "Telp. ".$this->tlp;
    	    $temp_data['no_nota'] = $data['faktur_id'];
@@ -2716,7 +2823,7 @@ public function actionSalesoutletweekly(){
 					$banyakspasi = $total_margin - $panjang3 - $panjang2;
 					
 					$last_price = $tot_price = $tot_qty = $qty_last = 0;
-					$temp['nama_item'] = strtolower($nama_item);
+					$temp['nama_item'] = strtolower($nama_item)." ".$detail2[$a]['permintaan'];
 					// .$detail2[$a]['satuan'];
 					if ($x==0){
 						$str_disc = "";
@@ -3920,19 +4027,27 @@ public function actionCetakReportAll(){
 		}else{
 			$username = Yii::app()->user->name;
 		}
+		// echo $username;
+		// exit;
 		
 		
 		$user = Users::model()->find('username=:un',array(':un'=>$username));
 		$idk = $user->level;
 		
 
-	if (isset($_REQUEST['uangmasuk'])){//jika closing
-		$s = new Setor;
-		$s->user_id = $user->id;
-		$s->tanggal = $_REQUEST['tanggal_rekap'];
-		$s->total =$_REQUEST['uangmasuk'];
-		$s->save(); 
-	}
+		if (isset($_REQUEST['uangmasuk'])){//jika closing
+
+			// $s = new Setor;
+			// $s->user_id = $user->id;
+			// $s->tanggal = $_REQUEST['tanggal_rekap'];
+			// $s->total =$_REQUEST['uangmasuk'];
+			// $s->save();
+			$setor = Setor::model()->find("user_id = '$user->id' and  tanggal='$_REQUEST[tanggal_rekap]' ");
+			$setor->total = $_REQUEST['uangmasuk'];
+			$setor->is_closed = 1;
+			$setor->updated_at = date("Y-m-d H:i:s");
+			$setor->save();
+		}
 		$this->comp = Branch::model()->findByPk($branch_id)->branch_name;
 		$this->adr =  Branch::model()->findByPk($branch_id)->address;
 		$this->tlp =  Branch::model()->findByPk($branch_id)->telp;
@@ -4168,7 +4283,7 @@ public function actionCetakReportAll(){
 
 
 			$tmpt['uangmasuk'] =              "Uang Fisik    :";
-			$tmpt['sisa_label'] =             "Sisa          :";
+			$tmpt['sisa_label'] =             "Sisa/Minus    :";
 
 			 // $html_noprint .= "<tr><td>".$tmpt['total_pembayaran_label'].$tmpt['total_pembayaran']."</td></tr>";
 
@@ -4236,35 +4351,42 @@ public function actionCetakReportAll(){
 
 		$cek = Setor::model()->count(" user_id = '$user->id' and date(tanggal)='$date' ");
 		if ($cek==0){	
+			// echo "wkwkw";
 			$masuk = $_REQUEST['uangmasuk'];
+			$awal = 0;
 			$tmp3['uangmasukvalue'] = "\r".number_format($_REQUEST['uangmasuk'])."\r\n";
 		}else{
 			$model = Setor::model()->find(" user_id = '$user->id' and date(tanggal)='$date' ");
 			$masuk = $model->total;
+			$awal = $model->total_awal;
+
 			$tmp3['uangmasukvalue'] = "\r".number_format($model->total)."\r\n";
 		}
 
-		$html_noprint .= "<tr><td>".$tmp3['uangmasuk'].$tmp3['uangmasukvalue']."</td></tr>";
-
-		
-		// var_dump($masuk);
-		// exit;
-		// if ($model->total==""){
-			// $s = 0;
-		// }else{
-			// $s = $model->total;
-		// }
-		
-		$tmp3['sisa'] =  "\r".number_format($masuk-$uangcash)."\r\n";
-		$tmp3['sisa_label'] =  "\rSisa :\r\n";
-		$html_noprint .= "<tr><td>".$tmp3['sisa_label'].$tmp3['sisa']."</td></tr>";
-		// var_dump($tmp3['sisa']);
 
 		$tmpt['pembayaran_penjualan_label'] = "Total Pendapatan Fisik       :\n";
-		$tmpt['pembayaran_penjualan'] =  number_format($model->total);
+		$tmpt['pembayaran_penjualan'] =  number_format($uangcash);
 	
 		$html_noprint .= "<tr><td>".$tmpt['pembayaran_penjualan_label'].$tmpt['pembayaran_penjualan']."</td></tr>";
 		
+
+
+		$hrs_ada = $uangcash+$awal;
+		$tmp3['harus_ada'] =  "\r".number_format($hrs_ada)."\r\n";
+		$tmp3['harus_ada_label'] =  "\rFisik Harus Ada :\r\n";
+
+		$tmp3['saldo_awal'] =  "\r".number_format($awal)."\r\n";
+		$tmp3['saldo_awal_label'] =  "\rSaldo Cash Awal :\r\n";
+		
+
+		$html_noprint .= "<tr><td>".$tmp3['saldo_awal_label'].$tmp3['saldo_awal']."</td></tr>";
+		$html_noprint .= "<tr><td>".$tmp3['harus_ada_label'].$tmp3['harus_ada']."</td></tr>";
+		// var_dump($tmp3['sisa']);
+		$html_noprint .= "<tr><td>".$tmp3['uangmasuk'].$tmp3['uangmasukvalue']."</td></tr>";
+		$tmp3['sisa'] =  "\r".number_format(($masuk)-$hrs_ada)."\r\n";
+		$tmp3['sisa_label'] =  "\rLebih/Kurang :\r\n";
+		$html_noprint .= "<tr><td>".$tmp3['sisa_label'].$tmp3['sisa']."</td></tr>";
+
 		$temp_data['detail'] = $tmp2;
 		$temp_data['detailpay'] = $tmp3;
 		$temp_data['hutang'] = $hihi;

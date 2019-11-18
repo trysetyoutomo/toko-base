@@ -6852,3 +6852,3274 @@ Stack trace:
 #11 {main}
 REQUEST_URI=/toko-base/index.php?r=site/KirimEMail
 ---
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:49:48 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:50:41 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:51:53 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 13:53:57 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:24 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:03:39 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:04:31 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:05:50 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:18:49 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:22:57 [warning] [application] Failed to set unsafe attribute "slogan" of "Branch".
+in E:\xampp\htdocs\toko-base\protected\controllers\BranchController.php (98)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:27:08 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:06 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:29:53 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:31:45 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:32:37 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:05 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:45:42 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:16 [error] [exception.ParseError] ParseError: syntax error, unexpected '}', expecting ',' or ';' in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php:2169
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(270): CWebApplication->createController('create/')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/create')
+#2 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#3 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#4 {main}
+REQUEST_URI=/toko-base/index.php?r=items/create
+---
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:51 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:50:57 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:01 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(258): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\items\update.php(16): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2377): CController->render('update', Array)
+#11 [internal function]: ItemsController->actionUpdate('580')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/update')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=items/update&id=580
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/view&id=580
+---
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 14:51:43 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/30 15:17:25 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2080)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:18:45 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(258): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\items\update.php(16): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2382): CController->render('update', Array)
+#11 [internal function]: ItemsController->actionUpdate('42')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/update')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=items/update&id=42
+HTTP_REFERER=http://localhost/toko-base/index.php?r=Items/view&id=42&status=ubah
+---
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:20:32 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:18 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:24:22 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:06 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:33 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:25:39 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:31:11 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:35:58 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:37:40 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 12:38:30 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2084)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 13:17:49 [error] [exception.ArgumentCountError] ArgumentCountError: Too few arguments to function DepositController::getSaldoAkhir(), 1 passed in E:\xampp\htdocs\toko-base\protected\views\sales\laporanpulsa.php on line 65 and exactly 2 expected in E:\xampp\htdocs\toko-base\protected\controllers\DepositController.php:61
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\views\sales\laporanpulsa.php(65): DepositController::getSaldoAkhir('2019-10-31')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('laporanpulsa', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(233): CController->render('laporanpulsa', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionLaporanPulsa()
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('laporanpulsa')
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/laporanpu...')
+#17 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#18 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#19 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/laporanpulsa&tanggal=2019-10-31
+---
+2019/10/31 13:46:34 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='10' and year(D.date)='2019' and day(D.date)='31'  and branch='0'
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000.
+in E:\xampp\htdocs\toko-base\protected\views\sales\index.php (479)
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (3797)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 13:46:34 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='10' and year(D.date)='2019' and day(D.date)='31'  and branch='0'
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CSqlDataProvider.php(105): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CDataProvider.php(137): CSqlDataProvider->fetchData()
+#3 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#4 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\grid\CGridView.php(269): CBaseListView->init()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(148): CGridView->init()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.gri...', Array)
+#7 E:\xampp\htdocs\toko-base\protected\views\sales\index.php(479): CBaseController->widget('zii.widgets.gri...', Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', Array, true)
+#12 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(3797): CController->render('index', Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionIndex()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#23 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/index')
+#24 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#25 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#26 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/index
+HTTP_REFERER=http://localhost/toko-base/index.php?r=site/index
+---
+2019/10/31 13:48:00 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='10' and year(D.date)='2019' and day(D.date)='31'  and branch='0'
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000.
+in E:\xampp\htdocs\toko-base\protected\views\sales\index.php (479)
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (3797)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 13:48:00 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='10' and year(D.date)='2019' and day(D.date)='31'  and branch='0'
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CSqlDataProvider.php(105): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CDataProvider.php(137): CSqlDataProvider->fetchData()
+#3 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#4 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\grid\CGridView.php(269): CBaseListView->init()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(148): CGridView->init()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.gri...', Array)
+#7 E:\xampp\htdocs\toko-base\protected\views\sales\index.php(479): CBaseController->widget('zii.widgets.gri...', Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', Array, true)
+#12 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(3797): CController->render('index', Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionIndex()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#23 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/index')
+#24 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#25 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#26 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/index
+---
+2019/10/31 13:48:16 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		.
+in E:\xampp\htdocs\toko-base\protected\models\Items.php (251)
+in E:\xampp\htdocs\toko-base\protected\views\site\index.php (107)
+in E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php (592)
+2019/10/31 13:48:16 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(372): CDbCommand->queryInternal('', 0, Array)
+#1 E:\xampp\htdocs\toko-base\protected\models\Items.php(251): CDbCommand->query()
+#2 E:\xampp\htdocs\toko-base\protected\views\site\index.php(107): Items->data_items('ALL')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#7 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(592): CController->render('index')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=site/index
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/laporanpulsa&tanggal=2019-10-31
+---
+2019/10/31 13:48:17 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		.
+in E:\xampp\htdocs\toko-base\protected\models\Items.php (251)
+in E:\xampp\htdocs\toko-base\protected\views\site\index.php (107)
+in E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php (592)
+2019/10/31 13:48:17 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(372): CDbCommand->queryInternal('', 0, Array)
+#1 E:\xampp\htdocs\toko-base\protected\models\Items.php(251): CDbCommand->query()
+#2 E:\xampp\htdocs\toko-base\protected\views\site\index.php(107): Items->data_items('ALL')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#7 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(592): CController->render('index')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=site/index
+---
+2019/10/31 13:48:19 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		.
+in E:\xampp\htdocs\toko-base\protected\models\Items.php (251)
+in E:\xampp\htdocs\toko-base\protected\views\site\index.php (107)
+in E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php (592)
+2019/10/31 13:48:19 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,na' at line 32. The SQL statement executed was: 
+
+		SELECT
+		*
+		FROM
+		(
+			SELECT
+			iss.harga_beli harga_beli,
+			iss.harga harga_jual,
+			iss.id nama_satuan_id,
+			iss.nama_satuan nama_satuan,
+			c.category nama_kategori,
+			m.nama nama_sub_kategori,
+			m.nama category,
+			iss.id satuan_id,
+			i.id id,
+			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
+
+			iss.barcode,
+			panjang,
+			ketebalan,
+			ukuran,
+			total_cost AS harga,
+			'0' AS is_paket
+			FROM
+			items i
+			LEFT JOIN categories AS c ON c.id = i.category_id
+			LEFT  join motif m on m.category_id = c.id and m.id = i.motif
+
+			INNER JOIN items_satuan iss on iss.item_id = i.id
+			INNER JOIN stores as s on s.id = i.store_id 
+
+			AND i.hapus = 0 and s.id = 
+			where  1=1    
+			group by iss.id
+#			group by i.id
+			order by nama_kategori,nama_sub_kategori desc
+			
+
+			
+			) AS i
+		order by nama_kategori,nama_sub_kategori desc
+
+
+		
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(372): CDbCommand->queryInternal('', 0, Array)
+#1 E:\xampp\htdocs\toko-base\protected\models\Items.php(251): CDbCommand->query()
+#2 E:\xampp\htdocs\toko-base\protected\views\site\index.php(107): Items->data_items('ALL')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', NULL, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', NULL, true)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#7 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(592): CController->render('index')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=site/index
+---
+2019/10/31 13:54:09 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (287)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 13:55:03 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (287)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 13:56:51 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (331)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 13:57:46 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (332)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 14:51:40 [error] [exception.CException] CException: Property "Setor.nominal" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('nominal')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php(2044): CActiveRecord->__get('nominal')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php(1774): CHtml::resolveValue(Object(Setor), 'nominal')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php(1205): CHtml::activeInputField('text', Object(Setor), 'nominal', Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(575): CHtml::activeTextField(Object(Setor), 'nominal', Array)
+#5 E:\xampp\htdocs\toko-base\protected\views\site\input_saldo.php(18): CActiveForm->textField(Object(Setor), 'nominal')
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(596): CController->renderPartial('input_saldo', Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('')
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('')
+#21 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#22 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#23 {main}
+REQUEST_URI=/toko-base/
+---
+2019/10/31 15:00:00 [error] [exception.CException] CException: Property "CActiveForm.name" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:174
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWidgetFactory.php(162): CComponent->__set('name', 'deposit-form')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(147): CWidgetFactory->createWidget(Object(SiteController), 'CActiveForm', Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(190): CBaseController->createWidget('CActiveForm', Array)
+#3 E:\xampp\htdocs\toko-base\protected\views\site\input_saldo.php(26): CBaseController->beginWidget('CActiveForm', Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#7 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(599): CController->renderPartial('input_saldo', Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=site/index
+---
+2019/10/31 15:50:05 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "rekapkasir". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:484
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(271): CController->missingAction('rekapkasir')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('rekapkasir')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/rekapkasi...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#5 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/rekapkasir
+---
+2019/10/31 15:50:59 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'setor.total_awal' in 'field list'. The SQL statement executed was: 
+select 
+
+
+nama_user,
+sum(sale_total_cost) total_omset,
+sum(sale_total_cost) total_omset,
+sum(adt_cost) as total_biaya,
+sum(voucher) as voucher,
+sum(cash) as cash,
+total_fisik as total_fisik,
+userid,
+total_awal
+		
+from 
+(
+SELECT
+	setor.total_awal,
+	sp.voucher voucher,
+	sp.cash cash,
+	adt_cost,
+	u.username nama_user,
+	s.inserter sia,
+	se.id seid,
+	u.id userid,
+	se.total total_fisik,
+	s.bayar,
+	s.TABLE,
+	inserter,
+	s.id,
+	sum(si.quantity_purchased) AS total_items,
+	date as tanggal,
+	sum(
+		si.item_price * si.quantity_purchased
+	) sale_sub_total,
+	s.sale_tax,
+	s.sale_service,
+	s.sale_discount,
+	sum(
+		(
+			(
+				si.item_price * si.quantity_purchased
+			) + (si.item_service) + (si.item_tax) - (
+				si.item_discount * (
+					si.item_price * si.quantity_purchased
+				) / 100
+			)
+		)
+	) sale_total_cost
+FROM
+	sales s
+INNER JOIN sales_items si ON s.id = si.sale_id
+INNER JOIN users u ON s.inserter = u.id
+INNER JOIN items i ON i.id = si.item_id
+INNER JOIN sales_payment sp ON sp.id = s.id
+LEFT JOIN (
+	SELECT DISTINCT
+		tanggal,
+		user_id,
+		total,
+		total_awal,
+		id
+	FROM
+		setor
+) AS se ON se.tanggal = date(s.date)
+AND se.user_id = s.inserter
+WHERE
+	
+ date(s.date) = '2019-10-31'
+AND s. STATUS = 1
+and branch = '17'
+GROUP BY
+	s.inserter,s.id
+) AS A 
+
+group by A.nama_user
+
+	 .
+in E:\xampp\htdocs\toko-base\protected\views\sales\rekapkasir.php (158)
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (228)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 15:50:59 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'setor.total_awal' in 'field list'. The SQL statement executed was: 
+select 
+
+
+nama_user,
+sum(sale_total_cost) total_omset,
+sum(sale_total_cost) total_omset,
+sum(adt_cost) as total_biaya,
+sum(voucher) as voucher,
+sum(cash) as cash,
+total_fisik as total_fisik,
+userid,
+total_awal
+		
+from 
+(
+SELECT
+	setor.total_awal,
+	sp.voucher voucher,
+	sp.cash cash,
+	adt_cost,
+	u.username nama_user,
+	s.inserter sia,
+	se.id seid,
+	u.id userid,
+	se.total total_fisik,
+	s.bayar,
+	s.TABLE,
+	inserter,
+	s.id,
+	sum(si.quantity_purchased) AS total_items,
+	date as tanggal,
+	sum(
+		si.item_price * si.quantity_purchased
+	) sale_sub_total,
+	s.sale_tax,
+	s.sale_service,
+	s.sale_discount,
+	sum(
+		(
+			(
+				si.item_price * si.quantity_purchased
+			) + (si.item_service) + (si.item_tax) - (
+				si.item_discount * (
+					si.item_price * si.quantity_purchased
+				) / 100
+			)
+		)
+	) sale_total_cost
+FROM
+	sales s
+INNER JOIN sales_items si ON s.id = si.sale_id
+INNER JOIN users u ON s.inserter = u.id
+INNER JOIN items i ON i.id = si.item_id
+INNER JOIN sales_payment sp ON sp.id = s.id
+LEFT JOIN (
+	SELECT DISTINCT
+		tanggal,
+		user_id,
+		total,
+		total_awal,
+		id
+	FROM
+		setor
+) AS se ON se.tanggal = date(s.date)
+AND se.user_id = s.inserter
+WHERE
+	
+ date(s.date) = '2019-10-31'
+AND s. STATUS = 1
+and branch = '17'
+GROUP BY
+	s.inserter,s.id
+) AS A 
+
+group by A.nama_user
+
+	  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\sales\rekapkasir.php(158): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('rekapkasir', Array, true)
+#6 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(228): CController->render('rekapkasir', Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionRekap()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('rekap')
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/rekap')
+#18 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#19 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#20 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/rekap
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/rekap
+---
+2019/10/31 15:51:44 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'setor.total_awal' in 'field list'. The SQL statement executed was: 
+select 
+
+
+nama_user,
+sum(sale_total_cost) total_omset,
+sum(sale_total_cost) total_omset,
+sum(adt_cost) as total_biaya,
+sum(voucher) as voucher,
+sum(cash) as cash,
+total_fisik as total_fisik,
+userid,
+total_awal
+		
+from 
+(
+SELECT
+	setor.total_awal,
+	sp.voucher voucher,
+	sp.cash cash,
+	adt_cost,
+	u.username nama_user,
+	s.inserter sia,
+	se.id seid,
+	u.id userid,
+	se.total total_fisik,
+	s.bayar,
+	s.TABLE,
+	inserter,
+	s.id,
+	sum(si.quantity_purchased) AS total_items,
+	date as tanggal,
+	sum(
+		si.item_price * si.quantity_purchased
+	) sale_sub_total,
+	s.sale_tax,
+	s.sale_service,
+	s.sale_discount,
+	sum(
+		(
+			(
+				si.item_price * si.quantity_purchased
+			) + (si.item_service) + (si.item_tax) - (
+				si.item_discount * (
+					si.item_price * si.quantity_purchased
+				) / 100
+			)
+		)
+	) sale_total_cost
+FROM
+	sales s
+INNER JOIN sales_items si ON s.id = si.sale_id
+INNER JOIN users u ON s.inserter = u.id
+INNER JOIN items i ON i.id = si.item_id
+INNER JOIN sales_payment sp ON sp.id = s.id
+LEFT JOIN (
+	SELECT DISTINCT
+		tanggal,
+		user_id,
+		total,
+		total_awal,
+		id
+	FROM
+		setor
+) AS se ON se.tanggal = date(s.date)
+AND se.user_id = s.inserter
+WHERE
+	
+ date(s.date) = '2019-10-31'
+AND s. STATUS = 1
+and branch = '17'
+GROUP BY
+	s.inserter,s.id
+) AS A 
+
+group by A.nama_user
+
+	 .
+in E:\xampp\htdocs\toko-base\protected\views\sales\rekapkasir.php (158)
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (228)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 15:51:44 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'setor.total_awal' in 'field list'. The SQL statement executed was: 
+select 
+
+
+nama_user,
+sum(sale_total_cost) total_omset,
+sum(sale_total_cost) total_omset,
+sum(adt_cost) as total_biaya,
+sum(voucher) as voucher,
+sum(cash) as cash,
+total_fisik as total_fisik,
+userid,
+total_awal
+		
+from 
+(
+SELECT
+	setor.total_awal,
+	sp.voucher voucher,
+	sp.cash cash,
+	adt_cost,
+	u.username nama_user,
+	s.inserter sia,
+	se.id seid,
+	u.id userid,
+	se.total total_fisik,
+	s.bayar,
+	s.TABLE,
+	inserter,
+	s.id,
+	sum(si.quantity_purchased) AS total_items,
+	date as tanggal,
+	sum(
+		si.item_price * si.quantity_purchased
+	) sale_sub_total,
+	s.sale_tax,
+	s.sale_service,
+	s.sale_discount,
+	sum(
+		(
+			(
+				si.item_price * si.quantity_purchased
+			) + (si.item_service) + (si.item_tax) - (
+				si.item_discount * (
+					si.item_price * si.quantity_purchased
+				) / 100
+			)
+		)
+	) sale_total_cost
+FROM
+	sales s
+INNER JOIN sales_items si ON s.id = si.sale_id
+INNER JOIN users u ON s.inserter = u.id
+INNER JOIN items i ON i.id = si.item_id
+INNER JOIN sales_payment sp ON sp.id = s.id
+LEFT JOIN (
+	SELECT DISTINCT
+		tanggal,
+		user_id,
+		total,
+		total_awal,
+		id
+	FROM
+		setor
+) AS se ON se.tanggal = date(s.date)
+AND se.user_id = s.inserter
+WHERE
+	
+ date(s.date) = '2019-10-31'
+AND s. STATUS = 1
+and branch = '17'
+GROUP BY
+	s.inserter,s.id
+) AS A 
+
+group by A.nama_user
+
+	  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\sales\rekapkasir.php(158): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('rekapkasir', Array, true)
+#6 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(228): CController->render('rekapkasir', Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionRekap()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('rekap')
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/rekap')
+#18 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#19 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#20 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/rekap
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/rekap
+---
+2019/10/31 16:09:57 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "GetOmsetByUser". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:484
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(271): CController->missingAction('GetOmsetByUser')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('GetOmsetByUser')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/GetOmsetB...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#5 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/GetOmsetByUser&date=undefined&user_id=70
+HTTP_REFERER=http://localhost/toko-base/index.php?r=site/index
+---
+2019/10/31 16:10:05 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "GetOmsetByUser". in E:\xampp\htdocs\toko-base\yii\framework\web\CController.php:484
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(271): CController->missingAction('GetOmsetByUser')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('GetOmsetByUser')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/GetOmsetB...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#5 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/GetOmsetByUser&date=undefined&user_id=70
+---
+2019/10/31 22:58:42 [error] [exception.CException] CException: Property "Setor.update_at" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('update_at')
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SiteController.php(613): CActiveRecord->__get('update_at')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('site/index')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=site/index
+HTTP_REFERER=http://localhost/toko-base/index.php?r=site/admin
+---
+2019/10/31 23:19:48 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'inserter' in 'where clause'. The SQL statement executed was: SELECT * FROM `setor` `t` WHERE tanggal = '2019-10-31' and inserter='70'  LIMIT 1.
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (87)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 23:19:48 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'inserter' in 'where clause'. The SQL statement executed was: SELECT * FROM `setor` `t` WHERE tanggal = '2019-10-31' and inserter='70'  LIMIT 1 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(408): CDbCommand->queryInternal('fetch', Array, Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(1287): CDbCommand->queryRow()
+#2 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(1392): CActiveRecord->query(Object(CDbCriteria))
+#3 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(87): CActiveRecord->find('tanggal = '2019...')
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionHapusregister()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('hapusregister')
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/hapusregi...')
+#15 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#16 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#17 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/hapusregister&tanggal_rekap=2019-10-31&noprint=true&inserter=70
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/rekap
+---
+2019/10/31 23:23:37 [error] [exception.Error] Error: Call to a member function delete() on null in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php:88
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionHapusregister()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('hapusregister')
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/hapusregi...')
+#11 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#13 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/hapusregister&tanggal_rekap=2019-10-31&noprint=true&inserter=69
+HTTP_REFERER=http://localhost/toko-base/index.php?r=sales/rekap
+---
+2019/10/31 23:24:42 [error] [exception.Error] Error: Call to a member function delete() on null in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php:88
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionHapusregister()
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('hapusregister')
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/hapusregi...')
+#11 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#13 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/hapusregister&tanggal_rekap=2019-10-31&noprint=true&inserter=69
+---
+2019/10/31 23:51:05 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and iss.is_default = 1
+			group by i.id 
+			order by item_name asc' at line 16. The SQL statement executed was: SELECT  is_stockable,
+	   	is_bahan,i.id id,panjang,ketebalan, ukuran,price_reseller,price_distributor,iss.barcode as barcode ,m.nama as motif, iss.stok_minimum,total_cost ,discount,stok,modal,lokasi, item_name, item_number, description, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
+
+			FROM items i inner join items_satuan as iss on iss.item_id = i.id
+			left join categories as c on c.id = i.category_id
+			left join letak as l on l.id = i.letak_id
+			left join motif as m on m.id = i.motif
+			inner join stores s on s.id = i.store_id 
+
+			where 
+			i.hapus = 0
+			and
+			s.id = 
+			  
+
+			and iss.is_default = 1
+			group by i.id 
+			order by item_name asc
+
+		.
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2579)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2483)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 23:51:05 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and iss.is_default = 1
+			group by i.id 
+			order by item_name asc' at line 16. The SQL statement executed was: SELECT  is_stockable,
+	   	is_bahan,i.id id,panjang,ketebalan, ukuran,price_reseller,price_distributor,iss.barcode as barcode ,m.nama as motif, iss.stok_minimum,total_cost ,discount,stok,modal,lokasi, item_name, item_number, description, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
+
+			FROM items i inner join items_satuan as iss on iss.item_id = i.id
+			left join categories as c on c.id = i.category_id
+			left join letak as l on l.id = i.letak_id
+			left join motif as m on m.id = i.motif
+			inner join stores s on s.id = i.store_id 
+
+			where 
+			i.hapus = 0
+			and
+			s.id = 
+			  
+
+			and iss.is_default = 1
+			group by i.id 
+			order by item_name asc
+
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2579): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2483): ItemsController->getAdminJSON('SELECT  is_stoc...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionAdminJSON()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('adminJSON')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Items/adminJSON')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Items/adminJSON&draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=aksi&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=barcode&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=item_name&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=nama_kategori&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=motif&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=5&columns%5B5%5D%5Bname%5D=harga&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=true&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=6&columns%5B6%5D%5Bname%5D=nama_letak&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=true&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572540664332
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/admin
+---
+2019/10/31 23:51:13 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and iss.is_default = 1
+			group by i.id 
+			order by item_name asc' at line 16. The SQL statement executed was: SELECT  is_stockable,
+	   	is_bahan,i.id id,panjang,ketebalan, ukuran,price_reseller,price_distributor,iss.barcode as barcode ,m.nama as motif, iss.stok_minimum,total_cost ,discount,stok,modal,lokasi, item_name, item_number, description, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
+
+			FROM items i inner join items_satuan as iss on iss.item_id = i.id
+			left join categories as c on c.id = i.category_id
+			left join letak as l on l.id = i.letak_id
+			left join motif as m on m.id = i.motif
+			inner join stores s on s.id = i.store_id 
+
+			where 
+			i.hapus = 0
+			and
+			s.id = 
+			  
+
+			and iss.is_default = 1
+			group by i.id 
+			order by item_name asc
+
+		.
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2579)
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2483)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/10/31 23:51:13 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and iss.is_default = 1
+			group by i.id 
+			order by item_name asc' at line 16. The SQL statement executed was: SELECT  is_stockable,
+	   	is_bahan,i.id id,panjang,ketebalan, ukuran,price_reseller,price_distributor,iss.barcode as barcode ,m.nama as motif, iss.stok_minimum,total_cost ,discount,stok,modal,lokasi, item_name, item_number, description, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
+
+			FROM items i inner join items_satuan as iss on iss.item_id = i.id
+			left join categories as c on c.id = i.category_id
+			left join letak as l on l.id = i.letak_id
+			left join motif as m on m.id = i.motif
+			inner join stores s on s.id = i.store_id 
+
+			where 
+			i.hapus = 0
+			and
+			s.id = 
+			  
+
+			and iss.is_default = 1
+			group by i.id 
+			order by item_name asc
+
+		 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2579): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2483): ItemsController->getAdminJSON('SELECT  is_stoc...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionAdminJSON()
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('adminJSON')
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Items/adminJSON')
+#9 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#11 {main}
+REQUEST_URI=/toko-base/index.php?r=Items/adminJSON&draw=1&columns%5B0%5D%5Bdata%5D=0&columns%5B0%5D%5Bname%5D=aksi&columns%5B0%5D%5Bsearchable%5D=false&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=1&columns%5B1%5D%5Bname%5D=barcode&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=2&columns%5B2%5D%5Bname%5D=item_name&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=3&columns%5B3%5D%5Bname%5D=nama_kategori&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=4&columns%5B4%5D%5Bname%5D=motif&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=5&columns%5B5%5D%5Bname%5D=harga&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=true&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=6&columns%5B6%5D%5Bname%5D=nama_letak&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=true&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1572540671607
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/admin
+---
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:01:55 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:22:29 [error] [exception.ParseError] ParseError: syntax error, unexpected '$BMD' (T_VARIABLE) in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php:2154
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(270): CWebApplication->createController('create/')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/create')
+#2 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#3 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#4 {main}
+REQUEST_URI=/toko-base/index.php?r=items/create
+---
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:25:02 [error] [exception.CException] CException: ItemsController and its behaviors do not have a method or closure named "generateKodeBMS". in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2136): CComponent->__call('generateKodeBMS', Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): ItemsController->actionCreate()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('create')
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/create')
+#7 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#8 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#9 {main}
+REQUEST_URI=/toko-base/index.php?r=items/create
+HTTP_REFERER=http://localhost/toko-base/index.php?r=items/create
+---
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:26:34 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:28:33 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:30:15 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:39:59 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:40:55 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:47:19 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:48:55 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:51:17 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 00:56:33 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(270): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\items\update.php(16): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2425): CController->render('update', Array)
+#11 [internal function]: ItemsController->actionUpdate('596')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/update')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=items/update&id=596
+HTTP_REFERER=http://localhost/toko-base/index.php?r=Items/view&id=596&status=ubah
+---
+2019/11/01 01:02:10 [error] [exception.Error] Error: Call to a member function getErrors() on null in E:\xampp\htdocs\toko-base\yii\framework\web\helpers\CHtml.php:1592
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\widgets\CActiveForm.php(514): CHtml::errorSummary(Array, NULL, NULL, Array)
+#1 E:\xampp\htdocs\toko-base\protected\views\items\_form.php(270): CActiveForm->errorSummary(NULL)
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#5 E:\xampp\htdocs\toko-base\protected\views\items\update.php(18): CController->renderPartial('_form', Array)
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('update', Array, true)
+#10 E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php(2427): CController->render('update', Array)
+#11 [internal function]: ItemsController->actionUpdate('596')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(ItemsController), Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(ItemsController), Object(ReflectionMethod), Array)
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('update')
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('items/update')
+#19 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#20 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#21 {main}
+REQUEST_URI=/toko-base/index.php?r=items/update&id=596
+---
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "stok" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "is_pulsa" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 01:05:11 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2416)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 06:55:47 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (332)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 06:56:03 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (332)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 06:56:13 [warning] [application] Failed to set unsafe attribute "kode_agen" of "Customer".
+in E:\xampp\htdocs\toko-base\protected\controllers\CustomerController.php (332)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 12:32:23 [error] [exception.CException] CException: Property "Setor.uangcash" is not defined. in E:\xampp\htdocs\toko-base\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\ar\CActiveRecord.php(144): CComponent->__get('uangcash')
+#1 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(4378): CActiveRecord->__get('uangcash')
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionCetakRekap()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('cetakrekap')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/cetakreka...')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/cetakrekap&tanggal_rekap=2019-11-01&noprint=true&inserter=70
+---
+2019/11/01 12:36:05 [error] [exception.ParseError] ParseError: syntax error, unexpected '$masuk' (T_VARIABLE) in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php:4376
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(270): CWebApplication->createController('cetakrekap/')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/cetakreka...')
+#2 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#3 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#4 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/cetakrekap&tanggal_rekap=2019-11-01&noprint=true&inserter=70
+---
+2019/11/01 12:36:50 [error] [exception.ParseError] ParseError: syntax error, unexpected ';', expecting ',' or ')' in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php:4376
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(270): CWebApplication->createController('cetakrekap/')
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/cetakreka...')
+#2 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#3 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#4 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/cetakrekap&tanggal_rekap=2019-11-01&noprint=true&inserter=70
+---
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "motif" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "letak_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "price_reseller" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "price_distributor" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "gambar" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "ispaket" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:17:49 [warning] [application] Failed to set unsafe attribute "provider_id" of "Items".
+in E:\xampp\htdocs\toko-base\protected\controllers\ItemsController.php (2088)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:47:24 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "tempat". in E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php:280
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('tempat')
+#1 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#2 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#3 {main}
+REQUEST_URI=/toko-base/index.php?r=tempat
+---
+2019/11/01 14:47:42 [warning] [application] Failed to set unsafe attribute "slogan" of "Branch".
+in E:\xampp\htdocs\toko-base\protected\controllers\BranchController.php (98)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 14:48:13 [warning] [application] Failed to set unsafe attribute "slogan" of "Branch".
+in E:\xampp\htdocs\toko-base\protected\controllers\BranchController.php (98)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 15:02:48 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='11' and year(D.date)='2019' and day(D.date)='1'  and branch=''
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000.
+in E:\xampp\htdocs\toko-base\protected\views\sales\index.php (479)
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (3904)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 15:02:48 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='11' and year(D.date)='2019' and day(D.date)='1'  and branch=''
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CSqlDataProvider.php(105): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CDataProvider.php(137): CSqlDataProvider->fetchData()
+#3 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#4 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\grid\CGridView.php(269): CBaseListView->init()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(148): CGridView->init()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.gri...', Array)
+#7 E:\xampp\htdocs\toko-base\protected\views\sales\index.php(479): CBaseController->widget('zii.widgets.gri...', Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', Array, true)
+#12 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(3904): CController->render('index', Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionIndex()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#23 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/index')
+#24 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#25 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#26 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/index
+---
+2019/11/01 15:02:52 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='11' and year(D.date)='2019' and day(D.date)='1'  and branch=''
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000.
+in E:\xampp\htdocs\toko-base\protected\views\sales\index.php (479)
+in E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php (3904)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/01 15:02:52 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY' at line 86. The SQL statement executed was:   SELECT * FROM (
+			SELECT 
+				pembayaran_via,
+				status,
+				branch,
+				ID AS id,
+				faktur_id,
+				tanggal_jt,
+				sb,
+				bayar,
+				inserter,
+				date,
+				untung,
+				sum(sale_sub_total) sale_sub_total,
+				sum(ttm) sale_sub_modal,
+				sum(voucher) voucher,
+				sum(tax) tax,
+				sum(service) service,
+				sum(sd) sale_discount,
+				sum(stt) sale_total_cost,
+				sum(total_items) total_items,
+				nama
+			FROM (
+			SELECT 
+				ifnull(s.id,'') ID,
+				faktur_id,
+				pembayaran_via,
+				ifnull(tanggal_jt,'') tanggal_jt,
+				ifnull(nama,'') as nama,
+				if (bayar< (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher),'Kredit','Lunas') as sb, 
+				ifnull(s.bayar,'') bayar,
+				ifnull(s.table,'') 'table',
+				ifnull(u.username,'') inserter, 
+				ifnull(s.comment,'') 'comment', 
+				ifnull(s.status,'') 'status', 
+				ifnull(s.branch,'') 'branch', 
+				date as date,
+				sum(si.quantity_purchased) as total_items,
+
+				sum( (si.item_price*si.quantity_purchased) - (item_modal *si.quantity_purchased) ) untung,
+				sum(si.item_price*si.quantity_purchased) sale_sub_total,
+				sum(item_modal *si.quantity_purchased) sale_sub_modal,
+				sum(si.item_modal*si.quantity_purchased) ttm,
+				#sum(sp.voucher) voucher ,
+				sp.voucher voucher,
+				sum(si.item_tax) tax,
+				sum(si.item_service) service , 
+				sum( si.item_discount/100 * (si.item_price*si.quantity_purchased) )  sd,
+
+				if ( (sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher)<0,0,(sum(
+					(
+						(si.item_price*si.quantity_purchased)
+							+
+						(si.item_tax)
+							+
+						(si.item_service)
+							-
+						(si.item_discount*(si.item_price*si.quantity_purchased)/100)
+					))-sp.voucher) ) stt
+				FROM 
+				sales s 
+				inner join sales_items si on  s.id = si.sale_id
+				left join items i on  i.id = si.item_id
+				inner join sales_payment sp  on  s.id = sp.id
+				left join  users u on u.id = s.inserter 
+				inner join stores st on st.id = i.store_id
+				where st.id = 
+				group by s.id
+
+		) AS A
+
+		WHERE A.date!='' and A.status = 1
+		
+		GROUP BY A.ID
+
+		) AS  D 
+			where month(D.date)='11' and year(D.date)='2019' and day(D.date)='1'  and branch=''
+			group by D.id
+			
+
+			order by D.date asc
+			 LIMIT 100000 in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\yii\framework\web\CSqlDataProvider.php(105): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\CDataProvider.php(137): CSqlDataProvider->fetchData()
+#3 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#4 E:\xampp\htdocs\toko-base\yii\framework\zii\widgets\grid\CGridView.php(269): CBaseListView->init()
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(148): CGridView->init()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.gri...', Array)
+#7 E:\xampp\htdocs\toko-base\protected\views\sales\index.php(479): CBaseController->widget('zii.widgets.gri...', Array)
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(127): require('E:\\xampp\\htdocs...')
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('E:\\xampp\\htdocs...', Array, true)
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(870): CBaseController->renderFile('E:\\xampp\\htdocs...', Array, true)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(783): CController->renderPartial('index', Array, true)
+#12 E:\xampp\htdocs\toko-base\protected\controllers\SalesController.php(3904): CController->render('index', Array)
+#13 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): SalesController->actionIndex()
+#14 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#15 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#16 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#17 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#18 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#19 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#20 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#21 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('index')
+#23 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('sales/index')
+#24 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#25 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#26 {main}
+REQUEST_URI=/toko-base/index.php?r=sales/index
+---
+2019/11/07 11:34:58 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by u.id' at line 7. The SQL statement executed was: select u.*, ug.nama as nama_level 
+		from 
+		users u 
+		inner join users_group ug on u.level = ug.id 
+		inner join stores s on s.id = u.store_id 
+		where s.id = 
+		group by u.id .
+in E:\xampp\htdocs\toko-base\protected\controllers\UsersController.php (152)
+in E:\xampp\htdocs\toko-base\index.php (22)
+2019/11/07 11:34:58 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by u.id' at line 7. The SQL statement executed was: select u.*, ug.nama as nama_level 
+		from 
+		users u 
+		inner join users_group ug on u.level = ug.id 
+		inner join stores s on s.id = u.store_id 
+		where s.id = 
+		group by u.id  in E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 E:\xampp\htdocs\toko-base\yii\framework\db\CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 E:\xampp\htdocs\toko-base\protected\controllers\UsersController.php(152): CDbCommand->queryAll()
+#2 E:\xampp\htdocs\toko-base\yii\framework\web\actions\CInlineAction.php(50): UsersController->actionAdmin()
+#3 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#7 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\xampp\htdocs\toko-base\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(292): CFilterChain->run()
+#10 E:\xampp\htdocs\toko-base\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(276): CController->run('admin')
+#12 E:\xampp\htdocs\toko-base\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('users/admin')
+#13 E:\xampp\htdocs\toko-base\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#14 E:\xampp\htdocs\toko-base\index.php(22): CApplication->run()
+#15 {main}
+REQUEST_URI=/toko-base/index.php?r=users/admin
+HTTP_REFERER=http://localhost/toko-base/index.php?r=site/admin
+---

@@ -107,6 +107,6 @@
 	  <h1 >Pencarian Item</h1>
 	 
 	  <?php echo CHtml::dropDownList('e1', '1', $model, array('prompt'=>'Silahkan pilih','style'=>'width:100%') ); ?>
-	  <input style="width: 100%;margin-top: 5px;" type="button" class="mybutton btn-primary" name="Pilih" value="Tambah" onclick="add_item($('#e1').val())">
+	  <input style="width: 100%;margin-top: 5px;" type="button" class="tambah-non-barcode mybutton btn-primary" name="Pilih" value="Tambah" onclick="add_item($('#e1').val())">
 
 </div>

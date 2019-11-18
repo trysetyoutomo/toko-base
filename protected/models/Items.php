@@ -50,7 +50,9 @@ class Items extends CActiveRecord
 			// is_stockable
 // is_bahan
 			// has_bahan
-			array('is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
+			array('stok,is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
+
+
 
 // is_stockable,is_bahan,has_bahan,
 			array('panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required','on'=>'update','message'=>'{attribute} tidak boleh kosong'),
@@ -269,9 +271,9 @@ class Items extends CActiveRecord
                     if ($item['is_paket']=="0"){
                     	$x = "";
 	                    // $x = trim($item['ukuran']).".".trim($item['ketebalan']).".".trim($item['panjang']); 
-$data[$item['barcode']."-".$item['satuan_id']] = trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x;
+$data[$item['barcode']."##".$item['satuan_id']] = trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x;
                     }else{
-                    	 $data[$item['barcode']."-".$item['satuan_id']] = $item['barcode']." - ".$item['nama'];
+                    	 $data[$item['barcode']."##".$item['satuan_id']] = $item['barcode']." - ".$item['nama'];
                     }
 
                 }
@@ -298,6 +300,7 @@ $data[$item['barcode']."-".$item['satuan_id']] = trim($item['barcode'])." - ".tr
 	public function attributeLabels()
 	{
 		return array(
+			'stok' => 'Stok Awal ',
 			'is_stockable' => 'Kelola Stok ',
 			'satuan_id' => 'Satuan ',
 			'has_bahan' => 'Memiliki Bahan Baku ?',

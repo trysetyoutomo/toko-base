@@ -15,7 +15,7 @@
 	}
 </style>
 <script type="text/javascript">
-	generateBarcodeAction();
+	
 
 	$(document).on("change","#Items_is_pulsa",function(e){
 		var val = $(this).val();
@@ -82,7 +82,10 @@
 	// 	}
 	// }
 
-	</script>
+</script>
+<?php 
+// var_dump($_REQUEST['is_generate']);
+?>
 <script type="text/javascript">
 	function generateBarcode(){
 		var hidden_barcode = $("#hidden-barcode").val();
@@ -98,22 +101,32 @@
 
 	}
 	$(document).ready(function(){
-
+		// $("#Items_barcode").focus();
 		$("#nama").select2();
 		// $("#is_generate").trigger("click");
-		generateBarcode();
 
+		<?php if ($_REQUEST['is_generate']=="on"){ ?>
+			generateBarcodeAction();
+		<?php }else{ ?>
+			// $("#Items_barcode").focus();
+		<?php } ?>
 
+		$(document).on('keypress', '#Items_barcode,#Items_item_name', function(e) {
+			  if (e.keyCode=="13"){
+				return false;
+			  }
+		});
 		$(document).on('click', '#is_generate', function(e) {
 			// alert("123");
 			if ($(this).prop("checked")){
-				var hidden_barcode = $("#hidden-barcode").val();
-				$("#Items_barcode").val(hidden_barcode);
-				$("#Items_barcode").attr("readonly",true);
-
+					var hidden_barcode = $("#hidden-barcode").val();
+					$("#Items_barcode").val(hidden_barcode);
+					$("#Items_barcode").attr("readonly",true);
+				
 			}else{
 				$("#Items_barcode").removeAttr("readonly");
 				$("#Items_barcode").val("");
+				// $("#Items_barcode").focus();
 			}
 		});
 
@@ -253,7 +266,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
         <div class="mws-form-inline">
                  <?php echo $form->errorSummary($model); ?>
                  <?php 
-                 if ($model->isNewRecord)
+                 // if ($model->isNewRecord)
 	                 echo $form->errorSummary($datasatuan); 
                  ?>
 
@@ -262,6 +275,53 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 -->
            
 				<table style="border:1px;width:100%" border="0" cellpadding="2" id="table-items-form">
+				  <?PHP if ($model->isNewRecord){ ?>
+               <tr>
+               <?php 
+               	// <!-- // $model->barcode = ItemsController::generateBarcode(); -->
+               // }
+               ?>
+					<td>
+               <input value="<?php echo ItemsController::generateBarcode(); ?>" type="hidden" name="hidden-barcode" id="hidden-barcode">
+					<?php echo $form->labelEx($model,'barcode'); ?>
+						
+					</td>
+	                <td><?php 
+
+
+	                echo $form->textField($model,'barcode',array('class'=>'form-control','style'=>'text-transform:uppercase')); 
+	                ?>
+
+	                </td>
+    				<TD>
+    				<?php if ($model->isNewRecord){ ?>
+    					<label for="is_generate">
+	                		<input type="checkbox" name="is_generate" id="is_generate"> Generate ?
+    					</label>
+    					<?php }else{
+    						?>
+	    					<!-- <label for="is_generate">
+			            		<input disabled="" type="checkbox" name="is_generate" id="is_generate"> Generate ?
+	    					</label> -->
+
+    						<?php 
+
+    					}
+
+    					 ?>
+				</TD>
+
+	                <td><?php echo $form->error($model,'barcode'); ?></td>
+                </tr>
+                <?PHP } ?>
+
+
+                <tr>
+				<td><?php echo $form->labelEx($model,'item_name'); ?></td>
+                <td><?php echo $form->textField($model,'item_name',array('size'=>20,'maxlength'=>30,'class'=>'form-control','style'=>'text-transform:uppercase')); ?></td>
+                <td><?php echo $form->error($model,'item_name'); ?></td>
+                </tr> 
+
 				<tr>
 				<td style="width: 100px"><label>kategori </label></td>
 				<td style="width: 700px"><?php echo $form->dropDownList($model,'category_id', $data, array('empty' => 'Pilih ','separator'=>'|','class'=>'form-control'))?>
@@ -324,11 +384,6 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 				</tr>
 				
 				
-                <tr>
-				<td><?php echo $form->labelEx($model,'item_name'); ?></td>
-                <td><?php echo $form->textField($model,'item_name',array('size'=>20,'maxlength'=>30,'class'=>'form-control','style'=>'text-transform:uppercase')); ?></td>
-                <td><?php echo $form->error($model,'item_name'); ?></td>
-                </tr> 
                     <tr style="display: none;">
 				<td><?php echo $form->labelEx($model,'ukuran'); ?></td>
                 <td><?php echo $form->textField($model,'ukuran',array('class'=>'form-control')); ?></td>
@@ -381,12 +436,12 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
              </tr> 
             	<?php endif?>
 <?php //if (!$model->isNewRecord): ?>
-              <tr style="display: none;"> 
-				<td><?php echo $form->labelEx($model,'persentasi'); ?></td>
-                <td><?php echo $form->textField($model,'persentasi',array('class'=>'form-control','style'=>'width:70px;display:inline','maxlength'=>2)); ?>%</td>
-     
-                <td><?php echo $form->error($model,'persentasi'); ?></td>
-             </tr> 
+			<tr style="display: none;" >
+				<td><?php echo $form->labelEx($model,'unit_price'); ?></td>
+                <td><?php echo $form->textField($model,'unit_price',array('class'=>'form-control')); ?></td>
+                <td><?php echo $form->error($model,'unit_price'); ?></td>
+                </tr>
+
  <?php //endif; ?>
 
                 <tr style=""> 
@@ -411,6 +466,17 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 
 
                 ?>
+
+
+              <tr > 
+				<td><?php echo $form->labelEx($model,'stok'); ?></td>
+                <td><?php echo $form->textField($model,'stok',
+                array('class'=>'form-control','style'=>'display:inline','maxlength'=>3)); ?></td>
+     
+                <td><?php echo $form->error($model,'stok'); ?></td>
+             </tr> 
+
+             
                  <tr style="display: none;"> 
 				<td><?php echo $form->labelEx($model,'price_reseller'); ?></td>
                 <td><?php echo $form->textField($model,'price_reseller',array('class'=>'form-control')); ?></td>
@@ -439,11 +505,12 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
             
              
 
-                <tr style="display:none">
-					<td><?php echo $form->labelEx($model,'stok'); ?></td>
-	                <td><?php echo $form->textField($model,'stok',array('class'=>'form-control')); ?></td>
-	                <td><?php echo $form->error($model,'stok'); ?></td>
-                </tr>
+              <?php 
+                // if ($model->stok_minimum==""){
+                // 	$model->stok_minimum = "0";
+                // }
+                // var_dump($model->stok_minimum);
+                ?>
                 <tr>
 					<td><?php echo $form->labelEx($model,'stok_minimum'); ?></td>
 	                <td><?php echo $form->textField($model,'stok_minimum',array('class'=>'form-control')); ?></td>
@@ -470,45 +537,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 	                <td><?php echo $form->filefield($model,'gambar',array('1'=>'Bar','2'=>'Dapur')); ?></td>
 	                <td><?php echo $form->error($model,'gambar'); ?></td>
                 </tr>
-               <?PHP if ($model->isNewRecord){ ?>
-               <tr>
-               <?php 
-               	// <!-- // $model->barcode = ItemsController::generateBarcode(); -->
-               // }
-               ?>
-					<td>
-               <input value="<?php echo ItemsController::generateBarcode(); ?>" type="hidden" name="hidden-barcode" id="hidden-barcode">
-					<?php echo $form->labelEx($model,'barcode'); ?>
-						
-					</td>
-	                <td><?php 
-
-
-	                echo $form->textField($model,'barcode',array('class'=>'form-control','style'=>'text-transform:uppercase')); 
-	                ?>
-
-	                </td>
-    				<TD>
-    				<?php if ($model->isNewRecord){ ?>
-    					<label for="is_generate">
-	                		<input checked="" type="checkbox" name="is_generate" id="is_generate"> Generate ?
-    					</label>
-    					<?php }else{
-    						?>
-	    					<!-- <label for="is_generate">
-			            		<input disabled="" type="checkbox" name="is_generate" id="is_generate"> Generate ?
-	    					</label> -->
-
-    						<?php 
-
-    					}
-
-    					 ?>
-				</TD>
-
-	                <td><?php echo $form->error($model,'barcode'); ?></td>
-                </tr>
-                <?PHP } ?>
+             
                  <tr style="display: none;">
 					<td><?php echo $form->labelEx($model,'ispaket'); ?></td>
 	                <td><?php echo $form->textField($model,'ispaket',array('class'=>'form-control')); ?></td>

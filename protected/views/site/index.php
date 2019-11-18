@@ -690,7 +690,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
                   $('#dialog_meja').load('index.php?r=site/table');
                   $("#dialog_meja").dialog('close');
                     $("#head-meja").html("");
-					     alert("Data berhasil disimpan di Meja "+no_meja+", Silahkan tekan OK untuk melanjutkan");
+					     alert("Data berhasil disimpan di Slot Nomor "+no_meja+", Silahkan tekan OK untuk melanjutkan");
 
                 }
               }
@@ -1294,18 +1294,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
    }
        $(document).ready(function() {
 
-           $("#input_items").focus();
-
-           $("#input_items").keypress(function(e){
-            // e.preventDefault();
-               if (e.keyCode == 13){
-                // alert("123");
-                   var item_id = $("#input_items").val();
-                   // alert(item_id);
-                   add_item(item_id);
-               }
-           });
-
+           
            $(document).on("click",".close",function(e){
                 $("#wrapper-item-search").hide();
                 $("#full-screen").hide();
@@ -1316,24 +1305,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
            //  // alert("456");
            //  // alert(e.which);
            // });
-           $(document).on("change","#e1",function(e){
-            // alert("123");
-            console.log("ditemukan");
-               var item_id = $("#e1").val();
-               // alert(item_id);
-               if (item_id!=''){
-                // alert("123");
-                   add_item(item_id);
-                   $("#e1").select2("open");
-                   $('#e1').val(0);
-               }else{
-                    $().toastmessage('showToast', {
-                       text : "Data tidak ditemukan",
-                       sticky : false,
-                       type     : 'warning'
-                   });
-               }
-           });
+
            // ('body').keypress(function(event){
            $("#e1").select2({
               closeOnSelect : true,
@@ -1803,6 +1775,8 @@ function numberWithCommas(x) {
 
 </script>
 <!--div id="msg-keypress"></div-->
+
+
 <?php
    $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
        'id' => 'dialog_bayar2',
@@ -1836,6 +1810,7 @@ function numberWithCommas(x) {
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');
    ?>
+<?php  $this->renderPartial("inc-closing");?>
 
    <?php
   //  $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
@@ -1866,8 +1841,8 @@ function numberWithCommas(x) {
     $model = new Items;
     $datasatuan= new ItemsSatuan;
    $this->renderPartial('application.views.items._form',array(
-    "model"=>$model,
-    "datasatuan"=>$datasatuan
+      "model"=>$model,
+      "datasatuan"=>$datasatuan
     ));
 
    $this->endWidget('zii.widgets.jui.CJuiDialog');

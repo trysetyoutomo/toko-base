@@ -180,6 +180,9 @@ class SiteController extends Controller
 		$que = "truncate deposit";
 		$e1 = Yii::app()->db->createCommand($que)->execute();
 
+		$que = "truncate setor";
+		$e1 = Yii::app()->db->createCommand($que)->execute();
+
 		// if ($e1){	
 			// echo "ok";
 			$this->redirect(array('site/pengaturan'));
@@ -585,11 +588,65 @@ class SiteController extends Controller
 	 
 	public function actionIndex()
 	{
-		// $this->layout = "main";
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-         // echo "haha";
-		$this->render('index');
+		$username = Yii::app()->user->name;
+		$user = Users::model()->find('username=:un',array(':un'=>$username));
+		$now = date("Y-m-d");
+		// print_r($_REQUEST);
+		if (isset($_POST['Setor'])){
+			$setor = new Setor;
+			$setor->tanggal = $now;
+			$setor->user_id = $user->id;
+			$setor->total_awal = $_POST['Setor']['total_awal'];
+			$setor->total = 0;
+			$setor->store_id =  Yii::app()->user->store_id();
+			if ($setor->save()){
+				$this->redirect(array('site/index'));
+			}else{
+				// print_r($setor->getErrors());
+			}
+			exit;
+		}
+
+
+
+		$cekKasir = Setor::model()->find(" is_closed = 1 and user_id = '$user->id' and  date(tanggal) = '$now'   ");
+		if ($cekKasir){
+			?>
+				<script type="text/javascript">
+				alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo $cekKasir->tanggal ?> telah ditutup pada <?php echo $cekKasir->updated_at ?>");
+				window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+				</script>
+			<?php 
+		}
+
+		$cekClosed = Setor::model()->find(" is_closed = 0 and user_id = '$user->id' and  date(tanggal) < '$now'   ");
+		if (!$cekClosed){
+
+			$setor = Setor::model()->find(" user_id = '$user->id' and  date(tanggal) = '$now'  ");
+
+			if ($setor){
+				$this->render('index');
+			}else{
+				if ($user->level != "1"){
+					?>
+					<script type="text/javascript">
+					alert("Hanya pengguna dengan level kasir yang dapat mengakses halaman ini");
+					window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+					</script>
+					<?php 
+				}
+				$setor = new Setor;
+				$this->layout = "main2";
+				$this->render('input_saldo',array("model"=>$setor));
+			}
+		}else{
+			?>
+					<script type="text/javascript">
+					alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo $cekClosed->tanggal ?> belum ditutup, silahkan hubungi admin ");
+					window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+					</script>
+					<?php 
+		}
 	}
 
 	/**

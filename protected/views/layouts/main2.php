@@ -11,7 +11,7 @@
       <?php 
       
       ?>
-      <title><?php echo Yii::app()->name ?> </title>
+      <title><?php //echo Yii::app()->name ?> </title>
       <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jquery/dist/jquery.min.js"></script>
 
 
@@ -38,6 +38,26 @@
 
 
 <script>
+
+    var format = function(num){
+          var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+          if(str.indexOf(".") > 0) {
+              parts = str.split(".");
+              str = parts[0];
+          }
+          str = str.split("").reverse();
+          for(var j = 0, len = str.length; j < len; j++) {
+              if(str[j] != ",") {
+                  output.push(str[j]);
+                  if(i%3 == 0 && j < (len - 1)) {
+                      output.push(",");
+                  }
+                  i++;
+              }
+          }
+          formatted = output.reverse().join("");
+          return("Rp. " + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+      };
 
 
     function blinker() {
@@ -146,7 +166,16 @@
 
 
     $(document).ready(function(){
+
+      $("#Deposit_nominal").keyup(function(e){
+        var ttl = $("#Deposit_nominal").val();
+        $("#Deposit_nominal_formatted").html(format(ttl));
+      });
+
+
+
       $(".tobe-select2").select2();
+      $("#Deposit_customer_id").select2();
       cek();
       // $(document).on("click",".fa-times",function(e){
         // $("#full").fadeOut();

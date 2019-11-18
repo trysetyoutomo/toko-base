@@ -39,9 +39,16 @@ class DepositController extends Controller
         $temp_data['no_telp'] = $tlp;
 
         $deposit = Deposit::model()->findByPk($id);
+		$temp_data['trx_id'] = $deposit->id;
 		$temp_data['nominal'] = "Rp. ".number_format($deposit->nominal);
 		$temp_data['customer_name'] = $deposit->customer_name;
+		if (Customer::model()->find("kode = '$deposit->customer_kode'")->kode_agen===null)
+			$temp_data['kode'] = "Kode Belum tersedia" ;
+		else
+			$temp_data['kode'] =  Customer::model()->find("kode = '$deposit->customer_kode'")->kode_agen;
+
 		$temp_data['tgl_deposit'] = date("d M Y",strtotime($deposit->created_at));
+		$temp_data['petugas'] = Users::model()->findByPk($deposit->created_by)->username;
 
 
 		
@@ -56,7 +63,9 @@ class DepositController extends Controller
 		
 
 
-	public static function getSaldoAkhir($tanggal){
+	public static function getSaldoAkhir($tanggal,$jenis_transaksi){
+		// echo $jenis_transaksi;
+		// exit;
 		$queryKeluar  = "select 
 		sum(si.item_modal * si.quantity_purchased ) keluar
 		from 
@@ -75,11 +84,11 @@ class DepositController extends Controller
         $modelKeluar = Yii::app()->db->createCommand($queryKeluar)->queryRow();
 
         // untuk saldo utama
-		$queryDeposit = "select sum(nominal) as masuk from deposit where date(created_at) < '{$tanggal}' and customer_id = '0' ";
+		$queryDeposit = "select sum(nominal) as masuk from deposit where date(created_at) < '{$tanggal}' and customer_id = '0'   and jenis_transaksi = '$jenis_transaksi'";
         $modelDeposit = Yii::app()->db->createCommand($queryDeposit)->queryRow();
 
         // untuk penguranan agen
-		$queryDepositAgen = "select sum(nominal) as keluar from deposit where date(created_at) < '{$tanggal}' and customer_id != '0' ";
+		$queryDepositAgen = "select sum(nominal) as keluar from deposit where date(created_at) < '{$tanggal}' and customer_id != '0' and jenis_transaksi = '$jenis_transaksi' ";
         $modelDepositAgen = Yii::app()->db->createCommand($queryDepositAgen)->queryRow();
 
 
@@ -91,7 +100,11 @@ class DepositController extends Controller
         // echo "<br>";
         // var_dump($modelKeluar['keluar']);
         // exit;
-        $sisa = intval($modelDeposit['masuk']) - intval($modelKeluar['keluar']) - intval($modelDepositAgen['keluar']);
+        if ($jenis_transaksi=="1") // jika agen maka
+      	  $sisa = intval($modelDeposit['masuk'])  - intval($modelDepositAgen['keluar']);
+    	else
+       	 $sisa = intval($modelDeposit['masuk']) - intval($modelKeluar['keluar']) - intval($modelDepositAgen['keluar']);
+
         return $sisa;
 	}
 	public function actionView($id)
@@ -144,8 +157,10 @@ class DepositController extends Controller
 
 			$model->attributes=$_POST['Deposit'];
 			$model->created_at = date("Y-m-d H:i:s");
+			$model->jenis_transaksi = 1; // agen
 			$model->customer_id = $_POST['Deposit']['customer_id'];
 			$model->customer_name = Customer::model()->findByPk($_POST['Deposit']['customer_id'])->nama;
+			$model->customer_kode = Customer::model()->findByPk($_POST['Deposit']['customer_id'])->kode;
 
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));

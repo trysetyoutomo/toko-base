@@ -1,20 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "setor".
+ * This is the model class for table "deposit_jenis_transaksi".
  *
- * The followings are the available columns in table 'setor':
+ * The followings are the available columns in table 'deposit_jenis_transaksi':
  * @property integer $id
- * @property string $tanggal
- * @property integer $user_id
- * @property integer $total
+ * @property string $jenis_transaksi
  */
-class Setor extends CActiveRecord
+class DepositJenisTransaksi extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Setor the static model class
+	 * @return DepositJenisTransaksi the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +24,7 @@ class Setor extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'setor';
+		return 'deposit_jenis_transaksi';
 	}
 
 	/**
@@ -37,11 +35,11 @@ class Setor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tanggal, user_id, total', 'required'),
-			array('user_id, total', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('jenis_transaksi', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tanggal, user_id, total', 'safe', 'on'=>'search'),
+			array('id, jenis_transaksi', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,10 +61,7 @@ class Setor extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'tanggal' => 'Tanggal',
-			'user_id' => 'User',
-			'total' => 'Total',
-			'total_awal' => 'Setoran Awal',
+			'jenis_transaksi' => 'Jenis Transaksi',
 		);
 	}
 
@@ -82,9 +77,7 @@ class Setor extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('tanggal',$this->tanggal,true);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('total',$this->total);
+		$criteria->compare('jenis_transaksi',$this->jenis_transaksi,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -96,6 +96,7 @@ class BranchController extends Controller
 		if(isset($_POST['Branch']))
 		{
 			$model->attributes=$_POST['Branch'];
+			$model->slogan=$_POST['Branch']['slogan'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}

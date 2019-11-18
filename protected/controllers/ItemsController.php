@@ -1018,10 +1018,12 @@ class ItemsController extends Controller
 
 			if ($modelh->save()){
 				foreach ($nilai as $n){
-					$i = explode("-", $n['idb']);
+					$i = explode("##", $n['idb']);
 					$barcode = $i[0];
 					// $items = Items::model()->find("barcode = '$barcode' ");
 					$items = ItemsSatuan::model()->find("barcode = '$barcode' ");
+					// var_dump($items->item_id);
+					// exit;
 
 
 
@@ -1055,6 +1057,7 @@ class ItemsController extends Controller
 
 					$model = new BarangMasukDetail;
 					$model->kode = $satuanUtamaKode_default;
+					// $model->kode = $items->item_id;
 					// $model->jumlah =  $n['jml']*$n['satuan'];
 					$spp = $n['supplier'];
 					// $model->jumlah =  $n['jml'];
@@ -1143,7 +1146,7 @@ class ItemsController extends Controller
 						echo json_encode(
 							array(
 								"status"=>0,
-								"error"=>"BarangMasukDetail : ".$model->getErrors(),
+								"error"=>$model->getErrors(),
 								"error 2"=>$d->getErrors(),
 							)
 						);
@@ -1444,7 +1447,8 @@ public function getHargamodal($id){
 				if ($bms->save()){
 					// if ($nilai>)
 					foreach ($nilai as $n){
-						$nilai = explode("-", $n['idb']);
+						// $nilai = explode("-", $n['idb']);
+						$nilai = explode("##", $n['idb']);
 						// var_dump($nilai);
 						$barcode = $nilai[0];
 						$satuan_id = $nilai[1];
@@ -1694,10 +1698,14 @@ public function getHargamodal($id){
         	// var_dump($nilai);
         	// exit;
 
-        	$id = explode("-", $id);
+        	$id = explode("##", $id);
         	$satuan_id = $id[1];
         	$id  = $id[0];
-            $ms = ItemsSatuan::model()->find("barcode = '$id'");
+
+        	// var_dump($id);
+        	// exit;
+
+            $ms = ItemsSatuan::model()->find("barcode = '$id'" );
             $id =  $ms->item_id;
 
             // echo count($ms);
@@ -2090,6 +2098,7 @@ public function getHargamodal($id){
 			$model->provider_id = $_POST['Items']['provider_id'];
 			if($model->save()){
 
+
 				// jika generate
 				if (isset($_REQUEST['is_generate'])){
 					if ($_REQUEST['is_generate']=="on"){
@@ -2115,6 +2124,47 @@ public function getHargamodal($id){
 					$satuan->stok_minimum = $_REQUEST['Items']['stok_minimum'];
 
 					if ($satuan->save()){
+
+
+						// bkin stok baru awal
+						if (isset($_REQUEST['Items']['stok'])){
+							$modelh = new BarangMasuk;
+							$modelh->tanggal = date("Y-m-d H:i:s");
+							$modelh->user = Yii::app()->user->name;
+							$modelh->sumber = "stok awal";
+							$modelh->jenis = "masuk";
+							$modelh->faktur = BarangMasukController::generateKodeBMS();
+							$modelh->keterangan = "stok awal";
+							$modelh->kode_trx = "0000000000";
+							$modelh->branch_id = Yii::app()->user->branch();
+							$modelh->status_aktif = 1;
+							
+							$modelh->subtotal = 0;
+							$modelh->diskon = 0;
+							$modelh->grand = 0;
+							$modelh->bayar = 0;
+							$modelh->kembali = 0;
+							if ($modelh->save()){
+								$BMD = new BarangMasukDetail;
+								$BMD->kode = $model->id;
+								$BMD->jumlah = $_REQUEST['Items']['stok'];
+								$BMD->satuan = $satuan->id;
+								$BMD->jumlah_satuan = $_REQUEST['Items']['stok'];
+								$BMD->harga =$_REQUEST['Items']['modal'];
+								$BMD->supplier_id = 0;
+								$BMD->head_id = $modelh->id;
+								$BMD->letak_id = 0;
+								$BMD->save();
+							}else{
+								print_r($modelh->getErrors);
+								exit;
+							}
+						}
+						// end bikin stok baru 
+
+
+						// echo "masuk 2";
+						// exit;
 						//save to itemprice
 						$price = new ItemsSatuanPrice;
 						$price->item_satuan_id = $satuan->id;
@@ -2141,22 +2191,28 @@ public function getHargamodal($id){
 						$save = $price->save();
 						
 								// $this->redirect(array('admin','id'=>$model->id));
-						if ($save){// jika berhasil simpan maka
+						// if ($save){// jika berhasil simpan maka
 							$transaction->commit();
+
 							if (! isset($_POST['isajax'])){ $this->redirect(array('view',"id"=>$model->id));}
 							else{ echo "sukses"; exit;}
-						}else{// jika gagal save maka
-							if (isset($_POST['isajax'])){
-								foreach ($model->getErrors() as $key => $value) {
-									foreach ($value as $z => $b) {echo " $b \n";}
-								}
-								exit;
-							}else{
-								echo "wkwkw";
-							}
-						}
+						// }else{// jika gagal save maka
+						// 	if (isset($_POST['isajax'])){
+						// 		foreach ($model->getErrors() as $key => $value) {
+						// 			foreach ($value as $z => $b) {echo " $b \n";}
+						// 		}
+						// 		exit;
+						// 	}else{
+						// 		echo "wkwkw";
+						// 	}
+						// }
 					}else{  // jika gagal save satuan maka
-						// echo "gagal simpan satuan";
+						echo "barcode sudah digunakan<br>";
+						echo "<a onclick='window.history.back()'>Klik disini untuk Kembali</a>";
+						exit;
+						// echo "<pre>";
+						// print_r($satuan->getErrors());
+						// echo "</pre>";
 						// exit;
 					}
 
@@ -2187,7 +2243,7 @@ public function getHargamodal($id){
 			// else
 				// print_r($model->getErrors());
 		
-
+			$transaction->commit();
 		$this->render('create',array(
 			'model'=>$model,
 			'datasatuan'=>$satuan
@@ -2347,6 +2403,7 @@ public function getHargamodal($id){
 		// echo round(ItemsController::GetAverage($id));
 
 		$model=$this->loadModel($id);
+		$satuan=ItemsSatuan::model()->find("item_id = '$id' ");
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -2367,6 +2424,7 @@ public function getHargamodal($id){
 
 		$this->render('update',array(
 			'model'=>$model,
+			'satuan'=>$satuan,
 		));
 	}
 
@@ -2612,6 +2670,7 @@ public function getHargamodal($id){
 		</div>';
   		$json = array(
   			$aksi,
+		    	$value['barcode'],       
   			   '<a href='.Yii::app()->createUrl("Items/view", array("id"=>$value[id],"status"=>"ubah")).'>
 		    	'.$value['item_name'].'       
 		          </a>',

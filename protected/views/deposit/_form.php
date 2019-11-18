@@ -18,6 +18,15 @@
 		<?php echo $form->textField($model,'nominal'); ?>
 		<?php echo $form->error($model,'nominal'); ?>
 	</div>
+	<?php  
+	$xD = DepositJenisTransaksi::model()->findAll();
+	$xD = CHtml::listData($xD,'id','jenis_transaksi');
+	?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'jenis_transaksi'); ?>
+		<?php echo $form->dropDownList($model,'jenis_transaksi', $xD, array('empty' => 'Pilih ','separator'=>'|','class'=>'for m-control'))?>
+		<?php echo $form->error($model,'jenis_transaksi'); ?>
+	</div>
 	
 	<div style="display: none;">
 		

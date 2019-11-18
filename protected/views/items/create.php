@@ -14,3 +14,9 @@ Item baru</h1>
 <hr>
 <?php echo $this->renderPartial('application.views.items._form', array('model'=>$model,'datasatuan'=>$datasatuan)); ?>
 <?php echo $this->renderPartial('application.views.layouts.js'); ?>
+<script type="text/javascript">
+	    $(document).ready(function(){
+	    	$("#Items_barcode").focus();
+	    	// alert("123");
+	    });
+</script>

@@ -9,13 +9,14 @@
 
 
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" >
 
-  <!-- Optional theme -->
+  <!-- Optional theme
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+   -->
 
   <!-- Latest compiled and minified JavaScript -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -188,6 +189,11 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
           <div class="col-sm-2 list-button">
             <div class="row">
             <div class="col-12">
+                <label for="ritel" ><input id="ritel" type="radio" value="ritel" name="jenis-penjualan" class="jenis-penjualan" checked>Ritel</label>
+                &nbsp;
+                <label for="partai" ><input id="partai" type="radio" value="partai" name="jenis-penjualan" class="jenis-penjualan">Grosir</label>
+            </div>
+            <div class="col-12">
               <b style="color:red">Tanggal Transaksi</b><br>
               <input readonly="" type="text" name="tanggal" id="tanggal" 
               value="<?php echo date("Y-m-d") ?>" style="padding: 1px;width: 100%">
@@ -240,6 +246,9 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
                   <input type=button onClick="cetakbillterakhir()" value="Struk Terakhir" class="btn btn-nevy"> 
                   <?php } ?>
                   <input  type="button" value="Item Baru" id="btn-item-baru" class="btn btn-nevy">
+                  <?php 
+                  echo CHtml::button('Closing / Tutup Buku',array('id'=>'closingbtn','class'=>"btn btn-nevy")); 
+                  ?>
                 </div>
               </div>
               <input style="display:none" type=button id="cetakdapur" onClick="cetakdapur()" value="Cetak Dapur" class="btn btn-nevy">
@@ -258,7 +267,7 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
           <div class="col-sm-7" >
              <?php echo $content; ?>
           </div>
-          <div class="col-sm-3" ">
+          <div class="col-sm-2" >
                   <div style="margin-left:0px;">
                    <?php //echo "Jenis Customer : ".CHtml::dropDownList('custype', '0', $list, array('class' => 'myinput', 'onchange' => 'custype()', 'style'=>'margin-bottom:5px;width:100px;')); ?>
                    <input  type="text" id="vouchernominal" placeholder="Potongan ">
@@ -373,5 +382,12 @@ $parameter = Parameter::model()->find(" store_id = '".Yii::app()->user->store_id
     <?php 
     include "js.php";
     ?>
+<script type="text/javascript">
+      $(document).ready(function(){
+        $("#input_items").focus();
+        // alert("123");
+      });
+</script>
 </body>
+
 </html>

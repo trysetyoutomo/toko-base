@@ -178,6 +178,11 @@ Mengelola Item
                 "searchable":false                
               },
               {
+                title: "Barcode ",
+                name:'barcode',
+                "searchable":true,                
+              },
+              {
                 title: "Nama ",
                 name:'item_name',
                 "searchable":true,                

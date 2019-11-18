@@ -105,6 +105,64 @@ Ext.define('SalesItems',{
     ]
 });
 
+var isbarcode ;
+// $(document).ready(function() {
+
+    $('#closingbtn').click(function(){
+        $('#closing-form').dialog('open');
+    });
+
+    $(document).ready(function(){
+
+
+
+    $("#input_items").focus();
+
+    $(document).on("change","#e1",function(e){
+    // alert("123");
+    isbarcode = false;
+    // console.log("ditemukan");
+       var item_id = $("#e1").val();
+       // alert(item_id);
+       if (item_id!=''){
+        // alert("123");
+           add_item(item_id);
+           $("#e1").select2("open");
+           $('#e1').val(0);
+       }else{
+            $().toastmessage('showToast', {
+               text : "Data tidak ditemukan",
+               sticky : false,
+               type     : 'warning'
+           });
+       }
+   });
+
+
+    $(".tambah-non-barcode").click(function(e){
+         isbarcode = false;
+        var item_id = $("#e1").val();
+       // alert(item_id);
+       add_item(item_id);
+    });
+    $("#input_items").keypress(function(e){
+        isbarcode = true;
+    // e.preventDefault();
+       if (e.keyCode == 13){
+        // alert("123");
+           var item_id = $("#input_items").val();
+           // alert(item_id);
+           add_item(item_id);
+       }
+    });
+
+
+
+
+
+});
+
+
 var liveSearchPanel_SalesItems; 
 var empGroupStore_SalesItems; 
 var id_inc=0;
@@ -646,12 +704,16 @@ function cetak_deposit(data) {
     applet.append(data.alamat+"\r\n");
     applet.append(data.no_telp+"\r\n");
     applet.append(data.tgl_deposit+"\r\n");
-    applet.append("---------------------------------");
+    applet.append(data.trx_id+"\r\n");
+    applet.append(chr(27) + chr(64));//cancel character sets     
+    applet.append("---------------------------------\n");
+    applet.append("Petugas   :"+data.petugas+"\r\n");
+    applet.append("ID Agen   :"+data.kode+"\r\n");
     applet.append("Nama Agen :"+data.customer_name+"\r\n");
     applet.append("Deposit   :"+data.nominal+"\r\n");
-    applet.append("---------------------------------");
-    applet.append("Terima kasih ");
-    applet.append("---------------------------------");
+    applet.append("---------------------------------\n");
+    applet.append("Komplain Tanpa Bukti Deposit,\n tidak kami layani, Terima kasih \n");
+    applet.append("---------------------------------\n");
    
 
     applet.append("\n");
@@ -1753,18 +1815,33 @@ function Bersihkan(id){
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+function showError(){
+    $().toastmessage('showToast', {
+    text : "Data tidak ditemukan",
+    sticky : false,
+    type     : 'warning'
+    });
+
+    $("#input_items").val("");
+    $("#wrapper-item-search").show();
+    $("#full-screen").show();
+    // $("#e1").focus();
+    $("#e1").select2("open");
+}
 function add_item(id)
 {	
     // alert("ok")
     // alert(id);
 
-	var isbarcode = true;
+	
 	// alert(id);
 	if (id=="" || id==null || id=="0"){
 		id = $("#e1").val();
 		isbarcode = false;
 	}
-    // alert("12345");
+    // alert(isbarcode);
+
 	var name =  $("#namapel option:selected").val();
 	$.ajax({
         url : 'index.php?r=items/check',
@@ -1772,46 +1849,41 @@ function add_item(id)
          data : 'id='+id+"&name="+name,
         success : function(data)
         {
+            // alert(data);
+
+            // console.log(data);
     		$("#input_items").val("");
     		if (isbarcode==false){
                $("#e1").select2("open");
-
     		}else{
 	    		$("#input_items").focus();
     		}
-							
+			
+            if (data==""){
+                showError();
+                exit;
+            }				
             var obj = jQuery.parseJSON(data);
-            // alert(obj.discount_customer);
-            // alert(obj.kode);
-        	if(obj.kode==null){
-    		   $().toastmessage('showToast', {
-                   text : "Data tidak ditemukan",
-                   sticky : false,
-                   type     : 'warning'
-               });
-               
-               $("#input_items").val("");
-               $("#wrapper-item-search").show();
-               $("#full-screen").show();
-               $("#e1").focus();
-               $("#e1").select2("open");
+
+        	if(obj.kode==null || data==""){
+                // alert("masuk");
+    		  showError();
                exit;
         	}else{
-                <?php 
-                if ($bool_input_qty=='true'){
-                ?>
-                var c = 0;
-				while (c==0 || !isNumeric(c)){       
-                    c = prompt("Masukan Jumlah ","1");
+                // alert("ga masuk");
+                
+
+                var is_ritel = $(".jenis-penjualan").prop("checked");
+                if (!is_ritel){
+                    var c = 0;
+                    while (c==0 || !isNumeric(c)){       
+                        c = prompt("Masukan Jumlah ","1");
+                    }
+                    if (c=="0"){c = 1;}   
+                }else{
+                    var c = 1;
                 }
-				if (c=="0"){
-					c = 1;
-				}   
-                    <?php }else{ ?>
-				var c = 1;
-                <?php 
-                }
-                ?>
+
 				$("#qty").val(c);
         	}
 
@@ -1835,6 +1907,7 @@ function add_item(id)
 					sticky : false,
 					type     : 'error'
 				});
+
 				$("#input_items").val("");
 				$("#input_items").focus();
 
@@ -2687,15 +2760,15 @@ function cetakbill()
     });
 }
 */
+    $('.jenis-penjualan').click(function () {
+        $("#input_items").focus();
+    });
 Ext.onReady(function() {
     var id = 0
-    // $('#add_item').click(function () {
-        
         
         
         
     
-    //     });
        
     
     

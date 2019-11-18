@@ -22,6 +22,11 @@
 		<?php echo $form->error($model,'kode'); ?>
 	</div>
 	<div class="row">
+		<?php echo $form->labelEx($model,'kode_agen'); ?>
+		<?php echo $form->textField($model,'kode_agen'); ?>
+		<?php echo $form->error($model,'kode_agen'); ?>
+	</div>
+	<div class="row">
 		<?php echo $form->labelEx($model,'nama'); ?>
 		<?php echo $form->textField($model,'nama'); ?>
 		<?php echo $form->error($model,'nama'); ?>

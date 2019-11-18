@@ -28,19 +28,23 @@ $this->menu=array(
 		<?php echo $form->error($model,'created_at'); ?>
 	</div>
 	
-	<div class="row">
+	<div class="row" style="width:450px;">
 		<?php echo $form->labelEx($model,'nominal'); ?>
 		<?php echo $form->textField($model,'nominal'); ?>
+		<label id="Deposit_nominal_formatted" style="float:right;width: 300px;text-align: left" ></label>
 		<?php echo $form->error($model,'nominal'); ?>
 	</div>
 	<?php 
 	$nilai = Customer::model()->findAll("store_id = '".Yii::app()->user->store_id()."' and customer_type = '4' ");
 	$data = CHtml::listData($nilai,'id','nama');
-
+	$data2 = array();
+	foreach ($nilai as $key => $value) {
+		$data2["$value->id"] = $value->kode_agen ." - ".$value->nama;
+	}
 	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'customer_id'); ?>
-		<?php echo $form->dropDownList($model,'customer_id', $data, array('empty' => 'Pilih Agen','separator'=>'|',"class"=>"form-control","style"=>"width:200px"))?>
+		<?php echo $form->dropDownList($model,'customer_id', $data2, array('empty' => 'Pilih Agen','separator'=>'|',"class"=>"form-contro l","style"=>"width:200px"))?>
 		
 		<?php echo $form->error($model,'customer_id'); ?>
 	</div>
