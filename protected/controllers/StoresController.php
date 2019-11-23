@@ -157,8 +157,8 @@ class StoresController extends Controller
 
 			// }// end save
 		}else{
-			echo "ok";
-			exit;
+			// echo "ok";
+			// exit;
 		}
 
 		$this->render('create',array(
