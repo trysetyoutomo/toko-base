@@ -19,13 +19,14 @@
     <!-- <br>  -->
     <?php 
     $branch_id = Yii::app()->user->branch();
-    echo Branch::model()->findByPk($branch_id)->branch_name;
+    $store_id =  Branch::model()->findByPk($branch_id)->store_id;
+    echo Stores::model()->findByPk($store_id)->name;
     echo "<br>";
     ?>
   </h1>
   <div style="width: 400px">
     
-  <h4  class=" text-center"><?php echo Branch::model()->findByPk($branch_id)->address; ?></h4>
+  <h4  class=" text-center;text-transform:lowercase"><?php echo Branch::model()->findByPk($branch_id)->address; ?></h4>
   </div>
     <br>
  

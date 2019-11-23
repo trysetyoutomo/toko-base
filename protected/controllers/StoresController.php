@@ -88,7 +88,7 @@ class StoresController extends Controller
 				$model->logo->saveAs("/logo/{$random}.jpg");
 			}else{
 			}
-			if($model->save()){
+			if($model->save(false)){
 				$br = new Branch;
 				$br->company = $model->name ;
 				$br->branch_name = "Pusat" ;
@@ -110,23 +110,33 @@ class StoresController extends Controller
 					$u->branch_id = $br->id;
 					if ($u->save(false)){
 
-						$Parameter=new Parameter
+						$Parameter=new Parameter;
 						$Parameter->store_id = $model->id ;
 						$Parameter->pajak = 0 ;
 						$Parameter->service = 0 ;
+						$Parameter->meja = 10 ;
 						$Parameter->gambar = "35_POS_LOGO.png";
 						$Parameter->gambar_putih = "35_POS_LOGO_putih.png";
 						if ($Parameter->save()){
 							$transaction->commit();
 							$this->redirect(array('view','id'=>$model->id));
 						}
+						// else{
+						// 	print_r($Parameter->getErrors());
+						// 	exit;
+						// }
 					}else{
 						echo "Gagal Membuat user";
+						exit;
 
 					}
 				}else{
 					echo "Gagal Membuat cabang utama";
+					exit;
 				}
+			}else{
+				// print_r($model->getErrors());
+				// exit;
 			}
 				
 				
@@ -146,6 +156,9 @@ class StoresController extends Controller
 				// }
 
 			// }// end save
+		}else{
+			echo "ok";
+			exit;
 		}
 
 		$this->render('create',array(

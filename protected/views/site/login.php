@@ -118,13 +118,13 @@ License: You must have a valid license purchased only from templatemonster to le
 				</button>
 				</div>
 				<div class="col-sm-12 mb-20">
-				<button class="btn btn-danger btn-block">
-				<a href="<?php echo Yii::app()->createUrl("stores/create") ?>"  style="color:white"> 
+				<!-- <button > -->
+				<a class="btn btn-danger btn-block" href="<?php echo Yii::app()->createUrl("stores/create") ?>"  style="color:white"> 
 					<span class="btn-text">
 						Daftar
 					</span>
 				</a>
-				</button>
+				<!-- </button> -->
 				</div>
 
 								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
