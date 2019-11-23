@@ -108,6 +108,7 @@ class StoresController extends Controller
 					$u->password = $model->email;
 					$u->level = 2; // level admin
 					$u->branch_id = $br->id;
+					$u->store_id = $model->id;
 					if ($u->save(false)){
 
 						$Parameter=new Parameter;
