@@ -31,7 +31,6 @@
 		<?php echo $form->error($model,'service'); ?>
 	</div>
 	<?php
-		$diskon = CHtml::listdata(Diskon::model()->findAll(),'id','diskon');
 		// $model_diskon = 
 		// print_r($diskon);
 	 ?>
@@ -42,6 +41,24 @@
 	</div> -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+		
+			$("#btn-hapus").click(function(e){
+				let c = confirm("Yakin hapus ? ");
+				if (!c) return false;
+				let d_id = $("#Parameter_diskon").val();
+				$.ajax({
+					"data" : "id="+d_id,
+					"url" : "index.php?r=diskon/hapus",
+					success : function(data){
+						let x = JSON.parse(data);
+						if (x.success){
+							location.reload();
+						}
+					}
+				})
+
+			});
+
 			$("#tambah-diskon").click(function(e){
 				var angka = 0;
 				while (angka==0){
@@ -54,8 +71,9 @@
 		<?php echo $form->labelEx($model,'diskon'); ?>
 		<?php echo $form->dropdownlist($model,'diskon',$diskon); ?>
 		<a href="<?php echo Yii::app()->createUrl('diskon/create') ?>">
-		<input type="button" value="tambah diskon" id="" class="btn btn-primary">
+			<input type="button" value="tambah diskon" id="" class="btn btn-primary">
 		</a>
+		<a class="btn btn-danger " id="btn-hapus">Hapus Diskon</a>
 		<?php echo $form->error($model,'diskon'); ?>
 	</div>
 

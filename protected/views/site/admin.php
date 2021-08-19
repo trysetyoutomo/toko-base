@@ -1,3 +1,17 @@
+<?php
+echo strlen("1 x 6000 - 0% disc       7,200");
+// $total_margin = 30;
+// $string1 = "1 x 80.000";
+// $string2 = "80.00";
+// $len1 = strlen($string1);
+// $len2 = strlen($string2);
+// $space = $total_margin - $len1;
+// echo $space;
+// ECHO "<BR>";
+// echo $string1."". str_pad($string2,$space," ",STR_PAD_LEFT);
+// echo $string1."". str_repeat(" ",17).$string2;
+?>
+
 <center>
 <style type="text/css">
   #test{
@@ -33,3 +47,4 @@
 </div>
 
 </center>
+

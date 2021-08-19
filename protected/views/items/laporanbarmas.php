@@ -290,6 +290,7 @@ group by barangmasuk.id
  ";
 
 // echo $sql;
+// exit;
 $model = Yii::app()->db->createCommand($sql)->queryAll();
 
 ?>

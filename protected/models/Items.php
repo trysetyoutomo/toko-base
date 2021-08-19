@@ -300,7 +300,7 @@ $data[$item['barcode']."##".$item['satuan_id']] = trim($item['barcode'])." - ".t
 	public function attributeLabels()
 	{
 		return array(
-			'stok' => 'Stok Awal ',
+			'stok' => 'Stok Saat ini ',
 			'is_stockable' => 'Kelola Stok ',
 			'satuan_id' => 'Satuan ',
 			'has_bahan' => 'Memiliki Bahan Baku ?',
@@ -311,10 +311,10 @@ $data[$item['barcode']."##".$item['satuan_id']] = trim($item['barcode'])." - ".t
 			'item_number' => 'Nomor',
 			'description' => 'Keterangan',
 			'category_id' => 'Kategori',
-			'unit_price' => 'Harga',
+			'unit_price' => 'Harga Jual',
 			'tax_percent' => 'Pajak',
-			'total_cost' => 'Total Harga jual',
-			'discount' => 'Diskon',
+			'total_cost' => 'Harga Modal',
+			'discount' => 'Diskon (%)',
 			'price_distributor' => 'Total Harga Jual Distributor',
 			'price_reseller' => 'Total Harga Jual Reseller',
 			'image' => 'Gambar',

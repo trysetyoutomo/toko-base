@@ -18,29 +18,29 @@
 	?>
 	<div class="row" style="display: none;">
 		<?php echo $form->labelEx($model,'kode'); ?>
-		<?php echo $form->textField($model,'kode'); ?>
+		<?php echo $form->textField($model,'kode',array("class"=>"form-control")); ?>
 		<?php echo $form->error($model,'kode'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'kode_agen'); ?>
-		<?php echo $form->textField($model,'kode_agen'); ?>
+		<?php echo $form->textField($model,'kode_agen',array("class"=>"form-control",'style'=>'max-width:150px')); ?>
 		<?php echo $form->error($model,'kode_agen'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'nama'); ?>
-		<?php echo $form->textField($model,'nama'); ?>
+		<?php echo $form->textField($model,'nama',array("class"=>"form-control",'style'=>'max-width:150px')); ?>
 		<?php echo $form->error($model,'nama'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'alamat'); ?>
-		<?php echo $form->textField($model,'alamat'); ?>
+		<?php echo $form->textField($model,'alamat',array("class"=>"form-control",'style'=>'max-width:150px')); ?>
 		<?php echo $form->error($model,'alamat'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'no_telepon'); ?>
-		<?php echo $form->textField($model,'no_telepon'); ?>
+		<?php echo $form->textField($model,'no_telepon',array("class"=>"form-control",'style'=>'max-width:150px')); ?>
 		<?php echo $form->error($model,'no_telepon'); ?>
 	</div>
 	<div class="row">

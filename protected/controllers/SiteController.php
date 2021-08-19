@@ -593,16 +593,30 @@ class SiteController extends Controller
 		$now = date("Y-m-d");
 		// print_r($_REQUEST);
 		if (isset($_POST['Setor'])){
-			$setor = new Setor;
-			$setor->tanggal = $now;
-			$setor->user_id = $user->id;
-			$setor->total_awal = $_POST['Setor']['total_awal'];
-			$setor->total = 0;
-			$setor->store_id =  Yii::app()->user->store_id();
-			if ($setor->save()){
-				$this->redirect(array('site/index'));
+
+			$cekKasir = Setor::model()->find(" is_closed = 0 and user_id = '$user->id' and  date(tanggal) = '$now'   ");
+			if ($cekKasir){
+			 	?>
+			 	<script type="text/javascript">
+				alert('Input Saldo sudah dilakukan!');
+				window.location.href = '<?php echo Yii::app()->createUrl('site/index') ?>'
+			 	</script>
+			 	<?php 
+
 			}else{
-				// print_r($setor->getErrors());
+
+				$setor = new Setor;
+				$setor->tanggal = $now;
+				$setor->user_id = $user->id;
+				$setor->total_awal = $_POST['Setor']['total_awal'];
+				$setor->total = 0;
+				$setor->created_at = date("Y-m-d H:i:s");
+				$setor->store_id =  Yii::app()->user->store_id();
+				if ($setor->save()){
+					$this->redirect(array('site/index'));
+				}else{
+					// print_r($setor->getErrors());
+				}
 			}
 			exit;
 		}

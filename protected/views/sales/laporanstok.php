@@ -155,14 +155,20 @@ var myTableMember;
           myTable =  $('#datatable').DataTable({
             "processing": true,
             "serverSide": true,
-             "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
+             "lengthMenu": [[50, 1000000], [50, "Semua"]],
             "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON&adjust=1") ?>",
             "fnDrawCallback": function( oSettings ) {
                    // $(".loader").hide();
            },
-
+		   "language": {
+				"search": "Scan Barcode "
+			},
+		   initComplete(){
+			   $("#datatable_filter input").val("");
+				$("#datatable_filter input").focus();
+		   },
             "footerCallback": function ( row, data, start, end, display ) {
- 
+				
         },
             columns:
 
@@ -274,9 +280,11 @@ $(document).ready(function(){
 	            var data = JSON.parse(msg);
 	            if (data.success==true){
 	            	$(".set-stok-old").eq(i).html(skrg);
-	            	reloadItems();
 	            	// window.location.reload();
-	            	// alert("Berhasil Update Data");
+	            	alert("Berhasil Update stok");
+	            	reloadItems();
+					$("#datatable_filter input").val("");
+					$("#datatable_filter input").focus();
 	            }
 	        	// alert(JSON.stringify(data));
 	           },

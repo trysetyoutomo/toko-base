@@ -30,7 +30,9 @@
 	</script>
 </head>
 <body>
-<h1>Input Saldo Awal</h1>
+<h1>
+	<i class="fa fa-edit"></i>
+Input Saldo Awal</h1>
 	<hr>
 <div class="form" style="margin-left: 20px;">
 
@@ -49,17 +51,17 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row" style="margin-bottom: 20px">
+	<div class="row">
 		<?php echo $form->labelEx($model,'total_awal'); ?>
-		<?php echo $form->textField($model,'total_awal'); ?>
-		<label id="total_awal_formatted"></label>
+		<?php echo $form->textField($model,'total_awal',['class'=>'form-control','style'=>'max-width:300px']); ?>
+		<label id="total_awal_formatted" style="margin-top:1rem;margin-bottom:1rem"></label>
 		<?php echo $form->error($model,'total_awal'); ?>
 	</div>
 	<?php  
 	?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Simpan',array("class"=>"btn btn-primary")); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Mulai Transaksi' : 'Mulai Transaksi',array("class"=>"btn btn-primary")); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -31,7 +31,7 @@ class DiskonController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','hapus'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -48,6 +48,13 @@ class DiskonController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+	public function actionHapus($id){
+		$m = $this->loadModel($id);
+		if ($m->delete()){
+			echo json_encode(["success"=>true]);
+		}
+	}
+
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -68,7 +75,9 @@ class DiskonController extends Controller
 
 		if(isset($_POST['Diskon']))
 		{
+			$store_id = Yii::app()->user->store_id();
 			$model->attributes=$_POST['Diskon'];
+			$model->store_id=$store_id;
 			if($model->save())
 				$this->redirect(array('parameter/update','id'=>1));
 		}

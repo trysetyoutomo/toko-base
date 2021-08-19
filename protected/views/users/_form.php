@@ -1,4 +1,4 @@
-<div class="form wide">
+_<div class="form wide">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'users-form',
@@ -28,7 +28,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'level'); ?>
 		<?php
-		$nilai = ConfigRole::model()->findAll();
+		$nilai = ConfigRole::model()->findAll("role_name!='superadmin'");
 		$data = CHtml::listData($nilai,'id','role_name');
 
 		?>

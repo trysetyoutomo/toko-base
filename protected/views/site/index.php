@@ -380,7 +380,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
          <table>
             <tr>
                <td>
-                  <input placeholder="Item" type="text" id="input_items" style="padding:10px;width:90%"  >
+                  <input placeholder="Scan Barcode disini .. " type="text" id="input_items" style="padding:10px;width:90%"  >
                </td>
                <td>
                   Diskon
@@ -1928,13 +1928,13 @@ function numberWithCommas(x) {
 
  
  <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-modal-preview" data-toggle="modal" data-target="#exampleModal" style="display: none;">
+<button type="button" class="btn btn-primary btn-modal-preview d-none"  data-toggle="modal" data-target="#modal-bukti-bayar" >
   
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="modal-bukti-bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:700px">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Bukti Pembayaran</h5>
@@ -1945,8 +1945,9 @@ function numberWithCommas(x) {
       <div class="modal-body body-bukti">
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+      <div style="clear:both"></div>
+      <div class="modal-footer d-none">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>

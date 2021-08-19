@@ -87,11 +87,14 @@ class ParameterController extends Controller
 	{
 		$store_id = Yii::app()->user->store_id();
 		// $model=$this->loadModel($id);
+		$diskon = CHtml::listdata(Diskon::model()->findAll("store_id = '{$store_id}' "),'id','diskon');
+		// echo count($diskon);
+		// echo 'xx';
 		$model = Parameter::model()->find("store_id = '{$store_id}' ");
 		if ($model){
 
 			// Uncomment the following line if AJAX validation is needed
-			// $this->performAjaxValidation($model);
+			// $this->performAjaxValidation($mode	l);
 
 			if(isset($_POST['Parameter']))
 			{
@@ -107,6 +110,7 @@ class ParameterController extends Controller
 
 			$this->render('update',array(
 				'model'=>$model,
+				'diskon'=>$diskon,
 			));
 		}else{
 			$prm = new Parameter;
@@ -124,6 +128,7 @@ class ParameterController extends Controller
 
 				$this->render('update',array(
 					'model'=>$prm,
+					'diskon'=>$diskon,
 				));
 			}
 

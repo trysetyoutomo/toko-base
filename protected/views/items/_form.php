@@ -139,19 +139,19 @@
 	
 		$('#Items_description').html(' - ');
 		<?php if (!$model->isNewRecord): ?>
-			$("#Items_persentasi").on("keyup",function(e){
-				$.ajax({
-				url : '<?php echo $this->createUrl('items/average')?>',
-				data : 'id='+<?php echo $_REQUEST["id"] ?>+"&val="+$(this).val(),
-					success : function(data)
-					{
-						$("#Items_total_cost").val(data);
-						$("#Items_price_reseller").val(data);
-						$("#Items_price_distributor").val(data);
-					},
-				});
-				// alert("123");
-			});
+			// $("#Items_persentasi").on("keyup",function(e){
+			// 	$.ajax({
+			// 	url : '<?php echo $this->createUrl('items/average')?>',
+			// 	data : 'id='+<?php echo $_REQUEST["id"] ?>+"&val="+$(this).val(),
+			// 		success : function(data)
+			// 		{
+			// 			$("#Items_total_cost").val(data);
+			// 			$("#Items_price_reseller").val(data);
+			// 			$("#Items_price_distributor").val(data);
+			// 		},
+			// 	});
+			// 	// alert("123");
+			// });
 		<?php endif;?>
 
 		// Items_total_cost
@@ -200,12 +200,12 @@
 		 	getMotif(nilai);
 		 });	
 
-		 $("#Items_unit_price").keyup(function(){
-		 	nilai = $('#Items_unit_price').val();
-			total = (parseInt(nilai)+nilai/10);
-		 	//$('#Items_tax_percent').val(nilai/10);
-		 	$('#Items_total_cost').val(total);
-		 });
+		//  $("#Items_total_cost").keyup(function(){
+		//  	nilai = $('#Items_total_cost').val();
+		// 	total = (parseInt(nilai)+nilai/10);
+		//  	//$('#Items_tax_percent').val(nilai/10);
+		//  	$('#Items_unit_price').val(total);
+		//  });
 
 		 <?PHP 
 		 if ($model->isNewRecord){
@@ -411,7 +411,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
                 <td><?php //echo $form->error($model,'modal'); ?></td>
                 </tr>
 
-				<tr style="display:none;">
+				<tr >
 				<td><?php echo $form->labelEx($model,'unit_price'); ?></td>
                 <td><?php echo $form->textField($model,'unit_price',array('class'=>'form-control')); ?></td>
                 <td><?php echo $form->error($model,'unit_price'); ?></td>
@@ -428,33 +428,25 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
                 <td></td>
                 </tr> 
             	<?php else :?>
-            	   <tr style=""> 
+            	   <tr style="display:none"> 
 				<td><?php echo $form->labelEx($model,'modal'); ?></td>
                 <td><?php echo $form->textField($model,'modal',array('class'=>'form-control')); ?></td>
      
                 <td><?php echo $form->error($model,'modal'); ?></td>
              </tr> 
             	<?php endif?>
-<?php //if (!$model->isNewRecord): ?>
-			<tr style="display: none;" >
-				<td><?php echo $form->labelEx($model,'unit_price'); ?></td>
-                <td><?php echo $form->textField($model,'unit_price',array('class'=>'form-control')); ?></td>
-                <td><?php echo $form->error($model,'unit_price'); ?></td>
-                </tr>
 
- <?php //endif; ?>
 
                 <tr style=""> 
                 <?php 
-                if ($model->isNewRecord){
+                // if ($model->isNewRecord){
 				
-                if ($model->total_cost==""){
-                	$model->total_cost = "0";
-                }
+                // if ($model->total_cost==""){
+                // 	$model->total_cost = "0";
+                // }
                 ?>
 				<td><?php echo $form->labelEx($model,'total_cost'); ?></td>
                 <td><?php echo $form->textField($model,'total_cost',array('class'=>'form-control')); ?></td>
-     
                 <td><?php echo $form->error($model,'total_cost'); ?></td>
                 </tr>
                   <?php 
@@ -462,7 +454,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
                 	$model->price_reseller = "0";
                 }
 
-            	}
+            	// }
 
 
                 ?>

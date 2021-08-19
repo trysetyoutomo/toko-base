@@ -118,12 +118,13 @@ License: You must have a valid license purchased only from templatemonster to le
 				</button>
 				</div>
 				<div class="col-sm-12 mb-20">
-				<!-- <button > -->
+				<!-- <button > 
 				<a class="btn btn-danger btn-block" href="<?php echo Yii::app()->createUrl("stores/create") ?>"  style="color:white"> 
 					<span class="btn-text">
 						Daftar
 					</span>
 				</a>
+				-->
 				<!-- </button> -->
 				</div>
 

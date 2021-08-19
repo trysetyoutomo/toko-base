@@ -15,6 +15,9 @@
    .stok-stokan tr td{
    border:1px solid transparent!important;
    }
+   #trx-b-keluar{
+      width:100%;
+   }
    #trx-b-keluar tr td{
    padding: 5px;
    }
@@ -169,30 +172,27 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
 ?>
 
 <h1> <i class="fa fa-book"></i>Barang Keluar</h1>
-<hr>
 <div class="row">
-  <div class="col-sm-12 alert alert-success " role="alert">
+  <div class="col-sm-12 alert alert-info " role="alert">
     <div id="shorcut"  >
-      <nav   >
-
-        <ul style="font-size: 5px;width: 100000000000px;float: left;">
-          <li>Esc = Batal </li>
-          <li> F2 = Pilih Item </li>
+        <ul class="" style="list-style:none;" >
+          <li class="d-inline">Esc = Batal </li>
+          <li class="d-inline"> F2 = Pilih Item </li>
         </ul>
-      </nav>
     </div>
   </div>
-<div>
+</div>
+
 
 <div class="row" >
-<div class="col-sm-3">
+<div class="col-sm-4">
 <table  cellpadding="10" id="trx-b-keluar">
 <tr>
  <td>
     Tanggal Transaksi			
  </td>
  <td>
-    <input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px;" name="tanggal" id="tanggal">
+    <input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px;" class="form-control" name="tanggal" id="tanggal">
  </td>
 </tr>
 <tr>
@@ -200,7 +200,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
     Kode Transaksi			
  </td>
  <td>
-    <input readonly="" type="text" value="<?php echo BarangKeluarController::generateKodeBKS(); ?>" style="display:inline;padding:5px;"  id="kode_trx">
+    <input readonly="" type="text" value="<?php echo BarangKeluarController::generateKodeBKS(); ?>" style="display:inline;padding:5px;" class="form-control"  id="kode_trx">
  </td>
 </tr>
 <tr>
@@ -208,7 +208,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
     Alasan Keluar	
  </td>
  <td>
-    <select name="jeniskeluar" id="jeniskeluar" >
+    <select name="jeniskeluar" id="jeniskeluar" class="form-control" >
        <?php 
           $data = JenisKeluar::model()->findAll();
           foreach ($data as $key => $value) {
@@ -245,7 +245,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
     Keterangan
  </td>
  <td>
-    <textarea id="keterangan" style="height:70px;width:160px">-</textarea>
+    <textarea id="keterangan" style="height:70px" class="form-control">-</textarea>
  </td>
 
 </tr>
@@ -258,14 +258,14 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
 
 </table>
 </div>
-<div class="col-sm-9 ">
+<div class="col-sm-8 ">
 <input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
 <div class="data-table">
  <h2>Masukan Items</h2>
  <?php $data = Items::model()->data_items("ALL");?>
  <div class="row">
-    <label for="nama" >Nama</label>
-    <input type="text" name="nama" id="nama">
+    <label for="nama" >Barcode</label>
+    <input type="text" name="nama" id="nama" class="form-control" style="max-width:150px;display:inline-block">
     <label for="add-all" style="width: 200px;display: none;">
     <input type="checkbox" id="add-all" name="add-all" > Tambah Semua						
     </label>
@@ -275,7 +275,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
  </div>
  <div class="row">
     <label for="jumlah" >Jumlah Keluar</label>
-    <?php echo CHtml::textField('stok', '0',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
+    <?php echo CHtml::textField('stok', '0',array('type'=>'number','id'=>'stok','class'=>'form-control','style'=>'max-width:150px;display:inline-block'));?>
  </div>
  <button class="btn btn-primary" onClick="add_item($('#nama').val())">Tambah</button>
  <div class=" widget-table">
@@ -328,6 +328,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
 </div> <!-- .grid -->
      <script>
             $(document).ready(function(){
+            	$("#nama").focus();
             	$("#cabang").select2();
             		$("#e1").select2({
             escapeMarkup: function (markup) { return markup; }, // let our custom formatter work

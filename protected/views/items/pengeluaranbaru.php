@@ -49,13 +49,14 @@
 
 			<div class="row">
 				<label for="jumlah" >Tanggal</label>
-				<input type="date" value="<?php echo date('Y-m-d'); ?>" style="padding:5px" name="tanggal" id="tanggal">
+				<input type="text" value="<?php echo date('Y-m-d'); ?>" class="form-control" style="max-width:150px;display:inline-block "  name="tanggal" id="tanggal">
 			</div>
 
 
 			<div class="row">
-				<label for="jumlah" >Jenis Keluar</label>
+			<label for="jumlah" >Jenis Keluar</label>
 			<select class="form-control" style="width: 200px;display: inline" name="jeniskeluar" id="jeniskeluar">
+			<option>Pilih Jenis</option>
 			<?php foreach (JenisBeban::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ") as $jb) { ?>
 				<option value="<?php echo $jb->nama ?>"><?php echo $jb->nama ?></option>
 			<?php } ?>
@@ -69,12 +70,12 @@
 			</div>
 
 			<div class="row">
-				<label>Keterangan</label><textarea id="keterangan" style=";width:403px;height:70px">Tidak Ada Keterangan </textarea>
+				<label>Keterangan</label><textarea id="keterangan" class="form-control" style="max-width:450px;display:inline-block;min-height:100px" >Tidak Ada Keterangan </textarea>
 			</div>
 			
 			<div class="row">
 				<label>Total Pengeluaran</label>
-				<input type="number" name="total" id="total" value="0">
+				<input type="number" name="total" id="total" value="0" class="form-control" style="max-width:150px;display:inline-block">
 			</div>
 
 	
@@ -243,7 +244,8 @@
 							success: function(result){
 								// alert(result);
 								alert('Data berhasil di simpan !  ');
-								window.location.assign('index.php?r=items/laporan_pengeluaran');
+								window.location.reload();
+								// window.location.assign('index.php?r=items/laporan_pengeluaran');
 								// alert('haha');
 							},
 							error:function(result){

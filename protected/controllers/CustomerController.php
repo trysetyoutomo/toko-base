@@ -47,6 +47,8 @@ class CustomerController extends Controller
 	public static function generateCustomerCode() {
 		$store_id_real = Yii::app()->user->store_id();
 		$store_id = str_pad($store_id_real,3,"0",STR_PAD_LEFT);
+		// echo $store_id;
+		// exit;
         $query = "SELECT
 				IFNULL(
 					CONCAT(
@@ -57,15 +59,17 @@ class CustomerController extends Controller
 							'0'
 						)
 					),
-					'CSM0000000001'
+					'{$store_id}CSM0000000001'
 				) AS urutan
 			FROM
 				customer
 				where 
-				store_id = {$store_id}
+				store_id = {$store_id_real}
                  ";
 				// }
         $model = Yii::app()->db->createCommand($query)->queryRow();
+		// echo  $query;
+		// exit;
         return $model['urutan'];
    }
 

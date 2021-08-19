@@ -183,10 +183,20 @@
 			<i class="fa fa-book"></i>
 			Purchase Order (PO) </h1>
 			<hr>
+			<div class="row">
+			<div class="col-sm-12 alert alert-info " role="alert">
+				<div id="shorcut"  >
+					<ul class="" style="list-style:none;" >
+					<li class="d-inline">Esc = Batal </li>
+					<li class="d-inline"> F2 = Pilih Item </li>
+					</ul>
+				</div>
+			</div>
+			</div>
 
 			<div class="row">
-				<div class="col-sm-3">
-			<table cellpadding="0" id="trx-b-masuk">
+				<div class="col-sm-4">
+			<table cellpadding="0" id="trx-b-masuk" class="w-100" style="width:100%">
 			<tr>
 				<td colspan="2">
 						<legend style="font-weight:bolder">Data Transaksi</legend>
@@ -198,7 +208,7 @@
 						Tanggal PO			
 					</td>
 					<td>
-						<input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" name="tanggal" id="tanggal">
+						<input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" class="form-control" name="tanggal" id="tanggal">
 					</td>
 					
 				</tr>
@@ -207,7 +217,7 @@
 						Kode PO			
 					</td>
 					<td>
-						<input readonly="" type="text" value="<?php echo BarangmasukController::generateKodePO(); ?>" style="display:inline;padding:5px"  id="kode_trx">
+						<input class="form-control" readonly="" type="text" value="<?php echo BarangmasukController::generateKodePO(); ?>" style="display:inline;padding:5px"  id="kode_trx">
 					</td>
 					
 				</tr>
@@ -240,7 +250,7 @@
 			Supplier
 					</td>
 					<td>
-					<select id='supplier-data' style='padding:4px;width:150px' maxlength='15'>					
+					<select id='supplier-data' style='padding:4px;' maxlength='15'>					
 					<?php
 					$store_id = Yii::app()->user->store_id();
 					 foreach (Supplier::model()->findAll(" store_id = '$store_id' ") as $s):  ?>
@@ -307,7 +317,7 @@
 						Keterangan
 					</td>
 					<td>
-						<textarea placeholder="barang masuk" id="keterangan" style="display:inline;height:70px">-</textarea>
+						<textarea class="form-control" placeholder="barang masuk" id="keterangan" style="display:inline;height:70px">-</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -340,7 +350,7 @@
 				<div class="row">
 					<label for="nama" >Barcode</label>
 					<?php // echo CHtml::dropDownList('nama', '1', Items::model()->data_items("BAHAN"),array('class'=>'for m-control')  );?>
-					<input type="text" name="nama" id="nama">
+					<input type="text" name="nama" id="nama" class="form-control " style='max-width:100px;display:inline'>
 
 					
 
@@ -352,7 +362,7 @@
 
 				<div class="row">
 					<label for="jumlah" >Jumlah</label>
-					<?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
+					<?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-control','style'=>'max-width:50px;display:inline'));?>
 					<button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke Keranjang</button>
 			
 				</div>
@@ -360,10 +370,6 @@
 				<script>
 
 $(document).ready(function(){
-		// $("#nama").select2({
-		// 	 escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-	 //         minimumInputLength: 2,
-		// });
 	$("#isbayar").select2();
 	$("#cabang").select2();
 	$("#letak").select2();

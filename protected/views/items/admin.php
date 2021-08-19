@@ -15,9 +15,9 @@ Mengelola Item
 			<i class="fa fa-plus"></i> Tambah Item
 		</button>
 		</a>
-    <a style="display: none;"> href="<?php echo Yii::app()->controller->createUrl("cetaklabel") ?>">
+    <a  href="<?php echo Yii::app()->controller->createUrl("cetaklabel") ?>">
     <button class="btn btn-primary">
-      <i class="fa fa-print"></i> Cetak Label Item
+      <i class="fa fa-barcode"></i> Cetak Barcode Item
     </button>
     </a>
 
@@ -117,39 +117,11 @@ Mengelola Item
     var myTableMember;
     var editor;
 
-     editor = new $.fn.dataTable.Editor( {
-        ajax:  "../php/staff.php",
-        table: "#datatable",
-        fields: [{
-                label: "First name:",
-                name: "first_name"
-            }, {
-                label: "Last name:",
-                name: "last_name"
-            }, {
-                label: "Position:",
-                name: "position"
-            }, {
-                label: "Office:",
-                name: "office"
-            }, {
-                label: "Extension:",
-                name: "extn"
-            }, {
-                label: "Start date:",
-                name: "start_date",
-                type: "datetime"
-            }, {
-                label: "Salary:",
-                name: "salary"
-            }
-        ]
-    } );
 
-  $('#datatable').on( 'click', 'tbody td:not(:first-child)', function (e) {
-    alert("ok");
-    editor.inline( this );
-  } );
+
+  // $('#datatable').on( 'click', 'tbody td:not(:first-child)', function (e) {
+  //   editor.inline( this );
+  // } );
 
 
    function reloadItems(){
@@ -160,7 +132,7 @@ Mengelola Item
           myTable =  $('#datatable').DataTable({
             "processing": true,
             "serverSide": true,
-            "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
+            "lengthMenu": [[5, 10, 25, 50, 1000000], [5, 10, 25, 50, "Semua"]],
             "ajax" : "<?php echo Yii::app()->createUrl("Items/adminJSON") ?>",
             "fnDrawCallback": function( oSettings ) {
                    // $(".loader").hide();

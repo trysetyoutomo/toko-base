@@ -112,7 +112,13 @@ var isbarcode ;
         $('#closing-form').dialog('open');
     });
 
+    $(window).load(function() {
+        // alert('123');
+        // $('#modal-bukti-bayar').modal("show");
+    });
+
     $(document).ready(function(){
+
 
 
 
@@ -504,12 +510,12 @@ function useDefaultPrinter() {
         <?php 
         $printer_setting = Parameter::model()->findByPk(1)->printer_utama;
         ?>
-        // var s_printer = '<?php //echo $printer_setting ?>';
-        // if (s_printer!='')
-	        // applet.findPrinter(s_printer);
-	        applet.findPrinter();
-	    // else
-	    // 	alert("Tidak bisa print, Printer belum di pilih !!");
+        var s_printer = '<?php echo $printer_setting ?>';
+        if (s_printer!='')
+	        applet.findPrinter(s_printer);
+	        // applet.findPrinter();
+	    else
+	    	alert("Tidak bisa print, Printer belum di pilih !!");
     }
          
     monitorFinding();
@@ -555,18 +561,18 @@ try{
 		// Hint:  Carriage Return = \r, New Line = \n, Escape Double Quotes= \"
 		applet.append(chr(27)+chr(69)+"\r");//perintah untuk bold
 		// applet.append(chr(27)+"\x61"+"\x31"); //perintah untuk center
-		applet.append(chr(27) + "\x61" + "\x31"); // center justify
-		applet.append(chr(27) + chr(33) + chr(128));//underliner
+		// applet.append(chr(27) + "\x61" + "\x31"); // center justify
+		// applet.append(chr(27) + chr(33) + chr(128));//underliner
 		
 		applet.append(data.logo+"\r\n\n");
 		applet.append(chr(27) + chr(64));//cancel character sets			
-		applet.append(chr(27) + "\x61" + "\x31"); // center justify
+		// applet.append(chr(27) + "\x61" + "\x31"); // center justify
 		// applet.append(data.per+"\r\n");
 		applet.append(data.alamat+"\r\n");
 		applet.append(data.no_telp+"\r\n");
 		applet.append(data.trx_tgl+"\r\n");
 		applet.append(data.no_nota+"\r\n");
-		applet.append(chr(27) + chr(64));//cancel character sets
+		// applet.append(chr(27) + chr(64));//cancel character sets
 		applet.append("\n");
 
 		//applet.print();
@@ -591,11 +597,11 @@ try{
 		// alert(JSON.stringify(data.detail));
 		// var sales = jQuery.parseJSON(data);
 		$.each(data.detail, function(i,cetak) {
-			applet.append(cetak.quantity);
-			applet.append("\n");
 			applet.append(cetak.nama_item);
 			applet.append("\n");
-		});
+			applet.append(cetak.quantity);
+			applet.append("\n");
+		}); 
 		applet.append(data.pembatas);
 		applet.append("\n");
 		applet.append(data.subtotal);
@@ -622,25 +628,15 @@ try{
 		applet.append(data.pembatas);
 		applet.append("\n");
 		applet.append(data.total);
-		if (data.cd==1){
-			applet.append(data.voucher);
-		}
+		// if (data.cd==1){
+        applet.append(data.voucher);
+		// }
 		applet.append(data.bayar);
 		applet.append(data.kembali);
 		applet.append(data.line_bawah);
 		applet.append(data.pcm);
 		applet.append(data.slogan);
 
-
-		//alert('berhasil');
-		// applet.append("A590,1570,2,3,1,1,N,\"Testing the print() function\"\n");
-		// applet.append("27,112,0,55,27\"Testing the print() function\"\n");
-
-		// applet.append("Ramdani memang kasep \n");
-
-		// applet.append(data.cinta);
-		applet.append("\n");
-		applet.append("\n");
 		applet.append("\n");
 		applet.append("\n");
 		applet.append("\n");
@@ -2364,40 +2360,41 @@ function bayar(status,table,sale_id)
                 {
                    	var jenis_cetak = '<?php echo SiteController::getConfig("ukuran_kertas"); ?>';
 
-		            if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
+		            // if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
 
-						var c = confirm("Cetak Bukti ?? ");
-						if (c){	
-                            $.ajax({
-                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
-                                data : {
-                                    id : idx
-                                },
-                                success:function(data){
-                                $('.body-bukti').html(data);
-                                $(".btn-modal-preview").trigger("click");
+					// 	var c = confirm("Cetak Bukti ?? ");
+					// 	if (c){	
+                    //         $.ajax({
+                    //             url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
+                    //             data : {
+                    //                 id : idx
+                    //             },
+                    //             success:function(data){
+                    //             $('.body-bukti').html(data);
+                    //             // $("#modal-bukti-bayar").modal("show");
+                    //             $(".btn-modal-preview").trigger("click");
 
-                                }
-                            });
-						// window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-						}
+                    //             }
+                    //         });
+					// 	// window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+					// 	}
 		            // }else if (jenis_cetak=="80mm" || jenis_cetak=="58mm"){
-              //           var c = confirm("Cetak Bukti ?? ");
-              //           if (c){ 
-              //               $.ajax({
-              //                   url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
-              //                   data : {
-              //                       id : idx
-              //                   },
-              //                   success:function(data){
-              //                   $('.body-bukti').html(data);
-              //                   $(".btn-modal-preview").trigger("click");
+                    //     var c = confirm("Cetak Bukti ?? ");
+                    //     if (c){ 
+                    //         $.ajax({
+                    //             url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
+                    //             data : {
+                    //                 id : idx
+                    //             },
+                    //             success:function(data){
+                    //             $('.body-bukti').html(data);
+                    //             $(".btn-modal-preview").trigger("click");
 
-              //                   }
-              //               });
-              //           // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-              //           }
-                    }else{
+                    //             }
+                    //         });
+                    //     // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+                    //     }
+                    // }else{
 
                         var c = confirm("Cetak Bukti ?? ");
                         if (!c) return false;
@@ -2417,7 +2414,7 @@ function bayar(status,table,sale_id)
 							},1000)
 						}
 						myLoop();
-					}
+					// }
 					// alert("Tekan OK untuk mendapatkan rekap ke 2.");
 					// if (confirm("Cetak receipt ke - 2 ? ")){	
 					// }

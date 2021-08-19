@@ -283,7 +283,8 @@ class ItemsController extends Controller
 				$model->jumlah = $selisih ;
 				$model->satuan = $satuan_id;
 
-				$model->harga = $this->getAverage($id,$satuan_id,$bid);
+				// $model->harga = $this->getAverage($id,$satuan_id,$bid);
+				$model->harga = $harga;
 				// $model->supplier_id = 0000;
 				$model->head_id = $modelh->id;
 				if ($model->save()){
@@ -1019,6 +1020,7 @@ class ItemsController extends Controller
 			if ($modelh->save()){
 				foreach ($nilai as $n){
 					$i = explode("##", $n['idb']);
+					// $i = explode("-", $n['idb']);
 					$barcode = $i[0];
 					// $items = Items::model()->find("barcode = '$barcode' ");
 					$items = ItemsSatuan::model()->find("barcode = '$barcode' ");
@@ -1222,9 +1224,19 @@ public function actionProsesMasukbarangPO(){
 
 			if ($modelh->save()){
 				foreach ($nilai as $n){
-					$i = explode("-", $n['idb']);
+					
+					$i = explode("##", $n['idb']);
 					$barcode = $i[0];
+					// echo $barcode;
+					// echo "<br>";
+					// echo $i;
+					// echo "<br>";
+					// echo $barcode;
+					// echo "<br>";
 					$items = ItemsSatuan::model()->find("barcode = '$barcode' ");
+
+					// echo $items->item_id;
+					// exit;
 
 					$model = new PurchaseOrderDetail;
 					$model->kode = $items->item_id;
@@ -2049,21 +2061,52 @@ public function getHargamodal($id){
    }
 
     public function actionImportFromItems(){
-    	// echo "123";
+    	// echo Yii::app()->user->store_id();
+		// exit;
     	$model = Items::model()->findAll();
     	foreach ($model as $key => $value) {
-    		$bcd = $this->generateBarcode();
+    		if ($value->barcode == "" || $value->barcode === null){
+				$bcd = self::generateBarcode();
+				$item = Items::model()->findByPk($value->id);
+				$item->barcode = $bcd;
+				$item->update();
+
+				$status = "otomatis";
+			}else{
+				$bcd = $value->barcode;
+				$status = "manual";
+			}
+
     		$ItemsSatuan = ItemsSatuan::model()->find("item_id = '$value->id' ");
+			if ($ItemsSatuan){
+				// lanjut
+			}else{
+				$ItemsSatuan = new ItemsSatuan;
+				$ItemsSatuan->item_id = $value->id;
+				$ItemsSatuan->nama_satuan = "PCS";
+				$ItemsSatuan->satuan = "1";
+				$ItemsSatuan->jumlah = "1";
+				$ItemsSatuan->is_default = "1";
+				$ItemsSatuan->harga = $value->unit_price;
+				$ItemsSatuan->harga_beli = $value->total_cost;
+				$ItemsSatuan->barcode = $bcd;
+				$ItemsSatuan->urutan = "1";
+				$ItemsSatuan->stok_minimum = "0";
+				$ItemsSatuan->save();
+				
+				$ItemsSatuan = ItemsSatuan::model()->find("item_id = '$value->id' ");
 
-    		if ($ItemsSatuan->barcode!=""){
-	    		$ItemsSatuan->barcode = $bcd;
-	    		$ItemsSatuan->update();
+			}
 
+			if ($status == "otomatis"){
+			// 	$ItemsSatuan->barcode = $bcd;
+			// 	$ItemsSatuan->update();
+				
 				$ib = new ItemsBarcode;
 				$ib->barcode = $bcd;
 				$ib->store_id = Yii::app()->user->store_id();
 				$ib->save();
-    		} 
+			} 
 
 
 
@@ -2072,6 +2115,28 @@ public function getHargamodal($id){
    		// echo self::generateBarcode();
    }
 
+   public function actionInsertStok(){
+    	$model = Items::model()->findAll();
+		$BarangMasuk = new BarangMasuk;
+		$BarangMasuk->tanggal = date("Y-m-d");
+		$BarangMasuk->sumber = "stok awal";
+		$BarangMasuk->keterangan = "stok awal";
+		$BarangMasuk->user = "1";
+		$BarangMasuk->branch_id = "30";
+		if ($BarangMasuk->save(false)){
+			foreach ($model as $key => $value) {
+				$BarangMasukDetail = new BarangMasukDetail;
+				$BarangMasukDetail->kode = $value->id;
+				$BarangMasukDetail->jumlah = $value->stok;
+				$BarangMasukDetail->satuan = ItemsSatuan::model()->find("item_id = '$value->id' and is_default='1' ")->id;
+				$BarangMasukDetail->head_id = $BarangMasuk->id;
+				$BarangMasukDetail->harga = $value->unit_price;
+				$BarangMasukDetail->status_pengiriman = 1; 
+				$BarangMasukDetail->save(false);
+			}
+		}
+		echo "Sukses bos";
+   }
 
 	public function actionCreate()
 	{
@@ -2087,9 +2152,10 @@ public function getHargamodal($id){
 			// exit;
 			$model->attributes = $_REQUEST['Items'];
 			$model->item_name = strtoupper($_REQUEST['Items']['item_name']);
-			$model->modal = $_REQUEST['Items']['modal'];
+			$model->modal = $_REQUEST['Items']['total_cost'];
 			$model->motif = $_REQUEST['Items']['motif'];
-			$model->unit_price = "0";
+			$model->unit_price = $_REQUEST['Items']['unit_price'];
+			$model->total_cost = $_REQUEST['Items']['total_cost'];
 			$model->kode_outlet = 1;
 			$model->item_number = 1;
 			$model->store_id = Yii::app()->user->store_id();
@@ -2114,8 +2180,8 @@ public function getHargamodal($id){
 					$satuan->item_id = $model->id;
 					// $satuan->nama_satuan = ItemsSatuanMaster::model()->findByPk($_REQUEST['Items']['satuan_id'])->nama_satuan;
 					$satuan->nama_satuan = ItemsSatuanMaster::model()->findByPk($_REQUEST['Items']['satuan_id'])->nama_satuan;
-					$satuan->harga =  $_REQUEST['Items']['total_cost'];
-					$satuan->harga_beli =  $_REQUEST['Items']['modal'];
+					$satuan->harga =  $_REQUEST['Items']['unit_price'];
+					$satuan->harga_beli =  $_REQUEST['Items']['total_cost'];
 					$satuan->satuan = 1;
 					$satuan->letak_id = $_REQUEST['Items']['letak_id'] ;
 					$satuan->is_default = 1;
@@ -2150,7 +2216,7 @@ public function getHargamodal($id){
 								$BMD->jumlah = $_REQUEST['Items']['stok'];
 								$BMD->satuan = $satuan->id;
 								$BMD->jumlah_satuan = $_REQUEST['Items']['stok'];
-								$BMD->harga =$_REQUEST['Items']['modal'];
+								$BMD->harga =$_REQUEST['Items']['total_cost'];
 								$BMD->supplier_id = 0;
 								$BMD->head_id = $modelh->id;
 								$BMD->letak_id = 0;
@@ -2209,10 +2275,10 @@ public function getHargamodal($id){
 					}else{  // jika gagal save satuan maka
 						echo "barcode sudah digunakan<br>";
 						echo "<a onclick='window.history.back()'>Klik disini untuk Kembali</a>";
+						echo "<pre>";
+						print_r($satuan->getErrors());
+						echo "</pre>";
 						exit;
-						// echo "<pre>";
-						// print_r($satuan->getErrors());
-						// echo "</pre>";
 						// exit;
 					}
 
@@ -2401,7 +2467,8 @@ public function getHargamodal($id){
 	public function actionUpdate($id)
 	{
 		// echo round(ItemsController::GetAverage($id));
-
+		$branch_id = Yii::app()->user->branch();
+  	
 		$model=$this->loadModel($id);
 		$satuan=ItemsSatuan::model()->find("item_id = '$id' ");
 
@@ -2418,6 +2485,22 @@ public function getHargamodal($id){
 			$model->letak_id = $_POST['Items']['letak_id'];
 			$model->motif = $_POST['Items']['motif'];
 			$model->barcode = $_POST['Items']['barcode'];
+			// set stok
+			$model->stok = $_POST['Items']['stok'];
+
+			//get satuan utana
+			$stok = ItemsController::getStok($id,$ItemsSatuan_id,$branch_id); // current stok
+			$ItemsSatuan_id = ItemsSatuan::model()->find("item_id = '$id' and is_default = 1"); 
+			$ItemsSatuan_id->harga = $_POST['Items']['unit_price'];
+			$ItemsSatuan_id->harga_beli = $_POST['Items']['total_cost'];
+			$ItemsSatuan_id->save();
+
+			$average  = $this->getAverage($id,$ItemsSatuan_id->id,$branch_id);
+			$this->actionSetstok($stok,$model->stok,$id,$ItemsSatuan_id,$_POST['Items']['total_cost']);
+			
+			// $model->stok = $_POST['Items']['stok'];
+
+
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -2499,8 +2582,15 @@ public function getHargamodal($id){
 	    	$length = 0;
 	    }
 	    /* END of POST variables */
-	   	$query = "SELECT  is_stockable,
-	   	is_bahan,i.id id,panjang,ketebalan, ukuran,price_reseller,price_distributor,iss.barcode as barcode ,m.nama as motif, iss.stok_minimum,total_cost ,discount,stok,modal,lokasi, item_name, item_number, description, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
+	   	$query = "SELECT 
+		    is_stockable,
+	   	is_bahan,i.id id,
+		    ukuran,
+			iss.barcode as barcode ,
+			m.nama as motif, 
+			iss.stok_minimum,
+			total_cost ,discount,
+			stok,modal,lokasi, item_name, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
 
 			FROM items i inner join items_satuan as iss on iss.item_id = i.id
 			left join categories as c on c.id = i.category_id
@@ -2550,7 +2640,11 @@ public function getHargamodal($id){
 
     	}
     	else {
+			// echo "masuk";
+			// exit;
          $sql = "SELECT * FROM ($query) as d  ORDER BY $orderBy $orderType limit  $start,$length ";
+		//  echo $sql;
+		//  exit;
          $data = $this->getAdminJSON($sql);
          $recordsFiltered = $recordsTotal;
          // var_dump($recordsFiltered);
@@ -2597,8 +2691,8 @@ public function getHargamodal($id){
 
 
   		$json = array(
-  			// $value['barcode'],
-  			$no++,
+  			$value['barcode'],
+  			// $no++,
   			$value['nama_kategori'],
   			$value['motif'],
   			// $aksi,

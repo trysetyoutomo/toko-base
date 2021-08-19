@@ -7,8 +7,8 @@
 $this->renderPartial('application.views.site.main');
 ?>
 <h1>
-Laporan Kasir
-</h1>
+<i class="fa fa-book"></i> Laporan Kasir 
+</h1> 
 <hr>
 <?php 
 	if (isset($_REQUEST[tanggal])){
@@ -61,13 +61,13 @@ if (isset($_REQUEST['tanggal'])){
 			<td>No</td>
 			<td>Petugas </td>
 			<td>Saldo Cash Awal </td>
-			<td>Total Cash </td>
-			<td>Total Omset </td>
+			<td>Total Cash Masuk</td>
+			<td>Total Omset (Hari ini) </td>
 			<td>Total Biaya Bank </td>
-			<td>Total Voucher </td>
-			<td>Total Akhir </td>
+			<td>Total Potongan </td>
+			<!-- <td>Total Akhir </td> -->
 			<td>Total Uang Fisik harus Ada </td>
-			<td>Total Uang Fisik</td>
+			<td>Total Uang Fisik (Input Akhir)</td>
 			<td>Selisih</td>
 			<td>Cetak</td>
 		</tr>
@@ -90,11 +90,15 @@ sum(voucher) as voucher,
 sum(cash) as cash,
 total_fisik as total_fisik,
 userid,
-total_awal
+total_awal,
+is_closed,
+created_at
 		
 from 
 (
 SELECT
+	se.created_at,
+	se.is_closed,
 	se.total_awal,
 	sp.voucher voucher,
 	sp.cash cash,
@@ -139,14 +143,15 @@ LEFT JOIN (
 		user_id,
 		total,
 		total_awal,
-		id
+		id,
+		is_closed,created_at
 	FROM
 		setor
 ) AS se ON se.tanggal = date(s.date)
 AND se.user_id = s.inserter
 WHERE
 	
- date(s.date) = '$date'
+ date(se.tanggal) = '$date'
 AND s. STATUS = 1
 and branch = '$branch_id'
 GROUP BY
@@ -154,8 +159,10 @@ GROUP BY
 ) AS A 
 
 group by A.nama_user
+";
+// echo $sql;
+// exit;
 
-	 ";
 		$model = Yii::app()->db->createCommand($sql)->queryAll();
 
 
@@ -181,20 +188,32 @@ group by A.nama_user
 		?>
 		<tr >
 			<td><?php echo $no ?></td>
-			<td><?php echo $m['nama_user']; ?></td>
+			<td><?php echo $m['nama_user']; ?>
+				<?php 
+				if ($m['created_at']!="" && $m['is_closed']=="0"){
+					echo "<label class='badge badge-success'>Sedang Bertugas</label>";
+				}else if ($m['created_at']!="" && $m['is_closed']=="1"){
+					echo "<label class='badge badge-danger'>Sudah Closing</label>";
+				}else{
+					echo "<label class='badge badge-danger'>Belum Mulai</label>";
+				}
+				?>
+			</td>
 			<td><?php echo number_format($m['total_awal']); ?></td>
 			<td><?php echo number_format($m['cash']); ?></td>
 			<?php 
 			// $total_akhir = ($m['total_biaya']+$m['total_omset'])-$m['voucher'];
-			$total_akhir = ($m['total_biaya']+$m['total_omset'])-$m['voucher'];
+			$total_akhir = ($m['total_biaya']+$m['cash'])-$m['voucher'];
+			$must = $total_akhir+$m['total_awal'];
 			?>
 			<td style="text-align:left"><?php echo number_format($m['total_omset']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['total_biaya']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['voucher']); ?></td>
-			<td style="text-align:left"><?php echo number_format($total_akhir); ?></td>
 
-			<td style="text-align:left"><?php echo number_format($total_akhir+$m['total_awal']); ?></td>
-			<td style="text-align:left"><?php echo number_format($m['total_fisik']); ?></td>
+			<!-- <td style="text-align:left"><?php echo number_format($total_akhir); ?></td> -->
+
+			<td style="text-align:left"><?php echo number_format($must); ?></td>
+			<td style="text-align:left;color:green;font-weight:bolder"><?php echo number_format($m['total_fisik']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['total_fisik']-($total_akhir+$m['total_awal'])); ?></td>
 
 <!-- 				
@@ -223,7 +242,14 @@ group by A.nama_user
 					Hapus Register </a>
 				<?php 
 				}
+				if ($m['is_closed'] == 0 && $m['created_at']!=""):
 				?>
+				<a href="<?php echo Yii::app()->createUrl("sales/tutupregister&tanggal_rekap=$date&noprint=true&inserter=$m[userid]&must=$must") ?>"
+					class="btn-primary btn btn-tutup-register" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+					<i class="fa fa-check" style="color:white!important"></i>
+					Tutup Transaksi Kasir 
+				</a>
+				<?php endif; ?>
  
  
  
@@ -261,7 +287,7 @@ group by A.nama_user
 				<td><?php echo number_format($ttl); ?></td>
 				<td><?php echo number_format($tb); ?></td>
 				<td><?php echo number_format($tv); ?></td>
-				<td><?php echo number_format($ta); ?></td>
+				<!-- <td><?php echo number_format($ta); ?></td> -->
 				<td><?php echo number_format($tf_hrs); ?></td>
 				<td><?php echo number_format($tf); ?></td>
 				<td><?php echo number_format($ts); ?></td>
@@ -276,6 +302,13 @@ group by A.nama_user
 <script>
 $(document).ready(function(e){
 	 $('.tanggal').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
+
+	$('.btn-tutup-register').click(function(e){
+		var c = confirm("Dengan menutup register, kasir dianggap sudah setor sesuai dengan *Total Uang Fisik yang harus ada*, Lanjutkan ? ");
+		if (!c){
+			return false;
+		}
+	});
 
 	$('.btn-hapus-register').click(function(e){
 		var c = confirm(" saldo awal dan saldo akhir transaksi kasir ini pada tanggal dipilih akan dihapus, Yakin ? ");

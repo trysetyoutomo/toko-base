@@ -98,7 +98,7 @@
 	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'satuan'); ?>
-		<?php echo $form->textField($model,'satuan',$array); ?>
+		<?php echo $form->textField($model,'satuan',$array,array("class"=>'form-control')); ?>
 		<?php 
 
 		echo $nama_satuan;
@@ -107,13 +107,13 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'harga'); ?>
-		<?php echo $form->textField($model,'harga'); ?>
+		<?php echo $form->textField($model,'harga',array("class"=>'form-control','style'=>'max-width:150px')); ?>
 	<?php echo $form->error($model,'harga'); ?>
 	</div>
 	<div class="row">
 
 		<?php echo $form->labelEx($model,'harga_beli'); ?>
-		<?php echo $form->textField($model,'harga_beli'); ?>
+		<?php echo $form->textField($model,'harga_beli',array("class"=>'form-control','style'=>'max-width:150px')); ?>
 
 	<?php echo $form->error($model,'harga_beli'); ?>
 	</div>
@@ -126,7 +126,7 @@
 	?>
 
 		<?php echo $form->labelEx($model,'barcode'); ?>
-		<?php echo $form->textField($model,'barcode'); ?>
+		<?php echo $form->textField($model,'barcode',array("class"=>'form-control','style'=>'max-width:150px')); ?>
 		<?php echo $form->error($model,'barcode'); ?>	
 	</div>
 	<div class="row">
@@ -138,12 +138,12 @@ $letak = CHtml::listData($nilai2,'id','nama');
 
 	?>
 		<?php echo $form->labelEx($model,'letak_id'); ?>
-		<?php echo $form->dropDownList($model,'letak_id', $letak, array('empty' => 'Pilih ','separator'=>'|','class'=>'for m-control'))?>
+		<?php echo $form->dropDownList($model,'letak_id', $letak, array('empty' => 'Pilih ','separator'=>'|','class'=>'form-control','style'=>'max-width:150px'))?>
 	<?php echo $form->error($model,'letak_id'); ?>
 	</div>
 	<div class="row" >
-		<?php echo $form->labelEx($model,'is_default'); ?>
-		<?php echo $form->dropDownList($model,'is_default', array("0"=>"Tidak","1"=>"Ya"), array('class'=>'form-c ontrol'))?>
+		<?php echo $form->labelEx($model,'Satuan Utama'); ?>
+		<?php echo $form->dropDownList($model,'is_default', array("0"=>"Tidak","1"=>"Ya"), array('class'=>'form-control','style'=>'max-width:150px'))?>
 		<?php echo $form->error($model,'is_default'); ?>
 	</div>
 	<div class="row" style="display: none;" >

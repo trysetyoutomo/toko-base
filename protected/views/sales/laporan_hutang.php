@@ -107,13 +107,13 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 	</tr>
 	<tr>
 		<td>
-			<label>Customer</label>
+			<label>Konsumen</label>
 		</td>
 		<td>
 	<?php  $nilai = Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
 
-			<select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
-
+<select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
+<option>Pilih Konsumen</option>
 <?php foreach($nilai as $k): ?>
 	<option <?php if ($k->nama==$_REQUEST['customer']) echo "selected" ?> value="<?php echo $k->nama ?>">
 	<?php echo $k->nama ?>

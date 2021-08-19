@@ -65,11 +65,11 @@ class SalesController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('hapusregister','GetOmsetByUser','laporanpulsa','TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly','index', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
+                'actions' => array('hapusregister','GetOmsetByUser','laporanpulsa','TransaksiHapus','GenerateSalesFaktur','CetakStok','CetakMasuk','CetakKeluar','Rekapdetail','rekap','laporanstok','cetakfaktur','cetakfaktur_mini','bayarhutang','grafikpenjualan','cetakreportall','artimeja','periode','periodereport','periodereportexport','getmenu','getsaleid2','getharga','datahutang','hutang','del','delete','hapusmeja','grafik','printbagihasil','salescashweekly','salesweekly','salesoutletweekly', 'view', 'bayar', 'load', 'void','Getsaleid','hanyacetak','cashreport','CetakReport','Pindahmeja','sessid','Uservoid','Cetakrekap','Export','Salesmonthly','Outletreport','Salesoutletmonthly','Salescashmonthly','detailitems','ex','printData','bestseller','reportbestseller','reportbestsellerexport','pengunjung','periodepengungjung','bsgrafik','reportbsgrafik','reportbsgrafikexport','penggrafik','penggrafikreport','laporan_hutang','getSaleData','bayartagihan','CetakBillTerakhir'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('lunasin','labarugi','hapus','rekapmenu','create', 'update','grafikmember','GetCustomer2'),
+                'actions' => array('index','tutupregister','lunasin','labarugi','hapus','rekapmenu','create', 'update','grafikmember','GetCustomer2'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -90,6 +90,18 @@ class SalesController extends Controller {
 	      	}
       	}
       }
+
+	   public function actionTutupregister(){
+      	if (isset($_REQUEST['tanggal_rekap'])){	
+	      	$setor = Setor::model()->find("tanggal = '$_REQUEST[tanggal_rekap]' and user_id='$_REQUEST[inserter]' ");
+	      	$setor->total = $_REQUEST['must'];
+	      	$setor->is_closed = 1;
+			  if ($setor->update()){
+				$this->redirect(array('sales/rekap'));
+	      	}
+      	}
+      }
+
 
 
       public function actionGetOmsetByUser($date,$user_id){
@@ -161,8 +173,7 @@ class SalesController extends Controller {
 		) AS se ON se.tanggal = date(s.date)
 		AND se.user_id = s.inserter
 		WHERE
-		i.category_id != 4
-		AND date(s.date) = '$date'
+		 date(s.date) = '$date'
 		AND s. STATUS = 1
 		GROUP BY
 		s.inserter,s.id
@@ -178,6 +189,7 @@ class SalesController extends Controller {
 		// echo  $dta['cash'];
 
 		echo json_encode(array(
+			"potongan"=>$dta['voucher'],
 			"cash"=>$dta['cash'],
 			"total_awal"=>$dta['total_awal']
 		));
@@ -2378,7 +2390,7 @@ public function actionSalesoutletweekly(){
     		
     		
             if ($data['status']=="1"){	
-	            $sales->bayar = round($data['bayar']);
+	            $sales->bayar = intval(round($data['bayar']));
 	            $fd =  $this->GenerateSalesFakturMethod();
 	            $sales->faktur_id = $fd;	
             	$_REQUEST['data']['faktur_id'] = $fd;
@@ -2421,6 +2433,7 @@ public function actionSalesoutletweekly(){
             }
             $sales->inserter = $user->id;
             $sales->nama_kasir = Users::model()->findByPk($user->id)->username;
+            $sales->kembali = $data['kembali'];
             $sales->comment = "Pendapatannjualan ";
             $sales->sale_voucher = $data_payment['voucher'];
 			
@@ -2761,7 +2774,11 @@ public function actionSalesoutletweekly(){
     }
 	
     public function cetak($data,$detail,$payment,$hit, $id, $cd) {
-	
+		// echo "<pre>";
+		// print_r($data);
+		// echo "</pre>";
+		// exit;
+		// exit;
 		$branch_id = Yii::app()->user->branch();
 		$this->comphead = Branch::model()->findByPk($branch_id)->company;
 		$this->comp = Branch::model()->findByPk($branch_id)->branch_name;
@@ -2769,8 +2786,9 @@ public function actionSalesoutletweekly(){
 		$this->tlp =  Branch::model()->findByPk($branch_id)->telp;
 		$this->slg =  Branch::model()->findByPk($branch_id)->slogan;
 
-        $total_margin = 40;
-        $pembatas = 10;
+        $total_margin = 30;
+        // $total_margin = 30;
+        $pembatas = 10; 
         $temp_data = array();
         
       
@@ -2779,19 +2797,18 @@ public function actionSalesoutletweekly(){
 		$temp_data['alamat'] = $this->set_spacebar($this->adr, $total_margin, "tengah");
         $temp_data['hit'] = $hit;
         $temp_data['id'] = $id;
-        $temp_data['trx_tgl'] = date('d M Y, H:i', strtotime($data['date']));
-		$temp_data['logo'] = $this->comp;
-        $temp_data['alamat'] = $this->adr;
-        $temp_data['no_telp'] = "Telp. ".$this->tlp;
-   	    $temp_data['no_nota'] = $data['faktur_id'];
+        $temp_data['trx_tgl'] =  $this->set_spacebar(date('d M Y, H:i', strtotime($data['date'])), $total_margin, "tengah"); ;
+		$temp_data['logo'] = $this->set_spacebar( $this->comp, $total_margin, "tengah");
+        $temp_data['no_telp'] =   $this->set_spacebar( "Telp. ".$this->tlp, $total_margin, "tengah");
+   	    $temp_data['no_nota'] = $this->set_spacebar($data['faktur_id'], $total_margin, "tengah");
         	
 
         $pjg_ket = $total_margin - 13;
   	
 		$temp_data['no_meja']=  "Meja   : " ;		
 		$temp_data['mejavalue']=  $data['table'];
-		$temp_data['kasir']=         "Kasir  : " .$data['nama_kasir'];
-		$temp_data['namapelanggan']=   "Tamu   : ". $data['namapelanggan'];
+		$temp_data['kasir']=           "Kasir       : " .$data['nama_kasir'];
+		$temp_data['namapelanggan']=   "Pelanggan   : ". ($data['namapelanggan']=="" ? "umum" : $data['namapelanggan']);
 		$temp_data['pembatas'] = $this->spasi($total_margin, "-");
 		$temp2 = array();
 	
@@ -2805,36 +2822,36 @@ public function actionSalesoutletweekly(){
 		
         for ($a = 0; $a < $hit; $a++) {
             // $nama_item = Items::model()->find("id=:id ", array(':id' => $detail2[$a]['item_id']));
+			// $panjang3 = strlen($tot_qty) + strlen($detail2[$a]['quantity_purchased']) + strlen($detail2[$a]['item_price']) + strlen($detail2[$a]['item_discount']) + strlen("% disc")+15;
             $nama_item =$detail2[$a]['item_name'];
-            
-			$panjang1 = strlen($nama_item);
-            $panjang2 = strlen(number_format($detail2[$a]['item_total_cost']));
-			$panjang3 = strlen($tot_qty) + strlen($detail2[$a]['quantity_purchased']) + strlen($detail2[$a]['item_price']) + strlen($detail2[$a]['item_discount']) + strlen("% disc")+15;
-			
-            $banyakspasi = $total_margin - $panjang3 - $panjang2;
-			$temp = array();
-	
-					if ($detail2[$a]['item_discount'] == '') 
-					$x = '0';
-					else
-					$x = $detail2[$a]['item_discount'];
-				
-					$panjang3 = strlen($detail2[$a]['quantity_purchased']) + strlen($detail2[$a]['item_price']) + strlen($detail2[$a]['item_discount']) + strlen("% disc")+15;
-					$banyakspasi = $total_margin - $panjang3 - $panjang2;
-					
-					$last_price = $tot_price = $tot_qty = $qty_last = 0;
-					$temp['nama_item'] = strtolower($nama_item)." ".$detail2[$a]['permintaan'];
-					// .$detail2[$a]['satuan'];
-					if ($x==0){
-						$str_disc = "";
-					}else{
-						$str_disc = "-" . $x . "% ";
-					}
-					$temp['quantity'] =  $this->setKiri2( intval($detail2[$a]['quantity_purchased'])  . " x " . number_format($detail2[$a]['item_price']) . $str_disc) .  $this->setKananAngka(number_format($detail2[$a]['quantity_purchased']*$detail2[$a]['item_price']) );
-			
-			$baris2 = $nama_item . "" . $this->spasi($banyakspasi, "&nbsp;") . number_format($detail2[$a]['item_total_cost']);
-            $data['baris2a'] = $nama_item . " " . $this->spacebar($banyakspasi - 1) . number_format($detail2[$a]['item_total_cost']);
+			$item_1 = $nama_item;
+			$item_2 = number_format($detail2[$a]['item_total_cost']);
 
+			$x = $detail2[$a]['item_discount'];
+			if ($detail2[$a]['item_discount'] == '') 
+				$str_disc = "";
+			else
+				$str_disc = "-" . $x . "% ";
+
+			$item_3 = $detail2[$a]['quantity_purchased'] ." x ".$detail2[$a]['item_price'] .$str_disc;
+			$temp = array();
+
+			$len1 = strlen($item_3);
+			$len2 = strlen($item_2);
+			$space = $total_margin - $len1;
+			$stringLast =  $item_3."". str_pad($item_2,$space," ",STR_PAD_LEFT);
+
+			 $temp['quantity'] =  $stringLast;
+
+
+			// end bau
+	
+					$banyakspasi = $total_margin - $panjang3 - $panjang2;					
+					$last_price = $tot_price = $tot_qty = $qty_last = 0;
+					$temp['nama_item'] = strtolower($nama_item);
+		
+
+			
 			$temp2[] = $temp;        }
 			
 			
@@ -2857,12 +2874,12 @@ public function actionSalesoutletweekly(){
 
         $temp_data['subtotal'] = "SubTotal   : " . $this->set_spacebar($subtotal, $pjg_ket, "kanan") . "\r\n";
         $temp_data['discount'] = "Discount   : " . $this->set_spacebar($discount, $pjg_ket, "kanan") . "\r\n";
-        $temp_data['ppn'] = "PPN        : " . $this->set_spacebar($pajak, $pjg_ket, "kanan") . "\r\n";
-        $temp_data['service'] = "service    : " . $this->set_spacebar($service, $pjg_ket, "kanan") . "\r\n";
+        $temp_data['ppn']      = "PPN        : " . $this->set_spacebar($pajak, $pjg_ket, "kanan") . "\r\n";
+        $temp_data['service'] =  "service    : " . $this->set_spacebar($service, $pjg_ket, "kanan") . "\r\n";
         $temp_data['pembatas2'] = $pembatas . "\r\n";
-        $temp_data['total'] = "Total      : " . $this->set_spacebar($total, $pjg_ket, "kanan") . "\r\n";
+        $temp_data['total'] =   "Total      : " . $this->set_spacebar($total, $pjg_ket, "kanan") . "\r\n";
         $temp_data['bayar'] =   "Bayar      : " . $this->set_spacebar($bayar, $pjg_ket, "kanan") . "\r\n";
-        $temp_data['voucher'] = "Potongan   : " . $this->set_spacebar('('.number_format($data_payment['voucher']).')', $pjg_ket, "kanan") . "\r\n";
+        $temp_data['voucher'] = "Potongan   : " . $this->set_spacebar('('.number_format($payment['voucher']).')', $pjg_ket, "kanan") . "\r\n";
         $temp_data['kembali'] = "Kembali    : " . $this->set_spacebar($kembali, $pjg_ket, "kanan") . "\r\n";
         $temp_data['line_bawah'] = "" . "\r\n";
         $temp_data['slogan'] = $this->set_spacebar($this->slg, $total_margin, "tengah") . "\r\n";
@@ -3041,10 +3058,13 @@ public function actionCetakReportAll(){
 		$arr_sales['total_cost'] = $query['total']-$qsp['total'];
 		$arr_sales['payment'] = $saleid['sale_payment'];
 		$arr_sales['namapelanggan'] = $saleid['nama'];
+		$arr_sales['nama_kasir'] = $saleid['nama_kasir'];
 		$arr_sales['bayar'] = $saleid['bayar'];
 		$arr_sales['faktur_id'] = $saleid->faktur_id;
 		$arr_sales['date'] = $saleid->date;
 		$arr_sales['table'] = $saleid->table;
+		$arr_sales['kembali'] = $saleid->kembali;
+		
 		// $arr_sales['meja'] = "Meja ";
 		$hit = 0;
 		$sql = "SELECT * from sales_items where sale_id = $id";
@@ -3087,7 +3107,7 @@ public function actionCetakReportAll(){
        // print_r($detail);
 // echo "</pre>";
 		
-        $total_margin = 40;
+        $total_margin = 30;
 
        // $myFile = "c:\\epson\\cetakbarujual.txt";
         //s$fh = fopen($myFile, 'w') or die("can't open file");
@@ -3832,7 +3852,11 @@ public function actionCetakReportAll(){
 
     }
     public function actionIndex() {
-   
+			$username = Yii::app()->user->name;
+			$user = Users::model()->find('username=:un',array(':un'=>$username));
+			$idk = $user->level; 
+
+		
 
 			if ($_REQUEST['month']){
 				$day2 = $_REQUEST['day'];
@@ -3844,11 +3868,11 @@ public function actionCetakReportAll(){
 				$year = intval(Date('Y'));
 			}
 			
-			if ($idk != 2) //jika kasir
+				if($idk != 2) //jika kasir
+				$filter = " and inserter = '$user->username'";
+				else
 				$filter = "";
-			 else
-			 	$filter = " ";
-				// $filter = "and inserter = $user->id";
+			 	// $filter = " ";
 
 			 if(isset($_REQUEST['status'])){
 			 	
@@ -3874,7 +3898,8 @@ public function actionCetakReportAll(){
 			}
 
 			$sql = "  SELECT * FROM ($table) AS  D 
-			where month(D.date)='$month' and year(D.date)='$year' and day(D.date)='$day2' $where_branch
+			where month(D.date)='$month' and year(D.date)='$year' and day(D.date)='$day2' $where_branch 
+				$filter
 			group by D.id
 			$this->status_bayar
 

@@ -14,7 +14,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 ?>
 <table cellpadding="20" border="0">
   <tr>
-    <td>Total Omset Penjualan</td>
+    <td>Total Uang Cash Masuk</td>
     <td><input type="number" name="total" id="total_omset_penjualan" readonly="" ></td>
   </tr>
 
@@ -22,15 +22,23 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
     <td>Input Saldo Awal</td>
     <td><input type="number" name="total_awal" id="total_awal" readonly="" ></td>
   </tr>
+    </tr>
+     <tr>
+    <td>Potongan Diskon/Voucher</td>
+    <td><input type="number" name="total_potongan" id="total_potongan" readonly="" ></td>
+  </tr>
+
+
+
   <tr><td colspan="2"><hr></td></tr>
    <tr>
     <td>Saldo Harus Ada</td>
     <td><input type="number" name="total_hrs_ada" id="total_hrs_ada" readonly="" ></td>
-  </tr>
+
 
 
   <tr>
-    <td>Input Saldo Akhir</td>
+    <td style="font-weight:bolder">Input Saldo Akhir</td>
     <td><input readonly="" type="number" name="total" id="total_omset_fisik2"  class="number-only" ></td>
   </tr>
 
@@ -138,9 +146,10 @@ $this->endWidget('zii.widgets.jui.CJuiDialog');
                 data : "date="+tanggal+"&user_id="+user_id,
                 success:function(data){
                 	var js = JSON.parse(data);
+                	$("#total_potongan").val(js.potongan);
                 	$("#total_awal").val(js.total_awal);
                     $("#total_omset_penjualan").val(js.cash);
-                    var hrs_ada = parseInt(js.total_awal)+parseInt(js.cash);
+                    var hrs_ada = parseInt(js.total_awal)+parseInt(js.cash)-parseInt(js.potongan);
                     $("#total_hrs_ada").val(hrs_ada);	
                     var z = $("#total_omset_fisik1").val();
                     $("#total_omset_fisik2").val(z);

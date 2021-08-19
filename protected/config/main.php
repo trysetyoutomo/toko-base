@@ -74,7 +74,7 @@ return array(
 
         'db' => array(
             // 'connectionString' => 'mysql:host=localhost;dbname=toko',
-            'connectionString' => 'mysql:host=localhost;dbname=toko_base',
+            'connectionString' => 'mysql:host=localhost;dbname=toko_ria_2',
             'emulatePrepare' => true,
             'username' => 'root',
             // 'password' => 'Passw0rD',

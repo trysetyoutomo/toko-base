@@ -136,8 +136,24 @@
   $store_id = Yii::app()->user->store_id();
   ?>
 <div class="row">
+	<div class="col-12">
+		<h1> <i class="fa fa-book"></i>&nbsp;Pembelian</h1>
+	</div>
+</div>
+<div class="row">
+  <div class="col-sm-12 alert alert-info " role="alert">
+    <div id="shorcut"  >
+        <ul class="" style="list-style:none;" >
+          <li class="d-inline">Esc = Batal </li>
+          <li class="d-inline"> F2 = Pilih Item </li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row">
    <div class="col-sm-6">
-      <h1> <i class="fa fa-book"></i>&nbsp;Pembelian</h1>
+      
       <table border="0" cellpadding="0" id="trx-b-masuk"  >
          <tr>
             <td colspan="4">
@@ -389,7 +405,7 @@
    			$("#supplier-data").val(d[0].sumber).trigger("change");
    			// alert(d[0].sumber);
    			$.each(d,function(i,v){
-   				var idd = v.kode+"-"+v.id;
+   				var idd = v.kode+"##"+v.id;
    				appendToBaris(v,idd,v.jumlah_po,v.harga_beli);
    			});
    
@@ -563,6 +579,9 @@
    	$(document).on('click', '.hapus-baris', function(e) {
    		// alert('masuk');
    		var index = $('.hapus-baris').index(this);
+		//    alert(index);
+		var th = this;
+		$(th).closest("tr").remove()
    		$('.baris-baris').eq(index).remove();
    		kalkulasiBeli();
    	});

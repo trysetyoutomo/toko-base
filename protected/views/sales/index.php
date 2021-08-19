@@ -106,7 +106,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 
 		</td>
 		<td>
-			<select name="status" >
+			<select name="status" class="form-control" style="display: inline;" >
 	<!-- <optgroup>Pilih Status</optgroup> -->
 	<option <?php if($_REQUEST[status]=='semua') echo "selected" ?> value="semua">SEMUA</option>
 	<option <?php if($_REQUEST[status]=='Kredit') echo "selected" ?> value="Kredit">BELUM BAYAR / KURANG BAYAR</option>
@@ -181,6 +181,9 @@ Preview Rekap
 <?php
 $usaha = SiteController::getConfig("jenis_usaha");
 $jenis_printer = SiteController::getConfig("ukuran_kertas");
+
+// echo $jenis_printer;
+// exit;
 // if ($usaha=="Toko"){
 $array_cetak = array();
 if ($jenis_printer=="80mm" || $jenis_printer=="58mm"){
@@ -594,3 +597,25 @@ $(document).ready(function(){
     <param name="printer" value="zebra">
 </applet>
 
+
+<!-- Modal -->
+<div class="modal fade" id="modal-bukti-bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:700px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bukti Pembayaran</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body body-bukti">
+
+      </div>
+      <div style="clear:both"></div>
+      <div class="modal-footer d-none">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button> -->
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

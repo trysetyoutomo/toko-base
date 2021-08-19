@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'simpan' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'simpan' : 'Save',array('class'=>'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

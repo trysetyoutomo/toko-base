@@ -66,6 +66,7 @@ class Customer extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'kode_agen' => 'kode customer',
 			'id' => 'ID',
 			'nama' => 'Nama',
 			'alamat' => 'Alamat',

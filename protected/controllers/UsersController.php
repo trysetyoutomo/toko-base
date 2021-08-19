@@ -27,13 +27,13 @@ class UsersController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','admin','delete','create'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('index','view','admin','delete','create','hapus','update','create'),
 				'users'=>array('@'),
 			),
+			// array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			// 	'actions'=>array('create','update'),
+			// 	'users'=>array('@'),
+			// ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(''),
 				'users'=>array('admin'),
@@ -42,6 +42,25 @@ class UsersController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+		public function actionHapus($id)
+	{	
+		// if(Yii::app()->request->isPostRequest)
+		// {
+			// we only allow deletion via POST request
+			$m = $this->loadModel($id);
+			$m->hapus  = 1;
+			$m->update();
+
+			$this->redirect(array('admin','id'=>$model->id));
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			// if(!isset($_GET['ajax']))
+			// 	$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		// }
+		// else
+		// 	throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -148,6 +167,7 @@ class UsersController extends Controller
 		inner join users_group ug on u.level = ug.id 
 		inner join stores s on s.id = u.store_id 
 		where s.id = ".Yii::app()->user->store_id()."
+		and u.hapus = 0
 		group by u.id ";
 		$rawData = Yii::app()->db->createCommand($query)->queryAll();
 		$this->render('admin', array(

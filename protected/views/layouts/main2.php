@@ -57,7 +57,7 @@
           }
           formatted = output.reverse().join("");
           return("Rp. " + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-      };
+   };
 
 
     function blinker() {
@@ -74,8 +74,8 @@
           success: function(msg){
             var data = jQuery.parseJSON(msg);
 
-        // alert(data.count);
-        if (data.count>0){      
+      //   alert(localStorage.getItem("jangan_tampilkan"));
+        if (data.count>0 && localStorage.getItem("jangan_tampilkan")==null){      
             $(".btn-notif-stok").addClass("blink_me");
             // alert(JSON.stringify(data.model));
               var no = 1;
@@ -103,8 +103,8 @@
                   );
                   no++;
                 });
-                // $('#notifikasi').fadeIn();
-                // $('#full').fadeIn();
+                $('#notifikasi').fadeIn();
+                $('#full').fadeIn();
 
             //   }else{
             //     $('#notifikasi-peralatan').fadeIn();
@@ -166,6 +166,15 @@
 
 
     $(document).ready(function(){
+      // if (localStorage.getItem("jangan_tampilkan") != "null"){
+         // var x = localStorage.getItem("jangan_tampilkan").getMonth();
+         // var exist = new Date(localStorage.getItem("jangan_tampilkan"));
+         // var current = new Date;
+         // alert(x);
+         // alert(exist);
+         // alert(current);
+         // if (localStorage.getItem("jangan_tampilkan"))
+      // }
 
       $("#Deposit_nominal").keyup(function(e){
         var ttl = $("#Deposit_nominal").val();
@@ -176,7 +185,13 @@
 
       $(".tobe-select2").select2();
       $("#Deposit_customer_id").select2();
-      cek();
+      <?php 
+
+      $role_id = Yii::app()->user->level();
+      if ($role_id == "2"){ 
+      ?>
+         // cek();         
+      <?php } ?>
       // $(document).on("click",".fa-times",function(e){
         // $("#full").fadeOut();
         // $("#notifikasi").fadeOut();
@@ -264,6 +279,14 @@
           text-transform: uppercase;
 
          }
+         #shorcut ul {
+            padding-top:1rem;
+         }
+         #shorcut ul li{
+            display:inline-block;
+            margin-left:1rem;
+            font-size:1.5rem;
+         }
       .grid-view table.items th {
           color: white;
           background: rgba(42, 63, 84,1);
@@ -316,7 +339,7 @@
          margin-right: 10px;
          position: relative;
          text-align: right;
-         width: 100px;
+         width: 140px;
          }
          div.wide.form .row
          {
@@ -384,6 +407,35 @@
          .loader img{
          width: 200px;
          }
+         .blink_me {
+         -webkit-animation-name: blinker;
+         -webkit-animation-duration: 1s;
+         -webkit-animation-timing-function: linear;
+         -webkit-animation-iteration-count: infinite;
+         -moz-animation-name: blinker;
+         -moz-animation-duration: 1s;
+         -moz-animation-timing-function: linear;
+         -moz-animation-iteration-count: infinite;
+         animation-name: blinker;
+         animation-duration: 1s;
+         animation-timing-function: linear;
+         animation-iteration-count: infinite;
+         }
+         @-moz-keyframes blinker {  
+         0% { opacity: 1.0; }
+         50% { opacity: 0.0; }
+         100% { opacity: 1.0; }
+         }
+         @-webkit-keyframes blinker {  
+         0% { opacity: 1.0; }
+         50% { opacity: 0.0; }
+         100% { opacity: 1.0; }
+         }
+         @keyframes blinker {  
+         0% { opacity: 1.0; }
+         50% { opacity: 0.0; }
+         100% { opacity: 1.0; }
+         }
          .table tr td,.table tr th{
          border: 1px solid gray!important;
          }
@@ -422,14 +474,40 @@
 
    </head>
    <body class="nav-md">
-   <?php 
-   // $branch = Yii::app()->user->branch();
-   // var_dump($branch);
-   ?>
+
       <div class="loader">
          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/loader.gif">
       </div>
       <div id="full"></div>
+
+      <div id="notifikasi">
+         <h4><i class="fa fa-exclamation-triangle"></i> Pemberitahuan Barang dibawah stok minimum </h4>
+         <h5>Pemberitahuan akan muncul setiap kali anda reload</h5>
+         <hr>
+         <label for="jangan_tampilkan" style="width:100%">
+          <input type="checkbox" name="jangan_tampilkan" id="jangan_tampilkan" /> 
+         Jangan Tampilkan lagi hari ini
+         </label>
+         <div class="fa fa-times" 
+            style="width: 10px;
+            height: 10px;
+            position: absolute;
+            right: 10px;
+            top: 10px;"
+            ></div>
+         <table id="data" class="table">
+            <thead>
+               <tr>
+                  <td>No</td>
+                  <td>Kode</td>
+                  <td>Nama Barang</td>
+                  <td>Stok Saat ini</td>
+                  <td>Stok Minimum</td>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
 
       <!-- peralatan -->
       <div id="notifikasi-peralatan">
@@ -562,10 +640,24 @@
          // }
          
          $(document).ready(function(){
-          // alert("123");
              
            $('.swipebox').swipebox();
          
+           $(document).on("click","#jangan_tampilkan",function(e){
+               var v = $(this).prop("checked");
+               if (v === true){
+                  localStorage.setItem("jangan_tampilkan",new Date);
+               }else{
+                  localStorage.removeItem("jangan_tampilkan");
+               }
+           });
+
+
+           $(document).on("click","#wrapper-item-search .close",function(e){
+            $("#wrapper-item-search").hide();
+            $("#full-screen").hide();
+           });
+
            $(document).on("click",".fa-times",function(e){
              $("#full").fadeOut();
              $("#notifikasi").fadeOut();
@@ -720,37 +812,7 @@
          });
          
       </script>
-      <style>
-         .blink_me {
-         -webkit-animation-name: blinker;
-         -webkit-animation-duration: 1s;
-         -webkit-animation-timing-function: linear;
-         -webkit-animation-iteration-count: infinite;
-         -moz-animation-name: blinker;
-         -moz-animation-duration: 1s;
-         -moz-animation-timing-function: linear;
-         -moz-animation-iteration-count: infinite;
-         animation-name: blinker;
-         animation-duration: 1s;
-         animation-timing-function: linear;
-         animation-iteration-count: infinite;
-         }
-         @-moz-keyframes blinker {  
-         0% { opacity: 1.0; }
-         50% { opacity: 0.0; }
-         100% { opacity: 1.0; }
-         }
-         @-webkit-keyframes blinker {  
-         0% { opacity: 1.0; }
-         50% { opacity: 0.0; }
-         100% { opacity: 1.0; }
-         }
-         @keyframes blinker {  
-         0% { opacity: 1.0; }
-         50% { opacity: 0.0; }
-         100% { opacity: 1.0; }
-         }
-      </style>
+   
       <div class="container body">
          <div class="main_container">
             <div class="col-md-3 left_col">
@@ -892,18 +954,12 @@
             </div>
             <!-- /top navigation -->
             <!-- jQuery
-               <script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
-               -->
-         
-            <!-- Bootstrap
                -->
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
             <!-- FastClick 
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/fastclick/lib/fastclick.js"></script>
                -->
-            <!-- NProgress
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/nprogress/nprogress.js"></script>
-               -->
+       
             <!-- Custom Theme Scripts -->
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/production/js/custom.js"></script>
             <!-- page content -->
