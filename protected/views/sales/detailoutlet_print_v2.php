@@ -69,115 +69,93 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	}
 	</style>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-
-	<?php //Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-	<?php //Yii::app()->getClientScript()->registerCoreScript('jquery.ui'); ?>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// $("#tgl1").datetime
-			$('#tgl1').datepicker({'dateFormat':'yy-mm-dd','showAnim':'fold','showOn':'button','buttonText':'Select form calendar','buttonImage':'/toko/images/calendar.png','buttonImageOnly':true});
-			$('#tgl2').datepicker({'dateFormat':'yy-mm-dd','showAnim':'fold','showOn':'button','buttonText':'Select form calendar','buttonImage':'/toko/images/calendar.png','buttonImageOnly':true});
+			$('#tgl1').datepicker({
+				showOn: "button",
+				buttonImage: "https://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+				buttonImageOnly: true,
+				buttonText: "Select date",
+				dateFormat: "yy-mm-dd"
+			});
+			$('#tgl2').datepicker({showOn: "button",
+          buttonImage: "https://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+          buttonImageOnly: true,
+          buttonText: "Select date",
+		  dateFormat: "yy-mm-dd"
+
+		});
 
 		});
 	</script>
 
 
-	<div class="data">
-	
- 	<h1 style="">Rekap Penjualan Item<br>
- 	<!-- <i style="font-size:14px">Penjualan belum termasuk nilai voucher</i> -->
-	<a style="color:red;text-decoration:none"></a>
-	 <? //$data['nm'];?></h1>
-	 <?
-	 // if ($tglheader==	$tgl2header)
-		// echo "Tanggal : ".$tglheader;
-	 // else{
-		echo  "Periode : ".date("d M Y",strtotime($tgl1))." sampai ".date("d M Y",strtotime($tgl2)); 
+<div class="data">
 
-	 // }
-		// echo "Periode : ".$tglheader." sampai ".$tgl2header; 
-	 ?>
+<h1 style="">Rekap Penjualan Item<br>
+<!-- <i style="font-size:14px">Penjualan belum termasuk nilai voucher</i> -->
+<a style="color:red;text-decoration:none"></a>
+<?php echo  "Periode : ".date("d M Y",strtotime($tgl1))." sampai ".date("d M Y",strtotime($tgl2));  ?>
 
-	<div style="border-color:black;font-size:10px" >
-	<form>
-		<input type="hidden" value="sales/rekapmenu" name="r">
-	  Tanggal ke 1<input value="<?php echo $tgl1 ?>" type="text" name="tgl1" id="tgl1">
-	 Tanggal ke 2<input value="<?php echo $tgl2 ?>" type="text" name="tgl2" id="tgl2">
-			<input type="submit" value="cari">
-	</form>
-	<table border="1" cellpadding="5"  style="border-collapse:collapse;width:100%;font-size:12px;border:1px solid black" colspan = "3" rowspan="3">
+<div style="border-color:black;font-size:10px" >
+<form>
+<input type="hidden" value="sales/rekapmenu" name="r">
+	Tanggal ke 1<input value="<?php echo $tgl1; ?>" type="text" name="tgl1" id="tgl1">
+	Tanggal ke 2<input value="<?php echo $tgl2; ?>" type="text" name="tgl2" id="tgl2">
+	<input type="submit" value="cari">
+</form>
+
+<table border="1" cellpadding="5"  style="border-collapse:collapse;width:100%;font-size:12px;border:1px solid black" colspan = "3" rowspan="3">
 	<tr>
-	<td>No</td>
-	<td>Nama</td>
-	<?php
-	$date1 = $tglheader;
-	$date2 = $tgl2header;
-	// $diff = (strto_di($date2) - strtotime($date1));
-	$dif = Yii::app()->db->createCommand()
-	->select("DATEDIFF('$tgl2','$tgl1') as selisih ")
-	->from("sales")
-	->limit("1")
-	->queryRow();
-
-	$days = $dif['selisih'];
-	
-	if ($tglheader=="" && $tglhader2==""){ 
-		$hari = date('d'); 
-		$bulan = date('m'); 
-		$tahun = date('Y');
-	}
-	else{
-		$hari =  date_format(date_create($tglheader), 'd');
-		$bulan =  date_format(date_create($tglheader), 'm');
-		$tahun =  date_format(date_create($tglheader), 'Y');	
-	}
-
-	$h = $hari;
-	$d = $days;
-	$k=1;
-	// echo "hehe ".$hari . " " .$days;
-	// $days++;
-	$sql_tgl = "select * from time_dimension where date(db_date) >= '$tgl1' and date(db_date)<='$tgl2' ";
-	$q_tgl = Yii::app()->db->createCommand($sql_tgl)->queryAll();
-	$jmb_bris = count($q_tgl);
-
-	// for($a=$hari;$a<=$hari+$days;$a++){
-		foreach ($q_tgl as $qtgl) {
-		?>
-		<td>
-		
+		<td>No</td>
+		<td>Nama</td>
 		<?php
-		echo date('d-m-Y',strtotime($qtgl[db_date] ));
-		// if(checkdate($bulan, $a, $tahun))
-		// 	echo $a."-".$bulan."-".$tahun;
-		// else{
-		// 	$tglakhir = strtotime($tahun."-".$bulan."-".$a);
-		// 	$akhir =  date('t',$tglakhir);			
-		// 	$date = $tahun."-".$bulan."-".$akhir;
-		// 	$date = strtotime($date);
-		// 	$date = strtotime("+ $k day", $date);
-		// 	echo date('d-m-Y', $date);
-		// 	$k++;
-		// 	// echo $akhir;
-		// }
-			//echo  "1"."-".$bulan."-".$tahun;
-			
-		?>
-		</td>
+		$date1 = $tglheader;
+		$date2 = $tgl2header;
+		$dif = Yii::app()->db->createCommand()
+		->select("DATEDIFF('$tgl2','$tgl1') as selisih ")
+		->from("sales")
+		->limit("1")
+		->queryRow();
+
+		$days = $dif['selisih'];
 		
-		<?}?>
+		if ($tglheader=="" && $tglhader2==""){ 
+			$hari = date('d'); 
+			$bulan = date('m'); 
+			$tahun = date('Y');
+		}
+		else{
+			$hari =  date_format(date_create($tglheader), 'd');
+			$bulan =  date_format(date_create($tglheader), 'm');
+			$tahun =  date_format(date_create($tglheader), 'Y');	
+		}
+
+		$h = $hari;
+		$d = $days;
+		$k=1;
+		$sql_tgl = "select * from time_dimension where date(db_date) >= '$tgl1' and date(db_date)<='$tgl2' ";
+		// echo $sql_tgl;
+		$q_tgl = Yii::app()->db->createCommand($sql_tgl)->queryAll();
+		$jmb_bris = count($q_tgl);
+		foreach ($q_tgl as $qtgl) { ?>
+		<td><?php echo date('d-m-Y',strtotime($qtgl[db_date] )); ?></td>
+		<?php } ?>
+
+		
 			<td>Total QTY</td>
 			<td>Harga</td>
 			<td>Total Penjualan</td>
-`			<td>Diskon</td>
-`			<td>Voucher/Potongan</td>
-`			<td>Grand</td>
+			<td>Diskon</td>
+			<td>Voucher/Potongan</td>
+			<td>Grand</td>
 			<td>Harga Modal</td>
 			<td>Total Modal</td>
 			<!-- <td>Grand Total </td> -->
 			<!-- <td>Keterangan</td> -->
 		</tr>
-		<?
+		<?php
 			// $connection = Yii::app()->db;
 			// ` = $connection->createCommand("		
 			// select  from
@@ -246,31 +224,14 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 			// print_r($getdiscount);
 		$jml=0;$no++?>
 		<tr style="width:100px;overflow:visible;" >
-			<td><?=$no?></td>
-			<td style="text-transform:uppercase"><?=$values["item_name"]?></td>
+			<td><?php echo $no?></td>
+			<td style="text-transform:uppercase"><?php echo $values["item_name"]?></td>
 		
-		<?
+		<?php
 		$km = 1;
-		// for($a=$hari;$a<=$hari+$days;$a++){
 		foreach ($q_tgl as $qtgl) {
-			
-			// if (checkdate($bulan, $a, $tahun))
-			// 	$lengkap = $tahun."-".$bulan."-".$a;
-			// else{				
-			// 	$tglakhir = strtotime($tahun."-".$bulan."-".$a);
-			// 	$akhir =  date('t',$tglakhir);			
-			// 	$date = $tahun."-".$bulan."-".$akhir;
-			// 	$date = strtotime($date);
-			// 	$tambah = ($hari+$days)-$a+1;
-			// 	$date = strtotime("+ $km	 day", $date);
-			// 	$lengkap =  date('Y-m-d', $date);
-			// 	$km++;
-			// }
-			
 			$summary = Yii::app()->db->createCommand()
-			->select("date(date) waktu,item_name,		
-			sum(if(si.item_price<0,-quantity_purchased,quantity_purchased)) qty,item_discount diskon
-			,si.item_price,(si.item_price*sum(quantity_purchased)) as 'total'")
+			->select("date(date) waktu,item_name,		sum(if(si.item_price<0,-quantity_purchased,quantity_purchased)) qty,item_discount diskon,si.item_price,(si.item_price*sum(quantity_purchased)) as 'total'")
 			->from('sales_items si,items i,sales s')
 			->where("
 				s.status = 1 
@@ -282,30 +243,28 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 			")
 			->group("i.id ,date(s.date)")
 			->queryRow();
-			?>
-			<td  align="center"><?
-
+		?>
+		<td  align="center">
+		<?php
 			if ($qtgl[db_date]==$summary["waktu"]){
-				echo $summary['qty'];
+				echo intval($summary['qty']);
 				$jml += $summary['qty'];
 			}else{
-				echo "&nbsp; ";
-				// .$summary["waktu"]." - ".$qtgl[db_date];
+				echo " &nbsp; ";
 			}
-			// echo $summary["waktu"];
-			// echo $lengkap;
-			?></td>
-		<?}?>
-			<td><?=$jml?></td>
-			<td><?=number_format(abs($values['unit_price']))?></td>
-			<td><?=number_format(abs($values['unit_price'])*$jml )  ?></td>
+		 ?>
+		</td>
+		<?php } ?>
+			<td><?php echo $jml?></td>
+			<td><?php echo number_format(abs($values['unit_price']))?></td>
+			<td><?php echo number_format(abs($values['unit_price'])*$jml )  ?></td>
 			<td><?php echo number_format($getdiscount['diskon']) ?></td>
 			<td><?php echo number_format(0) ?></td>
-			<td><?=number_format(abs($values['unit_price'])*$jml - ($getdiscount['diskon']) )  ?></td>
-			<td><?=number_format(abs($values['modal']))?></td>
-			<td><?=number_format(abs($values['modal'])*$jml)?></td>
+			<td><?php echo number_format(abs($values['unit_price'])*$jml - ($getdiscount['diskon']) )  ?></td>
+			<td><?php echo number_format(abs($values['modal']))?></td>
+			<td><?php echo number_format(abs($values['modal'])*$jml)?></td>
 		</tr>
-		<?
+		<?php 
 		$total_qty += $jml;
 		$total_dsc += $dsc;
 		$total_voucher = $query_voucher['voucher'];
@@ -314,43 +273,47 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		$total_bruto += $values['unit_price']*$jml;
 		$total_netto += $values['unit_price']*$jml - $getdiscount['diskon'] ;
 		$total_modal += $values['modal']*$jml;
-		// $total_tenant += (Outlet::model()->find("kode_outlet=$id")->persentase_hasil*(abs($values['unit_price'])*$jml-$dsc)/100);
-		// $total_bumi += ((100-(Outlet::model()->find("kode_outlet=$id")->persentase_hasil))*(abs($values['unit_price'])*$jml-$dsc)/100);
-	}
+		 ?>
+	<?php } ?> 
 
-
-	?>
+	
 	<tr style="border:0px solid black">
 	<td></td>
 	<td></td>
 	<?php
-	for ($zzz=1;$zzz<=$jmb_bris;$zzz++) {?>
+	 for ($zzz=1;$zzz<=$jmb_bris;$zzz++) {?>
 	
 	<td style="border:1px solid black"></td>
-
-	<?}?>
-	<td><?=number_format($total_qty)?></td>
+	<?php } ?>
+	<td><?php echo number_format($total_qty)?></td>
 	<td>-</td>
-	<td><?=number_format($total_bruto)?></td>
-	<td><?=number_format($total_diskon); ?></td>
-	<td><?=number_format($total_voucher); ?></td>
-	<td><?=number_format($total_netto-$total_voucher); ?></td>
+	<td><?php echo number_format($total_bruto)?></td>
+	<td><?php echo number_format($total_diskon); ?></td>
+	<td><?php echo number_format($total_voucher); ?></td>
+	<td><?php echo number_format($total_netto-$total_voucher); ?></td>
 	
 	
 	<td class="footer"></td>
-	<td class="footer"><?=number_format($total_modal)?></td>
+	<td class="footer"><?php echo number_format($total_modal)?></td>
 	</tr>
+
+
 	</table>
 	</div>
 
 	</div>
+
 	<input type="button" value="cetak" class="no-print" onclick="print()" />
 	<style>
 	@media print
 	{    
+		input{
+			display:none!important;
+		}
 		.no-print, .no-print *
 		{
 			display: none !important;
 		}
 	}
 	</style>
+
