@@ -287,7 +287,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
         $("#Items_total_cost").removeAttr("value");
         $("#Items_stok_minimum").removeAttr("value");
         $("#Items_discount").removeAttr("value");
-        $("#is_generate").attr("checked","true");
+        // $("#is_generate").attr("checked","true");
 
         $("#head-meja").html("");
         $("#head-meja-nilai").html("");
@@ -861,6 +861,11 @@ $usaha = SiteController::getConfig("jenis_usaha");
            clearItems();
            
            $("#tambah-item-baru").dialog("open");
+
+          //  setTimeout(() => {
+              // $("#is_generate").attr("checked",true);
+              // $("#is_generate").trigger("click");
+          //  }, 1000);
             // $("#tambah-item-baru").show();
             // alert("123");
         });
@@ -1311,6 +1316,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
               closeOnSelect : true,
               escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
               minimumInputLength: 2,
+              minimumResultsForSearch : 5
            });
            // $("#bank-kredit,#bank-debit").select2({
               // closeOnSelect : true,
@@ -1646,6 +1652,9 @@ $usaha = SiteController::getConfig("jenis_usaha");
             // // alert(number_meja);
 
          break;
+         case 117:
+           $("#btn-item-baru").trigger("click"); // add item 
+           break;
           }
 
       }

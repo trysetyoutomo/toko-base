@@ -307,6 +307,7 @@
 			<li> F3 = Data Sementara</li>
 			<li> F4 = Hapus Semua</li>
 			<li> F9 = Tutup & Simpan</li>
+			<li>F6 = Tambah Item Baru</li>
 			<li>F7 = Cetak Struk</li>
 			<li>F8 = Cetak Rekap </li>
 		</ul>

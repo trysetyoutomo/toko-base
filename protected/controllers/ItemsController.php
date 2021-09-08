@@ -2223,7 +2223,7 @@ public function getHargamodal($id){
 								$BMD->save();
 							}else{
 								print_r($modelh->getErrors);
-								exit;
+								exit; 
 							}
 						}
 						// end bikin stok baru 
@@ -2273,12 +2273,22 @@ public function getHargamodal($id){
 						// 	}
 						// }
 					}else{  // jika gagal save satuan maka
-						echo "barcode sudah digunakan<br>";
-						echo "<a onclick='window.history.back()'>Klik disini untuk Kembali</a>";
-						echo "<pre>";
-						print_r($satuan->getErrors());
-						echo "</pre>";
+
+						if (! isset($_POST['isajax'])){ 
+								echo "barcode sudah digunakan<br>";
+								echo "<a onclick='window.history.back()'>Klik disini untuk Kembali</a>";
+								// echo "<pre>";
+								// print_r($satuan->getErrors());
+								// echo "</pre>";
 						exit;
+
+						}else{ 
+							$item_id =  ItemsSatuan::model()->find("barcode = '".$_REQUEST['Items']['barcode']."'")->item_id;
+							$ItemName = Items::model()->findByPk($item_id)->item_name;
+							echo "Barcode ".$_REQUEST['Items']['barcode']."  sudah digunakan untuk ".$ItemName." !"; exit;
+						
+						}
+					
 						// exit;
 					}
 
