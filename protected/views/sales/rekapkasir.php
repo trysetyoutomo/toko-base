@@ -7,7 +7,7 @@
 $this->renderPartial('application.views.site.main');
 ?>
 <h1>
-<i class="fa fa-book"></i> Laporan Kasir 
+<i class="fa fa-book"></i> Laporan Transaksi Kasir 
 </h1> 
 <hr>
 <?php 
@@ -19,35 +19,11 @@ $this->renderPartial('application.views.site.main');
 ?>
 <form method="post">
 	<input type="hidden" name="r" value="sales/rekap"  />
-			<label>
-				Tanggal
-			</label>
+			<label style="margin-right:1rem"> Tanggal Transaksi </label>
 			<input type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
-			<?php
-			// 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-			// 		'name'=>'tanggal',
-			// 		'attribute'=>'date',
-			// //		'model'=>$model,
-			// 		// additional javascript options for the date picker plugin
-			// 		'options'=>array(
-			// 			'dateFormat'=>'yy-mm-dd',
-			// 			'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-			// 			'showOn'=>'button', // 'focus', 'button', 'both'
-			// 			'buttonText'=>Yii::t('ui','Select form calendar'),
-			// 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.png',
-			// 			'buttonImageOnly'=>true,
-			// 		),
-			// 		'value'=>$date,
-			// 		'htmlOptions'=>array(
-			// 			'id'=>'tanggal',
-			// 			'style'=>'height:20px;;width:80px;display:inline-block'
-			// 		),
-			// 	));
-				
-			// $this->renderPartial('summary',array('summary'=>$summary));
-
-			?>
-	<input type="submit" name="Cari" value="Cari" class="btn btn-primary" style="display:inline" />
+	<button type="submit" name="Cari" class="btn btn-primary" style="display:inline" >
+		<i class="fa fa-search"></i>  Cari Data
+	</button>
 	<!-- <input type="button" name="kirim" value="Kirim Email" class="btn btn-primary btn-kirim-email" style="display:inline" /> -->
 </form>
 <br>
@@ -184,6 +160,7 @@ group by A.nama_user
 			// $model = Yii::app()->db->createCommand($sql)->queryAll();
 				$no = 1;
 				$ttl = 0;
+		if (count($model) > 0){
 		foreach ($model  as $m ):
 		?>
 		<tr >
@@ -278,7 +255,22 @@ group by A.nama_user
 		$ta+=$total_akhir;
 
 		$no++;
-		endforeach; ?>
+		endforeach; 
+		}else{
+			?>
+			<tr>
+				<td colspan="11">
+					<p style="color:red;font-style:italic;text-align:center">Data tidak ditemukan</p>
+				</td>
+			</tr>
+			<?php 
+		}
+		?>
+
+
+		<?php 
+		if (count($model) > 0){
+		?>
 		<tfoot>
 			<tr>
 				<td colspan="2">Total</td>
@@ -295,13 +287,20 @@ group by A.nama_user
 				
 			</tr>
 		</tfoot>
+		<?php } ?>
 		
 	</tbody>
 </table>
 <?php } ?>
 <script>
 $(document).ready(function(e){
-	 $('.tanggal').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
+	 $('.tanggal').datepicker({ 
+		dateFormat: 'yy-mm-dd',
+		changeMonth:true,
+		changeYear:true,
+		maxDate:new Date,
+
+	});
 
 	$('.btn-tutup-register').click(function(e){
 		var c = confirm("Dengan menutup register, kasir dianggap sudah setor sesuai dengan *Total Uang Fisik yang harus ada*, Lanjutkan ? ");
