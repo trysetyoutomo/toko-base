@@ -1,3 +1,8 @@
+<?php 
+if (!isset($cabangpusat)){
+	$cabangpusat = 0;
+}
+?>
 <applet name="jzebra" code="jzebra.PrintApplet.class" archive="jZebra/jzebra/jzebra.jar" width="0" height="0">
     <param name="printer" value="zebra">
 </applet> 
@@ -211,7 +216,16 @@ $(document).ready(function(){
             "processing": true,
             "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "serverSide": true,
-            "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",
+            // "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",
+			"ajax": {
+				"url": "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",
+				"type": "GET",
+				"data": function ( d ) {
+				return $.extend( {}, d, {
+					"cabangpusat": <?=$cabangpusat?>
+				} );
+				}
+			},
             "fnDrawCallback": function( oSettings ) {
                    // $(".loader").hide();
            },
