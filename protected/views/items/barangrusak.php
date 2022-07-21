@@ -228,9 +228,11 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
     <select id="cabang">
        <option value="">Pilih</option>
        <?php 
+         $store_id = Yii::app()->user->store_id();
+
           // "id != '$branch_id' "
-          							$data = Branch::model()->findAll();
-          							foreach ($data as $key => $value) { ?>
+         $data = Branch::model()->findAll("store_id = '$store_id' ");
+         foreach ($data as $key => $value) { ?>
        <option 
           value="<?php echo $value->id ?>"
           >
