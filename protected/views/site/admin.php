@@ -1,5 +1,6 @@
 <?php
-echo strlen("1 x 6000 - 0% disc       7,200");
+// phpinfo();
+// echo strlen("1 x 6000 - 0% disc       7,200");
 // $total_margin = 30;
 // $string1 = "1 x 80.000";
 // $string2 = "80.00";
