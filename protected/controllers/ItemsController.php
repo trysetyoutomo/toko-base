@@ -185,6 +185,11 @@ class ItemsController extends Controller
         echo json_encode($response);
         exit;
 	}
+
+	public function actionLaporancabangpusat(){
+    	 $this->render('laporanstok',['cabangpusat'=>1]) ;
+    }
+
 	public function actionLaporanstok(){
     	 $this->render('laporanstok' ) ;
 
@@ -746,6 +751,15 @@ class ItemsController extends Controller
 		// $branch_id = Yii::app()->user->branch();
 		// var_dump($branch_id);
 		// $satuan_id 
+		if ($branch_id!=""){
+			$whereBarangMasukBranch = " and bm.branch_id = '$branch_id' ";
+			$whereBarangKeluarBranch = " and bk.branch_id = '$branch_id'  ";
+			$wherePenjualanBranch = " and s.branch = '$branch_id'  ";
+		}else{
+			$whereBarangMasukBranch = "";
+			$whereBarangKeluarBranch = "";
+			$wherePenjualanBranch = "";
+		}
 		$sql = "
 		SELECT bm.tanggal tanggal, bm.tanggal nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan, bm.jenis jenis, concat(bm.keterangan,' - ID ',bm.id) keterangan
 		FROM barangmasuk bm
@@ -753,8 +767,7 @@ class ItemsController extends Controller
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
 		left JOIN supplier s ON s.id = bmd.supplier_id
 		WHERE bmd.kode = '$id' 
-		and
-		bm.branch_id = '$branch_id'
+		{$whereBarangMasukBranch}
 		{$querySatuan}
 		GROUP BY bmd.id
 
@@ -767,7 +780,7 @@ class ItemsController extends Controller
 		INNER JOIN barangkeluar_detail bmd ON bk.id = bmd.head_id
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
 	
-		WHERE bmd.kode = '$id' and bk.branch_id = '$branch_id' 
+		WHERE bmd.kode = '$id' {$whereBarangKeluarBranch}
 				
 		{$querySatuan}
 
@@ -792,7 +805,7 @@ class ItemsController extends Controller
 		INNER JOIN paket p on p.id_paket = si.item_id
 		inner join paket_detail pd on pd.paket_id = p.id_paket
 		inner join items i on i.id = pd.item_id
-		where i.id = '$id' and s.branch = '$branch_id' and s.status = 1
+		where i.id = '$id' {$wherePenjualanBranch} and s.status = 1
 		
 		group by s.id
 
@@ -2675,24 +2688,41 @@ public function getHargamodal($id){
 
   public function getLaporanStokJSON($query,$adjust) {
   	// var_dump($adjust);
+	$stokpercabang = [];
   	$branch_id = Yii::app()->user->branch();
+	$store_id = Yii::app()->user->store_id();
+
   	// echo $query;
   	// exit;
   	$rawData = Yii::app()->db->createCommand($query)->queryAll();
   	$array = array();
 
   	$no = 1;
-  	foreach ($rawData as $key => $value) {
+	// tampilkan stok tiap cabang
+	foreach ($rawData as $key => $value) {
+
 		$stok = ItemsController::getStok($value['id'],"",$branch_id);
-		// echo $stok;
-		// exit;
 		$harga = round(ItemsController::getAverage($value['id'],$value['satuan_id'],$branch_id));
-
-		// echo $stok;
-		// exit;
 		$satuanlist = ItemsController::getSatuanItems($value['id'],$stok);
-		// $satuanlist = "123";
 
+		if (isset($_REQUEST['cabangpusat'])){
+			if ($_REQUEST['cabangpusat'] == "1"){
+				$satuanlist = "";
+				$cabang = Branch::model()->findAll("store_id = '$store_id' ");
+				$satuanlist .= "<table class='table'>";  
+				$satuanlist .= "<thead><tr><td>Tempat</td><td>Stok</td></tr></thead>";  
+					foreach ($cabang as $key => $value2) {
+						$stokx = ItemsController::getStok($value['id'],"",$value2->id);
+						$satuanlist .= "<tr>";  					
+							$satuanlist .= "<td>".$value2->branch_name."</td>";  					
+							$satuanlist .= "<td>".$stokx."</td>";  					
+						$satuanlist .= "</tr>";  
+					}
+					$satuanlist .= "</table>";  
+			}
+		}
+		
+		
 	  	$input = "<input type='text' name='stok_real' value='$stok' 
 				class='stok_real' style='width: 70px'>
 				<button harga='$harga'  stok-before='$stok'  class='set-stok btn btn-primary' 
@@ -2706,18 +2736,17 @@ public function getHargamodal($id){
   			$value['nama_kategori'],
   			$value['motif'],
   			// $aksi,
-			'<a 
-			href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
+			'<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
 			$satuanlist,
-
-
   		);
   		if ($adjust=="1"){
   			array_push($json, $input);
   		}
-  		array_push($array, $json);
-
-  	}
+		  
+		array_push($array, $json);
+	}
+//   echo "<pre>";
+//   print_r($stokpercabang);
   	return $array;
   }
   public function getAdminJSON($query) {
