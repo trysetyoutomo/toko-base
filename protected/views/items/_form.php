@@ -1,4 +1,4 @@
-	
+
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/selectric/public/jquery.selectric.min.js"></script>
@@ -296,7 +296,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
     				<TD>
     				<?php if ($model->isNewRecord){ ?>
     					<label for="is_generate">
-	                		<input type="checkbox" name="is_generate" id="is_generate"> Generate ?
+	                		<input type="checkbox" name="is_generate" id="is_generate"> Buat Barcode Otomatis ?
     					</label>
     					<?php }else{
     						?>
@@ -410,12 +410,22 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
                 <td><?php //echo $form->textField($model,'modal',array('class'=>'form-control')); ?></td>
                 <td><?php //echo $form->error($model,'modal'); ?></td>
                 </tr>
+<!-- 				// only new record since total cost later will handled by satuan
+ -->
+				<?php 
+				if ($model->isNewRecord){
 
+							
+                if ($model->unit_price==""){
+                	$model->unit_price = "0";
+                }
+				?> 
 				<tr >
 				<td><?php echo $form->labelEx($model,'unit_price'); ?></td>
                 <td><?php echo $form->textField($model,'unit_price',array('class'=>'form-control')); ?></td>
                 <td><?php echo $form->error($model,'unit_price'); ?></td>
                 </tr>
+				<?php } ?>
 
 				<?php if (!$model->isNewRecord): ?>
                 <tr style="display: none;">
@@ -439,7 +449,8 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 
                 <tr style=""> 
                 <?php 
-                // if ($model->isNewRecord){
+				// only new record since total cost later will handled by satuan
+                if ($model->isNewRecord){
 				
                 // if ($model->total_cost==""){
                 // 	$model->total_cost = "0";
@@ -450,6 +461,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
                 <td><?php echo $form->error($model,'total_cost'); ?></td>
                 </tr>
                   <?php 
+				  }
                 if ($model->price_reseller==""){
                 	$model->price_reseller = "0";
                 }
@@ -459,7 +471,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 
                 ?>
 
-
+			 <?php  if ($model->isNewRecord){ ?>
               <tr > 
 				<td><?php echo $form->labelEx($model,'stok'); ?></td>
                 <td><?php echo $form->textField($model,'stok',
@@ -467,6 +479,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
      
                 <td><?php echo $form->error($model,'stok'); ?></td>
              </tr> 
+			 <?php } ?>
 
              
                  <tr style="display: none;"> 
@@ -518,6 +531,16 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 	                <td><?php echo $form->textField($model,'discount',array('class'=>'form-control')); ?></td>
 	                <td><?php echo $form->error($model,'discount'); ?></td>
                 </tr>
+				 <!-- <tr >
+					<td colspan="2">
+						<br>
+						Ubah Harga pada Satuan Utama ?  
+						<a href="" class="link"> Klik dsini</a>
+						</br>
+						</br>
+					</td>
+                </tr> -->
+
 		
                 <tr style="display:none">
 					<td><?php echo $form->labelEx($model,'lokasi'); ?></td>

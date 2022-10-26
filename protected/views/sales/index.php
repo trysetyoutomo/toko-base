@@ -180,13 +180,23 @@ Preview Rekap
 
 <?php
 $usaha = SiteController::getConfig("jenis_usaha");
-$jenis_printer = SiteController::getConfig("ukuran_kertas");
+$jenis_printer = SiteController::getConfig("jenis_printer");
+$ukuran_kertas = SiteController::getConfig("ukuran_kertas");
 
-// echo $jenis_printer;
-// exit;
-// if ($usaha=="Toko"){
 $array_cetak = array();
-if ($jenis_printer=="80mm" || $jenis_printer=="58mm"){
+if ( ($ukuran_kertas=="80mm" || $ukuran_kertas=="58mm") && $jenis_printer === "Epson LX" ){
+	$array_cetak = 	array(
+			'name'=>'print', 
+			'header'=>'Cetak',
+			'type'=>'raw',
+			'value'=>function($data){
+
+		return '<a onclick="openWin(this)" data-href="'.Yii::app()->createUrl("sales/cetakfaktur_mini&id=$data[id]").'" class="btn btn-primary">Cetak</a>';
+		}
+			
+	 );
+}
+else if ($ukuran_kertas=="80mm" || $ukuran_kertas=="58mm"){
 	$array_cetak = array(
 		'type'=>'raw',
 		'name'=>'aa',
@@ -208,21 +218,7 @@ if ($jenis_printer=="80mm" || $jenis_printer=="58mm"){
 
 		return '<a href="'.Yii::app()->createUrl("sales/cetakfaktur&id=$data[id]").'" class="btn btn-primary">Cetak</a>';
 		}
-			// 'value'=>'"<a href='' class="btn btn-primary">Cetak</a>"'
-			// 'value'=>'CHtml::ajaxButton("Cetak", array("sales/CetakReport","id"=>$data->id),array())',
-			// 'value'=>'"CHtml::ajaxButton("Cetak ", array("sales/CetakReport"),array(
-	// 		"data"=>array("id"=>$data[id]),
-	// 		"success"=>"function(data){
-	// 			// alert(\'cek\');
-	// 			var sales = jQuery.parseJSON(data);
-	// 			if (sales.sale_id!=\'\')
-	// 			{
-	// 				print_bayar(sales);
-	// 			}
-	// 		}",
-	// 		"error"=>"function(data){alert(\'data\')}"
-	// 	),array("class"=>"btn btn-primary")
-	// )"',
+			
 	 );
 }
 // var_dump($array_cetak);
@@ -501,7 +497,21 @@ $columnaja = array(
 // $this->endWidget('zii.widgets.jui.CJuiDialog');
 ?>
 <script>
+	function openWin(th){
+		var url = (th.getAttribute("data-href"));
+		// console.log(th.href);
+		// let url = e.getAttribute("data-url");;
+		// console.log(url);
+		// e.preventDefault();
+		var myWindow=window.open(url,'top=0,fullscreen=yes, left=0');
+
+		// myWindow.document.close();
+		// myWindow.focus();
+		// // myWindow.print();
+		// myWindow.close();
+	}
 $(document).ready(function(){
+	
 	// $(".fa-times").click(function(e){
 	// 	// e.preventDefault();
 	// 	if (!confirm("Yakin ? ")){

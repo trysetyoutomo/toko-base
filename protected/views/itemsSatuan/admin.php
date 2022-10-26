@@ -39,7 +39,10 @@ echo Items::model()->findByPk($_REQUEST['id'])->item_name;
 		</form>
 	</div> -->
 </div>
+  <?php 
+        $metode_stok = SiteController::getConfig("metode_stok");
 
+  ?>
    <table id="datatable" class="table table-striped table-bordered">
        <thead>
   		<tr>
@@ -77,7 +80,7 @@ echo Items::model()->findByPk($_REQUEST['id'])->item_name;
                 <i class="fa fa-times"></i>
               </a> 
               &nbsp;
-              <a href="<?php echo Yii::app()->createUrl("ItemsSatuanPrice/create", array("id"=>$value[id])) ?>">
+              <a href="<?php echo Yii::app()->createUrl("ItemsSatuanPrice/create", array("id"=>$value[id],"idb"=>$_REQUEST['id'])) ?>">
                 <!-- <i class="fa fa-dollar-sign"></i> -->
                 Rp
               </a>
@@ -88,14 +91,22 @@ echo Items::model()->findByPk($_REQUEST['id'])->item_name;
              <td><?php echo $value['satuan'] ?></td>
             
             <td>
-            <a href="<?php echo Yii::app()->createUrl("ItemsSatuanPrice/create", array("id"=>$value[id])) ?>">
+            <a href="<?php echo Yii::app()->createUrl("ItemsSatuanPrice/create", array("id"=>$value[id],"idb"=>$_REQUEST['id'])) ?>">
               <?php echo number_format($value['harga']) ?>
             </a>
                 
 
               </td>
 
-            <td><?php echo number_format($value['harga_beli']) ?></td>
+            <td><?php 
+            if ($metode_stok == "average"){
+              $hargabeli = ItemsController::getAverage($value['item_id'],$value['id'], Yii::app()->user->branch());
+            }else{
+              $hargabeli = $value['harga_beli'];
+            }
+            echo number_format($hargabeli) 
+            
+            ?></td>
             <!-- <td><?php echo $value['stok_minimum'] ?></td> -->
         		<td><?php 
             if ($value['is_default']=="1"){

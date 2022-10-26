@@ -217,7 +217,7 @@
 						Kode PO			
 					</td>
 					<td>
-						<input class="form-control" readonly="" type="text" value="<?php echo BarangmasukController::generateKodePO(); ?>" style="display:inline;padding:5px"  id="kode_trx">
+						<input class="form-control" readonly="" type="text" value="<?php echo BarangMasukController::generateKodePO(); ?>" style="display:inline;padding:5px"  id="kode_trx">
 					</td>
 					
 				</tr>

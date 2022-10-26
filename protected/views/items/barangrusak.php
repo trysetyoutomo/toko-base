@@ -298,9 +298,9 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
                    <th>Ketebalan </th> --> 
                 <!-- <th>Kode Barang </th> -->
                 <!-- <th>Harga Barang</th> -->
-                <th>Jumlah Keluar (awal-akhir)</th>
-                <th>Jumlah Awal</th>
-                <th>Jumlah Akhir</th>
+                <th>Jumlah Keluar (Stok Sistem - Stok Saat ini)</th>
+                <th>Stok (Sistem)</th>
+                <th>Stok (Saat ini)</th>
                 <th>aksi</th>
              </tr>
           </thead>
@@ -406,7 +406,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
             			"<td>"+d.nama_kategori+"</td>"+
             			"<td>"+subkategori+"</td>"+
             			"<td style='display:none' class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
-            			"<td>" + d.item_name +"</td>" +
+            			"<td class='item_name'>" + d.item_name +"</td>" +
             			// "<td>"+
             
             			"<td><input class='jumlah' style='width:100%;padding:4px;' maxlength='15' type='text' value='"+jumlah+"'/>"+
@@ -473,10 +473,14 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
             	// alert(JSON.stringify(head));
             	// alert(JSON.stringify(array_kode));
             	// return false;
-            
+               let validatedRows = [];
             	$(".baris").each(function() {
             		var idb = $(this).find('.pk').html();
             		var jml = $(this).find('.jumlah').val();
+                  var item_name =  $(this).find('.item_name').html();
+                  if (jml < 0){
+                     validatedRows.push(item_name);
+                  }
             		
             		var kode = $(this).find('.kode').val();
                 // alert(kode);
@@ -493,6 +497,10 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
             			jsonObj.push(item);
             		}
             	});
+               if (validatedRows.length > 0){
+                  alert("Produk "+validatedRows.join(",")+ " tidak boleh kurang dari 1");
+                  return;
+               }
             	// alert(JSON.stringify(jsonObj));
             	// exit;
             	// alert(JSON.stringify(jsonObj));idb

@@ -109,13 +109,17 @@ if (isset($status_pembayaran)){
 $status_aktif = $_REQUEST['tipemasuk'];
 $cabang = $_REQUEST['cabang'];
 $supplier = $_REQUEST['supplier'];
+$filtersupplier ="";
+if($supplier!=""){
+	$filtersupplier = "and sumber = '$supplier'";
+}
 if ($status_aktif==""){
 	$status_aktif = "0";
 }
 if (isset($status_aktif) && $status_aktif!="" ){
 	// var_dump($status_aktif);
 	if ($status_aktif=="1"){
-		$filter .= " and  barangmasuk.status_aktif = '$status_aktif' and sumber = '$supplier' ";
+		$filter .= " and  barangmasuk.status_aktif = '$status_aktif' {$filtersupplier} ";
 	}
 	 if ($status_aktif=="0"){
 		$filter .= " and  barangmasuk.status_aktif = '0' and barangmasuk.sumber='$cabang'   ";
@@ -214,9 +218,8 @@ if (isset($status_aktif) && $status_aktif!="" ){
 			<?php echo $value->branch_name ?></option>
 	 	<?php } ?>
 </select>
-
 <select id="supplier" name="supplier" style="display:none;padding:2px">
-	<option value="">Pilih</option>
+	<option value="">Pilih Semua</option>
 		<?php 
 		 // $branch = Yii::app()->user->branch();
 		$store_id = Yii::app()->user->store_id();
@@ -224,7 +227,7 @@ if (isset($status_aktif) && $status_aktif!="" ){
 		$data = Supplier::model()->findAll("store_id = '{$store_id}' ");
 		foreach ($data as $key => $value) { ?>
 			<option 
-			<?php if($_REQUEST[supplier]==$value->id ) echo "selected" ?>
+			<?php if($_REQUEST['supplier']==$value->nama ) echo "selected" ?>
 
 			value="<?php echo $value->nama ?>"
 			>
@@ -396,7 +399,7 @@ else
 			<i class="fa fa-times"></i>
 			<!-- <img style="width:15px;" src="img/delete.ico"> -->
 			</a>
-			<a class="cetak" data-id='<?php echo $m['id'] ?>'>
+			<a style="display:none" class="cetak" data-id='<?php echo $m['id'] ?>'>
 				<i class="fa fa-print"></i>
 			</a>
 			<!--

@@ -102,6 +102,12 @@ $usaha = SiteController::getConfig("jenis_usaha");
       margin: 0px!important;
 
      }
+     .x-grid-row-editor .x-panel-body{
+      height:60px!important;
+     }
+     .x-grid-row-editor-buttons{
+      top:4rem;
+     }
 </style>
    <?php 
      $model = Items::model()->data_items("ALL");
@@ -371,7 +377,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
                   <select style="width:150px" id="costumer_type" class="myinput">
                      <?php foreach (CustomerType::model()->findAll() as $ct) { ?>
                      <option value="<?php echo $ct->id ?>"><?php echo $ct->customer_type ?></option>
-                     <?php } ?>
+                     <?php } ?> 
                   </select>
                </td>
             </tr>
@@ -430,9 +436,6 @@ $usaha = SiteController::getConfig("jenis_usaha");
       }
       function reloadItems()
       {
-
-
-
           $.ajax({
               type: 'POST',
               url: '<?php echo Yii::app()->createAbsoluteUrl("Items/getAllItems"); ?>',
@@ -836,7 +839,8 @@ $usaha = SiteController::getConfig("jenis_usaha");
         $('#tanggal_jt').datepicker({
            dateFormat: 'yy-mm-dd',
            changeYear: true,
-           changeMonth: true
+           changeMonth: true,
+           minDate: new Date 
        });
         $(document).on("change","#namapel",function(e){
             var nilai= $(this).val();
@@ -861,13 +865,6 @@ $usaha = SiteController::getConfig("jenis_usaha");
            clearItems();
            
            $("#tambah-item-baru").dialog("open");
-
-          //  setTimeout(() => {
-              // $("#is_generate").attr("checked",true);
-              // $("#is_generate").trigger("click");
-          //  }, 1000);
-            // $("#tambah-item-baru").show();
-            // alert("123");
         });
 
 

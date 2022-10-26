@@ -139,6 +139,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		// echo $sql_tgl;
 		$q_tgl = Yii::app()->db->createCommand($sql_tgl)->queryAll();
 		$jmb_bris = count($q_tgl);
+		$branch_id = Yii::app()->user->branch();
 		foreach ($q_tgl as $qtgl) { ?>
 		<td><?php echo date('d-m-Y',strtotime($qtgl[db_date] )); ?></td>
 		<?php } ?>
@@ -168,9 +169,10 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		// $items = Items::model()->findAll("kode_outlet=$id",array('order' => 'id')); 
 		// echo $tgl1;
 		// echo $tgl2;
+		
 		$items = Yii::app()->db->createCommand()
 			->select('si.sale_id slid,i.id iid,
-				i.item_name item_name, si.item_price unit_price, si.item_modal item_modal, i.modal modal')
+				i.item_name item_name, si.item_price unit_price, si.item_modal item_modal, si.item_modal modal')
 			->from(' items i, sales s, sales_items si ')
 			->where("s.id = si.sale_id
 				and
@@ -180,6 +182,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				s.status=1
 				and
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
+				and s.branch = '$branch_id'
 				")
 			->group("si.item_id, si.item_price ")
 			->order("i.item_name asc")
@@ -193,6 +196,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		on sp.id = s.id 
 		where 
 		status = 1
+		and s.branch = '$branch_id'
 		and
 		date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' ";
 		// echo $sql_vouc;

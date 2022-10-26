@@ -1528,7 +1528,7 @@ function print_rekap(data,pkdetail) {
 
         applet.append(chr(27) + chr(33) + chr(32));//double weidth
         applet.append(chr(27) + "\x61" + "\x31"); // center justify
-        applet.append("RINCIAN PURCHASED \r\n"); // center justify
+        applet.append("RINCIAN PENGELUARAN \r\n"); // center justify
         applet.append(chr(27) + chr(64));//cancel character sets    
         applet.append(data.pembatas);
         $.each(data.pengeluaran, function(i,cetak){
@@ -1549,30 +1549,20 @@ function print_rekap(data,pkdetail) {
         applet.append("\n");
         applet.append(data.summary_all);
         applet.append("\n");
-        // applet.append(data.pembatas);
-        // applet.append("\n");
-        // console.log(data);
-        // alert(JSON.st);
-        // alert(data.summary_totalgratis);
-        // alert("ok");
-        // alert(JSON.stringify(data));
-      
-
-        applet.append(data.summary_pengeluaran);
-
+        $.each(data.summary_totalgratis, function(i,cetak){
+            applet.append(cetak);
+            applet.append("\n");
+        });
+        
         applet.append("\n");
         applet.append(data.pembatas);
         applet.append("\n");
         applet.append(data.summary_totalpenjualan);
         applet.append("\n");
-        // applet.append("\n");
-        $.each(data.summary_totalgratis, function(i,cetak){
-            // alert(cetak);
-            applet.append(cetak);
-            applet.append("\n");
-        });
-
-        // applet.append("\n");
+        applet.append(data.nilaisaldoawal);
+        applet.append("\n");
+        applet.append(data.summary_pengeluaran);
+        applet.append("\n");
         applet.append(data.pembatas);
         applet.append("\n");
         applet.append(data.summary_coh);
@@ -2359,45 +2349,46 @@ function bayar(status,table,sale_id)
                 if (sales.status == 1)
                 {
                    	var jenis_cetak = '<?php echo SiteController::getConfig("ukuran_kertas"); ?>';
+                   	var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
 
-		            // if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
+		            if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
 
-					// 	var c = confirm("Cetak Bukti ?? ");
-					// 	if (c){	
-                    //         $.ajax({
-                    //             url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
-                    //             data : {
-                    //                 id : idx
-                    //             },
-                    //             success:function(data){
-                    //             $('.body-bukti').html(data);
-                    //             // $("#modal-bukti-bayar").modal("show");
-                    //             $(".btn-modal-preview").trigger("click");
+						var c = confirm("Cetak Bukti ?? ");
+						if (c){	
+                            $.ajax({
+                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
+                                data : {
+                                    id : idx
+                                },
+                                success:function(data){
+                                $('.body-bukti').html(data);
+                                // $("#modal-bukti-bayar").modal("show");
+                                $(".btn-modal-preview").trigger("click");
 
-                    //             }
-                    //         });
-					// 	// window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-					// 	}
-		            // }else if (jenis_cetak=="80mm" || jenis_cetak=="58mm"){
-                    //     var c = confirm("Cetak Bukti ?? ");
-                    //     if (c){ 
-                    //         $.ajax({
-                    //             url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
-                    //             data : {
-                    //                 id : idx
-                    //             },
-                    //             success:function(data){
-                    //             $('.body-bukti').html(data);
-                    //             $(".btn-modal-preview").trigger("click");
-
-                    //             }
-                    //         });
-                    //     // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-                    //     }
-                    // }else{
-
+                                }
+                            });
+						// window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+						}
+		            }else if ( (jenis_cetak=="80mm" || jenis_cetak=="58mm") && jenis_printer === "Epson LX" ){
                         var c = confirm("Cetak Bukti ?? ");
-                        if (!c) return false;
+                        if (c){ 
+                            // $.ajax({
+                            //     url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>',
+                            //     data : {
+                            //         id : idx
+                            //     },
+                            //     success:function(data){
+                            //     $('.body-bukti').html(data);
+                            //     $(".btn-modal-preview").trigger("click");
+
+                            //     }
+                            // });
+                        window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+idx);
+                        }
+                    }else{
+
+                        // var c = confirm("Cetak Bukti ?? ");
+                        // if (!c) return false;
                         // alert('123');
 						var i =1;
 						var ulang  =  1;<?php //echo Parameter::model()->findByPk(1)->qty_cb; ?>
@@ -2414,7 +2405,7 @@ function bayar(status,table,sale_id)
 							},1000)
 						}
 						myLoop();
-					// }
+					}
 					// alert("Tekan OK untuk mendapatkan rekap ke 2.");
 					// if (confirm("Cetak receipt ke - 2 ? ")){	
 					// }
@@ -2948,7 +2939,9 @@ Ext.onReady(function() {
             //     xtype:'textfield',
             //     allowBlank:false
             // },
-            hidden : false
+            hidden : false,
+            minWidth: 100
+
         },
         {
             text:'id',
@@ -3044,7 +3037,7 @@ Ext.onReady(function() {
             text:'Jumlah',
             flex:1,
             sortable:true,
-
+            minWidth: 20,
             dataIndex:'quantity_purchased',
             editor   : {
                 xtype:'textfield',
@@ -3057,10 +3050,12 @@ Ext.onReady(function() {
             flex:1,
             sortable:true,
             dataIndex:'item_price',
-            editor   : {
-                xtype:'textfield',
-                allowBlank:false
-            }
+            <?php if  (SiteController::getConfig("edit_harga") == "true") { ?>
+                editor   :  {
+                    xtype:'textfield',
+                    allowBlank:false
+                }
+            <?php } ?>
         },
          {
             text:'Ukuran',
@@ -3102,11 +3097,11 @@ Ext.onReady(function() {
             text:'Diskon(%)',
             flex:1,
             sortable:true,
-            dataIndex:'item_discount'
-            ,editor   : {
-                xtype:'textfield',
-                allowBlank:false
-            }
+            dataIndex:'item_discount',
+            // editor   : {
+            //     xtype:'textfield',
+            //     allowBlank:false
+            // }
         },
         {
             text:'Pajak',
@@ -3179,7 +3174,7 @@ Ext.onReady(function() {
             flex:1,
             sortable:true,
             dataIndex:'permintaan',
-             // hidden : false,
+             hidden : true,
             editor   : {
                 xtype:'textarea',
                 allowBlank:true
@@ -3194,7 +3189,7 @@ Ext.onReady(function() {
             xtype:'actioncolumn',
             items:[
             {
-                icon:'icon/delete.gif',
+                icon:'icon/Delete.gif',
                 handler:function(grid,rowIndex,colIndex,item,e){
                     id=grid.getStore().getAt(rowIndex,colIndex);
                     grid.store.remove(id);

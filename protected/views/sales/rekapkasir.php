@@ -41,6 +41,7 @@ if (isset($_REQUEST['tanggal'])){
 			<td>Total Omset (Hari ini) </td>
 			<td>Total Biaya Bank </td>
 			<td>Total Potongan </td>
+			<td>Total Pengeluaran </td>
 			<!-- <td>Total Akhir </td> -->
 			<td>Total Uang Fisik harus Ada </td>
 			<td>Total Uang Fisik (Input Akhir)</td>
@@ -162,6 +163,11 @@ group by A.nama_user
 				$ttl = 0;
 		if (count($model) > 0){
 		foreach ($model  as $m ):
+			$query_pengeluaran  = "select sum(total) as total_pengeluaran  from pengeluaran where 1=1 and date(tanggal)='$_REQUEST[tanggal]' and user='$m[nama_user]' order by tanggal desc";
+			// echo $query_pengeluaran;
+			// echo "<br>";
+			$data_pengeluaran = Yii::app()->db->createCommand($query_pengeluaran)->queryRow();		
+			// print_r($data_pengeluaran);
 		?>
 		<tr >
 			<td><?php echo $no ?></td>
@@ -180,12 +186,13 @@ group by A.nama_user
 			<td><?php echo number_format($m['cash']); ?></td>
 			<?php 
 			// $total_akhir = ($m['total_biaya']+$m['total_omset'])-$m['voucher'];
-			$total_akhir = ($m['total_biaya']+$m['cash'])-$m['voucher'];
+			$total_akhir = ($m['total_biaya']+$m['cash'])-$m['voucher']-$data_pengeluaran['total_pengeluaran'];
 			$must = $total_akhir+$m['total_awal'];
 			?>
 			<td style="text-align:left"><?php echo number_format($m['total_omset']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['total_biaya']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['voucher']); ?></td>
+			<td style="text-align:left"><?php echo number_format($data_pengeluaran['total_pengeluaran']); ?>0</td>
 
 			<!-- <td style="text-align:left"><?php echo number_format($total_akhir); ?></td> -->
 
@@ -196,15 +203,22 @@ group by A.nama_user
 <!-- 				
  -->
 			<td>
-				<button class="cetak btn-primary btn" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+				<!-- <button class="cetak btn-primary btn d-none" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
 				<i class="fa fa-print" style="color:white!important"></i>
-				Cetak Rekap</button>
+				Cetak Rekap</button>  removed at 23-10-2022 due to print is not use applet anymore since many issues -->
+				<?php if (SiteController::getConfig("jenis_printer") == "Epson LX"){ ?>
+					<a  href="<?php echo Yii::app()->createUrl("sales/cetakrekap&tanggal_rekap=$date&noprint=true&inserter=$m[userid]") ?>"
+					class="btn-primary btn" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+					<i class="fa fa-print" style="color:white!important"></i>
+					Cetak Rekap </a>
+				<?php }else{ ?>
+					<button class="cetak btn-primary btn" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+					<i class="fa fa-print" style="color:white!important"></i>
+					Cetak Rekap</button>  
+				<?php } ?>
 
-				<a 
-				href="<?php echo Yii::app()->createUrl("sales/cetakrekap&tanggal_rekap=$date&noprint=true&inserter=$m[userid]") ?>"
-				class="btn-primary btn" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
-				<i class="fa fa-print" style="color:white!important"></i>
-				Preview </a>
+
+
 				<?php 
 				$filter = "user_id = '$m[userid]' and date(tanggal)='$date' ";
 				$se = Setor::model()->find($filter);
@@ -252,6 +266,8 @@ group by A.nama_user
 		$tf_hrs+=$total_akhir+$m['total_awal'];
 		$ts+=$m['total_fisik']-($total_akhir+$m['total_awal']);
 		$tb+=$m['total_biaya'];
+		$total_akhir_pengeluaran += $data_pengeluaran['total_pengeluaran'];
+
 		$ta+=$total_akhir;
 
 		$no++;
@@ -279,6 +295,7 @@ group by A.nama_user
 				<td><?php echo number_format($ttl); ?></td>
 				<td><?php echo number_format($tb); ?></td>
 				<td><?php echo number_format($tv); ?></td>
+				<td><?php echo number_format($total_akhir_pengeluaran); ?></td>
 				<!-- <td><?php echo number_format($ta); ?></td> -->
 				<td><?php echo number_format($tf_hrs); ?></td>
 				<td><?php echo number_format($tf); ?></td>

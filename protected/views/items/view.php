@@ -96,5 +96,5 @@
 
 <br>
 <?php 
-$this->renderPartial("kartupersediaan");
+// $this->renderPartial("kartupersediaan");
 ?>

@@ -1,4 +1,113 @@
+
+<!-- Datatables -->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-item-baru" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Item Baru</h4>
+      </div>
+      <div class="modal-body">
+        <?php 
+            $model = new Items;
+            $datasatuan= new ItemsSatuan;
+            $this->renderPartial('application.views.items._form',array(
+               "model"=>$model,
+               "datasatuan"=>$datasatuan
+            ));
+            $this->renderPartial('application.views.items._form_js');
+        ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-kategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php 
+         $model = new Categories;
+        $this->renderPartial('application.views.categories._form',array("model"=>$model));
+       ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-kategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php 
+         $model = new Categories;
+        $this->renderPartial('application.views.categories._form',array("model"=>$model));
+       ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-satuan-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Satuan Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php
+        $model = new ItemsSatuanMaster;
+        $this->renderPartial('application.views.itemsSatuanMaster._form',array("model"=>$model));
+         ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-subkategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Subkategori Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php
+          $model = new Motif;
+        $this->renderPartial('application.views.motif._form',array("model"=>$model));
+         ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <style type="text/css">
+   #users_wrapper{
+      overflow:auto;
+   }
    tr td{
    padding: 2px;
    }
@@ -14,7 +123,7 @@
    #page{
    }
    label{
-   width: 100px;
+   /* width: 100px; */
    }
    .row{
    /*margin-left: 0px;*/
@@ -88,10 +197,9 @@
        </table>
    </div> -->
 <script type="text/javascript">
+
+
    $(document).ready(function(){
-   
-   
-   	
    	$( "#tambah-supplier-form" ).dialog({
    		minWidth : 650,
    		modal : true,
@@ -102,7 +210,7 @@
    	 $('#tanggal-jt').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
    
    
-   	// $('#nama').select2("open");
+   	// $('#namabarcode').select2("open");
    
    	$(document).on("change","#isbayar",function(e){
    		if ($(this).val()=="0")
@@ -112,7 +220,7 @@
    	});
    	$(document).on("keypress",".select2-input",function(e){
    		if(e.which == 13) {
-   		    add_item($('#nama').val());
+   		    add_item($('#namabarcode').val());
                // $("#nama").select2("open");row-jatuh-tempo
    
    		}
@@ -121,15 +229,6 @@
    
     
    });
-   // $('.select2-input').keypress(function (e) {
-   //  var key = e.which;
-   //  if(key == 13)  // the enter key code
-   //  	alert("123");
-   //   // {
-   //   //   $('input[name = butAssignProd]').click();
-   //   //   return false;  
-   //   // }
-   // });
 </script>
   <?php 
   $branch_id = Yii::app()->user->branch();
@@ -141,23 +240,24 @@
 	</div>
 </div>
 <div class="row">
-  <div class="col-sm-12 alert alert-info " role="alert">
+  <div class="col-sm-12 alert alert-info col-xs-12 " role="alert">
     <div id="shorcut"  >
         <ul class="" style="list-style:none;" >
           <li class="d-inline">Esc = Batal </li>
-          <li class="d-inline"> F2 = Pilih Item </li>
+          <li class="d-inline">F2 = Pilih Item </li>
         </ul>
     </div>
   </div>
 </div>
 
 <div class="row">
+     <legend style="font-weight:bolder">Data Transaksi</legend>
    <div class="col-sm-6">
       
       <table border="0" cellpadding="0" id="trx-b-masuk"  >
          <tr>
             <td colspan="4">
-               <legend style="font-weight:bolder">Data Transaksi</legend>
+             
             </td>
          </tr>
          <tr >
@@ -165,26 +265,29 @@
                Kode PO
             </td>
             <td colspan="5">
-               <select id='po-data' style='width:100%;padding:4px;' maxlength='15'>
-                  <option value="">Pilih</option>
+               <select  id='po-data' style='width:100%;padding:4px;' maxlength='15'>
+                  <option value="">Pilih dari Data PO</option>
                   <?php foreach (PurchaseOrder::model()->findAll(" status_aktif = 1 and branch_id = '".$branch_id."' ") as $s):  ?>
-                  <option value='<?php echo $s->kode_trx ?>'><?php echo $s->kode_trx ?></option>
+                  <option value='<?php echo $s->kode_trx ?>'><?php echo date("d M Y ",  strtotime($s->tanggal))  ."  - ". $s->kode_trx ?></option>
                   <?php endforeach; ?>	
                </select>
+               <!-- <a href="" class="btn btn-danger btn-sm btn-hapus-po" style="width:10%">
+                     <i class="fa fa-times"  style="color:white!important; " ></i>
+               </a> -->
             </td>
          </tr>
          <tr>
             <td>
-               Tanggal Transaksi			
+               Tanggal Transaksi <span class="text-danger">*</span>	
             </td>
             <td>
-               <input type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" name="tanggal" id="tanggal">
+               <input class="form-control" type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" name="tanggal" id="tanggal">
             </td>
             <td>
                ID Pembelian			
             </td>
             <td>
-               <input readonly="" type="text" value="<?php echo BarangmasukController::generateKodeBMS(); ?>" style="display:inline;padding:5px"  id="kode_trx">
+               <input  class="form-control" readonly="" type="text" value="<?php echo BarangMasukController::generateKodeBMS(); ?>" style="display:inline;padding:5px"  id="kode_trx">
             </td>
          </tr>
          <tr>
@@ -194,14 +297,14 @@
                No Faktur
             </td>
             <td>
-               <input type="text" value="-"  style="display:inline;padding:5px" name="faktur" id="faktur">
+               <input  class="form-control"type="text" value="-"  style="display:inline;padding:5px" name="faktur" id="faktur">
             </td>
             <td>
                Supplier
             </td>
             <td>
              
-               <select id='supplier-data' style='width:100%;padding:4px;' maxlength='15'>
+               <select  id='supplier-data' style='width:100%;padding:4px;' maxlength='15'>
                   <?php foreach (Supplier::model()->findAll("store_id = '".$store_id."' ") as $s):  ?>
                   <option value='<?php echo $s->nama ?>'><?php echo $s->nama ?></option>
                   <?php endforeach; ?>	
@@ -275,26 +378,28 @@
                Keterangan
             </td>
             <td colspan="6">
-               <textarea style="width: 100%" placeholder="barang masuk" id="keterangan" >Barang Masuk</textarea>
+               <textarea class="form-control" style="width: 100%" placeholder="barang masuk" id="keterangan" >Barang Masuk</textarea>
             </td>
          </tr>
       </table>
-      <legend>
-      <h2><b>Ringkasan</b></h2>
-      </legend>
-      <table>
+      
+   </div>
+   
+   <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6" >
+      <!-- <legend></legend> -->
+      <table style="width:100%" border="0" cellpadding="0">  
          <tr>
             <td>
                <h5>Sub Total</h5>
             </td>
-            <td style="width: 30px;">:</td>
+            <td >:</td>
             <td><label id="total-sub">0</label></td>
          </tr>
          <tr>
             <td>Diskon</td>
             <td>:</td>
             <td>
-               <input type="number" id="total-diskon" value="0">
+               <input class="form-control" type="number" id="total-diskon" value="0">
             </td>
          </tr>
          <tr>
@@ -308,27 +413,26 @@
             <td>Bayar</td>
             <td>:</td>
             <td>
-               <input type="number" id="total-bayar" value="0">
+               <input class="form-control" type="number" id="total-bayar" value="0">
             </td>
          </tr>
          <tr>
             <td>Kembali</td>
             <td>:</td>
             <td>
-               <input type="text" id="total-kembali" value="0">
+               <input readonly class="form-control" type="text" id="total-kembali" value="0">
             </td>
          </tr>
          <tr>
-            <td colspan="2">
-               <button onclick="kirim()" class="btn btn-primary">Simpan</button>
+            <td colspan="3">
+               <button onclick="kirim()" class="btn btn-large btn-success" style="float:right;margin-top:1rem">Simpan Transaksi</button>
+               <button style="float:right;margin-top:1rem" id="btn-tambah-item" class="btn btn-primary">Item Baru</button>
             </td>
          </tr>
       </table>
    </div>
-
-   <div class="col-sm-6" style="margin-top:65px;">
-      <!-- kolom kedua -->
-      <div class="">
+</div>
+<div class="" >
          <div class="" >
             <input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
             <div class="data-table">
@@ -342,28 +446,36 @@
                   }
                    ?>
                <div class="row" >
-                  <label for="nama" style="margin-left: 10px;" >Barcode</label>
-                  <?php //secho CHtml::dropDownList('nama2', '1', Items::model()->data_items("BAHAN"),array('class'=>'for m-control')  );?>
-                  <input type="text" name="nama" id="nama">
-                  <label for="add-all" style="width: 200px;display: none">
-                  <input type="checkbox" name="add-all" id="add-all" > Tambah Semua Item						
-                  </label>
+                  <div class="col-sm-4 col-lg-4">
+                     <!-- <label for="nama" style="margin-left: 5px;" >Barcode</label> -->
+                        <?php //secho CHtml::dropDownList('nama2', '1', Items::model()->data_items("BAHAN"),array('class'=>'for m-control')  );?>
+                        <input class="form-control"  type="text" name="nama" id="namabarcode" placeholder="Scan barcode disini">
+                        <!-- <label for="add-all" style=""> -->
+                        <!-- <input type="checkbox" name="add-all" id="add-all" > Tambah Semua Item						 -->
+                     </label>
+                  </div>
+                  <div class="col-sm-4 col-lg-5">
+                     <label for="jumlah" style="margin-left: 5px;">Jumlah</label>
+                     <?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
+                     <button class="btn btn-primary"  onClick="add_item($('#namabarcode').val())">Tambah ke keranjang</button>
+                     
+                  </div>
+
                </div>
                <div class="row">
-                  <label for="jumlah" style="margin-left: 10px;">Jumlah</label>
-                  <?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
-                  <button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke keranjang</button>
+                 
                </div>
                <hr>
             </div>
          </div>
       </div>
+    <!-- kolom kedua -->
       <div class=" widget-table">
          <div class="widget-content">
-            <table style="width:100%" id="users" class="table table-bordered table-striped">
+            <table style="width:100%" id="users" class="table table-te table-striped">
                <thead>
                   <tr>
-                     <th>No</th>
+                     <!-- <th>No</th> -->
                      <th>Kategori</th>
                      <th>Sub Kategori</th>
                      <th>Nama Item</th>
@@ -380,9 +492,7 @@
          <!-- .widget-content -->
       </div>
       <!-- .widget -->
-   </div>
-</div>
-<div id="tambah-supplier-form" title="Tambah Supplier" >
+      <div id="tambah-supplier-form" title="Tambah Supplier" >
    <?php
       $model = new Supplier;
       $this->renderPartial('application.views.supplier._form',array("model"=>$model));
@@ -390,28 +500,35 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function(e){
-   $("#nama").focus();
+   $("#namabarcode").focus();
    
-   
+   $(document).on("click","#btn-tambah-item",function(e){
+      $("#tambah-item-baru").modal("show");
+   });
+
    $(document).on("change","#po-data",function(e){
    	var value = $(this).val();
-   	$.ajax({
-   		// data : "id="+val,
-   		url : "<?php echo Yii::app()->createAbsoluteUrl('items/GetdataPO') ?>",
-   		data : "poid="+value,
-   		success : function(data){
-   			$("#users tbody").html(" ");
-   			var d = JSON.parse(data);
-   			$("#supplier-data").val(d[0].sumber).trigger("change");
-   			// alert(d[0].sumber);
-   			$.each(d,function(i,v){
-   				var idd = v.kode+"##"+v.id;
-   				appendToBaris(v,idd,v.jumlah_po,v.harga_beli);
-   			});
-   
-   		
-   		}
-   	});
+      if (value != ""){
+         $.ajax({
+            // data : "id="+val,
+            url : "<?php echo Yii::app()->createAbsoluteUrl('items/GetdataPO') ?>",
+            data : "poid="+value,
+            success : function(data){
+               table.clear().draw();
+               var d = JSON.parse(data);
+               $("#supplier-data").val(d[0].sumber).trigger("change");
+               // alert(d[0].sumber);
+               $.each(d,function(i,v){
+                  var idd = v.kode+"##"+v.id;
+                  appendToBaris(v,idd,v.jumlah_po,v.harga_beli);
+               });
+      
+            
+            }
+         });
+      }else{
+         table.clear().draw();
+      }
    })
    $(document).on("click","#add-all",function(e){
    	if ($(this).prop("checked")){
@@ -467,6 +584,7 @@
 </div>
 <script>
    $(document).ready(function(){
+
    	$(document).on('keyup', '#total-diskon,#total-bayar', function(e) {
    		kalkulasiBeli();
    	});
@@ -504,18 +622,18 @@
       if (isset($_REQUEST['id']) && !empty($_REQUEST['id']) ) {
       	$id = $_REQUEST['id'];
       	?>
-       	$("#nama").val("<?php echo $id ?>").trigger("change");
+       	$("#namabarcode").val("<?php echo $id ?>").trigger("change");
        	add_item();
        	<?php 
       }
       ?>
    });
    
-    $(document).on('keydown', '#nama', function(e) {
+    $(document).on('keydown', '#namabarcode', function(e) {
       // e.preventDefault();
       if (e.keyCode==13 || e.which==13){
          
-         add_item($('#nama').val());
+         add_item($('#namabarcode').val());
           $(this).val("");
           $("#nama").focus(); 
       }
@@ -557,34 +675,46 @@
    		var harga_beli = $(this).find("option:selected").attr("value-harga-beli");
    		$(this).closest(".baris").find(".harga").val(harga_beli);
    		
-   		
-   		//   $.ajax({
-     //           // type: 'POST',
-     //           url: '<?php echo Yii::app()->createAbsoluteUrl("Items/GetHargaBeliBySatuanID"); ?>',
-     //          	data : "id="+satuan_id,
-     //           success:function(data){
-     //           	var json = JSON.parse(data);
-     //           	e.find("tr").find(".harga").val(json.harga_beli);
-     //           },
-     //           error:function(data){
-     //               // alert(data);
-     //               // alert(JSON.stringify(data));
-     //           },
-     
-     //           dataType:'html'
-     //       });
-   
    
    	});
+   	$(document).on('click', '.btn-hapus-po', function(e) {
+         e.preventDefault();
+         var po_id = $("#po-data").val();
+         if (po_id == ""){
+            alert("Pilih terlebih dahulu PO mana yang akan dihapus")
+            return;
+         } 
+
+         $.ajax({
+            type: 'POST',
+            url: '<?php echo Yii::app()->createAbsoluteUrl("Items/deletePO"); ?>',
+            data : "id="+po_id,
+               success:function(data){
+               alert(data);
+               // $(".supplier").eq(i).html(data);
+               // $("#namapel").val("umum").trigger("change");
+            },
+            error:function(data){
+                  // alert(data);
+                  alert(JSON.stringify(data));
+            },
+   
+            dataType:'html'
+         });
+      });
+
    	$(document).on('click', '.hapus-baris', function(e) {
-   		// alert('masuk');
-   		var index = $('.hapus-baris').index(this);
-		//    alert(index);
-		var th = this;
-		$(th).closest("tr").remove()
-   		$('.baris-baris').eq(index).remove();
+          table.row( $(this).parents('tr') ).remove().draw();
+   	// 	// alert('masuk');
+   	// 	var index = $('.hapus-baris').index(this);
+		// //    alert(index);
+		// var th = this;
+		// $(th).closest("tr").remove()
+   	// 	$('.baris-baris').eq(index).remove();
    		kalkulasiBeli();
    	});
+
+      
    
    	function getSupplier(i){
            $.ajax({
@@ -645,7 +775,7 @@
    	 				// alert()
    	 				// console.log("sopan");
    	 				var subtotal = 0;
-   	 				$(".baris").each(function() {
+   	 				$("#users tbody tr").each(function() {
    						var idb = $(this).find('.pk').html();
    
    
@@ -683,6 +813,8 @@
    					// alert(kembali);
    					$("#total-kembali").attr("asli",kembali);
    					$("#total-kembali").val(numberWithCommas(kembali) );
+
+                 
    
    
    
@@ -696,10 +828,11 @@
    					return string;
    				}
    
+               var table = $("#users").DataTable();
    				function add_item(val){
    					if (val!=0 ){
    
-   					// if ($('#nama').val()!=0 && $('#nama').val()!=null ){
+   					// if ($('#namabarcode').val()!=0 && $('#namabarcode').val()!=null ){
    					$.ajax({
    						data : "id="+val,
    						url : "<?php echo Yii::app()->createAbsoluteUrl('items/check') ?>",
@@ -720,30 +853,12 @@
    							});
    							
    							var select = "<select class='satuan'>"+string+"</select>";
-   							// alert(select);
-   
-   							// alert($('#nama_barang').val());
-   							// var nama = $('#nama');
-   							// alert(nama.val());
    							var stok = $('#stok');
-   							// alert(stok.val());
    							var count = $('.pk[nilai="'+val+'"]').length;
-   							// if (count==0){
    
    							appendToBaris(d,val,stok.val(),d.harga_beli);
    							kalkulasiBeli();
-   
-   						// alert("123");
-   
-   								
-   							// getSupplier();
-   							// }
-   							// else{
-   							// 	var now = $('.pk[nilai="'+nama.val()+'"]').closest('.baris').find('.jumlah').val();
-   							// 	$('.pk[nilai="'+nama.val()+'"]').closest('.baris').find('.jumlah').val(parseInt(now)+parseInt(stok.val()));
-   							// }
-   							// $("#select2-input").focus();
-   				            // $("#nama").select2("open");
+                  
    						
    						}else{
    							alert("Barcode tidak ditemukan");
@@ -767,43 +882,33 @@
    					}
             // no++;
             no = $(".baris").length+1;
-   					$('#users tbody').append(
-   					"<tr class='baris'>" +
-   					"<td>"+no+"</td>"+
-   					"<td>"+d.nama_kategori+"</td>"+
-   					"<td>"+subkategori+"</td>"+
-   					// "<td>1</td>"+
-   					"<td style='display:none'  class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
-   					"<td>" + d.item_name + "</td>" +
-   
-   					// "<td><input class='kode' style='width:100%;padding:4px;' maxlength='15' type='text' value='0'/></td>" +
-   					"<td><input class='jumlah' style='width:100%;padding:4px;' maxlength='15' type='text' value='"+jumlah+"'/></td>" +
-   
-   					// "<td>"+select+"</td>" +
-   					"<td class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</td>" +
-   
-   
-   					"<td><input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/></td>" +
-   					// "<td>"+
-   
-   					
-   					
-   
-   					// "<select class='supplier' style='width:70%;padding:4px;' maxlength='15' >"+
-   					// <?php foreach (Supplier::model()->findAll() as $s):  ?>
-   					// "<option value='<?php echo $s->id ?>'><?php echo $s->nama ?></option>"+
-   					// <?php endforeach; ?>
-   					// "</select>"+
-   					// "<button  class='btn btn-primary tambah-supplier' >Tambah Supplier</button>"+
-   					// "&nbsp;&nbsp;"+
-   					// "</td>" +
-   					"<td >&nbsp;<i  class='hapus-baris fa fa-times'></i > "+
-   
-   					"</td> " +
-   
-   					"</tr>"
-   				);
+   				// 	$('#users tbody').append(
+   				// 	"<tr class='baris'>" +
+   				// 	"<td>"+d.nama_kategori+"</td>"+
+   				// 	"<td>"+subkategori+"</td>"+
+   				// 	"<td style='display:none'  class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
+   				// 	"<td>" + d.item_name + "</td>" +   
+   				// 	"<td><input class='jumlah' style='width:100%;padding:4px;' maxlength='15' type='text' value='"+jumlah+"'/></td>" +
+   				// 	"<td class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</td>" +
+   				// 	"<td><input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/></td>" +
+   				// 	"<td >&nbsp;<i  class='hapus-baris fa fa-times'></i > "+
+   				// 	"</td> " +"</tr>"
+   				// );
+               table.row.add(
+                  [
+                  d.nama_kategori,
+                  subkategori,
+                   d.item_name, 
+                  "<p style='display:none'  class='pk' nilai="+barcode+">"+barcode+"</p><input class='jumlah' style='width:100%;padding:4px;' maxlength='3' type='text' value='"+jumlah+"'/>",
+                    "<p class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</p>",
+                    "<input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/>",
+                    "&nbsp;<i  class='hapus-baris fa fa-times'></i>" 
+
+                  ]).draw(false);
+ 
+               
    					kalkulasiBeli();
+                  
    				}
    					// });
    
@@ -845,13 +950,6 @@
    					var bayar = $("#total-bayar").val();
    					var kembali = $("#total-kembali").attr("asli");
    
-   					// alclass="jumlah"
-   					
-
-            // if (parseInt(bayar) <= 0){
-            //   alert("");
-            //   return;              
-            // }
    
    					if (isbayar=="1"){
    						if (faktur==""){
@@ -859,16 +957,7 @@
    							return ;
    						}
    					}
-   					// alert(keterangan);
-   					// if (keterangan==""){
-   					// 	alert("Keterangan wajib di isi");
-   					// 	return ;
-   					// }
-   					// ert(subtotal);
-   					// alert(diskon);
-   					// alert(grand);
-   					// alert(bayar);
-   					// alert(kembali);
+   	
    					var head = {
    						subtotal : subtotal,
    						diskon : diskon,
@@ -888,7 +977,7 @@
    						poid : poid
    					}
    					
-   					if ($(".baris").length==0){
+   					if ($("#users tbody tr").length==0){
    						alert("tidak boleh kosong");
    						return false;
    					} 
@@ -904,7 +993,7 @@
    					// alert(JSON.stringify(array_kode));
    					// return false;
    
-   					$(".baris").each(function() {
+   					$("#users tbody tr").each(function() {
    						var idb = $(this).find('.pk').html();
    						// alert(idb);
    						var jml = $(this).find('.jumlah').val();

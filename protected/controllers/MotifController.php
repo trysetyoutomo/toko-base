@@ -181,6 +181,7 @@ class MotifController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$filter = "";
 		$store_id = Yii::app()->user->store_id();
 		
 		$rawData = Yii::app()->db->createCommand()

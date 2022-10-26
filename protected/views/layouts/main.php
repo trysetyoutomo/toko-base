@@ -53,7 +53,7 @@
 <?php Yii::app()->getClientScript()->registerCoreScript('jquery.ui'); ?>
 <!-- <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui/jquery-ui-timepicker-addon.js"></script> 
 -->
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css?<?php echo date("YmdHis")?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -102,7 +102,7 @@
 <div id="header">
 	<div id="header-in">
     <div class="admin-bar" style="float: left;width: 100px;position: absolute;left: 40px;text-align:center">
-      <?php $parameter = Parameter::model()->findByPk(1); ?>
+      <?php $parameter = Parameter::model()->find("store_id = ".Yii::app()->user->store_id().""); ?>
 	  <a class="auth-brand text-center" href="#">
 		  <img style="width: 65px"  class="brand-img img"  src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
 	  </a>
@@ -190,7 +190,7 @@
               <select style="width:100%;" class="select-pel" id="namapel"></select>
                <input style="display: none;" type="text" style="display:inline;padding:5px;width: 100%" class="umum-value" id="umum-value" placeholder="Nama pelanggan Umum" >
                 
-               <button type="button"  class="btn btn-nevy btn-sm mt-2"  id="tambah-pelanggan-2">
+               <button type="button"  class="btn btn-nevy btn-sm mt-2 f-button-tambah-customer"  id="tambah-pelanggan-2">
                <i class="fa fa-plus"></i>
                Tambah Customer</button>
             </div>
@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="col-12">
-                  <input type=button onClick="editdiskongrid($('#discount').val())" value="Edit Diskon" class="btn btn-nevy btn-sm" id="ditditvoc">
+                  <input type=button onClick="editdiskongrid($('#discount').val())" value="Edit Diskon" class="btn btn-nevy btn-sm f-edit-diskon" id="ditditvoc">
                 </div>
                 <div class="col-12">
                   <input  type="button" onClick="hapusGrid()" value="Hapus Semua" class="btn btn-nevy btn-sm">
@@ -221,7 +221,7 @@
                   <input  type="button" id="cetakrekap" value="Cetak Rekap" class="btn btn-nevy btn-sm">
                   <input type=button onClick="cetakbillterakhir()" value="Struk Terakhir" class="btn btn-nevy btn-sm"> 
                   <?php } ?>
-                  <input  type="button" value="Item Baru" id="btn-item-baru" class="btn btn-nevy btn-sm">
+                  <input  type="button" value="Item Baru" id="btn-item-baru" class="btn btn-nevy btn-sm f-button-tambah-item">
                   <?php 
                   echo CHtml::button('Closing / Tutup Buku',array('id'=>'closingbtn','class'=>"btn btn-danger btn-sm w-100")); 
                   ?>

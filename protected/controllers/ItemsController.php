@@ -49,6 +49,27 @@ class ItemsController extends Controller
 
 	// }
 
+	public function actionDeletekartu($id,$type,$idb){
+		// echo "masuk";
+		if ($type){
+			if ($type == "masuk"){
+				$model = BarangMasuk::model()->findByPk($id);
+			}
+			else if ($type == "keluar"){
+				$model = BarangKeluar::model()->findByPk($id);
+			}
+			if ($model->delete()){
+				$this->redirect(array('items/view','id'=>$idb));
+			}
+
+		}
+	}
+
+
+	public function deletePO($id){
+		echo "masuk";
+	}
+
 	public  function actionGetAllItems(){
 		$data = Items::model()->data_items("MENU");
 		// echo "<pre>";
@@ -199,13 +220,12 @@ class ItemsController extends Controller
 	}
 	public function actionGetHargaJualBySatuan($id,$satuan_name,$price_type){
 		$sql = "
-		 select iss.* , isp.price harga_jual
-		 from 
-		 
-		 items_satuan iss inner join items_satuan_price isp 
-		 on iss.id = isp.item_satuan_id 
+		 select iss.* , 
+		 IFNULL(isp.price, iss.harga) harga_jual 
+			from 
+		 items_satuan iss LEFT join items_satuan_price isp  on iss.id = isp.item_satuan_id   and isp.price_type='$price_type'
 
-		 where item_id = '$id' and nama_satuan='$satuan_name' and isp.price_type='$price_type' ";
+		 where item_id = '$id' and nama_satuan='$satuan_name'  ";
 		// echo $sql;
 		$data = Yii::app()->db->createCommand($sql)->queryRow();
 		echo json_encode($data);
@@ -761,12 +781,12 @@ class ItemsController extends Controller
 			$wherePenjualanBranch = "";
 		}
 		$sql = "
-		SELECT bm.tanggal tanggal, bm.tanggal nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan, bm.jenis jenis, concat(bm.keterangan,' - ID ',bm.id) keterangan
+		SELECT 'masuk' as tipetransaksi ,bm.id as id_transaksi, bm.tanggal tanggal, bm.tanggal nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan, bm.jenis jenis, concat(bm.keterangan,' - ID ',bm.id) keterangan
 		FROM barangmasuk bm
 		INNER JOIN barangmasuk_detail bmd ON bm.id = bmd.head_id
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
 		left JOIN supplier s ON s.id = bmd.supplier_id
-		WHERE bmd.kode = '$id' 
+		WHERE bmd.kode = '$id' and bm.status_masuk <> '2'
 		{$whereBarangMasukBranch}
 		{$querySatuan}
 		GROUP BY bmd.id
@@ -775,7 +795,7 @@ class ItemsController extends Controller
 
 		
 
-		SELECT bk.tanggal tanggal, bk.id nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan,bk.jenis jenis,bk.keterangan keterangan
+		SELECT 'keluar' as tipetransaksi ,bk.id as id_transaksi, bk.tanggal tanggal, bk.id nama, bmd.harga harga, bmd.jumlah,bmd.jumlah_satuan,bk.jenis jenis,bk.keterangan keterangan
 		FROM barangkeluar bk
 		INNER JOIN barangkeluar_detail bmd ON bk.id = bmd.head_id
 		INNER JOIN items_satuan iss on iss.id = bmd.satuan
@@ -792,6 +812,8 @@ class ItemsController extends Controller
 		UNION 
 
 		SELECT
+		'jual' as tipetransaksi,
+		s.id as id_transaksi,
 		s.date tanggal,
 		s.id nama,
 		si.item_modal,
@@ -1041,8 +1063,6 @@ class ItemsController extends Controller
 					// exit;
 
 
-
-
 				 // get satuan now
                     $satuanUtama1 = ItemsSatuan::model()->find("   id = '$items->id' ");
 					$satuanUtamaID = $satuanUtama1->id;
@@ -1069,7 +1089,7 @@ class ItemsController extends Controller
 					// exit;
 
 
-
+					
 					$model = new BarangMasukDetail;
 					$model->kode = $satuanUtamaKode_default;
 					// $model->kode = $items->item_id;
@@ -1078,33 +1098,22 @@ class ItemsController extends Controller
 					// $model->jumlah =  $n['jml'];
 					$model->jumlah =  $satuan_total_masuk;
 					$model->satuan = $n['satuan'];
-					
 					// $model->satuan = $satuanUtamaID_default;
-
-
 					$model->jumlah_satuan = $n['jml'];
 					$model->harga = $n['harga'];
 					$model->supplier_id = $spp;
 					$model->head_id = $modelh->id;
 					$model->letak_id = $_REQUEST['head']['letak'];
-					
-
 
 					$d = new ItemsDetail;
-
 					// // $sat = ItemsSatuan::model()->find("item_id = '$n[idb]' and id='$n[satuan]' ")->satuan;
-					
 					$d->kode = $items->id;
-					
-					// $d->jumlah = $n['jml']*$n['satuan'];
-					// $d->harga = $n['harga'];
-					// $d->satuan = $n['satuan'];
-					// $d->jumlah_satuan = $n['jml'];
-					// $d->supplier_id = $n['supplier'];
-					// $d->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
-
+				
 
 					if ($model->save() && $d->save(false) ){
+
+
+
 						$brg = Items::model()->findByPk($model->kode);
 						$untung = $brg->persentasi / 100;
 						//get harga jual
@@ -1121,6 +1130,21 @@ class ItemsController extends Controller
 							$po->update();
 						}
 
+						
+						// update items satuan harga [start]
+						$metode_stok = SiteController::getConfig("metode_stok");
+						if ($metode_stok == "lifo"){
+							$sat = ItemsSatuan::model()->find("barcode = '$barcode' and id='$n[satuan]' ");
+							$sat->harga_beli = $n['harga']; 
+							$sat->save(); // update master by last price
+						}
+						// else if ($metode_stok == "average"){
+						// 	$sat = ItemsSatuan::model()->find("barcode = '$barcode' and id='$n[satuan]' ");
+						// 	$sat->harga_beli = $av; // set average price
+						// 	$sat->save(); // update master by average price
+						// }
+						// update items satuan harga [end]
+
 
 
 						//set stok
@@ -1136,21 +1160,6 @@ class ItemsController extends Controller
 						// 	exit;
 						// }
 						// end set stok 
-
-                    	//set to saldo 
-	     //                $sld = new Saldo;
-	     //                $sld->tanggal = date("Y-m-tabled H:i:s");
-	     //                $sld->harga = $this->getAverage($model->kode,$n['satuan']);
-	     //                $sld->stok = $brg->stok;
-	     //                $sld->item_id = $model->kode;
-	     //               if  (!$sld->save()){
-	     //               	echo json_encode(
-						// 	array(
-						// 		"status"=>0,
-						// 		"error"=>$sld->getErrors(),
-						// 	)
-						// );
-	     //               }
 
 	                    
 	                    // end of set saldo
@@ -1218,8 +1227,8 @@ public function actionProsesMasukbarangPO(){
 
 
 			$modelh = new PurchaseOrder;
-			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
-			$modelh->user = Yii::app()->user->name;
+			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s"); // tanggal pembuatan PO
+			$modelh->user = Yii::app()->user->name; // user yang menginput
 			$modelh->sumber = $_REQUEST['head']['sumber'];
 			$modelh->jenis = "masuk";
 			$modelh->faktur = $_REQUEST['head']['faktur'];
@@ -1394,6 +1403,26 @@ public function getHargamodal($id){
 
 }
 		public function actionpengeluaranbaru(){
+
+			$username = Yii::app()->user->name;
+			$user = Users::model()->find('username=:un',array(':un'=>$username));
+			$now = date("Y-m-d");
+			if ($user->level == "1"):
+				$cekKasir = Setor::model()->find(" is_closed = 1 and user_id = '$user->id' and  date(tanggal) = '$now'   ");
+				if ($cekKasir){
+				?>
+					<script type="text/javascript">
+					alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo date("d M Y", strtotime($cekKasir->tanggal)) ?> telah ditutup pada <?php echo date("d M Y H:i", strtotime($cekKasir->updated_at)) ?> , kasir hanya bisa melakukan register 1 kali dalam sehari",);
+					window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+					</script>
+				<?php 
+				}
+			endif;
+
+
+
+
+
 			if (isset($_REQUEST['head'])):
 			$nilai = $_REQUEST['jsonObj'];
 			$head = $_REQUEST['head'];	
@@ -2160,9 +2189,11 @@ public function getHargamodal($id){
 		if(isset($_POST['Items']))
 		{
 			// echo "<pre>";
-			// print_r($_REQUEST);
+			// print_r();
 			// echo "</pre>";
 			// exit;
+
+
 			$model->attributes = $_REQUEST['Items'];
 			$model->item_name = strtoupper($_REQUEST['Items']['item_name']);
 			$model->modal = $_REQUEST['Items']['total_cost'];
@@ -2202,11 +2233,33 @@ public function getHargamodal($id){
 					$satuan->barcode = $_REQUEST['Items']['barcode'];
 					$satuan->stok_minimum = $_REQUEST['Items']['stok_minimum'];
 
+
+					 $criteria = new CDbCriteria;
+
+					$criteria->select = 't.*,i.hapus ';
+
+					$criteria->join = ' INNER JOIN `items` AS `i` ON i.id = t.item_id';
+
+					$criteria->addCondition("t.barcode = '".$satuan->barcode."' and hapus = 0");
+
+					$cekUnique    =    ItemsSatuan::model()->findAll($criteria);
+
+
+
+					// $cekUnique = ItemsSatuan::model()->findAll("barcode = '".$satuan->barcode."' and hapus = 0 ");
+					// $cekUnique2 = Items::findByPk();
+					if (count($cekUnique)){
+							echo "barcode sudah digunakan <br>";
+							echo "<a href='' onclick='window.history.back()'>Klik disini untuk Kembali</a>";
+						exit;
+					}
+
+
 					if ($satuan->save()){
 
 
 						// bkin stok baru awal
-						if (isset($_REQUEST['Items']['stok'])){
+						if (isset($_REQUEST['Items']['stok']) && $_REQUEST['Items']['stok'] > 0 ){
 							$modelh = new BarangMasuk;
 							$modelh->tanggal = date("Y-m-d H:i:s");
 							$modelh->user = Yii::app()->user->name;
@@ -2217,7 +2270,6 @@ public function getHargamodal($id){
 							$modelh->kode_trx = "0000000000";
 							$modelh->branch_id = Yii::app()->user->branch();
 							$modelh->status_aktif = 1;
-							
 							$modelh->subtotal = 0;
 							$modelh->diskon = 0;
 							$modelh->grand = 0;
@@ -2250,7 +2302,12 @@ public function getHargamodal($id){
 						$price->price_type = "HARGA 1";
 						$price->price = $_REQUEST['Items']['total_cost'];
 						$price->default = 1;
+
 						$save = $price->save();
+						if (!$save){
+							print_r($price->getErrors);
+							exit;
+						}
 
 
 						$price = new ItemsSatuanPrice;
@@ -2287,11 +2344,13 @@ public function getHargamodal($id){
 						// }
 					}else{  // jika gagal save satuan maka
 
+
 						if (! isset($_POST['isajax'])){ 
 								echo "barcode sudah digunakan<br>";
 								echo "<a onclick='window.history.back()'>Klik disini untuk Kembali</a>";
 								// echo "<pre>";
 								// print_r($satuan->getErrors());
+								// print_r($model->getErrors());
 								// echo "</pre>";
 						exit;
 
@@ -2509,7 +2568,7 @@ public function getHargamodal($id){
 			$model->motif = $_POST['Items']['motif'];
 			$model->barcode = $_POST['Items']['barcode'];
 			// set stok
-			$model->stok = $_POST['Items']['stok'];
+		
 
 			//get satuan utana
 			$stok = ItemsController::getStok($id,$ItemsSatuan_id,$branch_id); // current stok
@@ -2518,14 +2577,17 @@ public function getHargamodal($id){
 			$ItemsSatuan_id->harga_beli = $_POST['Items']['total_cost'];
 			$ItemsSatuan_id->save();
 
-			$average  = $this->getAverage($id,$ItemsSatuan_id->id,$branch_id);
-			$this->actionSetstok($stok,$model->stok,$id,$ItemsSatuan_id,$_POST['Items']['total_cost']);
+			if (isset($_REQUEST['Items']['stok'])){
+				$average  = $this->getAverage($id,$ItemsSatuan_id->id,$branch_id);
+				$this->actionSetstok($stok,$model->stok,$id,$ItemsSatuan_id,$_POST['Items']['total_cost']);
+				$model->stok = $_POST['Items']['stok'];
+			}
 			
 			// $model->stok = $_POST['Items']['stok'];
 
 
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('Items/view&id='.$id));
 		}
 
 		$this->render('update',array(
@@ -2874,6 +2936,7 @@ public function getHargamodal($id){
 
 	}
 
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -2901,4 +2964,6 @@ public function getHargamodal($id){
 			Yii::app()->end();
 		}
 	}
+
+
 }

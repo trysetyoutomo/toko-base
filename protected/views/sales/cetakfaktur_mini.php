@@ -1,22 +1,43 @@
-<body onload="$('#faktur').print();">
+<body onload="onload()">
+<script>
+	function onload(){
+		$('#faktur').print();
+		setTimeout(() => {
+			window.close();
+		}, 1000); 
+		// window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }
+	}
+</script>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 <style type="text/css">
-/*tr td{
-	border: 1px solid white;
-}*/
-/*	thead tr td,.bodiku{
-		padding: 5px;
-		border:2px solid black;
-	}*/
-/*	tfoot tr td{
-		border:0px solid black;
-		padding: 1px!important;
-	}*/
+	*{
+		font-weight:bold;
+	}
+	#faktur{
+		width:100%;
+	}
 	#faktur .x{
 		float: left;
 	}
 	tfoot{
 		font-style: initial;
+	}
+	@media print
+	{
+		button{
+			display:none;
+		}
+		@page
+		{
+			size: auto;   /* auto is the initial value */
+			margin: 0mm;  /* this affects the margin in the printer settings */
+		}
+
+		body
+		{
+			font-size:15px!important
+		}
 	}
 </style>
 <?php 
@@ -26,7 +47,10 @@ $parameter = Parameter::model()->findByPk(1);
 $sql = "
 
 select 
+pembayaran_via,
+sp.cash,
 s.id id,
+faktur_id,
 nama,
 customer_id,
 s.bayar,s.table,inserter, s.comment comment,
@@ -88,7 +112,7 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 			// }
 			// echo $pages;
 			?>
-<div id="faktur">
+<div id="faktur" >
 <?php 
 // echo "123";
 // var_dump($pages);
@@ -96,90 +120,55 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 // $mulai = ($i>1) ? ($i * $halaman) - $halaman : 0;
 // $model2 = Yii::app()->db->createCommand($sql_d." limit $halaman offset $mulai ")->queryAll();
 ?>
-<table class="x" style="width: 270px;"  border="0" cellpadding="20" 
+<table class="x" style="width:100%;font-family:courier!important"  border="0" cellpadding="20" 
 	>
 	<tr>
-		<td valign="top" align="center" style="text-align: center;" >
+		<td valign="top" align="center" style="text-align: center;padding:0px 15px 0px 15px" >
 			<!-- <img src="<?php echo Yii::app()->request->baseUrl ?>/logo/<?php echo $parameter['gambar'] ?>" width="100" > -->
 			<h3 style="display: inline;"><?php echo $branch->branch_name ?></h3>
-		
-			<br>
-			<?php echo $branch->address." ".$branch->telp ?>
+			<h4 style="margin:0px;">
+				<?php echo $branch->address." ".$branch->telp ?>
+			</h4>
 		</td>
 	</tr>
+	<?php 
+		$u = Users::model()->findByPk($model['inserter']);
+				//  echo "Petugas :  ".$u->username;
+	?>
 	<tr>
-		<td colspan="2" align="center">
+		<td colspan="2" align="left" style="padding:0px 15px 0px 15px">
 			<table border="0" style="width: 100%;text-align: center" >
-				<tr><td colspan="3" style="text-align: center;"><?php echo $model['id'] ?></td></tr>
-				<tr><td colspan="3" style="text-align: center;"><?php
-				$u = Users::model()->findByPk($model['inserter']);
-				 echo $u->username;
+			<tr><td colspan="3" style="text-align: left;font-size:14px">
+				<?php 
+					echo date("d.m.Y.H:i",strtotime($model['date']))."/".$model['faktur_id']."/".$u->username
+				?>
+			</td></tr>
+
+			</table>
+			<table border="0" style="width: 100%;text-align: center;display:none" >
+				<tr><td colspan="3" style="text-align: left;"><?php echo "ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:   ".$model['faktur_id'] ?></td></tr>
+				<tr><td colspan="3" style="text-align: left;"><?php
+			
 
 				  ?></td></tr>
-				<tr><td colspan="3" style="text-align: center;"><?php echo date("d M Y H:i",strtotime($model['date']))  ?></td></tr>
-				<!-- <tr><td>Kasir</td><td class="space">: </td><td><?php echo $model['inserter'] ?></td></tr> -->
-				<!-- <tr><td>Sales</td><td class="space">: </td><td>Asep</td></tr> -->
-				<tr><td colspan="3" style="text-align: center;"><?php echo $model['nama'] ?></td></tr>
-				<!-- <tr><td>Jatuh Tempo</td><td class="space">: </td><td>
-					<?php 
-					if ($model['tanggal_jt']=="0000-00-00"){
-						echo "-";
-					}else{
-						echo  date("d M Y h:n",strtotime($model['tanggal_jt'])) ;
-					}
-					?>
-				</td></tr> -->
+				<tr><td colspan="3" style="text-align: left;"><?php echo "Tgl &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: "  ?></td></tr>
+				<tr><td colspan="3" style="text-align: left;"><?php echo "Customer &nbsp;: ".$model['nama'] ?></td></tr>
 				<?php 
-				// $payment = SalesPayment::model()->findByPk($id);
-				// $label = "";
-				// if ($payment->cash!="0"){
-				// 	$label = "Cash";
-				// }else if ($payment->edc_bca!="0"){
-				// 	$label = "GIRO";
-				// }else if ($payment->edc_niaga!="0"){
-				// 	$label = "EDC MANDIRI";
-				// }else if ($payment->credit_bca!="0"){
-				// 	$label = "Transfer Mandiri";
-				// }
-				// echo $payment->cash;
-				
+					if (isset($model['tanggal_jt'])){
+						?>
+							<tr><td colspan="3" style="text-align: left;"><?php echo "Tgl Jth Tempo : ".date("d M Y H:i",strtotime($model['dattanggal_jte']))  ?></td></tr>
+						<?php 
+					}
 				?>
-				<!-- <tr><td>Cara Pembayaran</td><td class="space">: </td><td><?php echo $label ?></td></tr> -->
-				<!-- <tr><td colspan="3" align="center"><br><b>FAKTUR PENJUALAN</b></td></tr> -->
 			</table>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border:1px solid white">
-			<div style="width:100%;height: 10px;border-bottom: 2px solid black;"></div><br>
-		</td>
-	</tr>
-	<!-- <tr>
-		<td width="50%" valign="top">
-			Kepada Yth :
-			<div style="border:1px solid white;height: 55px;width:90%;padding:5px;">
-				<?php echo $model['nama'] ?>
-			</div>
-			<br>
-		</td>
-		<td width="50%">
-			
-
-
-		</td>
-	</tr> -->
-	<tr>
-		<td >
+		<td style="padding:0px 15px 0px 15px">
 		<table border="0" class="dd" width="100%" cellpadding="0">
 			<thead style="font-weight: bolder">
-					<!-- 
-				<tr>
-					<td></td>
-				</tr>
-			</thead>
-					 -->
-
 			<tbody class="bodiku">
+			<tr><td colspan="2" style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>
 			<?php 
 			foreach ($model2 as $key => $value) { ?>
 				<tr>
@@ -211,8 +200,11 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 				$gt2 = ( intval($gt1) + intval($model['tax']) + intval($model['service']) ) -  intval($model['voucher']);
 				?>
 			<tfoot>
-				<tr style=""><td colspan="2"></td></tr>
-				<tr><td colspan="2"><br></td></tr>
+				<tr>
+		<td colspan="2" style="border:1px dashed white;padding:0">
+			<div style="width:100%;border-bottom: 1px dashed black;"></div>
+		</td>
+	</tr>
 				<tr >	
 					<td>Subtotal</td>
 					<td  align="right"><?php echo number_format($gt1) ?></td>
@@ -229,38 +221,39 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 					<td>Service</td>
 					<td align="right" ><?php echo number_format($model['service']) ?></td>
 				</tr>
+		<tr>
+		<td colspan="2" style="border:1px dashed white;padding:0">
+			<div style="width:100%;border-bottom: 1px dashed black;"></div>
+		</td>
+	</tr>
+
+
 				<tr style="border-top:1px solid white">
 					
 				<td >Grand Total</td>
 					<td align="right" ><?php echo number_format($gt2) ?></td>
 
 				</tr>
-				<tr>
-				<td >Bayar</td>
-					<td align="right" ><?php echo number_format($model['bayar']) ?></td>
-
-				</tr>
-				<tr>
-				<td style="border-right:1px solid white;">
-					<?php 
-					if ($model['bayar']>=$gt2){
-						echo "Kembali ";
-					}else{
-						echo "Sisa ";
-					}
-					?>
-				</td>
-				<td style="border-right:1px solid white;" align="right"><?php echo number_format($model['bayar']-$gt2) ?></td>
-
-				</tr>
-					<tr><td colspan="2"><br></td></tr>
-						<tr><td colspan="2"><br></td></tr>
+				<?php if ($model['cash'] > 0){ ?>
+					<tr><td >Bayar</td><td align="right" ><?php echo number_format($model['bayar']) ?></td></tr>
+					
+					<tr>
+					<td style="border-right:1px solid white;">
+						<?php 					
+							if ($model['bayar']>=$gt2){
+								echo "Kembali ";
+							}else{
+								echo "Sisa ";
+							}
+						?>
+					</td>
+					<td style="border-right:1px solid white;" align="right"><?php echo number_format($model['bayar']-$gt2) ?></td>
+					</tr>
+				<?php  }else{ ?>
+					<tr><td >Non Tunai</td><td align="right" ><?php echo ($model['pembayaran_via']) ?></td></tr>
+				<?php  } ?>
 				<tr><td colspan="2" align="center">Terimakasih atas kunjunganya</td></tr>
-
 			</tfoot>
-			
-
-
 		</table>
 
 		</td>
@@ -271,7 +264,6 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 </div>
 <div style="clear: both"></div>
 
-<br>
 <button style="float: left;" class="btn btn-primary" onclick="$('#faktur').print();"> <i class="fa fa-print"></i> Cetak </button>
 <?php 
 

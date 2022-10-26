@@ -44,10 +44,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, name, password, level, status,branch_id', 'required','message'=>'{attribute} tidak boleh kosong'),
+			array('email,username, name, password, level, status,branch_id', 'required','message'=>'{attribute} tidak boleh kosong'),
 			array('level, status, branch_id', 'numerical', 'integerOnly'=>true),
+			array('email', 'email'),
 			array('username, name, password', 'length', 'max'=>50),
-			array('username','unique'),
+			array('username, email','unique'),
 			//ubah password
 			array('old_password', 'compare', 'compareAttribute'=>'password','operator'=>'==','message'=>'old password is not correct','on'=>'update'),
 			array('new_password', 'compare','operator'=>'=','message'=>'new password and confirm password must be same'),

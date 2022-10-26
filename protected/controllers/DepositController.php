@@ -129,6 +129,7 @@ class DepositController extends Controller
 		{
 			$model->attributes=$_POST['Deposit'];
 			$model->created_at = date("Y-m-d H:i:s");
+			$model->updated_at = date("Y-m-d H:i:s");
 	
 
 			$username = Yii::app()->user->name;

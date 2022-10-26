@@ -1,8 +1,8 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$("#Setor_total_awal").attr("type","number");
     		$("#Setor_total_awal").focus();
-
     		$("#Setor_total_awal").keyup(function(e){
     			var ttl = $("#Setor_total_awal").val();
     			$("#total_awal_formatted").html(format(ttl));
@@ -30,10 +30,9 @@
 	</script>
 </head>
 <body>
-<h1>
-	<i class="fa fa-edit"></i>
-Input Saldo Awal</h1>
-	<hr>
+<h1><i class="fa fa-edit"></i> Input Saldo Awal</h1>
+<h5>Silahkan masukan saldo cash awal  yang anda terima dari management hari ini, jika anda tidak menerima anda dapat menginput 0</h5>
+<hr>
 <div class="form" style="margin-left: 20px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -47,11 +46,10 @@ Input Saldo Awal</h1>
 	)
 )); ?>
 
-	<!-- <p class="note">untuk penyesuaian saldo, anda dapat menggunakan minus (-).</p> -->
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="row"> 
 		<?php echo $form->labelEx($model,'total_awal'); ?>
 		<?php echo $form->textField($model,'total_awal',['class'=>'form-control','style'=>'max-width:300px']); ?>
 		<label id="total_awal_formatted" style="margin-top:1rem;margin-bottom:1rem"></label>

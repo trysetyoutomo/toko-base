@@ -105,6 +105,7 @@ class CategoriesController extends Controller
 		{
 			$model->attributes=$_POST['Categories'];
 			$model->store_id =Yii::app()->user->store_id();
+			$model->status = 0; // default
 			$model->category=strtoupper($_POST['Categories']['category']);
 			if($model->save()){
 				if (isset($_REQUEST['isajax'])){	

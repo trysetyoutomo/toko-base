@@ -627,14 +627,15 @@ class SiteController extends Controller
 		if ($cekKasir){
 			?>
 				<script type="text/javascript">
-				alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo $cekKasir->tanggal ?> telah ditutup pada <?php echo $cekKasir->updated_at ?>");
+				alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo date("d M Y", strtotime($cekKasir->tanggal)) ?> telah ditutup pada <?php echo date("d M Y H:i", strtotime($cekKasir->updated_at)) ?> , kasir hanya bisa melakukan register 1 kali dalam sehari",);
 				window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
 				</script>
 			<?php 
 		}
 
-		$cekClosed = Setor::model()->find(" is_closed = 0 and user_id = '$user->id' and  date(tanggal) < '$now'   ");
-		if (!$cekClosed){
+		$cekClosed = Setor::model()->find(" is_closed = 0 and user_id = '$user->id' and  date(tanggal) < '$now'   "); // checking setor table 
+
+		if (!$cekClosed && $cekSales <= 0){
 
 			$setor = Setor::model()->find(" user_id = '$user->id' and  date(tanggal) = '$now'  ");
 
@@ -654,12 +655,31 @@ class SiteController extends Controller
 				$this->render('input_saldo',array("model"=>$setor));
 			}
 		}else{
+				$criteria = new CDbCriteria;
+				$criteria->select = 't.* ';
+				$criteria->join = ' INNER JOIN `sales_items` AS `si` ON si.sale_id = t.id INNER JOIN `items` AS `i` ON i.id = si.item_id';
+				// $criteria->join = ' ';
+				$criteria->addCondition("t.inserter = '$user->id' and  date(t.date) = '".$cekClosed->tanggal."' and t.status = 1 ");
+			$cekSales  = Sales::model()->findAll($criteria);
+			if (count($cekSales) > 0){
 			?>
 					<script type="text/javascript">
 					alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo $cekClosed->tanggal ?> belum ditutup, silahkan hubungi admin ");
 					window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
 					</script>
 					<?php 
+			}else{  // jika tidak ada transaksi sales, dan belum d close maka close otomatis dengan reason tidak ada trasnsaksi
+				$setor = Setor::model()->find(" user_id = '$user->id' and  date(tanggal) = '".$cekClosed->tanggal."' ");
+				if ($setor){
+					$setor->is_closed = 1;
+					$setor->closed_reason = "Otomatis tutup, karena tidak ada transaksi";
+					if ($setor->save())
+						$this->redirect(array('site/index'));
+				}
+				// $setor = new Setor;
+				// $this->layout = "main2";
+				// $this->render('input_saldo',array("model"=>$setor));
+			}
 		}
 	}
 

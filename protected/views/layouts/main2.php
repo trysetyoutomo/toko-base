@@ -8,29 +8,20 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/bandung.png">
-      <?php 
-      
-      ?>
-      <title><?php //echo Yii::app()->name ?> </title>
+      <title><?php echo Yii::app()->name ?> </title>
       <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jquery/dist/jquery.min.js"></script>
-
-
+      <!-- jquery UI -->
+      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
       <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
-
-
+      <!-- / jquery UI -->
+      <!-- jquery Toast -->
       <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/toast/src/jquery.toast.js"></script>
       <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/toast/src/jquery.toast.css">
+      <!-- /jquery Toast -->
+      <!-- Toast -->
+      <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/toast/src/main/javascript/jquery.toastmessage.js"></script>
+      <link rel="Stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/toast/src/main/resources/css/jquery.toastmessage.css" />
 
-
-
-
-         <!-- Toast -->
-        <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/toast/src/main/javascript/jquery.toastmessage.js"></script>
-        <link rel="Stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/toast/src/main/resources/css/jquery.toastmessage.css" />
-
-
-
-      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
@@ -902,6 +893,14 @@
                         <?php 
                           }
                         ?>
+                        <li>
+                           <a href="public/pdf/35pos.pdf">
+                              <i class="fa fa-question "></i> 
+                               Panduan Penggunaan
+                           </a>
+                        </li>
+                        
+                          
                         </ul>
                         
                      </div>

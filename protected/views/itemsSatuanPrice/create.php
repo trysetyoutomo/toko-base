@@ -1,7 +1,8 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Items/admin'); ?>">Mengelola Items</a></li>
-  <li class="breadcrumb-item active"><a href="<?php echo Yii::app()->createUrl("Items/view&id=$_REQUEST[id]"); ?>"><?php echo Items::model()->findByPk($_REQUEST['id'])->item_name; ?></a></li>
+  <li class="breadcrumb-item "><a href="<?php echo Yii::app()->createUrl("Items/view&id=$_REQUEST[id]"); ?>"><?php echo Items::model()->findByPk($_REQUEST['idb'])->item_name; ?></a></li>
+  <li class="breadcrumb-item "><?php echo ItemsSatuan::model()->findByPk($_REQUEST['id'])->nama_satuan; ?></li>
   <li class="breadcrumb-item active">Kelola Harga</li>
 </ol>
 

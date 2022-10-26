@@ -231,11 +231,10 @@ class ItemsSatuanController extends Controller
 		$filtersForm=new FiltersForm;
 		if (isset($_GET['FiltersForm']))
 		$filtersForm->filters=$_GET['FiltersForm'];
-		// $idh = $_REQUEST['id'];
 
 		// $sql
 		$sql = "
-		select iss.*, l.nama as nama_letak from
+		 select iss.*, l.nama as nama_letak from
 		 items_satuan iss 	
 		 left join letak as l on l.id = iss.letak_id
 

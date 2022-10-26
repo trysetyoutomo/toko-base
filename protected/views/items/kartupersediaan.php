@@ -7,6 +7,7 @@ $cabang = Yii::app()->user->branch();
 $sql = ItemsController::sqlAverage($_REQUEST['id'],"",$cabang);
 // where bmd.kode = $model->id
 $model = Yii::app()->db->createCommand($sql)->queryAll();
+$metode_stok = SiteController::getConfig("metode_stok");
 
 
 ?>
@@ -25,18 +26,22 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
   
 </h2>
 <hr>
-
+<?php
+$harga_beli = ItemsSatuan::model()->find("item_id = '".$_REQUEST['id']."' and id='".$_REQUEST['satuan_id']."' ")->harga_beli;
+// var_dump($harga_beli);
+?>
 <table class="items table" id="data-log">
 <thead>
-    <th rowspan="2">No</th>
+<tr>
+    <th rowspan="2" >No</th>
     <th rowspan="2">Tanggal Masuk</th>
     <th style="text-align:center" colspan="4">Barang Masuk</th>
     <th style="text-align:center" colspan="4">Barang Keluar</th>
     <th style="text-align:center" colspan="3">Saldo</th>
-</thead>
-<thead> 
-    <th  rowspan="2"></th>
-    <th  rowspan="2"></th>
+    <th rowspan="2 style="text-align:center" >Aksi</th>
+
+</tr>
+    <tr>
  
     <th>Harga</th>
     <th>Jumlah</th>
@@ -53,6 +58,7 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
     <th>Harga</th>
     <th>Jumlah</th>
     <th>Total Modal</th>
+</tr>
 </thead>
 <tbody>
 <?php 
@@ -60,19 +66,26 @@ $no = 1;
 $qty_awal = 0;
 $saldo_awal = 0;
 $rc = count($model);
+
+
 foreach ($model as $key => $value) { 
     ?>
 
-    <tr 
-
-    
-    >
+    <tr >
         <td><?php echo $no ?></td>
         <td><?php echo $value[tanggal] ?></td>
 
             <!-- <td><?php echo $value[keterangan] ?></td> -->
     
         <?php if ( $value[jenis]=="masuk" ): 
+
+        if ($metode_stok == "average")
+           $value[harga] = $value[harga];
+        else if ($metode_stok == "lifo"){
+            $value[harga] = $harga_beli;
+        }
+
+
         $qty_awal += $value[jumlah];
         $saldo_awal += round($value[jumlah] * $value[harga]);
         ?>
@@ -91,6 +104,12 @@ foreach ($model as $key => $value) {
 
 
         <?php   if ($value['jenis']=="keluar"): 
+        
+         if ($metode_stok == "average")
+           $value[harga] = $value[harga];
+        else if ($metode_stok == "lifo"){
+            $value[harga] = $harga_beli;
+        }
         // var_dump($saldo_awal);
         $qty_awal = $qty_awal -  $value['jumlah'];
         $saldo_awal = $saldo_awal -  round($value[harga]*$value[jumlah]);
@@ -127,12 +146,13 @@ foreach ($model as $key => $value) {
             if ($saldo_awal>0 || $qty_awal>0){
          ?>
         <?php 
-        echo number_format( round($saldo_awal/$qty_awal) ) ;
-        // var_dump(123);
-
+        if ($metode_stok == "average")
+            echo number_format( round($saldo_awal/$qty_awal) ) ;
+        else if ($metode_stok == "lifo"){
+            echo number_format( round($saldo_awal/$qty_awal) ) ;
+        }
+        // var_dump(qty_awal);
         ?>
-            
-
         </td>
         <?php 
         }else{
@@ -142,8 +162,12 @@ foreach ($model as $key => $value) {
         <td <?php if ($rc == $no){echo "style='background-color:#A52A2A;color:white;text-align:right'";}?>  style="text-align:right"><?php echo $qty_awal ?></td>
         <td <?php if ($rc == $no){echo "style='background-color:#A52A2A;color:white;text-align:right'";}?>  style="">
         <?php echo number_format($saldo_awal ) ?></td>
+        <td style="text-align:center">
+            <a class="deletekartu" href="index.php?r=items/deletekartu&id=<?php echo $value['id_transaksi']?>&type=<?php echo $value['tipetransaksi'] ?>&idb=<?php echo $_REQUEST['id'] ?>">
+                <img width="10" src="icon/Delete.gif">
+            </a>
+        </td>
     
-
 
 
 
@@ -189,3 +213,10 @@ foreach ($model as $key => $value) {
 <br>
 <br>
 <br>
+<script>
+    $(document).on("click",".deletekartu", function(e){
+        if (!confirm("Apakah anda yakin akan menghapus transaksi ini ? ")) {
+            return false;
+        }
+    });
+</script>

@@ -46,29 +46,15 @@
 		<div class="row">
 		<label for="ItemsSatuan_harga" class="required">Nama Satuan 
 		<span class="required">*</span></label>		
-	  <div class="js-result-container"></div>
+	  <!-- <div class="js-result-container"></div> -->
 
 		        <div class="typeahead__container">
-		            <div class="typeahead__field" style="width: 200px;">
-
+		            <div class="typeahead__field" style="width: 150px;">
 		            <span class="typeahead__query">
-		                <input 
-		                value="<?php echo $model->nama_satuan; ?>"
-		                class="js-typeahead"
-		                        name="ItemsSatuan[nama_satuan]"
-		                       type="search"
-		                       autofocus
-		                       autocomplete="off">
+		                <input  value="<?php echo $model->nama_satuan; ?>" list="datasatuan" class="js-typeahead form-control" name="ItemsSatuan[nama_satuan]" type="search" autofocus autocomplete="off">
 		            </span>
-		           <!--  <span class="typeahead__button">
-		                <button type="submit">
-		                    <span class="typeahead__search-icon"></span>
-		                </button>
-		            </span> -->
-
 		            </div>
-		        </div>
-		<!-- <input id="ItemsSatuan_harga" type="text" value="0">		 -->
+		        <!-- </div> -->
 
 		</div>
 	
@@ -98,11 +84,8 @@
 	?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'satuan'); ?>
-		<?php echo $form->textField($model,'satuan',$array,array("class"=>'form-control')); ?>
-		<?php 
-
-		echo $nama_satuan;
-		?>
+		<?php echo $form->textField($model,'satuan',array("class"=>'form-control','style'=>'max-width:150px','readonly'=>$model->is_default=="1")); ?>
+		<?php  echo $nama_satuan; ?>
 	<?php echo $form->error($model,'satuan'); ?>
 	</div>
 	<div class="row">
@@ -126,7 +109,7 @@
 	?>
 
 		<?php echo $form->labelEx($model,'barcode'); ?>
-		<?php echo $form->textField($model,'barcode',array("class"=>'form-control','style'=>'max-width:150px')); ?>
+		<?php echo $form->textField($model,'barcode',array("class"=>'form-control','style'=>'max-width:150px','readonly'=>false)); ?>
 		<?php echo $form->error($model,'barcode'); ?>	
 	</div>
 	<div class="row">
@@ -175,88 +158,94 @@ $letak = CHtml::listData($nilai2,'id','nama');
     	$sql = "select * from items_satuan_master";
     	$data = Yii::app()->db->createCommand($sql)->queryAll();
     	$array = array();
-    	foreach ($data as $key => $value) {
-    		array_push($array,$value['nama_satuan']);
-    	}
+    	
 
     	?>
     	var src = <?php echo json_encode($array) ?>;
 
-        var data = {
-            countries:src
+        // var data = {
+        //     countries:src
             
-        };
+        // };
 
-        typeof $.typeahead === 'function' && $.typeahead({
-            input: ".js-typeahead",
-            minLength: 1,
-            order: "asc",
-            group: true,
-            maxItemPerGroup: 3,
-            groupOrder: function (node, query, result, resultCount, resultCountPerGroup) {
+        // typeof $.typeahead === 'function' && $.typeahead({
+        //     input: ".js-typeahead",
+        //     minLength: 1,
+        //     order: "asc",
+        //     group: true,
+        //     maxItemPerGroup: 3,
+        //     groupOrder: function (node, query, result, resultCount, resultCountPerGroup) {
 
-                var scope = this,
-                    sortGroup = [];
+        //         var scope = this,
+        //             sortGroup = [];
 
-                for (var i in result) {
-                    sortGroup.push({
-                        group: i,
-                        length: result[i].length
-                    });
-                }
+        //         for (var i in result) {
+        //             sortGroup.push({
+        //                 group: i,
+        //                 length: result[i].length
+        //             });
+        //         }
 
-                sortGroup.sort(
-                    scope.helper.sort(
-                        ["length"],
-                        false, // false = desc, the most results on top
-                        function (a) {
-                            return a.toString().toUpperCase()
-                        }
-                    )
-                );
+        //         sortGroup.sort(
+        //             scope.helper.sort(
+        //                 ["length"],
+        //                 false, // false = desc, the most results on top
+        //                 function (a) {
+        //                     return a.toString().toUpperCase()
+        //                 }
+        //             )
+        //         );
 
-                return $.map(sortGroup, function (val, i) {
-                    return val.group
-                });
-            },
-            hint: true,
-            // dropdownFilter: "All",
-            href: "#",
-            template: "{{display}}, <small><em>{{group}}</em></small>",
-            emptyTemplate: "no result for {{query}}",
-            source: {
-                satuan: {
-                    data: data.countries
-                }
-                // capital: {
-                //     data: data.capitals
-                // }
-            },
-            // callback: {
-            //     onClickAfter: function (node, a, item, event) {
-            //         event.preventDefault();
+        //         return $.map(sortGroup, function (val, i) {
+        //             return val.group
+        //         });
+        //     },
+        //     hint: true,
+        //     // dropdownFilter: "All",
+        //     href: "#",
+        //     template: "{{display}}, <small><em>{{group}}</em></small>",
+        //     emptyTemplate: "no result for {{query}}",
+        //     source: {
+        //         satuan: {
+        //             data: data.countries
+        //         }
+        //         // capital: {
+        //         //     data: data.capitals
+        //         // }
+        //     },
+        //     // callback: {
+        //     //     onClickAfter: function (node, a, item, event) {
+        //     //         event.preventDefault();
 
-            //         var r = confirm("You will be redirected to:\n" + item.href + "\n\nContinue?");
-            //         if (r == true) {
-            //             window.open(item.href);
-            //         }
+        //     //         var r = confirm("You will be redirected to:\n" + item.href + "\n\nContinue?");
+        //     //         if (r == true) {
+        //     //             window.open(item.href);
+        //     //         }
 
-            //         $('.js-result-container').text('');
+        //     //         $('.js-result-container').text('');
 
-            //     },
-            //     onResult: function (node, query, obj, objCount) {
+        //     //     },
+        //     //     onResult: function (node, query, obj, objCount) {
 
-            //         console.log(objCount)
+        //     //         console.log(objCount)
 
-            //         var text = "";
-            //         if (query !== "") {
-            //             text = objCount + ' elements matching "' + query + '"';
-            //         }
-            //         $('.js-result-container').text(text);
+        //     //         var text = "";
+        //     //         if (query !== "") {
+        //     //             text = objCount + ' elements matching "' + query + '"';
+        //     //         }
+        //     //         $('.js-result-container').text(text);
 
-            //     }
-            // },
-            debug: false
-        });
+        //     //     }
+        //     // },
+        //     debug: false
+        // });
 
     </script>
+
+<datalist id="datasatuan">
+	<?php 
+	foreach ($data as $key => $value) {
+		echo "<option value='$value[nama_satuan]'>";
+	}
+	?>  
+</datalist>

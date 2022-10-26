@@ -25,7 +25,7 @@
   }
 </style>
 <div id="test">
-    <?php $parameter = Parameter::model()->findByPk(1);?>
+    <?php $parameter = Parameter::model()->find("store_id = '".Yii::app()->user->store_id()."'");?>
     <img src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
     <br>
     <br> 

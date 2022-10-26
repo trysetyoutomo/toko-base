@@ -11,7 +11,7 @@ License: You must have a valid license purchased only from templatemonster to le
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>35 POS</title>
-<meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework" />
+<meta name="description" content="35pos - point of sales" />
 
 <!-- Favicon -->
 <link rel="shortcut icon" href="favicon.ico">
@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from templatemonster to le
 						  $parameter = Parameter::model()->findByPk(1);
 						?>
 						<a class="auth-brand text-center d-block mb-20" href="#">
-						    <img style="width: 100px"  class="brand-img img"  src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
+						    <img style="width: 100px"  class="brand-img img"  src="logo/35_POS_LOGO.png" alt="">
 						</a>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -84,10 +84,10 @@ License: You must have a valid license purchased only from templatemonster to le
 )); ?>
 
 							<h1 class="display-4 text-center mb-10">Selamat Datang</h1>
-							<p class="text-center mb-30">Gunakan username atau password untuk masuk ke sistem.</p> 
+							<p class="text-center mb-30">Gunakan email dan password untuk masuk ke sistem 35pos.</p> 
 							<div class="form-group">
 								<!-- <input class="form-control" placeholder="Email" type="email"> -->
-								<?php echo $form->textField($model,'username',array("class"=>"form-control","placeholder"=>"username")); ?>
+								<?php echo $form->textField($model,'username',array("class"=>"form-control","placeholder"=>"email")); ?>
 								<?php echo $form->error($model,'username'); ?>	
 							</div>
 							<div class="form-group">

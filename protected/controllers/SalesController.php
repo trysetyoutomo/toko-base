@@ -96,6 +96,7 @@ class SalesController extends Controller {
 	      	$setor = Setor::model()->find("tanggal = '$_REQUEST[tanggal_rekap]' and user_id='$_REQUEST[inserter]' ");
 	      	$setor->total = $_REQUEST['must'];
 	      	$setor->is_closed = 1;
+	      	$setor->closed_date = date('Y-m-d H:i:s');
 			  if ($setor->update()){
 				$this->redirect(array('sales/rekap'));
 	      	}
@@ -107,8 +108,6 @@ class SalesController extends Controller {
       public function actionGetOmsetByUser($date,$user_id){
 	
 		$sql = "select 
-
-
 		nama_user,
 		total_awal,
 		sum(sale_total_cost) total_omset,
@@ -186,9 +185,11 @@ class SalesController extends Controller {
 
 
 		$dta = Yii::app()->db->createCommand($sql)->queryRow();
-		// echo  $dta['cash'];
-
+		$username = Yii::app()->user->name;
+		$query_pengeluaran  = "select sum(total) as total_pengeeluaran  from pengeluaran where 1=1 and date(tanggal)='$date' and user='$username' order by tanggal desc";
+		$data_pengeluaran = Yii::app()->db->createCommand($query_pengeluaran)->queryRow();		
 		echo json_encode(array(
+			"pengeluaran"=>$data_pengeluaran['total_pengeeluaran'] === null ? 0 : $data_pengeluaran['total_pengeeluaran'],
 			"potongan"=>$dta['voucher'],
 			"cash"=>$dta['cash'],
 			"total_awal"=>$dta['total_awal']
@@ -1057,15 +1058,24 @@ class SalesController extends Controller {
 	// }
 	
 	public function actionGrafik(){
-		$mode = $_GET['mode'];
-		if (isset($_GET['Sales']['date']) and isset($_GET['Sales']['tgl']) ) {
-			$tgl = $_GET['Sales']['date'];
-			$tgl2 = $_GET['Sales']['tgl'];
+		$mode = $_REQUEST['mode'];
+		// print_r($_REQUEST);exit;
+		// var_dump(isset($_GET['Sales']['date']));
+		// var_dump(isset($_GET['Sales']['tgl']));
+		if (isset($_REQUEST['Sales']['date']) && isset($_REQUEST['Sales']['tgl']) ) {
+			$tgl = $_REQUEST['Sales']['date'];
+			$tgl2 = $_REQUEST['Sales']['tgl'];
 		}
 		else{
+			// echo "masuk";
+			// exit;
 			$tgl = date('Y-m-d',strtotime('-7 days')); 
 			$tgl2 = date('Y-m-d'); 
 		}
+
+		// echo $tgl;
+		// echo $tgl2;
+		// exit;
 		
 		$mode = "top";
 		
@@ -2330,6 +2340,8 @@ public function actionSalesoutletweekly(){
 	// print_r($_REQUEST);
 	// echo "</pre>";
 	$transaction = Yii::app()->db->beginTransaction();
+	$metode_stok = SiteController::getConfig("metode_stok");
+
 	try {
 	
 		// date_default_timezone_set("Asia/Jakarta");
@@ -2474,16 +2486,26 @@ public function actionSalesoutletweekly(){
 							$di->item_modal = "0";
 						}else{
 							$di = new SalesItems();
-							$model_average = ItemsController::getAverage($detail['item_id'],$detail['item_satuan_id'],$branch_id);
-						
-							if ($model_average<=0){
-								$a = ItemsController::GetModal2($detail['item_id'],$detail['item_satuan_id'],$branch_id);
-			                    $di->item_modal = $a;
-			                    $hm = $a;
-							}else{
-			                    $di->item_modal = $model_average;
-			                    $hm = $model_average;
-							}
+
+
+							//   $hargabeli = ItemsController::getAverage($value['item_id'],$value['id'], Yii::app()->user->branch());
+							// }else{
+								//   $hargabeli = $value['harga_beli'];
+								// }
+								
+								// if ($model_average<=0){
+									// }else{
+									if ($metode_stok == "average"){
+										$model_average = ItemsController::getAverage($detail['item_id'],$detail['item_satuan_id'],$branch_id);
+										$di->item_modal = $model_average;
+										$hm = $model_average;
+									}else{
+										$a = ItemsController::GetModal2($detail['item_id'],$detail['item_satuan_id'],$branch_id);
+										$di->item_modal = $a;
+										$hm = $a;
+									}
+								// }
+							// }
 						}
 
 						
@@ -2542,24 +2564,17 @@ public function actionSalesoutletweekly(){
 							$bkl->jumlah = $satuan_total_keluar;
 							// $bkl->harga = intval($hm);
 							
-							$harga_mdl = ItemsController::getAverage($detail[item_id],$satuanUtamaID_default,Yii::app()->user->branch());
 
-
-							
-							if ($harga_mdl<=0){ //jika di
-								// $satuanharga = ItemsSatuan::model()->find("item_id = '$id' and id= '$satuanUtamaID_default' ")->harga_beli;
-								$satuanharga = ItemsSatuan::model()->find("item_id = '".$detail['item_id']."' and id='".$detail['item_satuan_id']."' ")->harga_beli;
-
-								// if ($satuanharga>0){
+							if ($metode_stok == "average"){
+								$harga_mdl = ItemsController::getAverage($detail[item_id],$satuanUtamaID_default,Yii::app()->user->branch());
+								if ($harga_mdl<=0){ //jika di
+									$satuanharga = ItemsSatuan::model()->find("item_id = '".$detail['item_id']."' and id='".$detail['item_satuan_id']."' ")->harga_beli;
 									$harga_mdl = $satuanharga;
-									// var_dump($harga_mdl);
-									// var_dump($detail['item_satuan_id']);
-									// var_dump($id);
-							// exit;
-								// }else{
-									// $harga_mdl = 0;
-								// }
-							}	
+								}	
+							}else {
+								$satuanharga = ItemsSatuan::model()->find("item_id = '".$detail['item_id']."' and id='".$detail['item_satuan_id']."' ")->harga_beli;
+								$harga_mdl = $satuanharga;
+							}						
 
 							$bkl->harga = $harga_mdl;
 
@@ -2786,7 +2801,8 @@ public function actionSalesoutletweekly(){
 		$this->tlp =  Branch::model()->findByPk($branch_id)->telp;
 		$this->slg =  Branch::model()->findByPk($branch_id)->slogan;
 
-        $total_margin = 30;
+        // $total_margin = 30; // 58mm
+        $total_margin = 42; // 80mm
         // $total_margin = 30;
         $pembatas = 10; 
         $temp_data = array();
@@ -3323,8 +3339,10 @@ public function actionCetakReportAll(){
         $model->deleted_at = date("Y-m-d H:i:s");
         if ($model->update()){
         	$keluar = BarangKeluar::model()->find(" sales_id = '$id' ");
-        	$keluar->status_keluar = 2;
-        	$keluar->update();
+			if ($keluar){
+				$keluar->status_keluar = 2;
+				$keluar->update();
+			}
 			// $sd = SalesItems::model()->findAll("sale_id = '$id' ");
 			// foreach($sd as $s){
 			// 	$brg = Items::model()->findByPk($s->item_id);
@@ -3756,7 +3774,7 @@ public function actionCetakReportAll(){
     public static function getHutangByCustomer($name,$id) {
     	$table = self::sqlSales();
 		$sql = " SELECT * FROM ($table) 	AS  D 
-		where D.nama = '$name'  and d.status = 1
+		where D.nama = '$name'  and D.status = 1
 		group by D.id
 
 		";
@@ -4078,7 +4096,7 @@ public function actionCetakReportAll(){
 		$this->tlp =  Branch::model()->findByPk($branch_id)->telp;
 		$this->slg =  Branch::model()->findByPk($branch_id)->slogan;
 
-		$html_noprint .= "<table style='width:200px'>
+		$html_noprint .= "<table class='x' style='width:100%;font-family:courier!important'  border='0' cellpadding='0' >
 		<tr>
 			<td align='center'><h2>$this->comp</h2></td>
 		</tr>
@@ -4230,34 +4248,46 @@ public function actionCetakReportAll(){
 		$query_pengeluaran  = "select * from pengeluaran where 1=1 and date(tanggal)='$date' and user='$user->username'order by tanggal desc";
 		$data_pengeluaran = Yii::app()->db->createCommand($query_pengeluaran)->queryAll();
 		
+		$temp_data['pengeluaran'] = array();
+		foreach ($data_pengeluaran as $key => $value) {
+			$nama = " - ".substr(strtoupper($value['jenis_pengeluaran']) ,0,30);
+			$totals = number_format($value['total']);
+			$total =  ($totals);
+			$array = array("nama"=>$nama,"total"=>$total);
+			$htmlpengeluaran .= "<tr><td>".$nama."  :  ".$total."</td></tr>";
+
+			$temp_data['pengeluaran'][] = $array;
+			$totalkeluar+=$value['total'];
+		}
 
 
-		
 		$pembatas = 20;
 		$model = $_GET['data'];
 		$detail = $_GET['data_detail'];
 		
-        $total_margin = 40;
+        // $total_margin = 30; // 58mm
+        $total_margin = 42; // 80mm
         $temp_data = array();
         $temp_data['logo'] = $this->comp;
         $temp_data['alamat'] = $this->adr;
         $temp_data['no_telp'] = "Telp. ".$this->tlp;
-        $temp_data['trx_tgl'] = date('d  M  Y ',strtotime($date));
-        $html_noprint .= "<tr><td align='center'>".$temp_data['trx_tgl']."</td></tr>";
+        $temp_data['trx_tgl'] = date('Y.m.d',strtotime($date));
+        $html_noprint .= "<tr><td align='center'>".$temp_data['trx_tgl']."/".$username." </td></tr>";
+        $html_noprint .= "<tr><td align='center'>Print-time:".date('Y.m.d H:i:s')." </td></tr>";
         $pjg_ket = $total_margin - 13;
 		
 		
 		$temp_data['kasir']=   "Kasir          : " .$username;
-        $html_noprint .= "<tr><td align='center'>".$temp_data['kasir']."</td></tr>";
+        // $html_noprint .= "<tr><td align='center'>".$temp_data['kasir']."</td></tr>";
 
 
         $temp_data['tgl_cetak']=   "Tanggal Cetak  : " . date('d-M-Y H:i:s') . "\r";
-        $html_noprint .= "<tr><td align='center'>".$temp_data['tgl_cetak']."</td></tr>";
+        // $html_noprint .= "<tr><td align='center'>".$temp_data['tgl_cetak']."</td></tr>";
 
 		
 		
 		$temp_data['pembatas'] = $this->spasi($total_margin, "-");
-        $html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
 		$tmp3 = array();
 		$tmp = array();
@@ -4368,7 +4398,7 @@ public function actionCetakReportAll(){
 
 			$tmp2 = $tmp;
 
-			$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
+			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
 			
 			//------------------------------------------------------------
@@ -4392,11 +4422,10 @@ public function actionCetakReportAll(){
 		$tmpt['pembayaran_penjualan_label'] = "Total Pendapatan Fisik       :\n";
 		$tmpt['pembayaran_penjualan'] =  number_format($uangcash);
 	
-		$html_noprint .= "<tr><td>".$tmpt['pembayaran_penjualan_label'].$tmpt['pembayaran_penjualan']."</td></tr>";
 		
 
 
-		$hrs_ada = $uangcash+$awal;
+		$hrs_ada = $uangcash+$awal-$totalkeluar;
 		$tmp3['harus_ada'] =  "\r".number_format($hrs_ada)."\r\n";
 		$tmp3['harus_ada_label'] =  "\rFisik Harus Ada :\r\n";
 
@@ -4405,20 +4434,24 @@ public function actionCetakReportAll(){
 		
 
 		$html_noprint .= "<tr><td>".$tmp3['saldo_awal_label'].$tmp3['saldo_awal']."</td></tr>";
+		$html_noprint .= "<tr><td>Total Pengeluaran : ".number_format($totalkeluar)."</td></tr>";
 		$html_noprint .= "<tr><td>".$tmp3['harus_ada_label'].$tmp3['harus_ada']."</td></tr>";
+		$html_noprint .= "<tr><td>".$tmpt['pembayaran_penjualan_label'].$tmpt['pembayaran_penjualan']."</td></tr>";
+
 		// var_dump($tmp3['sisa']);
 		$html_noprint .= "<tr><td>".$tmp3['uangmasuk'].$tmp3['uangmasukvalue']."</td></tr>";
+		
 		$tmp3['sisa'] =  "\r".number_format(($masuk)-$hrs_ada)."\r\n";
+
 		$tmp3['sisa_label'] =  "\rLebih/Kurang :\r\n";
 		$html_noprint .= "<tr><td>".$tmp3['sisa_label'].$tmp3['sisa']."</td></tr>";
 
 		$temp_data['detail'] = $tmp2;
 		$temp_data['detailpay'] = $tmp3;
 		$temp_data['hutang'] = $hihi;
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
-		$html_noprint .= "<tr><td><b>DETAIL PENJUALAN</b></td></tr>";
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
-
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';		
+		$html_noprint .= "<tr><td><b>DETAIL PENJUALAN</b></td></tr>";	
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
 		// $tmp_hutang['']
 		
@@ -4524,8 +4557,7 @@ public function actionCetakReportAll(){
 		// $html_noprint .= "<tr><td>".$temp_data['total_gratis']."</td></tr>";
 
 
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
-
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
 		$queryKredit = "SELECT 
 		s.pembayaran_via as bank,
@@ -4543,45 +4575,35 @@ public function actionCetakReportAll(){
 		// exit;
 		$kredit = Yii::app()->db->createCommand($queryKredit)->queryAll();
 		// $kredit = $kredit['total'];
-	
-		$html_noprint .= "<tr><td><b>PENGELUARAN</b></td></tr>";
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
-
-
-
-		$temp_data['pengeluaran'] = array();
-		foreach ($data_pengeluaran as $key => $value) {
-			$nama = " - ".substr(strtoupper($value['jenis_pengeluaran']) ,0,30);
-			$totals = number_format($value['total']);
-			$total =  ($totals);
-			$array = array("nama"=>$nama,"total"=>$total);
-			$html_noprint .= "<tr><td>".$nama."  :  ".$total."</td></tr>";
-
-			$temp_data['pengeluaran'][] = $array;
-			$totalkeluar+=$value['total'];
+		if (totalkeluar >0  ){
+			$html_noprint .= "<tr><td><b>DETAIL PENGELUARAN</b></td></tr>";
+			$html_noprint .= "<tr><td>".$htmlpengeluaran."</td></tr>";
+			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 		}
+			
 
+
+	
 		$temp_data['total_pengeluaran'] = "TOTAL : ".number_format($totalkeluar)."\r\n";
-		$html_noprint .= "<tr><td>".$temp_data['total_pengeluaran']."</td></tr>";
+		// $html_noprint .= "<tr><td>".$temp_data['total_pengeluaran']."</td></tr>";
 
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
-		$html_noprint .= "<tr><td><b>RINGKASAN</b></td></tr>";
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
+		// $html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
 
 
 		
 		// $cash = $final-$total_kredit;
 		// $cash = $tmpt['netcashvalue'];
 		// $cash = 0;
-		$temp_data['summary_totalpenjualan'] = "TOTAL CASH       : ".number_format($cash);	
-		$html_noprint .= "<tr><td>".$temp_data['summary_totalpenjualan']."</td></tr>";
+		$temp_data['nilaisaldoawal'] =         "SALDO AWAL          : ".number_format($awal);	
+		$temp_data['summary_totalpenjualan'] = "TOTAL CASH          : ".number_format($cash);	
+		// $html_noprint .= "<tr><td>".$temp_data['summary_totalpenjualan']."</td></tr>";
 		$total_kredit = 0;
 		$temp_data['summary_totalgratis'] = array();
 		foreach ($kredit as $key => $value) {
 			$persen = 100-$value['persentasi'];
 			$persen2 = 100-$persen;
 			$kredit_bagihasil = $value['total']*($persen/100);
-			$x = str_pad($value['bank'],19," ",STR_PAD_RIGHT).":".number_format($value['total'])." - ".$persen2."% = ".number_format($kredit_bagihasil);
+			$x = str_pad($value['bank'],19," ",STR_PAD_RIGHT)." : ".number_format($value['total'])." - ".$persen2."% = ".number_format($kredit_bagihasil);
 			$temp_data['summary_totalgratis'][] = $x;
 			// $temp_data['summary_all'] =    		   "TOTAL OMZET        : ".number_format($total_kredit+$cash);	
 			$html_noprint .= "<tr><td>".$x."</td></tr>";
@@ -4592,16 +4614,16 @@ public function actionCetakReportAll(){
 		// $temp_data['summary_totalgratis'] =    "KREDIT             : ".number_format($total_kredit);	
 
 		
-		$temp_data['summary_pengeluaran'] =    "TOTAL PURCHASED    : ".number_format($totalkeluar);	
+		$temp_data['summary_pengeluaran'] =    "TOTAL PENGELUARAN   : (".number_format($totalkeluar).")";	
 		$html_noprint .= "<tr><td>".$temp_data['summary_pengeluaran']."</td></tr>";
-		$html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
-		$temp_data['summary_coh'] =            "CASH ON HAND       : ".number_format($cash-$totalkeluar);	
-		$html_noprint .= "<tr><td>".$temp_data['summary_coh']."</td></tr>";
+		$temp_data['summary_coh']         =     "CASH ON HAND       : ".number_format($cash-$totalkeluar+$awal);	
+		// $html_noprint .= "<tr><td>".$temp_data['summary_coh']."</td></tr>";
 		
 
-		$temp_data['summary_all'] =    		   "TOTAL OMZET        : ".number_format($total_kredit+$cash);	
-		$html_noprint .= "<tr><td>".$temp_data['summary_all']."</td></tr>";
+		$temp_data['summary_all']         =     "TOTAL OMZET         : ".number_format($total_kredit+$cash);	
+		// $html_noprint .= "<tr><td>".$temp_data['summary_all']."</td></tr>";
 
 		$temp_data['detail2'] = $temp;
 		
@@ -4620,7 +4642,8 @@ public function actionCetakReportAll(){
 			// print_r($temp_data);
 			// echo "</pre>";
 		}else{
-			echo $html_noprint;
+			$this->renderPartial('cetakrekap', array('html_noprint'=>$html_noprint) ) ;
+			// echo $html_noprint;
 		}
 	}
 

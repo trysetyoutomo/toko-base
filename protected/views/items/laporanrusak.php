@@ -160,7 +160,7 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 				<i class="fa fa-edit "></i>
 			</a>
 
-			<a class="cetak" data-id='<?php echo $m['id'] ?>'>
+			<a style="display:none" class="cetak" data-id='<?php echo $m['id'] ?>'>
 				<i class="fa fa-print"></i>
 			</a>
 
