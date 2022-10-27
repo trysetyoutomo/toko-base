@@ -413,7 +413,22 @@
             <td>Bayar</td>
             <td>:</td>
             <td>
-               <input class="form-control" type="number" id="total-bayar" value="0">
+               <input class="form-control col-sm-6" type="number" id="total-bayar" value="0">
+            </td>
+         </tr>
+         <tr>
+            <td>Metode Pembayaran</td>
+            <td>:</td>
+            <td>
+               <select id="metode-pembayaran" class="form-control col-sm-6">
+                  <option value="0">Pilih</option>
+                  <option value="CASH">CASH</option>
+                  <?php 
+                  $m = Bank::model()->findAll("aktif=1");
+                  foreach ($m as $key => $value) {
+                  echo "<option  value='$value->nama'>$value->nama</option>";
+                  } ?>
+                  </select>
             </td>
          </tr>
          <tr>
@@ -949,6 +964,7 @@
    					var grand = $("#total-grand").attr("asli");
    					var bayar = $("#total-bayar").val();
    					var kembali = $("#total-kembali").attr("asli");
+   					var metode_pembayaran = $("#metode-pembayaran").val();
    
    
    					if (isbayar=="1"){
@@ -974,7 +990,8 @@
    						tanggal_jt : tanggal_jt,
    						isbayar : isbayar,
    						sumber : sumber,
-   						poid : poid
+   						poid : poid,
+   						metode_pembayaran : metode_pembayaran
    					}
    					
    					if ($("#users tbody tr").length==0){

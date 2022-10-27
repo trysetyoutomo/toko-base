@@ -1036,12 +1036,12 @@ class ItemsController extends Controller
 			$modelh->kode_trx = $_REQUEST['head']['kode_trx'];
 			$modelh->branch_id = $_REQUEST['head']['cabang'];
 			$modelh->status_aktif = 1;
-			
 			$modelh->subtotal = $_REQUEST['head']['subtotal'];
 			$modelh->diskon = $_REQUEST['head']['diskon'];
 			$modelh->grand = $_REQUEST['head']['grand'];
 			$modelh->bayar = $_REQUEST['head']['bayar'];
 			$modelh->kembali = $_REQUEST['head']['kembali'];
+			$modelh->metode_pembayaran = $_REQUEST['head']['metode_pembayaran'];
 
 
 			if ($_REQUEST['head']['isbayar']=="1"){
