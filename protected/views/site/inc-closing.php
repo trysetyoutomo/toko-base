@@ -116,15 +116,16 @@ $this->endWidget('zii.widgets.jui.CJuiDialog');
                   $(".preloader-it").show();
                 },
                 success: function(data){
-                    // alert(data);
                     var json = jQuery.parseJSON(data);
-                    // $('#hasiljson').html(data);
-                    // print_rekap(json,false);
-                    alert("Data berhasil disimpan!, sistem akan logout secara otomatis");
+                    var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
+                    if (jenis_printer === "Mini Printer" )
+                      print_rekap(json,false);                    
+  
                     setTimeout(function() {
+                      alert("Data berhasil disimpan!, sistem akan logout secara otomatis");
                       $(".preloader-it").hide();
                       window.location.assign("index.php?r=site/logout");
-                    }, 1000);
+                    }, 100);
 
                     // console.log(data);
                     
