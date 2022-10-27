@@ -2336,23 +2336,13 @@ public function actionSalesoutletweekly(){
 	}
 
     public function actionBayar() {
-	// echo "<pre>";
-	// print_r($_REQUEST);
-	// echo "</pre>";
 	$transaction = Yii::app()->db->beginTransaction();
 	$metode_stok = SiteController::getConfig("metode_stok");
-
 	try {
-	
-		// date_default_timezone_set("Asia/Jakarta");
-	//	echo date("Y/m/d H:i:s");
-
         $data = $_REQUEST['data'];
         $data['date']  = date("Y-m-d H:i:s");
 		$data_detail = $_REQUEST['data_detail'];
 		$data_payment = $_REQUEST['data_payment'];
-		// var_dump($data_payment);
-
 		
         if (isset($_REQUEST['data']) and isset($_REQUEST['data_detail']) ) {
 		//mencari QTY		
@@ -2364,7 +2354,7 @@ public function actionSalesoutletweekly(){
 			}
 			$jumlahakhir =  $jumlah1 + $jumlah2;
 
-
+			// check whether data come from temporary data or create new record
 			if (isset($data['table']) && !empty($data['table'])){
 				$sales = Sales::model()->find("t.table = '$data[table]' and status='0' ");
 				// var_dump(" masuk sini ".$sales->id);
@@ -2375,20 +2365,15 @@ public function actionSalesoutletweekly(){
 	                $sales = new Sales();
 				
 			}else{
-	            // echo "masuk sini 2";
 				$sales = new Sales();
 			}
         	
-            
-
-            $sales->customer_id = 1;//$data['custype'];
-            $sales->jenis = "keluar";//$data['custype'];
-			// $sales->date = $data['tanggal']." ".date("H:i:s");
-			$sales->date = $data['date'];
+        
+            $sales->customer_id = 1; 
+            $sales->jenis = "keluar"; // additional information for stok
+			$sales->date = $data['date'];  // take date from input user
 			
-
-			if (!empty($data['tanggal_jt'])){	
-				// if ($data['tanggal_jt']!="")
+			if (!empty($data['tanggal_jt'])){	// use jt date if any
 				$sales->tanggal_jt = $data['tanggal_jt'];
 			}
             
@@ -2399,7 +2384,6 @@ public function actionSalesoutletweekly(){
     		$sales->sale_total_cost = round($data['total_cost']);
 	        $sales->bayar_real = round($data['bayar']);
 	        $sales->sisa = round($data['belum_bayar']);
-    		
     		
             if ($data['status']=="1"){	
 	            $sales->bayar = intval(round($data['bayar']));
@@ -2420,10 +2404,7 @@ public function actionSalesoutletweekly(){
             else
                 $sales->sale_payment = 0;
                 
-            $sales->paidwith_id = $data['paidwith'];
-				//mencari qty
-		
-		
+            $sales->paidwith_id = $data['paidwith']; // set payment by
 			//ambil data dari user yg login
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));
@@ -2432,7 +2413,6 @@ public function actionSalesoutletweekly(){
             // $sales->branch = 1;//$user->branch_id;
             $branch_id = Yii::app()->user->branch();
             $sales->branch = $branch_id;
-		
 
             $sales->user_id = 1;
             $sales->table = $data['table'];
@@ -2454,9 +2434,9 @@ public function actionSalesoutletweekly(){
             $sales->status = $data['status'];
             if ($sales->save()) {
             	$lunasin = "";
-
-
+				// remove all sales items first
                 SalesItems::model()->deleteAllByAttributes(array('sale_id' => $sales->id));
+				// remove all sales items paket then
                 SalesItemsPaket::model()->deleteAllByAttributes(array('sale_id' => $sales->id));
 
 				$data_detail = $_REQUEST['data_detail'];
@@ -2655,9 +2635,7 @@ public function actionSalesoutletweekly(){
 								}
 							}
 
-							 // var_dump(expression)
-							// var_dump($sales->id);
-							// exit;
+							 JurnalController::createTransaction($sales, $sp); // journal posting
 							 $transaction->commit();
 							 // sleep(3);
 		                    $this->cetak($data,$data_detail,$data_payment,$hit, $sales->id,1);	
