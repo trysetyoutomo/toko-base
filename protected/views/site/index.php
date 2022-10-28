@@ -1788,7 +1788,7 @@ function numberWithCommas(x) {
        'id' => 'dialog_bayar2',
        // additional javascript options for the dialog plugin
        'options' => array(
-           'title' => 'Pembayaran Uang Cash',
+           'title' => 'Pembayaran',
            'autoOpen' => false,
            'modal' => true,
         'width' => 400,

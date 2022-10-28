@@ -41,7 +41,6 @@ class Customer extends CActiveRecord
 			// array('nama, alamat, no_telepon', '', 'integerOnly'=>true),
 			array('id', 'length', 'max'=>40),
 			// array('id', 'required'),
-			array('kode', 'unique'),
 			array('kode', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -234,7 +234,6 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 					<td align="right" ><?php echo number_format($gt2) ?></td>
 
 				</tr>
-				<?php if ($model['cash'] > 0){ ?>
 					<tr><td >Bayar</td><td align="right" ><?php echo number_format($model['bayar']) ?></td></tr>
 					
 					<tr>
@@ -247,8 +246,10 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 							}
 						?>
 					</td>
-					<td style="border-right:1px solid white;" align="right"><?php echo number_format($model['bayar']-$gt2) ?></td>
+					<td style="border-right:1px solid white;" align="right"><?php echo number_format( abs($model['bayar']-$gt2)) ?></td>
 					</tr>
+				<?php if ($model['cash'] > 0){ ?>
+				
 				<?php  }else{ ?>
 					<tr><td >Non Tunai</td><td align="right" ><?php echo ($model['pembayaran_via']) ?></td></tr>
 				<?php  } ?>
