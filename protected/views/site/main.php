@@ -2303,7 +2303,18 @@ function bayar(status,table,sale_id)
             $("#bank-kredit").val(0);
             $("#bank-debit").val(0);
             var sales = jQuery.parseJSON(data);
-            console.log(sales);
+            if (sales === null){
+                alert("Terjadi kesalahan pada saat mencetak bukti pembayaran, silahkan cetak ulang dihalaman transaksi penjualan");
+                var c = confirm("Apakah anda ingin membukan halaman transaksi penjualan ? ")
+                if (!c){
+                    alert("Halaman ini akan direload!");
+                    location.reload();
+                }
+                else 
+                    location.href = "index.php?r=sales/";
+            }
+
+
             data2 = sales;
             idx  = sales.id;
 

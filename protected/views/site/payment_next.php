@@ -61,10 +61,10 @@ function getSaleID(){
 		// 		return false;
 		// 	}
 		// }
-		if (!isHutang &&  !isEDC ){
+		if (!isHutang  ){
 			if (nilai<0 || nilai<total ){
 				$("#w-jp").show()
-				alert('Uang Cash tidak tidak cukup, transaksi ini akan masuk ke dalam data hutang ');
+				alert('Uang yang dibayarkan tidak tidak cukup, transaksi ini akan masuk ke dalam data piutang ');
 				if ($("#namapel").val()==""){
 					alert("Untuk Transaksi Hutang, nama customer wajib diisi");
 					$("#dialog_bayar").dialog("close");
@@ -150,7 +150,7 @@ function getSaleID(){
 		<!--  baru -->
 
 		<label>
-			Uang Cash
+			Uang Cash/Digital yang dibayarkan
 		</label><br>
 		<input type="text" id="text1" class="myinput" style="width:200px" onkeydown="getKembalian()" >
 		<!--

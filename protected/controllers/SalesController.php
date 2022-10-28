@@ -3702,6 +3702,7 @@ public function actionCetakReportAll(){
     	if (isset($_REQUEST['tanggal_bayar'])){
     		$model = new SalesBayar;
     		$model->sales_id = $_REQUEST['id'];
+    		$model->pembayaran_via = $_REQUEST['pembayaran_via'];
     		$model->waktu = $_REQUEST['tanggal_bayar'];
     		$model->bayar = $_REQUEST['total_bayar'];
     		if ($model->save()){

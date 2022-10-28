@@ -259,12 +259,18 @@
 		 // alert(totalpayment);
 		 $("#text1").select();
 		 if (parseInt(totalpayment)==parseInt(totaljual)){
-			$('#tb2').html(parseInt($('#total_bayar').html())-parseInt($('#voucher').val())-parseInt($('#edcbca').val())-parseInt($('#edcniaga').val())-parseInt($('#creditbca').val())-parseInt($('#creditmandiri').val())-parseInt($('#dll').val())-parseInt($('#compliment').val())   );
+			// $('#tb2').html(parseInt($('#total_bayar').html())-parseInt($('#voucher').val())-parseInt($('#edcbca').val())-parseInt($('#edcniaga').val())-parseInt($('#creditbca').val())-parseInt($('#creditmandiri').val())-parseInt($('#dll').val())-parseInt($('#compliment').val())   );
+			$('#tb2').html(parseInt($('#total_bayar').html()));
+
 			var kembalian = estimate($("#tb2").html())-$("#tb2").html();
 			// alert($('#tb2').html());
 			if ($('#tb2').html()!=0){
-				$('#bayar').val(estimate($('#tb2').html()));
-				$('#text1').val(estimate($('#tb2').html()));
+				if ($("#cash").val()>0){ // estimate uang masuk only if has cash
+					$('#bayar').val(estimate($('#tb2').html()));
+					$('#text1').val(estimate($('#tb2').html()));
+				}else{
+					$('#bayar').val(($('#tb2').html()));
+				}
 			}else{
 				$('#bayar').val("100");
 				//mulai get
@@ -284,7 +290,8 @@
 
 			if ($("#edcbca").val()!="0" || $("#edcniaga").val()!="0" ){
 					if ($("#bank-kredit").val()!="0" || $("#bank-debit").val()!="0" ){
-						$("#text1").val(0);
+						// $("#text1").val(0);
+						$("#text1").val($('#tb2').html());
 						$("#kembali").val(0);
 					}else{
 						alert("Silahkan pilih bank ");

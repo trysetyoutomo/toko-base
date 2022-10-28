@@ -531,10 +531,12 @@ $(document).ready(function(){
 		var id = $("#no-tagihan").val();
 		var tanggal_bayar = $("#tanggal-bayar").val();
 		var total_bayar = $("#total-bayar").val();
+		var pembayaran_via = $("#pembayaran_via").val();
 		var data = {
 			id : id ,
 			tanggal_bayar : tanggal_bayar,
-			total_bayar : total_bayar
+			total_bayar : total_bayar,
+			pembayaran_via : pembayaran_via
 		}
 		$.ajax({
 			url:'<?php echo $this->createUrl('sales/bayartagihan')?>',
