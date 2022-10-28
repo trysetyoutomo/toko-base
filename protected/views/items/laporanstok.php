@@ -22,6 +22,17 @@ if (!isset($cabangpusat)){
 	table tr td{
 		padding: 5px;
 	}
+	 @media print {
+       table{
+		width:100%;
+	   }
+	   #data-cetak{
+		width:80%!important;
+	   }
+	   #datatable_wrapper{
+		overflow:visible;
+	   }
+ 	}
 </style>
 <?php 
 $this->renderPartial('application.views.site.main');
@@ -35,7 +46,7 @@ $this->renderPartial('application.views.site.main');
 </h4>
 <br>
 
-<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#datatable').print()" />
 
 <div id="data-cetak">
 <table  id="datatable" class="table" ></table>
@@ -214,6 +225,7 @@ $(document).ready(function(){
           // $(".loader").show();
           myTable =  $('#datatable').DataTable({
             "processing": true,
+			 buttons: ['print'],	
             "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "serverSide": true,
             // "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",

@@ -2798,7 +2798,8 @@ public function getHargamodal($id){
   			$value['nama_kategori'],
   			$value['motif'],
   			// $aksi,
-			'<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
+			$value['item_name'],
+			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
 			$satuanlist,
   		);
   		if ($adjust=="1"){
