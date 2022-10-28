@@ -178,6 +178,12 @@
               value="<?php echo date("Y-m-d") ?>" style="padding: 1px;width: 100%">
             </div>
 
+            <div class="col-12">
+              <b style="color:red">Nomor Referensi</b><br>
+              <input type="text" name="refno" id="refno" placeholder="Nomor Referensi"
+              value="" style="padding: 1px;width: 100%">
+            </div>
+
             <?php $list = CHtml::listData(CustomerType::model()->findAll(), 'id', 'customer_type');?>
             <div class="col-12">
               <b style="color:red">Tanggal Jatuh Tempo</b>

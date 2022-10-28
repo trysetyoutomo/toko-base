@@ -2222,6 +2222,7 @@ function bayar(status,table,sale_id)
     // var voucher=$('#voucher').val();
     var compliment=$('#compliment').val();
     var dll=$('#dll').val();
+    var refno=$('#refno').val();
 	
 	var data2 ;
 	
@@ -2258,7 +2259,8 @@ function bayar(status,table,sale_id)
         belum_bayar : belum_bayar,
         bayar_via : via,
         nama_kasir : nama_kasir,
-		kembali: kembali
+		kembali: kembali,
+		refno: refno
     };
 
 	var data_detail = [];

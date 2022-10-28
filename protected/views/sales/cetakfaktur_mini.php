@@ -47,6 +47,7 @@ $parameter = Parameter::model()->findByPk(1);
 $sql = "
 
 select 
+refno,
 pembayaran_via,
 sp.cash,
 s.id id,
@@ -252,6 +253,10 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 				
 				<?php  }else{ ?>
 					<tr><td >Non Tunai</td><td align="right" ><?php echo ($model['pembayaran_via']) ?></td></tr>
+					<?php if (!empty($model['refno'])):  ?>
+						<tr><td >No Ref</td><td align="right" ><?php echo ($model['refno']) ?></td></tr>
+					<?php endif; ?>
+
 				<?php  } ?>
 				<tr><td colspan="2" align="center">Terimakasih atas kunjunganya</td></tr>
 			</tfoot>
