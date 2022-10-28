@@ -38,7 +38,7 @@ if (isset($_REQUEST['tanggal'])){
 			<td>Petugas </td>
 			<td>Saldo Cash Awal </td>
 			<td>Total Cash Masuk</td>
-			<td>Total Omset (Hari ini) </td>
+			<td>Total Omset Cash (Hari ini) </td>
 			<td>Total Biaya Bank </td>
 			<td>Total Potongan </td>
 			<td>Total Pengeluaran </td>
@@ -186,13 +186,13 @@ group by A.nama_user
 			<td><?php echo number_format($m['cash']); ?></td>
 			<?php 
 			// $total_akhir = ($m['total_biaya']+$m['total_omset'])-$m['voucher'];
-			$total_akhir = ($m['total_biaya']+$m['cash'])-$m['voucher']-$data_pengeluaran['total_pengeluaran'];
+			$total_akhir = ($m['total_biaya']+$m['cash'])-$data_pengeluaran['total_pengeluaran'];
 			$must = $total_akhir+$m['total_awal'];
 			?>
 			<td style="text-align:left"><?php echo number_format($m['total_omset']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['total_biaya']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['voucher']); ?></td>
-			<td style="text-align:left"><?php echo number_format($data_pengeluaran['total_pengeluaran']); ?>0</td>
+			<td style="text-align:left"><?php echo number_format($data_pengeluaran['total_pengeluaran']); ?></td>
 
 			<!-- <td style="text-align:left"><?php echo number_format($total_akhir); ?></td> -->
 

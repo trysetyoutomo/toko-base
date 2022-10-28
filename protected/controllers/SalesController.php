@@ -4561,6 +4561,19 @@ public function actionCetakReportAll(){
 			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 		}
 			
+		
+		$temp_data['pengeluaran'] = array();
+		foreach ($data_pengeluaran as $key => $value) {
+			$nama = " - ".substr(strtoupper($value['jenis_pengeluaran']) ,0,30);
+			$totals = number_format($value['total']);
+			$total =  ($totals);
+			$array = array("nama"=>$nama,"total"=>$total);
+			$html_noprint .= "<tr><td>".$nama."  :  ".$total."</td></tr>";
+
+			$temp_data['pengeluaran'][] = $array;
+			$totalkeluar+=$value['total'];
+		}
+
 
 
 	
@@ -4995,17 +5008,17 @@ public function actionCetakReportAll(){
 	// 	}
 	// 	$temp_data['total_gratis'] = " \n\n\n ITEM($totalgratis_qty) : ".number_format($totalgratis)."\r\n";
 
-	// 	$temp_data['pengeluaran'] = array();
-	// 	foreach ($data_pengeluaran as $key => $value) {
-	// 		// $ttp += ($value['harga']*$value['qp']);
-	// 		$nama = " - ".substr(strtoupper($value['jenis_pengeluaran']) ,0,30);
-	// 		$totals = number_format($value['total']);
-	// 		$total =  ($totals);
-	// 		$array = array("nama"=>$nama,"total"=>$total);
-	// 		$temp_data['pengeluaran'][] = $array;
-	// 		$totalkeluar+=$value['total'];
-	// 	}
-	// 	$temp_data['total_pengeluaran'] = "TOTAL : ".number_format($totalkeluar)."\r\n";
+		// $temp_data['pengeluaran'] = array();
+		// foreach ($data_pengeluaran as $key => $value) {
+		// 	$nama = " - ".substr(strtoupper($value['jenis_pengeluaran']) ,0,30);
+		// 	$totals = number_format($value['total']);
+		// 	$total =  ($totals);
+		// 	$array = array("nama"=>$nama,"total"=>$total);
+		// 	$html_noprint .= "<tr><td>".$nama."  :  ".$total."</td></tr>";
+
+		// 	$temp_data['pengeluaran'][] = $array;
+		// 	$totalkeluar+=$value['total'];
+		// }
 
 		
 	// 	$temp_data['summary_totalpenjualan'] = "TOTAL PENJUALAN    : ".number_format($final );	
