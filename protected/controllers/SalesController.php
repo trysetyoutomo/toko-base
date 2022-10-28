@@ -2418,6 +2418,7 @@ public function actionSalesoutletweekly(){
             $sales->table = $data['table'];
             $sales->status = $data['status'];
             $sales->keterangan = $data['keterangan'];
+            $sales->refno = $data['refno'];
             if (!empty($data['namapelanggan'])){		
 	            $sales->nama = $data['namapelanggan'];
             }else{
