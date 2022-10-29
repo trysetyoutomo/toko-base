@@ -74,7 +74,9 @@ class ItemsSatuanController extends Controller
 		// var_dump($id);
 
 
-		$sql = "select * from items_satuan_price where item_satuan_id  = '$id' order by price_type desc ";
+		$sql = "select isp.id, isp.item_satuan_id, isp.price, isp.default, ispm.label_name as price_type
+		FROM items_satuan_price isp inner join  items_satuan_price_master ispm on ispm.name = isp.price_type
+		where item_satuan_id  = '$id' order by price_type desc ";
 		// echo $sql;
 		$data = Yii::app()->db->createCommand($sql)->queryAll();
 		echo json_encode($data);
