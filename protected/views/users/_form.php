@@ -1,4 +1,4 @@
-_<div class="form wide">
+<div class="form wide">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'users-form',
@@ -50,9 +50,8 @@ _<div class="form wide">
 	<div class="row">
 		<?php echo $form->labelEx($model,'level'); ?>
 		<?php
-		$nilai = ConfigRole::model()->findAll("role_name!='superadmin'");
-		$data = CHtml::listData($nilai,'id','role_name');
-
+		$nilai = AkuntansiAkunSubGroup::model()->findAll();
+		$data = CHtml::listData($nilai,'id','nama_subgroup');
 		?>
 		<?php echo $form->dropDownList($model, 'level', $data,array('prompt'=>'Pilih','class'=>'form-control','style'=>'max-width:250px;'));?>
                     
