@@ -46,7 +46,7 @@ $this->renderPartial('application.views.site.main');
 </h4>
 <br>
 
-<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#datatable').print()" />
+<!-- <input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#datatable').print()" /> -->
 
 <div id="data-cetak">
 <table  id="datatable" class="table" ></table>
@@ -204,7 +204,7 @@ $(document).ready(function(){
 		// 	 "autoWidth": true
 		// });
 
-       table.columns().every( function () {
+       myTable.columns().every( function () {
         var that = this;
  
         $( 'input', this.footer() ).on( 'keyup change', function () {
@@ -225,7 +225,14 @@ $(document).ready(function(){
           // $(".loader").show();
           myTable =  $('#datatable').DataTable({
             "processing": true,
-			 buttons: ['print'],	
+			dom: 'Bfrtip',
+			 buttons: [
+				'copyHtml5',
+				'excelHtml5',
+				'csvHtml5',
+				'pdfHtml5'
+        	],
+			//  buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print'],	
             "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "serverSide": true,
             // "ajax" : "<?php echo Yii::app()->createUrl("Items/laporanstokJSON") ?>",

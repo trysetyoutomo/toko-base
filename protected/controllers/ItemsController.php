@@ -223,7 +223,9 @@ class ItemsController extends Controller
 		 select iss.* , 
 		 IFNULL(isp.price, iss.harga) harga_jual 
 			from 
-		 items_satuan iss LEFT join items_satuan_price isp  on iss.id = isp.item_satuan_id   and isp.price_type='$price_type'
+		 items_satuan iss LEFT join items_satuan_price isp  on iss.id = isp.item_satuan_id   
+		 inner join  items_satuan_price_master ispm on ispm.name = isp.price_type
+		 and ispm.label_name = '$price_type'
 
 		 where item_id = '$id' and nama_satuan='$satuan_name'  ";
 		// echo $sql;
@@ -1786,13 +1788,15 @@ public function getHargamodal($id){
 						-- iisp.price as harga_jual,
 						#iis.harga as harga_jual,
 						iis.harga as harga_jual,
-						iisp.price_type as price_type,
+						ispm.label_name as price_type,
 						iis.barcode as barcode_new
 
 					FROM
 						items i
 					LEFT JOIN items_satuan iis ON iis.item_id = i.id
 					LEFT JOIN items_satuan_price iisp ON iisp.item_satuan_id = iis.id 
+					LEFT JOIN items_satuan_price_master ispm on ispm.name = iisp.price_type
+
 					LEFT JOIN categories as c on i.category_id = c.id 
 					LEFT JOIN motif as m on m.id  = i.motif
 					WHERE
@@ -1816,9 +1820,9 @@ public function getHargamodal($id){
 			$mDetail = Yii::app()->db->createCommand($queryDetail)->queryAll();
 
 			$priceDetail = "SELECT
-						isp.*
+						isp.id, isp.item_satuan_id, isp.price, isp.default, ispm.label_name as price_type
 					FROM
-						items_satuan_price isp
+						items_satuan_price isp inner join  items_satuan_price_master ispm on ispm.name = isp.price_type
 					WHERE
 						isp.item_satuan_id = '$m[item_satuan_id]'
 					group by isp.id";
