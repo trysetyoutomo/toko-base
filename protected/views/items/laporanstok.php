@@ -225,7 +225,7 @@ $(document).ready(function(){
           // $(".loader").show();
           myTable =  $('#datatable').DataTable({
             "processing": true,
-			dom: 'Bfrtip',
+			 dom: '<"top"i>Brt<"bottom"lp><"clear">',
 			 buttons: [
 				'copyHtml5',
 				'excelHtml5',
