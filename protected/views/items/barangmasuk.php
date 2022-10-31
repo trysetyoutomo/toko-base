@@ -421,7 +421,6 @@
             <td>:</td>
             <td>
                <select id="metode-pembayaran" class="form-control col-sm-6">
-                  <option value="0">Pilih</option>
                   <option value="CASH">CASH</option>
                   <?php 
                   $m = Bank::model()->findAll("aktif=1");

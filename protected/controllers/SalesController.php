@@ -2459,16 +2459,15 @@ public function actionSalesoutletweekly(){
 					$modelh->save();
 				}
 
+					// save each items
+					$total_equity = 0;
 	                foreach ($data_detail as $detail){
-
 	                	$hm = 0;
 						if ($detail['is_paket']=="1"){
 							$di = new SalesItemsPaket();
 							$di->item_modal = "0";
 						}else{
 							$di = new SalesItems();
-
-
 							//   $hargabeli = ItemsController::getAverage($value['item_id'],$value['id'], Yii::app()->user->branch());
 							// }else{
 								//   $hargabeli = $value['harga_beli'];
@@ -2485,31 +2484,20 @@ public function actionSalesoutletweekly(){
 										$di->item_modal = $a;
 										$hm = $a;
 									}
+									$total_equity+=$di->item_modal;
 								// }
 							// }
 						}
-
-						
 						// set source of item
 						$items = Items::model()->findByPk($detail['item_id']);
 						if ($items->has_bahan=="1"){
 							$this->kalkulasiBahanBaku($detail,$sales);
 						}
-
-
-
-
 						$total_cost = ($detail['item_price']*$detail['quantity_purchased']) + $detail['item_tax'] + $detail['item_service'];
 						$di->sale_id = $sales->id;
 	                    $di->item_id = $detail['item_id'];
 	                    $di->sales_item_name = $detail['item_name'];
-	                    
-
 	                    $getSatuanID = ItemsSatuan::model()->find("   nama_satuan = '$detail[item_satuan]' and item_id = '$detail[item_id]' ")->id;
-
-	                    // var_dump($getSatuanID);
-	                    // exit;
-
 
 	                    // get satuan now
 	                    $satuanUtama1 = ItemsSatuan::model()->find("   id = '$getSatuanID' ");
@@ -2585,10 +2573,9 @@ public function actionSalesoutletweekly(){
 	                    	// echo "Paket ".$detail['is_paket'] ;
 	                    }
 	                    $hit++;
-					}
-						
-						
-				
+					} // end looping of detail data 
+					// put total equity of this transaction
+					$sales->sale_equity = $total_equity;
 					SalesPayment::model()->deleteAllByAttributes(array('id' => $sales->id));
 					#menyimpan ke table salespayment
 					$sp = new SalesPayment();
@@ -2636,7 +2623,7 @@ public function actionSalesoutletweekly(){
 								}
 							}
 
-							 JurnalController::createTransaction($sales, $sp); // journal posting
+							 JurnalController::createSalesTransaction($sales, $sp); // journal posting
 							 $transaction->commit();
 							 // sleep(3);
 		                    $this->cetak($data,$data_detail,$data_payment,$hit, $sales->id,1);	

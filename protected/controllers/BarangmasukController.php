@@ -68,7 +68,11 @@ class BarangMasukController extends Controller
   		$BarangMasuk = BarangMasuk::model()->find("kode_trx = '$id' ");
   		if ($BarangMasuk){
 	  		$BarangMasuk->bayar = $_REQUEST['input_bayar'];
+
 	  		if ($BarangMasuk->update()){
+				// jurnal update
+				JurnalController::updateBuyLoanTransaction($BarangMasuk); 
+
 	  			echo json_encode(array("success"=>1));
 	  		}else{
 	  			echo json_encode(array("success"=>0));

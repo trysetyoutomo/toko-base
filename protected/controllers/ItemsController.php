@@ -1183,6 +1183,7 @@ class ItemsController extends Controller
 				}
 				// $model
 				// $modelh->update();
+				JurnalController::createBuyTransaction($modelh);
 				$transaction->commit();
 				echo json_encode(array("status"=>1));
 			}else{
@@ -1405,7 +1406,7 @@ public function getHargamodal($id){
 
 }
 		public function actionpengeluaranbaru(){
-
+			$transaction = Yii::app()->db->beginTransaction();
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));
 			$now = date("Y-m-d");
@@ -1437,9 +1438,11 @@ public function getHargamodal($id){
 			$modelh->keterangan = $_REQUEST['head']['keterangan'];
 			$modelh->keterangan = $_REQUEST['head']['keterangan'];
 			$modelh->total = $_REQUEST['head']['total'];
-			
-
+			$modelh->akun_id = $_REQUEST['head']['jeniskeluar'];
+			$modelh->pembayaran_via = $_REQUEST['head']['pembayaran_via'];
+			JurnalController::createExpenseTransaction($modelh); // journal posting
 			if ($modelh->save()){
+				$transaction->commit();	
 				echo "sukses";
 				// foreach ($nilai as $n){
 				// 	$model = new BarangKeluarDetail;
