@@ -2804,7 +2804,8 @@ public function getHargamodal($id){
   			// $aksi,
 			$value['item_name'],
 			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
-			$satuanlist,
+			// $satuanlist,
+			$stok,
   		);
   		if ($adjust=="1"){
   			array_push($json, $input);
