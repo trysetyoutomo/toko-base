@@ -1716,6 +1716,7 @@ class SalesController extends Controller {
 			// $stt = "if ($sql_stt)<0,0,1)";	
 			$sql  ="
 			SELECT 
+				refno,
 				pembayaran_via,
 				status,
 				branch,
@@ -1740,6 +1741,7 @@ class SalesController extends Controller {
 			SELECT 
 				ifnull(s.id,'') ID,
 				faktur_id,
+				refno,
 				pembayaran_via,
 				ifnull(tanggal_jt,'') tanggal_jt,
 				ifnull(nama,'') as nama,
@@ -3839,10 +3841,16 @@ public function actionCetakReportAll(){
 				$where_customer = " and nama='$customer' ";
 			}
 
+			$refno = $_REQUEST['refno'];
+			$where_refno = "";
+			if (!empty($refno)){
+				$where_refno = " and refno='$refno' ";
+			}
+
 			 // month(D.date)='$month' and year(D.date)='$year' and day(D.date)='$day2'
 			$sql = " SELECT * FROM ($table) AS  D 
 			where 1=1 
-			 $where_branch $where_customer
+			 $where_branch $where_customer $where_refno
 			group by D.id
 			$this->status_bayar
 			";
@@ -3868,6 +3876,7 @@ public function actionCetakReportAll(){
 			'month'=>$month,
 			'year'=>$year,
 			'day2'=>$day2,
+			'refno'=>$refno,
         ));
 
     }
