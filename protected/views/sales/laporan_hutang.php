@@ -124,6 +124,15 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 </select>
 		</td>
 	</tr>
+
+	<tr>
+		<td>
+			<label>No Referensi</label>
+		</td>
+		<td>
+			<input value="<?=$refno?>" class="form-control" name="refno" id="refno" placeholder="No Referensi" />
+		</td>
+	</tr>
 </table>
 	
 
@@ -206,10 +215,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'name'=>'date',
 		'header'=>'Tanggal'
 		),
-		// array(
-		// 'name'=>'tanggal_jt',
-		// 'header'=>'jatuh Tempo'
-		// ),
+		array(
+		'name'=>'refno',
+		'header'=>'No Referensi'
+		),
 		array(
 		'name'=>'nama',
 		'header'=>'Nama pembeli'

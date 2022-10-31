@@ -498,21 +498,24 @@ class ItemsController extends Controller
 	}
 	public function actionMasukUbahDetail($id){
 		$model = BarangMasukDetail::model()->findByPk($id);
-		if (isset($_REQUEST['BarangMasukDetail'])){
-			// echo "124";
-			$jml = $_REQUEST['BarangMasukDetail']['ubahke'] - $_REQUEST['BarangMasukDetail']['jumlah'];
-			$model->jumlah =   $_REQUEST['BarangMasukDetail']['jumlah'];
-			$model->supplier_id =   $_REQUEST['BarangMasukDetail']['supplier_id'];
-			$model->harga =   $_REQUEST['BarangMasukDetail']['harga'];
+		if (isset($_REQUEST['BarangmasukDetail'])){
+			$jml = $_REQUEST['BarangmasukDetail']['ubahke'] - $_REQUEST['BarangmasukDetail']['jumlah'];
+			$model->jumlah =   $_REQUEST['BarangmasukDetail']['jumlah'];
+			$model->supplier_id =   $_REQUEST['BarangmasukDetail']['supplier_id'];
+			$model->harga =   $_REQUEST['BarangmasukDetail']['harga'];
 			if ($model->update()){
 				$brg = Items::model()->findByPk($model->kode);
 				$brg->stok = $brg->stok + $jml;
 				if ($brg->update())
 					$this->redirect(array('items/laporanmasuk'));	
+				else {
+					print_r($model->getErrors());
+					exit;
+				}
+			}else{
+				print_r($model->getErrors());
+				exit;
 			}
-
-
-
 		}
 
 		$this->render("masukubahdetail",array('model'=>$model));
@@ -2807,7 +2810,8 @@ public function getHargamodal($id){
   			// $aksi,
 			$value['item_name'],
 			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
-			$satuanlist,
+			// $satuanlist,
+			$stok,
   		);
   		if ($adjust=="1"){
   			array_push($json, $input);
