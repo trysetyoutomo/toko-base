@@ -432,7 +432,7 @@ else
 							<td>Harga</td>
 							<td>Total</td>
 							<!-- <td>Satuan</td> -->
-							<td>Aksi</td>
+							<td style="display:none">Aksi</td>
 							
 						</tr>
 						<?php 
@@ -488,7 +488,7 @@ else
 							<td><?php echo number_format($q[harga]*$int) ?></td>
 							<!-- <td><?php echo $q['nama_satuan']?></td> -->
 							<!-- <td><?php //echo Supplier::model()->findByPk($q[supplier_id])->nama  ?></td> -->
-							<td style="width:10%">
+							<td style="width:10%;display:none">
 								<a href="<?php echo Yii::app()->controller->createUrl('masukhapusdetail',array("id"=>$q['sid'])) ?>" class="hapus-detail" href="#">
 										<i class="fa fa-times"></i>
 									
