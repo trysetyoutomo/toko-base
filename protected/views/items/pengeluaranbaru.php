@@ -80,11 +80,11 @@
 			<?php } ?>
 			</select>
 
-			<a style="text-decoration:none" href="<?php echo Yii::app()->createUrl('JenisBeban/create'); ?>">
+			<!-- <a style="text-decoration:none" href="<?php echo Yii::app()->createUrl('JenisBeban/create'); ?>">
 			<button type="button"  class="btn btn-primary" >
 			<i class="fa fa-plus"></i> Tambah
 			</button>
-			</a>
+			</a> -->
 			</div>
 
 			<div class="row">
