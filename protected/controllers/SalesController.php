@@ -2399,6 +2399,7 @@ public function actionSalesoutletweekly(){
 			
 			$sales->total_items = $jumlahakhir;
 			$sales->pembayaran_via = strtoupper($data['bayar_via']);
+			$data['pembayaran_via'] = $data['bayar_via'];
 
             
             if (isset($_data['payment']))   
@@ -2864,7 +2865,12 @@ public function actionSalesoutletweekly(){
         $temp_data['total'] =   "Total      : " . $this->set_spacebar($total, $pjg_ket, "kanan") . "\r\n";
         $temp_data['bayar'] =   "Bayar      : " . $this->set_spacebar($bayar, $pjg_ket, "kanan") . "\r\n";
         $temp_data['voucher'] = "Potongan   : " . $this->set_spacebar('('.number_format($payment['voucher']).')', $pjg_ket, "kanan") . "\r\n";
-        $temp_data['kembali'] = "Kembali    : " . $this->set_spacebar($kembali, $pjg_ket, "kanan") . "\r\n";
+        
+		if ($data['pembayaran_via'] == "0")
+			$temp_data['kembali'] = "Kembali    : " . $this->set_spacebar($kembali, $pjg_ket, "kanan") . "\r\n";
+		else
+			$temp_data['kembali'] = "Kembali    : " . $this->set_spacebar(0, $pjg_ket, "kanan") . "\r\n";
+		
         $temp_data['line_bawah'] = "" . "\r\n";
         $temp_data['slogan'] = $this->set_spacebar($this->slg, $total_margin, "tengah") . "\r\n";
 		$temp_data['pcm'] = $this->set_spacebar(" ", $total_margin, "tengah") . "\r\n";
@@ -3048,6 +3054,7 @@ public function actionCetakReportAll(){
 		$arr_sales['date'] = $saleid->date;
 		$arr_sales['table'] = $saleid->table;
 		$arr_sales['kembali'] = $saleid->kembali;
+		$arr_sales['pembayaran_via'] = $saleid->pembayaran_via;
 		
 		// $arr_sales['meja'] = "Meja ";
 		$hit = 0;
@@ -4557,7 +4564,7 @@ public function actionCetakReportAll(){
 			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 		}
 			
-		
+		$dataPengeluaranTotalKeluar = 0;
 		$temp_data['pengeluaran'] = array();
 		foreach ($data_pengeluaran as $key => $value) {
 			$nama = " - ".substr(strtoupper($value['jenis_pengeluaran']) ,0,30);
@@ -4567,13 +4574,14 @@ public function actionCetakReportAll(){
 			$html_noprint .= "<tr><td>".$nama."  :  ".$total."</td></tr>";
 
 			$temp_data['pengeluaran'][] = $array;
-			$totalkeluar+=$value['total'];
+			// $totalkeluar+=$value['total'];
+			$dataPengeluaranTotalKeluar+=$value['total'];
 		}
 
 
 
 	
-		$temp_data['total_pengeluaran'] = "TOTAL : ".number_format($totalkeluar)."\r\n";
+		$temp_data['total_pengeluaran'] = "TOTAL : ".number_format($dataPengeluaranTotalKeluar)."\r\n";
 		// $html_noprint .= "<tr><td>".$temp_data['total_pengeluaran']."</td></tr>";
 
 		// $html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
