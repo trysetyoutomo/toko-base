@@ -18,7 +18,7 @@
 <h1>
 <i class="fa fa-book"></i>
 
-Laporan Jurnal</h1>
+Laporan Buku Besar</h1>
 <br>
 
 
@@ -36,7 +36,7 @@ if (isset($_REQUEST['tanggal'])){
 }
 ?>
 <?php $form=$this->beginWidget('CActiveForm',array(
-	'action'=>Yii::app()->createUrl('jurnal/'),
+	'action'=>Yii::app()->createUrl('bukubesar/'),
 	'method'=>'POST',
 )); ?>
 
@@ -44,7 +44,13 @@ if (isset($_REQUEST['tanggal'])){
 <input type="text" value="<?php echo $tgl; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
 <label>sampai</label>
 <input  type="text" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal2" class="tanggal">
-
+<label for="jumlah" >Akun</label>
+<select class="form-control" style="width: 250px;display: inline" name="akun_id" id="akun_id">
+<option value="0">Pilih Jenis</option>
+<?php foreach (AkuntansiAkun::model()->findAll($criteria) as $jb) { ?>
+	<option <?php if ($_REQUEST['akun_id'] == $jb->id) echo "selected" ?> value="<?php echo $jb->id ?>"><?php echo $jb->nama_akun ?></option>
+<?php } ?>
+</select>
 
 
 
@@ -69,36 +75,7 @@ if (isset($_REQUEST['tanggal'])){
 
 <?php
 
-$branch = Yii::app()->user->branch();
-$sql  = "
-SELECT
-	aj.jml_detail_jurnal,
-	aj.created_at as tanggal_posting,
-	aj.id as jurnal_id,
-	akun_id,
-	ak.kode_akun,
-	ak.nama_akun,
-	sum(debit) as debit,
-	sum(kredit) as kredit,
-	u.username,
-	keterangan
-FROM
-	akuntansi_jurnal aj
-	INNER JOIN akuntansi_jurnal_detail ajd ON aj.id = ajd.jurnal_id 
-	INNER JOIN akuntansi_akun ak on ak.id = ajd.akun_id
-	LEFT JOIN users u on u.id = aj.user_id
-WHERE
-	aj.branch_id='$branch'
-	$filter
-	
-GROUP BY
-	ajd.id
-ORDER BY
-	 aj.created_at asc
 
-  ";
-// echo "$sql";
-$model = Yii::app()->db->createCommand($sql)->queryAll();
 
 ?>
 <style type="text/css">
@@ -114,10 +91,40 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 		<h5>Periode <?php echo $tgl ?> sampai dengan <?php echo $tgl2 ?> </h5>
 		<!-- <hr style="border:1px solid black"> -->
 </div>
+
+<?php 
+if (isset($_REQUEST['akun_id'])):
+$branch = Yii::app()->user->branch();
+$sql  = "
+SELECT
+	aj.tanggal_posting as tanggal_posting,
+	aj.id AS jurnal_id,
+	akun_id,
+	ak.kode_akun,
+	ak.nama_akun,
+	sum( debit ) AS debit,
+	sum( kredit ) AS kredit, 
+	debit - kredit AS saldo,
+	u.username,
+	keterangan
+	
+FROM
+	akuntansi_jurnal aj
+	INNER JOIN akuntansi_jurnal_detail ajd ON aj.id = ajd.jurnal_id
+	INNER JOIN akuntansi_akun ak ON ak.id = ajd.akun_id 
+	LEFT JOIN users u on u.id = aj.user_id
+	where ak.id = {$akunID}
+	GROUP BY
+	ajd.id
+
+
+  ";
+// echo "$sql";
+$model = Yii::app()->db->createCommand($sql)->queryAll();
+?>
+
 <table class="table items">
-
-
-		
+	
 	<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
 			<td>No</td>
 			<!-- <td>ID Keluar</td> -->
@@ -201,6 +208,7 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 	</tr>
 	</tbody>
 </table>
+<?php endif; ?>
 </div>
 
 <script>
