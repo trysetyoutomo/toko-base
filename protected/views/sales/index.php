@@ -281,7 +281,7 @@ $columnaja = array(
 //			'value'=>'$data->nilai',
 			'type'=>'number',
 			'footer'=>true,
-			'visible'=>Yii::app()->user->getLevel()==2,
+			// 'visible'=>Yii::app()->user->getLevel()==2,
 
 			'htmlOptions'=>array('style'=>'text-align:right'),
 
