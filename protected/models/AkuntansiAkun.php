@@ -32,6 +32,14 @@ class AkuntansiAkun extends CActiveRecord
             ["nama_akun, subgroup_id","required"]
         ];
     }
+
+	 public function attributeLabels() {
+        return array(
+            'subgroup_id' => 'Subgroup',
+
+        );
+    }
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
