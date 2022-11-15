@@ -2345,9 +2345,17 @@ public function actionSalesoutletweekly(){
 	$metode_stok = SiteController::getConfig("metode_stok");
 
 	try {
-	
-		// date_default_timezone_set("Asia/Jakarta");
-	//	echo date("Y/m/d H:i:s");
+		// cek akses
+		$username = Yii::app()->user->name;
+		$user = Users::model()->find('username=:un',array(':un'=>$username));
+		$idk = $user->level; 
+		if ($idk == "2"){
+			$return['error'] = "Browser yang sedang anda gunakan sedang login menggunakan akun admin, Transaksi penjualan hanya diperbolehkan oleh akun kasir, silahkan refresh halaman ini";
+			$return['status'] = 0;
+			echo json_encode($return);
+			exit;
+		}
+
 
         $data = $_REQUEST['data'];
         $data['date']  = date("Y-m-d H:i:s");

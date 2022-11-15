@@ -2042,6 +2042,8 @@ function bayar(status,table,sale_id)
             idx  = sales.id;
 
             if (sales.status==0){
+                alert(sales.error);
+                return false;   
             }
 
 
