@@ -28,12 +28,17 @@
 	</div>
 
 	<div class="row">
+		
+		<?php 
+		$dataCategoryMenu = ConfigMenuCategory::model()->findAll();
+		$listDataCategoryMenu = CHtml::listData($dataCategoryMenu,'id','category_name');
+		?>
 		<?php echo $form->labelEx($model,'category_menu_id'); ?>
-		<?php echo $form->textField($model,'category_menu_id'); ?>
+		<?php echo $form->dropDownList($model,'category_menu_id', $listDataCategoryMenu, array('empty' => 'Pilih ','separator'=>'|','class'=>'form-contro')); ?>
 		<?php echo $form->error($model,'category_menu_id'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row" style="display:none">
 		<?php echo $form->labelEx($model,'hapus'); ?>
 		<?php echo $form->textField($model,'hapus'); ?>
 		<?php echo $form->error($model,'hapus'); ?>
