@@ -29,13 +29,13 @@ class AkuntansiAkun extends CActiveRecord
 	public function rules()
 	{
 		return [
-            ["nama_akun, subgroup_id","required"]
+            ["nama_akun, subgroup_id,store_id","required"]
         ];
     }
 
 	 public function attributeLabels() {
         return array(
-            'subgroup_id' => 'Subgroup',
+            'subgroup_id' => 'Kategori Akun',
 
         );
     }

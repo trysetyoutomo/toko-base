@@ -1,3 +1,14 @@
+  	<?php 
+	if (isset($_REQUEST['id'])){ 
+        $nama_akun = AkuntansiAkun::model()->findByPk($_REQUEST['id'])->nama_akun;
+    ?>
+	<script>
+    setTimeout(() => {
+      $("#datatable_filter input").val("<?php echo $nama_akun ?>").trigger("keyup");
+    }, 1000);
+	</script>
+<?php } ?>
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="#">Beranda</a></li>
   <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Categories/admin'); ?>">Mengelola Biaya</a></li>
@@ -33,6 +44,8 @@ Akun
           <th>Kode Akun</th>
     
           <th>Nama </th>
+          <th>Group</th>
+          <th>Sub Group</th>
 
   		</tr>
        
@@ -58,19 +71,12 @@ Akun
   <ul class="dropdown-menu">
  
     <li>
-      
-          <a href="<?php echo Yii::app()->createUrl("Categories/update", array("id"=>$value[id],"status"=>"ubah")) ?>">
-            <i class="fa fa-pencil"></i> Ubah
-          </a>
-    </li>
-     <li>
-      
-          <a href="<?php echo Yii::app()->createUrl("Categories/view", array("id"=>$value[id],"status"=>"ubah")) ?>">
-            <i class="fa fa-eye"></i> Lihat
+          <a href="<?php echo Yii::app()->createUrl("Akun/update", array("id"=>$value[id])) ?>">
+          <i class="fa fa-pencil"></i> Ubah
           </a>
     </li>
     <li>
-        <a class="hapus" href="<?php echo Yii::app()->createUrl("Categories/hapus", array("id"=>$value[id])) ?>">
+        <a class="hapus" href="<?php echo Yii::app()->createUrl("Akun/hapus", array("id"=>$value[id])) ?>">
                 <i class="fa fa-times"></i> Hapus
               </a>
     </li>
@@ -82,6 +88,8 @@ Akun
         		<!-- <td><?php echo $value['id']; ?></td> -->
             <td><?php echo $value['kode_akun'] ?></td>
         		<td><a href="<?php echo Yii::app()->createUrl("Akun/update", array("id"=>$value[id])) ?>"><?php echo $value['nama_akun'] ?></a></td>
+            <td><?php echo $value['nama_group'] ?></td>
+            <td><?php echo $value['nama_subgroup'] ?></td>
 
         	
         	</tr>

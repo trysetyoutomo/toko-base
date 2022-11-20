@@ -17,9 +17,14 @@
         <?php 
 		$nilai = AkuntansiAkunSubGroup::model()->findAll();
 		$data = CHtml::listData($nilai,'id','nama_subgroup');
+		$array = [];
+		foreach ($nilai as $key => $value) {
+			$GroupName = AkuntansiGroup::model()->findByPk($value->group_id)->nama_subgroup;
+			$array[$key] = $GroupName." - ".$value->nama_subgroup;
+		}
         ?>
 		<?php echo $form->labelEx($model,'subgroup_id'); ?>
-		<?php echo $form->dropDownList($model, 'subgroup_id', $data,array('prompt'=>'Pilih','class'=>'form-control','style'=>'max-width:250px;'));?>
+		<?php echo $form->dropDownList($model, 'subgroup_id', $array,array('prompt'=>'Pilih','class'=>'form-control','style'=>'max-width:250px;'));?>
 		<?php echo $form->error($model,'subgroup_id'); ?>
 	</div>
 
