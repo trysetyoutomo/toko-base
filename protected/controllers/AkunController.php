@@ -7,8 +7,11 @@ class AkunController extends Controller
 	public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => ["admin","update","create","view"],
+                'actions' => array("admin","update","create","view"),
 				'users' => array('@'),
+            ),
+			array('deny', // deny all users
+                'users' => array('*'),
             ),
 		);
 	}
