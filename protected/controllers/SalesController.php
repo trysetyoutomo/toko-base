@@ -1558,9 +1558,11 @@ class SalesController extends Controller {
 		else
 		$a = false;
 		// echo "123";
+		$sales = Sales::model()->findByPk($id);
 		$this->render('detailtransaksi', array(
 			'detailtransaksi' => $detailtransaksi,
 			'a'=>$a,
+			'sales'=>$sales
 		));
 	}
 
