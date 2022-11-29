@@ -253,7 +253,6 @@
 <div class="row">
      <legend style="font-weight:bolder">Data Transaksi</legend>
    <div class="col-sm-6">
-      
       <table border="0" cellpadding="0" id="trx-b-masuk"  >
          <tr>
             <td colspan="4">
@@ -482,6 +481,7 @@
                      <th>Jumlah</th>
                      <th>Satuan</th>
                      <th>Harga Satuan </th>
+                     <th>Total Harga Satuan </th>
                      <th>aksi</th>
                   </tr>
                </thead>
@@ -779,8 +779,8 @@
    						var idb = $(this).find('.pk').html();
    
    
-   						var jml = Math.round($(this).find('.jumlah').val());
-   						var harga = Math.round($(this).find('.harga').val());
+   						var jml = parseFloat($(this).find('.jumlah').val());
+   						var harga = parseFloat($(this).find('.harga').val());
    							// alert(jml);
    							// alert(harga);
    						
@@ -791,6 +791,7 @@
    						
    							var total = 0;
    						}
+                     $(this).find(".total-harga-satuan").html(total);
    
    
    						subtotal+=total;
@@ -902,6 +903,7 @@
                   "<p style='display:none'  class='pk' nilai="+barcode+">"+barcode+"</p><input class='jumlah' style='width:100%;padding:4px;' maxlength='3' type='text' value='"+jumlah+"'/>",
                     "<p class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</p>",
                     "<input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/>",
+                    "<p class='total-harga-satuan text-right'></p>",
                     "&nbsp;<i  class='hapus-baris fa fa-times'></i>" 
 
                   ]).draw(false);
