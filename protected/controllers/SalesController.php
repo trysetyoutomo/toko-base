@@ -3861,7 +3861,7 @@ public function actionCetakReportAll(){
 			$refno = $_REQUEST['refno'];
 			$where_refno = "";
 			if (!empty($refno)){
-				$where_refno = " and refno='$refno' ";
+				$where_refno = " and trim(refno)=trim('$refno') ";
 			}
 
 			 // month(D.date)='$month' and year(D.date)='$year' and day(D.date)='$day2'
