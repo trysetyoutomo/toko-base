@@ -103,6 +103,18 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 <input type="hidden" value="sales/rekapmenu" name="r">
 	Tanggal ke 1<input value="<?php echo $tgl1; ?>" type="text" name="tgl1" id="tgl1">
 	Tanggal ke 2<input value="<?php echo $tgl2; ?>" type="text" name="tgl2" id="tgl2">
+	Customer 
+	<?php  $nilai = Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+	<select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
+		<option value="">Semua Konsumen</option>
+		<?php foreach($nilai as $k): ?>
+		<option <?php if ($k->nama==$_REQUEST['customer']) echo "selected" ?> value="<?php echo $k->nama ?>">
+		<?php echo $k->nama ?>
+			
+		</option>
+		<?php endforeach; ?>
+	</select>
+
 	<input type="submit" value="cari">
 </form>
 
@@ -140,6 +152,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		$q_tgl = Yii::app()->db->createCommand($sql_tgl)->queryAll();
 		$jmb_bris = count($q_tgl);
 		$branch_id = Yii::app()->user->branch();
+		$whereCustomer = isset($_REQUEST['customer']) && !empty($_REQUEST['customer']) ? " and s.nama = '".$_REQUEST['customer']."'" : ""; 
 		foreach ($q_tgl as $qtgl) { ?>
 		<td><?php echo date('d-m-Y',strtotime($qtgl[db_date] )); ?></td>
 		<?php } ?>
@@ -183,6 +196,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				and
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
 				and s.branch = '$branch_id'
+				{$whereCustomer}
 				")
 			->group("si.item_id, si.item_price ")
 			->order("i.item_name asc")
@@ -197,6 +211,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		where 
 		status = 1
 		and s.branch = '$branch_id'
+		{$whereCustomer}
 		and
 		date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' ";
 		// echo $sql_vouc;
@@ -215,6 +230,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				s.status = 1
 				and 
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
+				{$whereCustomer}
 				AND si.item_id = $values[iid]  AND si.`item_id` = i.`id`
 					and si.item_price =  $values[unit_price]  
 				GROUP BY item_id
@@ -239,6 +255,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 			->from('sales_items si,items i,sales s')
 			->where("
 				s.status = 1 
+				{$whereCustomer}
 				and date(date) = '".$qtgl[db_date]."' 
 				and si.item_id = i.id 
 				and si.sale_id = s.id  
