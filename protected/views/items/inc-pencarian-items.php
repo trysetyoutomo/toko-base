@@ -19,7 +19,7 @@
      #wrapper-item-search{
       display: none;
       background-color: white;
-      width: 350px;
+      width: 450px;
       height: 140px;
       border: 2px solid black;
       position: fixed;

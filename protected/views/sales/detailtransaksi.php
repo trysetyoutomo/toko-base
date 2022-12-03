@@ -11,7 +11,7 @@
 <div class="row"><div class="col-lg-2">Customer</div><div class="col-lg-6"><?php echo $sales->nama ?></div></div>
 <div class="row"><div class="col-lg-2">Total</div><div class="col-lg-6"><?php echo number_format($sales->sale_total_cost) ?></div></div>
 <div class="row"><div class="col-lg-2">Uang Bayar</div><div class="col-lg-6"><?php echo number_format($sales->bayar) ?></div></div>
-<div class="row"><div class="col-lg-2">Kembali</div><div class="col-lg-6"><?php echo number_format($sales->kembali) ?></div></div>
+<!-- <div class="row"><div class="col-lg-2">Kembali</div><div class="col-lg-6"><?php echo number_format($sales->kembali) ?></div></div> -->
 <div class="row"><div class="col-lg-2">Pembayaran Via</div><div class="col-lg-6"><?php echo $sales->pembayaran_via == '0' ? "CASH" : $sales->pembayaran_via ?></div></div>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	//'id'=>'outlet-grid',

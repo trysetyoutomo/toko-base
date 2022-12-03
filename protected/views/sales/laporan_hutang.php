@@ -46,7 +46,7 @@ for($x=1; $x<=31;$x++){
 	$day[$x] = $x;
 }
 
-echo CHtml::beginForm();
+echo CHtml::beginForm('', 'get');
 ?>
 <hr>
 <table cellpadding="20" id="sales-filter">
@@ -379,12 +379,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		// ),
 		//'comment',
 		// 'status',
-		// array(
-		// 'type'=>'raw',
-		// 'header'=>'Rincian Menu',
-		// 'value'=>'CHtml::link("Detail",array("sales/detailitems","id"=>$data[id]),array("style"=>"text-decoration:none"))',
+		array(
+		'type'=>'raw',
+		'header'=>'Rincian Menu',
+		'value'=>'CHtml::link("Detail",array("sales/detailitems","id"=>$data[id]),array("style"=>"text-decoration:none"))',
 		
-		// ),
+		),
 		// array(
 		// 	"name"=>"comment",
 		// 	"header"=>"Description",

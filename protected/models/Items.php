@@ -231,36 +231,12 @@ class Items extends CActiveRecord
 	{
 		$que = $this->queryDataItems($with_bahan);
 		
-		// echo $que;
-		// UNION ALL
-		// 	(
-		// 	SELECT
-		// 	'-' as satuan_id,
-		// 	p.id_paket as id,
-		// 	p.nama_paket nama,
-		// 	p.id_paket AS barcode,
-		// 	'-' AS panjang,
-		// 	'-' AS ketebalan,
-		// 	'-' AS ukuran,
-		// 	p.harga AS harga,
-		// 	'1' AS is_paket
-		// 	FROM
-		// 	paket p
-
-
-		// ) 
+		
 		$command=Yii::app()->db->createCommand($que);
 		$reader=$command->query();
+		$branch_id = Yii::app()->user->branch();
+
 			
-	
-		
-                // $data = array();
-                // foreach ($model as $item)
-                // {
-                    // $temp = array();
-                    // $data[$item->id] = $item->outlet->status." ".$item->item_name;
-                // }
-				
 				$data = array();
                 foreach ($reader as $item)
                 {
@@ -269,10 +245,13 @@ class Items extends CActiveRecord
                     // $stok = ItemsController::getStok($item['id']);
                     // $data[$item->id] = $item->outlet->status." ".$item->item_name;
                     if ($item['is_paket']=="0"){
-                    	$x = "";
+						 $stoknow = ItemsController::getStok($item['id'],$item['satuan_id'],$branch_id);
+						 $color = $stoknow > 0 ? "green" : "red";
+                    	 $x = "";
 	                    // $x = trim($item['ukuran']).".".trim($item['ketebalan']).".".trim($item['panjang']); 
-$data[$item['barcode']."##".$item['satuan_id']] = trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x;
+						$data[$item['barcode']."##".$item['satuan_id']] = trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x. "<b style='color:$color'>Stok : $stoknow</b>";
                     }else{
+						
                     	 $data[$item['barcode']."##".$item['satuan_id']] = $item['barcode']." - ".$item['nama'];
                     }
 
