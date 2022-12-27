@@ -1,8 +1,6 @@
 /protected/config/
-protected/runtime/application.log
-
+protected/runtime/
 toko-base.7z
-
 yii.zip
-
 protected/views/items/mh360.py
+/assets/
