@@ -105,8 +105,8 @@ class JurnalController extends Controller
             $jurnalDetail->jurnal_id = $jurnal->id;
             $jurnalDetail->akun_id = Bank::model()->find("nama = '".$pembayaran_via."'")->akun_id;
             $jurnalDetail->debit = 0;
-            $jurnalDetail->kredit = abs($model->bayar);
-            $jurnalDetail->saldo = abs($model->bayar);
+            $jurnalDetail->kredit = abs($model->grand);
+            $jurnalDetail->saldo = abs($model->grand);
             $jurnalDetail->created_at = date("Y-m-d H:i:s"); 
             $jurnalDetail->save();
 
