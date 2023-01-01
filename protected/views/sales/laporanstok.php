@@ -246,7 +246,7 @@ $(document).ready(function(){
 		var i = $(".set-stok").index(this);
 		// alert(i);
 	   var before = parseFloat($(this).attr("stok-before")) ;
-	   var skrg =  parseFloat($(".stok_real").eq(i).val() );
+	   var skrg =  parseFloat($(".stok_real").eq(i).val().replace(",",".") );
 	   // var satuan_id =  parseInt($(".satuan_id").eq(i).val() );
 	   var harga =  parseFloat($(this).attr("harga"));
 	   var satuan_id =  $(this).attr("satuan-id");

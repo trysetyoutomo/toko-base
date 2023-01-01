@@ -378,8 +378,8 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
                     // }
             			}
             			else{
-            				var now = $('.pk[nilai="'+val+'"]').closest('.baris').find('.jumlah').val();
-            				$('.pk[nilai="'+val+'"]').closest('.baris').find('.jumlah').val(parseInt(now)+parseInt(stok.val()));
+            				var now = $('.pk[nilai="'+val+'"]').closest('.baris').find('.jumlah').val().replace(",",".");
+            				$('.pk[nilai="'+val+'"]').closest('.baris').find('.jumlah').val(parseFloat(now)+parseFloat(stok.val()));
             			}
             			// $("#select2-input").focus();
                         // $("#nama").select2("open");
@@ -476,7 +476,7 @@ $this->renderPartial('inc-pencarian-items',array("model"=>$model));
                let validatedRows = [];
             	$(".baris").each(function() {
             		var idb = $(this).find('.pk').html();
-            		var jml = $(this).find('.jumlah').val();
+            		var jml = $(this).find('.jumlah').val().replace(",",".");
                   var item_name =  $(this).find('.item_name').html();
                   if (jml < 0){
                      validatedRows.push(item_name);

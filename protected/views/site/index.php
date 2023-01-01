@@ -1472,38 +1472,28 @@ $usaha = SiteController::getConfig("jenis_usaha");
           var svc = 0;
           var subtotal = 0;
           var voucher = 0;
+          
           voucher = $("#vouchernominal").val();
           var bayar = parseInt($("#sum_sale_bayar").html());
           liveSearchPanel_SalesItems.store.each(function (rec) {
-          sum += rec.get('item_total_cost');
-          discount += rec.get('item_discount') * (rec.get('item_price')*rec.get('quantity_purchased')) /100 ;
-
-          // tax += rec.get('item_tax')*rec.get('quantity_purchased');
-          tax += rec.get('item_tax');
-          svc += rec.get('item_service');
-          subtotal += (rec.get('item_price')*rec.get('quantity_purchased'));
+            var qty = parseFloat(rec.get('quantity_purchased').replace(",","."));
+            sum += rec.get('item_total_cost');
+            discount += rec.get('item_discount') * (rec.get('item_price')*qty) /100 ;
+            tax += rec.get('item_tax');
+            svc += rec.get('item_service');
+            subtotal += (rec.get('item_price')*qty);
           });
-
-    // tax = (subtotal-discount)/10;
 
           $('#sum_sub_total').html(Math.round(subtotal));
           $('#sum_sale_discount').html(Math.round(discount));
           $('#sum_sale_tax').html(Math.round(tax));
           service = svc;
-           // service  =    var_service * (subtotal-discount)/ 100;
-          //service  = 0;
-
 
           $('#sum_sale_service').html(Math.round(service));
           var total_akhir =Math.ceil(subtotal-discount-voucher+service+tax+bayar);
           $('#sum_sale_total').html(total_akhir);
           $('#sum_sale_total2').html( format(total_akhir.toString()) );
-
-
-          $('#total_bayar').html(Math.ceil(subtotal-discount-voucher+tax+service-bayar));
-
-
-
+          $('#total_bayar').html(Math.ceil(subtotal-discount-voucher+tax+service-bayar))
       }
 
 
@@ -1672,28 +1662,7 @@ function numberWithCommas(x) {
    }
    }
 
-   // function editdiskon(){
-   // //ambil nilai dari combo diskon
-   //   if ( parseInt($('#sum_sale_total').html()) !=0 ){
-
-   // var diskon = $('#discount').val();
-
-   // var subtotal = $('#sum_sub_total').html();
-   //    var discount = (subtotal/10);
-   //    var tax = $('#sum_sale_tax').html();
-   //    var service = 0;
-   //    var total_cost = parseInt(subtotal) - parseInt(discount) + parseInt(tax) + parseInt(service);
-
-   // $('#sum_sub_total').html(subtotal);
-   // $('#sum_sale_discount').html(discount);
-   // $('#sum_sale_service').html(service);
-   // $('#sum_sale_tax').html(tax);
-   // $('#sum_sale_total').html(total_cost);
-   //    }else{
-   //        alert('Silahkan isi menu');
-   //    }
-   // }
-
+   
    function hanyacetak(status,table,sale_id)
    {
    //alert(sale_id);

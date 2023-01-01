@@ -45,7 +45,6 @@ $bid = Yii::app()->user->branch();
 $branch = Branch::model()->findByPk($bid);
 $parameter = Parameter::model()->findByPk(1);
 $sql = "
-
 select 
 refno,
 pembayaran_via,
@@ -69,9 +68,6 @@ and inserter = u.id
 and sp.id = s.id 
 and si.sale_id = s.id 
 group by s.id 
-
-
-
 ";
 
 $model = Yii::app()->db->createCommand($sql)->queryRow();
@@ -180,9 +176,9 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 				<tr>
 					<td >
 						<?php
-						 echo intval($value['qty'])." x ".number_format($value['price'])." -  diskon (".$value['item_discount']." %)";
-						 $sbt = intval($value['qty'])*intval($value['price'])-$value['idc'];
-						 // echo intval($value['qty'])." x ".number_format($value['price'])." - ".$value['idc']." %";
+						 echo floatval($value['qty'])." x ".number_format($value['price'])." -  diskon (".$value['item_discount']." %)";
+						 $sbt = floatval($value['qty'])*floatval($value['price'])-$value['idc'];
+						 // echo floatval($value['qty'])." x ".number_format($value['price'])." - ".$value['idc']." %";
 
 						  ?>
 					</td>
@@ -198,7 +194,7 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 				
 			</tbody>
 				<?php 
-				$gt2 = ( intval($gt1) + intval($model['tax']) + intval($model['service']) ) -  intval($model['voucher']);
+				$gt2 = ( floatval($gt1) + floatval($model['tax']) + floatval($model['service']) ) -  floatval($model['voucher']);
 				?>
 			<tfoot>
 				<tr>

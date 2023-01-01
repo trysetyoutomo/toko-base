@@ -93,9 +93,9 @@ $(document).ready(function(){
 	$('.set-stok').click(function(e){
 		var i = $(".set-stok").index(this);
 		// alert(i);
-	   var before = parseInt($(this).attr("stok-before")) ;
-	   var skrg =  parseInt($(".stok_real").eq(i).val() );
-	   var harga =  parseInt($(this).attr("harga"));
+	   var before = parseFloat($(this).attr("stok-before")) ;
+	   var skrg =  parseFloat($(".stok_real").eq(i).val().replace(",",".") );
+	   var harga =  parseFloat($(this).attr("harga"));
 	   var id = $(this).attr("item-id");
 	   // var harga = $(this).attr("item-id");
 	   // alert(before);
@@ -105,7 +105,7 @@ $(document).ready(function(){
 	   		// alert(skrg);
 	   		// alert(before);
 	   		if (skrg>before){	
-			   var harga = parseInt(prompt("Masukan Harga Beli (Harga Beli Terakhir)",harga,harga) );
+			   var harga = parseFloat(prompt("Masukan Harga Beli (Harga Beli Terakhir)",harga,harga) );
 			   if (harga==0 || isNaN(harga) || harga==null){
 				   	alert("Tidak Boleh Kosong");
 				   	exit;

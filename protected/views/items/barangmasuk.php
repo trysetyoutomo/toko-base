@@ -488,7 +488,8 @@
             <table style="width:100%" id="users" class="table table-te table-striped">
                <thead>
                   <tr>
-                     <!-- <th>No</th> -->
+                     <th>No</th>
+                     <th>Barcode</th>
                      <th>Kategori</th>
                      <th>Sub Kategori</th>
                      <th>Nama Item</th>
@@ -793,7 +794,8 @@
    						var idb = $(this).find('.pk').html();
    
    
-   						var jml = parseFloat($(this).find('.jumlah').val());
+   						//  parseFloat($(this).find('.jumlah').val());
+                     var jml = parseFloat($(this).find('.jumlah').val().replace(",","."));
    						var harga = parseFloat($(this).find('.harga').val());
    							// alert(jml);
    							// alert(harga);
@@ -828,14 +830,6 @@
    					// alert(kembali);
    					$("#total-kembali").attr("asli",kembali);
    					$("#total-kembali").val(numberWithCommas(kembali) );
-
-                 
-   
-   
-   
-   
-   
-   
    
    	 			}
    				function numberWithCommas(x) {
@@ -844,6 +838,7 @@
    				}
    
                var table = $("#users").DataTable();
+               // table.column(1).visible(false) ;
    				function add_item(val){
    					if (val!=0 ){
    
@@ -855,7 +850,7 @@
    							var d = JSON.parse(data);
    							if (d.item_name!=null){
    							// if ()
-   
+                           
    							// var string = "<option value='0'>pcs</option>";
    							var string = " ";
    
@@ -889,37 +884,35 @@
    				}
           var no = 0;
    				function appendToBaris(d,barcode,jumlah,harga=""){
+                  // alert(barcode);
+                  // let checkExist = table.column(1).search(String(barcode)).data().length;
+                  // if (checkExist >0 ){
+                  //    alert('123');
+                  //    return false;
+                  // }
    					var subkategori = "-";
    					if (d.nama_sub_kategori==null){
    						subkategori = "-";
    					}else{
    						subkategori = d.nama_sub_kategori;
    					}
-            // no++;
-            no = $(".baris").length+1;
-   				// 	$('#users tbody').append(
-   				// 	"<tr class='baris'>" +
-   				// 	"<td>"+d.nama_kategori+"</td>"+
-   				// 	"<td>"+subkategori+"</td>"+
-   				// 	"<td style='display:none'  class='pk' nilai="+barcode+"  >" + barcode + "</td>" +
-   				// 	"<td>" + d.item_name + "</td>" +   
-   				// 	"<td><input class='jumlah' style='width:100%;padding:4px;' maxlength='15' type='text' value='"+jumlah+"'/></td>" +
-   				// 	"<td class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</td>" +
-   				// 	"<td><input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/></td>" +
-   				// 	"<td >&nbsp;<i  class='hapus-baris fa fa-times'></i > "+
-   				// 	"</td> " +"</tr>"
-   				// );
+            // 0++;
+
+                  
+
+            no = parseInt(table.rows().count()) + 1;
                table.row.add(
                   [
-                  d.nama_kategori,
-                  subkategori,
-                   d.item_name, 
-                  "<p style='display:none'  class='pk' nilai="+barcode+">"+barcode+"</p><input class='jumlah' style='width:100%;padding:4px;' maxlength='3' type='text' value='"+jumlah+"'/>",
-                    "<p class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</p>",
-                    "<input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/>",
-                    "<p class='total-harga-satuan text-right'></p>",
-                    "&nbsp;<i  class='hapus-baris fa fa-times'></i>" 
-
+                     no,
+                     barcode,
+                     d.nama_kategori,
+                     subkategori,
+                     d.item_name, 
+                     "<p style='display:none'  class='pk' nilai="+barcode+">"+barcode+"</p><input class='jumlah' style='width:100%;padding:4px;' maxlength='4' type='text' value='"+jumlah+"'/>",
+                     "<p class='td-satuan' value='"+d.nama_satuan_id+"'>"+d.nama_satuan+"</p>",
+                     "<input class='harga' value='"+harga+"' style='width:100%;padding:4px;' maxlength='15' value='0' type='text'/>",
+                     "<p class='total-harga-satuan text-right'></p>",
+                     "&nbsp;<i  class='hapus-baris fa fa-times'></i>" 
                   ]).draw(false);
  
                
@@ -1014,7 +1007,9 @@
    					$("#users tbody tr").each(function() {
    						var idb = $(this).find('.pk').html();
    						// alert(idb);
-   						var jml = $(this).find('.jumlah').val();
+   						var jml = $(this).find('.jumlah').val().replace(",",".");
+
+                     
    						jml = jml.replace(/,/g, '.');
    						jml = parseFloat(jml);
    						jml = Math.round(jml * 100) / 100;
@@ -1027,18 +1022,7 @@
    						// var satuan = $(this).find('.satuan').val();
    						// var satuan = $(this).find('.satuan').find(" option:selected").attr("value-id");
    						var satuan = $(this).find('.td-satuan').attr("value");
-   						// alert(satuan);
-   					
-   
-   
-   						// if (jml<1){
-   						// 	alert('jumlah tidak boleh kosong');
-   						// 	exit;
-   						// }
-   						// if (jml==""){
-   						// 	alert('jumlah tidak boleh kosong');
-   						// 	exit;
-   						// }
+
    
    						if (harga==""){
    							alert('Harga tidak boleh kosong');
