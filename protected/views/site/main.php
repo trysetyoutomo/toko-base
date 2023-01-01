@@ -59,7 +59,7 @@ Ext.define('SalesItems',{
     },
     {
         name:'quantity_purchased',
-        type:'integer'
+        type:'double'
     },
     {
         name:'item_tax',
@@ -365,8 +365,8 @@ function kalkulasiRow(models,row){
 	// alert(persen);
 	// alert(persen_svc);
 	var angka_diskon = models[row].get("item_discount");
-
-	var subtotal = Math.round(models[row].get("item_price")*models[row].get("quantity_purchased") );
+    var rowQuantityPurchased = parseFloat(models[row].get("quantity_purchased").replace(",","."));
+	var subtotal = Math.round(models[row].get("item_price")*rowQuantityPurchased );
 	var total_diskon = Math.round((angka_diskon/100)*subtotal );
 	// subtotal = subtotal-total_diskon;
 
@@ -380,17 +380,6 @@ function kalkulasiRow(models,row){
 	models[row].set("item_service",tt_svc);
 
 	models[row].set("item_total_cost",item_total_cost);
-	// var d = (models[row].get("item_discount")/100) * (models[row].get("item_price")*models[row].get("quantity_purchased"));
-	// models[row].set("item_total_cost",models[row].get("item_service")+models[row].get("item_tax")+(models[row].get("item_price")*models[row].get("quantity_purchased")) - d);
-
-						
-
-
-					
-	// models[row].set("item_tax",(models[row].get("item_price")*persen)*models[row].get("quantity_purchased"));
-	// models[row].set("item_service",(models[row].get("item_price")*persen_svc)*models[row].get("	quantity_purchased"));
-						
-	// var d = models[row].get("item_discount") * (models[row].get("item_price")*models[row].get("quantity_purchased"));
 
 
 	kalkulasi1();
@@ -1676,7 +1665,8 @@ function add_item(id)
 				if (rec.get('item_name')==obj.item_name && rec.get('item_satuan_id')==obj.item_satuan_id ){
 						var row = grid.store.indexOf(rec);
 						var models = grid.getStore().getRange();
-						models[row].set("quantity_purchased",(models[row].get("quantity_purchased")+parseInt($("#qty").val())));
+                        var total = parseFloat(String(models[row].get("quantity_purchased")).replace(",",".")) +   parseFloat($("#qty").val().replace(",","."));
+						models[row].set("quantity_purchased",total);
 						kalkulasiRow(models,row);
 						// models[row].set("item_tax",(models[row].get("item_price")*persen)*models[row].get("quantity_purchased"));
 						// models[row].set("item_service",(models[row].get("item_price")*persen_svc)*models[row].get("quantity_purchased"));
@@ -1995,7 +1985,7 @@ function bayar(status,table,sale_id)
             "item_id":rec.get('item_id'),
             "item_satuan_id":rec.get('item_satuan_id'),
             "item_satuan":rec.get('item_satuan'),
-            "quantity_purchased":rec.get('quantity_purchased'),
+            "quantity_purchased":rec.get('quantity_purchased').replace(",","."),
             "item_tax":rec.get('item_tax'),
             "item_service":rec.get('item_service'),
             "item_discount":rec.get('item_discount'),
@@ -2193,7 +2183,7 @@ function editdiskongrid(ediskon){
     liveSearchPanel_SalesItems.store.each(function (rec) { 
         data_detail[inc] = {
             "item_id":rec.get('item_id'),
-            "quantity_purchased":rec.get('quantity_purchased'),
+            "quantity_purchased":rec.get('quantity_purchased').replace(",","."),
             "item_tax":rec.get('item_tax'),
             "item_service":rec.get('item_service'),
             "item_name":rec.get('item_name'),
@@ -2217,7 +2207,7 @@ function editdiskongrid(ediskon){
 		
 		for (i = 0; i < data_detail.length; i++) {
 			// alert(data_detail[i].name);
-			var hargatotal = data_detail[i].quantity_purchased * data_detail[i].item_price;
+			var hargatotal = data_detail[i].quantity_purchased.replace(",",".") * data_detail[i].item_price;
 			var potongan = (hargatotal*ediskon)/100;
 			var itcost = hargatotal-potongan+data_detail[i].item_tax+data_detail[i].item_service;
 			
@@ -2228,7 +2218,7 @@ function editdiskongrid(ediskon){
                 item_price_tipe:  data_detail[i].item_price_tipe,
 
                 item_id:  data_detail[i].item_id,
-                quantity_purchased:data_detail[i].quantity_purchased,
+                quantity_purchased:data_detail[i].quantity_purchased.replace(",","."),
                 item_tax: data_detail[i].item_tax,
                 item_service: data_detail[i].item_service,
                 item_name: data_detail[i].item_name,
@@ -2954,11 +2944,11 @@ Ext.onReady(function() {
         var discount = 0;
         var tax = 0;
         var subtotal = 0;
-        //alert('test');
         liveSearchPanel_SalesItems.store.each(function (rec) { 
-            subtotal += rec.get('item_price')*rec.get('quantity_purchased'); 
+            var qty = parseFloat(rec.get('quantity_purchased').replace(",","."));
+            subtotal += rec.get('item_price')*qty; 
             sum += rec.get('item_total_cost'); 
-            discount += rec.get('item_discount') * (rec.get('item_price')*rec.get('quantity_purchased')) /100 ; 
+            discount += rec.get('item_discount') * (rec.get('item_price')*qty) /100 ; 
             // tax += rec.get('item_tax') *  rec.get('quantity_purchased'); 
             tax += rec.get('item_tax');
         });

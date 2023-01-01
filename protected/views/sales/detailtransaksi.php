@@ -71,7 +71,7 @@
 		'header'=>'jumlah',
 		'footer'=>true,
 		'class'=>'ext.gridcolumns.TotalColumn',
-		'type'=>'number',
+		// 'type'=>'decimal',
 		'htmlOptions'=>array('style'=>'text-align:right'),
 		'footerHtmlOptions'=>array('style'=>'text-align:right;font-weight:bold;'),
 

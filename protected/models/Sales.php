@@ -51,7 +51,7 @@ class Sales extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('customer_id, sale_sub_total, sale_discount, sale_service, sale_tax, sale_total_cost, sale_payment, paidwith_id, total_items, branch, user_id, status', 'required'),
-            array('customer_id, sale_sub_total, sale_discount, sale_service, sale_tax, sale_total_cost, sale_payment, paidwith_id, total_items, branch, user_id, status', 'numerical', 'integerOnly' => true),
+            array('customer_id, sale_sub_total, sale_discount, sale_service, sale_tax, sale_total_cost, sale_payment, paidwith_id, branch, user_id, status', 'numerical', 'integerOnly' => true),
             array('comment', 'length', 'max' => 200),
             // array('date', 'default',
             //     'value' => new CDbExpression('NOW()'),

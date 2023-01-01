@@ -2792,7 +2792,7 @@ public function getHargamodal($id){
 		}
 		
 		
-	  	$input = "<input type='text' name='stok_real' value='$stok' 
+	  	$input = "<input type='text' name='stok_real' value='$stok' maxlengt='5'
 				class='stok_real' style='width: 70px'>
 				<button harga='$harga'  stok-before='$stok'  class='set-stok btn btn-primary' 
 				item-id=' $value[id]'
@@ -2808,7 +2808,7 @@ public function getHargamodal($id){
 			$value['item_name'],
 			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
 			// $satuanlist,
-			$stok,
+			number_format((float)$stok, 2, '.', ''),
   		);
   		if ($adjust=="1"){
   			array_push($json, $input);
