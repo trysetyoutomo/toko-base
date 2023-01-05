@@ -13,10 +13,8 @@
 <i class="fa fa-edit"></i>
 Ubah Items #<?php echo $model->id; ?></h1>
 <hr>
-<?php echo $this->renderPartial('_form', array(
-  'model'=>$model,
-  'datasatuan'=>$satuan
-)); ?>
+<?php echo $this->renderPartial('application.views.items._form', array('model'=>$model,'datasatuan'=>$datasatuan)); ?>
+<?php echo $this->renderPartial('application.views.layouts.js'); ?>
 <div class="row">
 	<div class="col-sm-12">
 			<?php 

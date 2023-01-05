@@ -2603,6 +2603,7 @@ public function getHargamodal($id){
 		$this->render('update',array(
 			'model'=>$model,
 			'satuan'=>$satuan,
+			'datasatuan'=>$satuan
 		));
 	}
 
