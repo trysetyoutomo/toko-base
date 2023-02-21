@@ -12,6 +12,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 ?>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/xlsx/xlsx.full.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui.css">
 <style type="text/css">
 #information-company{
@@ -88,6 +89,17 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		});
 
 		});
+
+
+		function htmlTableToExcel(type){
+			var data = document.getElementById('rekapmenu_table');
+			var excelFile = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+			XLSX.write(excelFile, { bookType: type, bookSST: true, type: 'base64' });
+			const urlParams = new URLSearchParams(window.location.search);
+			const tgl1 = urlParams.get('tgl1')
+			const tgl2 = urlParams.get('tgl2')
+			XLSX.writeFile(excelFile, 'Rekap_penjualan_barang_'+$("#tgl1").val()+"_"+$("#tgl2").val() + "."+type);
+		}
 	</script>
 
 
@@ -118,7 +130,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	<input type="submit" value="cari">
 </form>
 
-<table border="1" cellpadding="5"  style="border-collapse:collapse;width:100%;font-size:12px;border:1px solid black" colspan = "3" rowspan="3">
+<table id="rekapmenu_table" border="1" cellpadding="5"  style="border-collapse:collapse;width:100%;font-size:12px;border:1px solid black" colspan = "3" rowspan="3">
 	<tr>
 		<td>No</td>
 		<td>Nama</td>
@@ -325,6 +337,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	</div>
 
 	<input type="button" value="cetak" class="no-print" onclick="print()" />
+	<input type="button" value="cetak Excel" class="no-print" onclick="htmlTableToExcel('xlsx')" />
 	<style>
 	@media print
 	{    
