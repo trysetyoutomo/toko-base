@@ -1041,12 +1041,12 @@ class ItemsController extends Controller
 			$modelh->kode_trx = $_REQUEST['head']['kode_trx'];
 			$modelh->branch_id = $_REQUEST['head']['cabang'];
 			$modelh->status_aktif = 1;
-			
 			$modelh->subtotal = $_REQUEST['head']['subtotal'];
 			$modelh->diskon = $_REQUEST['head']['diskon'];
 			$modelh->grand = $_REQUEST['head']['grand'];
 			$modelh->bayar = $_REQUEST['head']['bayar'];
 			$modelh->kembali = $_REQUEST['head']['kembali'];
+			$modelh->metode_pembayaran = $_REQUEST['head']['metode_pembayaran'];
 
 
 			if ($_REQUEST['head']['isbayar']=="1"){
@@ -1186,6 +1186,7 @@ class ItemsController extends Controller
 				}
 				// $model
 				// $modelh->update();
+				JurnalController::createBuyTransaction($modelh);
 				$transaction->commit();
 				echo json_encode(array("status"=>1));
 			}else{
@@ -1408,7 +1409,7 @@ public function getHargamodal($id){
 
 }
 		public function actionpengeluaranbaru(){
-
+			$transaction = Yii::app()->db->beginTransaction();
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));
 			$now = date("Y-m-d");
@@ -1440,9 +1441,11 @@ public function getHargamodal($id){
 			$modelh->keterangan = $_REQUEST['head']['keterangan'];
 			$modelh->keterangan = $_REQUEST['head']['keterangan'];
 			$modelh->total = $_REQUEST['head']['total'];
-			
-
+			$modelh->akun_id = $_REQUEST['head']['jeniskeluar'];
+			$modelh->pembayaran_via = $_REQUEST['head']['pembayaran_via'];
+			JurnalController::createExpenseTransaction($modelh); // journal posting
 			if ($modelh->save()){
+				$transaction->commit();	
 				echo "sukses";
 				// foreach ($nilai as $n){
 				// 	$model = new BarangKeluarDetail;

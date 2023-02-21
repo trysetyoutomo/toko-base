@@ -374,7 +374,7 @@ else
 				else{
 					?>
 					<input style="width:80%" type="text" name="input-bayar" id="input-bayar" value="<?php echo $m['bayar'] ?>">
-					<button data-kode="<?php echo $m['kode_trx']?> " id="input-ok">Ubah Bayar</button>
+					<button class="btn btn-primary" data-kode="<?php echo $m['kode_trx']?> " id="input-ok">Ubah Bayar</button>
 					<?php
 				}
 

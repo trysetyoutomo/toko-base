@@ -52,21 +52,39 @@
 				<input type="text" value="<?php echo date('Y-m-d'); ?>" class="form-control" style="max-width:150px;display:inline-block "  name="tanggal" id="tanggal">
 			</div>
 
+			<div class="row">
+				<label for="jumlah" >Pembayaran</label>
+				<select  style="width: 450px;display: inline"  id="pembayaran_via" class="form-control ">
+                  <option value="CASH">CASH</option>
+                  <?php 
+					$criteria = new CDbCriteria;
+					$criteria->select ='t.*';
+					$criteria->condition =" store_id = '".Yii::app()->user->store_id()."' and group_id = 5 ";
+					$criteria->join =" INNER JOIN akuntansi_subgroup as a on a.id = t.subgroup_id ";
+
+                  $m = Bank::model()->findAll("aktif=1");
+                  foreach ($m as $key => $value) {
+                  echo "<option  value='$value->nama'>$value->nama</option>";
+                  } ?>
+                  </select>
+
+			</div>
+
 
 			<div class="row">
 			<label for="jumlah" >Jenis Keluar</label>
-			<select class="form-control" style="width: 200px;display: inline" name="jeniskeluar" id="jeniskeluar">
+			<select class="form-control" style="width: 450px;display: inline" name="jeniskeluar" id="jeniskeluar">
 			<option>Pilih Jenis</option>
-			<?php foreach (JenisBeban::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ") as $jb) { ?>
-				<option value="<?php echo $jb->nama ?>"><?php echo $jb->nama ?></option>
+			<?php foreach (AkuntansiAkun::model()->findAll($criteria) as $jb) { ?>
+				<option value="<?php echo $jb->id ?>"><?php echo $jb->nama_akun ?></option>
 			<?php } ?>
 			</select>
 
-			<a style="text-decoration:none" href="<?php echo Yii::app()->createUrl('JenisBeban/create'); ?>">
+			<!-- <a style="text-decoration:none" href="<?php echo Yii::app()->createUrl('JenisBeban/create'); ?>">
 			<button type="button"  class="btn btn-primary" >
 			<i class="fa fa-plus"></i> Tambah
 			</button>
-			</a>
+			</a> -->
 			</div>
 
 			<div class="row">
@@ -181,6 +199,7 @@
 					var user  = $('#user').val();
 					var keterangan  = $('#keterangan').val();
 					var jeniskeluar  = $('#jeniskeluar').val();
+					var pembayaran_via  = $('#pembayaran_via').val();
 					var total  = $('#total').val();
 					// alert(keterangan);
 					if (keterangan==""){
@@ -198,42 +217,9 @@
 						user : user,
 						keterangan : keterangan,
 						jeniskeluar : jeniskeluar,
-						total : total
+						total : total,
+						pembayaran_via :pembayaran_via
 					}
-					
-					// if ($(".baris").length==0){
-					// 	alert("tidak boleh kosong");
-					// 	return false;
-					// } 
-					// var array_kode = [];
-					// $('.kode').each(function (index, value){
-					// 	array_kode.push($('.kode').eq(index).val());
-					// });	
-					// if (hasDuplicates(array_kode)){
-					// 	alert('Terdapat kode yang sama');
-					// 	return false;
-					// }
-					// alert(JSON.stringify(head));
-					// alert(JSON.stringify(array_kode));
-					// return false;
-
-					// $(".baris").each(function() {
-					// 	var idb = $(this).find('.pk').html();
-					// 	var jml = $(this).find('.jumlah').val();
-					// 	var kode = $(this).find('.kode').val();
-					// 	var status = $(this).find('.statusbarang').val();
-					// 	var harga = $(this).find('.harga').val();
-						
-					// 	item = {};
-					// 	item["idb"] = idb;
-					// 	item["jml"] = jml;
-					// 	item["kode"] = kode;
-					// 	item["status"] = status;
-					// 	item["harga"] = harga;
-					// 	jsonObj.push(item);
-					// });
-
-					// alert(JSON.stringify(jsonObj));
 						 
 						 $.ajax({
 							url: '<?php echo Yii::app()->createAbsoluteUrl('items/pengeluaranbaru'); ?>', 

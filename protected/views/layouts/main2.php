@@ -266,10 +266,10 @@
       <!-- Custom Theme Style -->
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/production/css/custom.css" rel="stylesheet">
       <style type="text/css">
-         body input{
+         /* body input{
           text-transform: uppercase;
 
-         }
+         } */
          #shorcut ul {
             padding-top:1rem;
          }

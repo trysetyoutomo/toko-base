@@ -32,10 +32,10 @@ class Controller extends CController
 				foreach ($value as $key2 => $value2) {
 					// echo $value2;
 					// echo $key2;
-					$_POST[$key][$key2] = strtoupper($value2);	
+					// $_POST[$key][$key2] = strtoupper($value2);	
 				}
 			}else{
-				$value[$key] = strtoupper($value);	
+				// $value[$key] = strtoupper($value);	
 
 			}
 
