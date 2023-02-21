@@ -21,11 +21,13 @@ Akun
 <hr>
 <div class="row">
 	<div class="col-sm-8">
-		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
-		<button class="btn btn-primary">
+		<a class="btn btn-primary" href="<?php echo Yii::app()->controller->createUrl("create") ?>">
 			<i class="fa fa-plus"></i> Tambah 
-		</button>
 		</a>
+    <a class="btn btn-primary" href="<?php echo Yii::app()->controller->createUrl("saldo") ?>">
+			<i class="fa fa-pencil"></i> Kelola Saldo Awal 
+		</a>
+
 
 	</div>
 	<!-- <div class="col-sm-4">

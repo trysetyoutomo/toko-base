@@ -42,10 +42,26 @@ class AkunController extends Controller
 	}
 
 
-    public function actionCreate(){
+    public function actionSaldo(){
 		$model = new AkuntansiAkun;
-		
-		
+		$listAkun=AkuntansiAkun::model()->findAll();
+
+
+		$this->render('saldo',array(
+			'model'=>$model,
+			'listAkun'=>$listAkun,
+		));
+	}
+
+	public function actionCheck($kode){
+		$sql = "select * from akuntansi_akun where kode_akun = '$kode' ";
+		$data = Yii::app()->db->createCommand($sql)->queryRow();
+		echo json_encode($data);
+
+	}
+
+    public function actionCreate(){
+		$model = new AkuntansiAkun;		
 		if(isset($_POST['AkuntansiAkun']))
 		{
 			$model->attributes=$_POST['AkuntansiAkun'];
