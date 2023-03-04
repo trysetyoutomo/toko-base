@@ -10,8 +10,7 @@
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
-
-
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/xlsx/xlsx.full.min.js"></script>
 
 <?php 
 $this->renderPartial('application.views.site.main');
@@ -136,47 +135,10 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 </table>
 	
 
-<?php
-// 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-// 		'name'=>'Sales[date2]',
-// 		'attribute'=>'date',
-// //		'model'=>$model,
-// 		// additional javascript options for the date picker plugin
-// 		'options'=>array(
-// 			'dateFormat'=>'yy-mm-dd',
-// 			'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
-// 			'showOn'=>'button', // 'focus', 'button', 'both'
-// 			'buttonText'=>Yii::t('ui','Select form calendar'),
-// 			'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.png',
-// 			'buttonImageOnly'=>true,
-// 		),
-// 		'value'=>$tgl2,
-// 		'htmlOptions'=>array(
-// 			// 'style'=>'height:20px;'
-// 			'style'=>'height:20px;;width:80px;display:inline-block'
-// 		),
-// 	));
-
-
-	
-// $this->renderPartial('summary',array('summary'=>$summary));
-
-?>
-<!-- Status -->
-	
-
-
-<?php 
-
-?>
-
-
-
-
-	<!-- </div> -->
 			<div style="margin-top:10px;">
 			<?php echo CHtml::submitButton('Cari',array('class'=>'btn btn-primary')); ?>
 			<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+			<input type="button" value="Cetak Excel" class="no-print btn btn-primary" onclick="htmlTableToExcel('xlsx')" />
 			</div>
 
 			<?php //echo CHtml::button('Cetak Rekap',array('id'=>'cetakrekap','class'=>'btn btn-primary')); ?>
@@ -468,24 +430,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 }
 ?>
 </div>
-<?php
-// $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-//     'id' => 'dialog_export',
-//     // additional javascript options for the dialog plugin
-//     'options' => array(
-//         'title' => 'Meja',
-//         'autoOpen' => false,
-//         'modal' => true,
-//         'width' => 250,
-//         'height' => 80,
-//     ),
-// ));
-
-// echo "data sales berhasil di export";
-// //echo "ramdnai";
-
-// $this->endWidget('zii.widgets.jui.CJuiDialog');
-?>
 <div id="dialog" title="Pelunasan">
 <p>
 <?php 
@@ -494,7 +438,21 @@ $this->renderPartial("bayar_sales");
 </p>
 </div>
 <script>
+
+function htmlTableToExcel(type){
+	var data = document.getElementById('laporan_piutang_table');
+	var excelFile = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+	XLSX.write(excelFile, { bookType: type, bookSST: true, type: 'base64' });
+	const urlParams = new URLSearchParams(window.location.search);
+	const tgl1 = urlParams.get('tgl1')
+	const tgl2 = urlParams.get('tgl2')
+	XLSX.writeFile(excelFile, 'Laporan_Piutang_<?=$_REQUEST['customer']?>.'+type);
+}
+
 $(document).ready(function(){
+	// set ID of table 
+	$("#sales-grid table").attr("id","laporan_piutang_table");
+	
 	 $( "#dialog" ).dialog({
 		autoOpen: false,
 		height: 350,

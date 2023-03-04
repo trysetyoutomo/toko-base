@@ -2,6 +2,15 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 
 <script type="text/javascript">
+	function htmlTableToExcel(type){
+		var data = document.getElementById('data-cetak');
+		var excelFile = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+		XLSX.write(excelFile, { bookType: type, bookSST: true, type: 'base64' });
+		const urlParams = new URLSearchParams(window.location.search);
+		const tgl1 = urlParams.get('tgl1')
+		const tgl2 = urlParams.get('tgl2')
+		XLSX.writeFile(excelFile, 'Laporan_Laba_Rugi_<?=$_REQUEST['customer']?>.'+type);
+	}
 	$(document).ready(function(){
 	// $(".fa-times").click(function(e){
 	// 	// e.preventDefault();
@@ -55,6 +64,17 @@ if (isset($_REQUEST['Sales']['date'])){
 
 } 
 ?>
+<script type="text/javascript">
+	function htmlTableToExcel(type){
+		var data = document.getElementById('data-cetak');
+		var excelFile = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+		XLSX.write(excelFile, { bookType: type, bookSST: true, type: 'base64' });
+		const urlParams = new URLSearchParams(window.location.search);
+		const tgl1 = urlParams.get('tgl1')
+		const tgl2 = urlParams.get('tgl2')
+		XLSX.writeFile(excelFile, 'Laporan_Laba_Rugi_<?=$tgl1 . " - ". $tgl2?>.'+type);
+	}
+</script>
 <br>
 	<?php
 // $data = array(
@@ -86,6 +106,8 @@ if (isset($_REQUEST['Sales']['date'])){
 <input name="Sales[date2]" type="text" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
 <input type="submit" name="submit" value="cari" class="btn btn-primary">
 <input onclick="$('#data-cetak').print()" type="button" name="cetak" value="cetak" class="btn btn-primary">
+<input type="button" value="Cetak Excel" class="no-print btn btn-primary" onclick="htmlTableToExcel('xlsx')" />
+
 </form>
 <?php 
 	

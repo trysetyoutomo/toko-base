@@ -1,7 +1,7 @@
 <?php
 
 
-class BukuBesarController extends Controller
+class BukubesarController extends Controller
 {
     public $layout='main2';
 

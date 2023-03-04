@@ -171,13 +171,13 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 
 		
 			<td>Total QTY</td>
-			<td>Harga</td>
-			<td>Total Penjualan</td>
+			<td>Harga Jual</td>
+			<td>Total Harga Penjualan</td>
 			<td>Diskon</td>
 			<td>Voucher/Potongan</td>
-			<td>Grand</td>
+			<td>Omzet</td>
 			<td>Harga Modal</td>
-			<td>Total Modal</td>
+			<td>Total Harga Modal</td>
 			<!-- <td>Grand Total </td> -->
 			<!-- <td>Keterangan</td> -->
 		</tr>
@@ -210,7 +210,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				and s.branch = '$branch_id'
 				{$whereCustomer}
 				")
-			->group("si.item_id, si.item_price ")
+			->group("si.item_id, si.item_price, si.item_modal ")
 			->order("i.item_name asc")
 			->queryAll();
 				// and
@@ -244,16 +244,10 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
 				{$whereCustomer}
 				AND si.item_id = $values[iid]  AND si.`item_id` = i.`id`
-					and si.item_price =  $values[unit_price]  
+					and si.item_price =  $values[unit_price]   and si.item_modal = $values[item_modal]
 				GROUP BY item_id
 			";
-			// echo $sqldis;
-			// echo "<br>";
-			// echo "<br>";
-			// echo "<br>";
 			$getdiscount = Yii::app()->db->createCommand($sqldis)->queryRow();
-
-			// print_r($getdiscount);
 		$jml=0;$no++?>
 		<tr style="width:100px;overflow:visible;" >
 			<td><?php echo $no?></td>
@@ -273,6 +267,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				and si.sale_id = s.id  
 				and si.item_id = '".$values[iid]."' 
 				and si.item_price = '".$values[unit_price]."' 
+				and si.item_modal = '".$values[item_modal]."' 
 			")
 			->group("i.id ,date(s.date)")
 			->queryRow();
@@ -280,8 +275,8 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		<td  align="center">
 		<?php
 			if ($qtgl[db_date]==$summary["waktu"]){
-				echo intval($summary['qty']);
-				$jml += $summary['qty'];
+				echo floatval($summary['qty']);
+				$jml += floatval($summary['qty']);
 			}else{
 				echo " &nbsp; ";
 			}
@@ -294,8 +289,8 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 			<td><?php echo number_format($getdiscount['diskon']) ?></td>
 			<td><?php echo number_format(0) ?></td>
 			<td><?php echo number_format(abs($values['unit_price'])*$jml - ($getdiscount['diskon']) )  ?></td>
-			<td><?php echo number_format(abs($values['modal']))?></td>
-			<td><?php echo number_format(abs($values['modal'])*$jml)?></td>
+			<td><?php echo number_format(($values['modal']))?></td>
+			<td><?php echo number_format(($values['modal'])*$jml)?></td>
 		</tr>
 		<?php 
 		$total_qty += $jml;
@@ -322,7 +317,8 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	<td>-</td>
 	<td><?php echo number_format($total_bruto)?></td>
 	<td><?php echo number_format($total_diskon); ?></td>
-	<td><?php echo number_format($total_voucher); ?></td>
+	<!-- <td><?php echo number_format($total_voucher); ?></td> -->
+	<td><?php echo 0 ?></td>
 	<td><?php echo number_format($total_netto-$total_voucher); ?></td>
 	
 	
