@@ -218,8 +218,11 @@
                 </div>
                 <div class="col-12">
                   <input  type="button" onClick="hapusGrid()" value="Hapus Semua" class="btn btn-nevy btn-sm">
-                  
                 </div>
+                <div class="col-12">
+                  <input  type="button" onClick="openFindItems()" value="Pilih Item" class="btn btn-nevy btn-sm">
+                </div>
+
                 <div class="col-12">
                   <?php 
                   if ($usaha=="Restauran"){ ?>

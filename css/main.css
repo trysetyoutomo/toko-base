@@ -490,3 +490,8 @@ div.search-form
     color:#000000;
 }
 
+@media (max-width: 1180px) {
+	#footer{
+		display: none;
+	}
+}

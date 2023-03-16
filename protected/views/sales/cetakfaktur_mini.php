@@ -1,13 +1,29 @@
-<body onload="onload()">
 <script>
+	const userAgent = navigator.userAgent.toLowerCase();
+	const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+
+	function printOptions(){
+		if (!isTablet){
+			$('#faktur').print();
+		}else{
+			window.print();
+		}
+	}
+
 	function onload(){
-		$('#faktur').print();
-		setTimeout(() => {
-			window.close();
-		}, 1000); 
+		if (!isTablet){
+			$('#faktur').print();
+			setTimeout(function() {
+				window.close();
+			}, 1000); 
+		}else{
+			window.print();
+		}
 		// window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }
 	}
 </script>
+<body onload="onload()">
+
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
 <style type="text/css">
@@ -266,7 +282,7 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 </div>
 <div style="clear: both"></div>
 
-<button style="float: left;" class="btn btn-primary" onclick="$('#faktur').print();"> <i class="fa fa-print"></i> Cetak </button>
+<button style="float: left;" class="btn btn-primary" onclick="printOptions()"> <i class="fa fa-print"></i> Cetak </button>
 <?php 
 
 function Terbilang($x)

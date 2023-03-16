@@ -1518,6 +1518,12 @@ $usaha = SiteController::getConfig("jenis_usaha");
       };
 
 
+    function openFindItems(){
+      $("#full-screen").show();
+      $("#wrapper-item-search").show();
+      $("#e1").select2("open");
+    }
+
     function list_action(act)
       {
       var sum_sale_total = $("#sum_sale_total").html();
@@ -1557,13 +1563,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
 
               break;
               case 113 :
-
-                  $("#full-screen").show();
-                  $("#wrapper-item-search").show();
-                  // $("#e1").select2("close");
-                  $("#e1").select2("open");
-
-                  // alert('123');
+                openFindItems();
                   break;
             case 115 :
             hapusGrid();
