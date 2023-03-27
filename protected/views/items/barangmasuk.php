@@ -1048,7 +1048,7 @@
    						 
    						var kembali = $("#total-kembali").attr("asli");
    						if (kembali<0){
-   							alert(" Pembayaran dibawah harga total barang, sisa dari pembelian akan disimpan ke data piutang");
+   							alert(" Pembayaran dibawah harga total barang, sisa dari pembelian akan disimpan ke data hutang/kewajiban");
    						}
    						if (confirm("Yakin ?")==false){return}
    

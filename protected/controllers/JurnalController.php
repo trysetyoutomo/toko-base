@@ -5,6 +5,94 @@ class JurnalController extends Controller
 {
     public $layout='main2';
 
+    public function actionSaldoawal()
+	{
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+
+            $username = Yii::app()->user->name;
+            $user = Users::model()->find('username=:un',array(':un'=>$username));
+            $jurnal = new AkuntansiJurnal;
+            $jurnal->tipejurnal_id = 1;
+            $jurnal->periode_id = 1;
+            $jurnal->tanggal_posting = $_REQUEST['head']['tanggal_posting'];
+            $jurnal->nomor = self::generateKodeJurnal();
+            $jurnal->keterangan = "Transaksi Saldo Awal";
+            $jurnal->user_id = $user->id;
+            $jurnal->saldo = $_REQUEST['head']['total'];
+            $jurnal->created_at = date("Y-m-d H:i:s");
+            $jurnal->branch_id =  Yii::app()->user->branch();
+            $jurnal->jml_detail_jurnal =  count($_REQUEST['jsonObj']);
+            if ($jurnal->save()){
+                $nilai = $_REQUEST['jsonObj']; 
+                foreach ($nilai as $n){
+                    $jurnalDetail = new AkuntansiJurnalDetail;
+                    $jurnalDetail->jurnal_id = $jurnal->id;
+                    $jurnalDetail->akun_id = AkuntansiAkun::model()->find("kode_akun = $n[kode]")->id;
+                    $jurnalDetail->debit = $n['debit'];
+                    $jurnalDetail->kredit = $n['kredit'];
+                    $jurnalDetail->saldo = $n['debit'];;
+                    $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                    $jurnalDetail->save();
+                }
+
+                $transaction->commit();
+                echo json_encode(['success'=>true]);
+            }else{
+                echo "gagal";
+            }
+     
+            }catch(Exception $err){
+                echo $err;
+                echo json_encode(
+                    array(
+                        "status"=>0,
+                        "error"=>$err,
+                    )
+                );
+    
+                $transaction->rollback();
+            }
+	}
+
+     // generate jurnal from Cash In feature
+     public static function createCashInTransaction($model){
+        $user = Users::model()->find('username=:un',array(':un'=>Yii::app()->user->name));
+        $jurnal = new AkuntansiJurnal;
+        $jurnal->tipejurnal_id = 1;
+        $jurnal->periode_id = 1;
+        $jurnal->tanggal_posting = date("Y-m-d H:i:s");
+        $jurnal->nomor = self::generateKodeJurnal();
+        $jurnal->user_id = $user->id;
+        $jurnal->saldo = $model->total;
+        $jurnal->created_at = date("Y-m-d H:i:s");
+        $jurnal->branch_id =  Yii::app()->user->branch();
+        if ($jurnal->save()){
+            $pembayaran_via =  $model->pembayaran_via == "0" ? "CASH": $model->pembayaran_via;
+            $jurnalDetail = new AkuntansiJurnalDetail;
+            $jurnalDetail->jurnal_id = $jurnal->id;
+            $jurnalDetail->akun_id = $model->akun_id;
+            $jurnalDetail->kredit = $model->total;
+            $jurnalDetail->debit = 0;
+            $jurnalDetail->saldo = $model->total;
+            $jurnalDetail->created_at = date("Y-m-d H:i:s");
+            $jurnalDetail->save();
+            // transaksi jurnal kredit
+            $jurnalDetail = new AkuntansiJurnalDetail;
+            $jurnalDetail->jurnal_id = $jurnal->id;
+            $jurnalDetail->akun_id = Bank::model()->find("nama = '".$pembayaran_via."'")->akun_id;
+            $jurnalDetail->kredit = 0;
+            $jurnalDetail->debit =  $model->total;
+            $jurnalDetail->saldo = $model->total;
+            $jurnalDetail->created_at = date("Y-m-d H:i:s");
+            $jurnalDetail->save();
+        }
+        $jurnal->keterangan = "Kas Masuk  #{$model->id}";
+        $jurnal->jml_detail_jurnal =  count(AkuntansiJurnalDetail::model()->findAll(" jurnal_id = '$jurnal->id' "));
+        $jurnal->update();
+
+    }
+
     // generate jurnal from expense feature
     public static function createExpenseTransaction($model){
         $user = Users::model()->find('username=:un',array(':un'=>Yii::app()->user->name));
@@ -158,6 +246,7 @@ class JurnalController extends Controller
                     self::createCashTransaction($jurnal,$sales);
                 }
 
+            // self::createLabaDiTahan($jurnal,$sales);  
             self::createJurnalPersediaan($jurnal,$sales);// jurnal modal keluar  
              $jurnal->jml_detail_jurnal =  count(AkuntansiJurnalDetail::model()->findAll(" jurnal_id = '$jurnal->id' ")); // 4 redords is created by 1 transaction 
              $jurnal->update();
@@ -186,7 +275,7 @@ class JurnalController extends Controller
     }
 
     public static function createPiutangTransaction($jurnal,$sales){
-         // piutang transaction
+           // piutang transaction
             $jurnalDetail = new AkuntansiJurnalDetail;
             $jurnalDetail->jurnal_id = $jurnal->id;
             $jurnalDetail->akun_id = 6;
@@ -220,6 +309,27 @@ class JurnalController extends Controller
         $jurnalDetail = new AkuntansiJurnalDetail;
         $jurnalDetail->jurnal_id = $jurnal->id;
         $jurnalDetail->akun_id = 39; //Persediaan
+        $jurnalDetail->debit = 0;
+        $jurnalDetail->kredit = $sales->sale_equity;
+        $jurnalDetail->saldo = $sales->sale_equity;
+        $jurnalDetail->created_at = date("Y-m-d H:i:s");
+        $jurnalDetail->save();
+    }
+
+    public static function createLabaDiTahan($jurnal,$sales){
+       // mempengaruhi modal 
+        $jurnalDetail = new AkuntansiJurnalDetail;
+        $jurnalDetail->jurnal_id = $jurnal->id;
+        $jurnalDetail->akun_id = 105; //LABA TAHUN BERJALAN 
+        $jurnalDetail->kredit = 0;
+        $jurnalDetail->debit = $sales->sale_equity;
+        $jurnalDetail->saldo = $sales->sale_equity;
+        $jurnalDetail->created_at = date("Y-m-d H:i:s");
+        $jurnalDetail->save();
+
+        $jurnalDetail = new AkuntansiJurnalDetail;
+        $jurnalDetail->jurnal_id = $jurnal->id;
+        $jurnalDetail->akun_id = 106; //LABA DITAHAN
         $jurnalDetail->debit = 0;
         $jurnalDetail->kredit = $sales->sale_equity;
         $jurnalDetail->saldo = $sales->sale_equity;

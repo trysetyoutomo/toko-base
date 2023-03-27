@@ -321,7 +321,7 @@ class SalesController extends Controller {
 			$year = intval(Date('Y'));
 		}
 
-		 $this->render('labarugi', array(
+		 $this->render('labarugi3', array(
             // 'dataProvider' => $dataProvider,
             // 'summary' => $summary,
 			// 'tgl' => $date,
@@ -2501,7 +2501,7 @@ public function actionSalesoutletweekly(){
 										$di->item_modal = $a;
 										$hm = $a;
 									}
-									$total_equity+=$di->item_modal;
+									$total_equity+=$di->item_modal * $detail['quantity_purchased']; // get modal times qty
 								// }
 							// }
 						}
@@ -2586,13 +2586,15 @@ public function actionSalesoutletweekly(){
 	                    	echo json_encode($di->getErrors());
 							$transaction->rollback();
 	                    	exit;
-	                    	// print_r($di->getErrors());
-	                    	// echo "Paket ".$detail['is_paket'] ;
 	                    }
 	                    $hit++;
 					} // end looping of detail data 
 					// put total equity of this transaction
+					// echo $total_equity;
+					// exit;
 					$sales->sale_equity = $total_equity;
+					$sales->update(); // update after update equity
+
 					SalesPayment::model()->deleteAllByAttributes(array('id' => $sales->id));
 					#menyimpan ke table salespayment
 					$sp = new SalesPayment();

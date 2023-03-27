@@ -42,29 +42,27 @@
 	<br>
 		<fieldset style="border:1px solid transparent;padding:20px;overflow:auto;">
 				
-			<h1> <i class="fa fa-pencil" aria-hidden="true"></i> Kas Keluar </h1>
+			<h1> <i class="fa fa-pencil" aria-hidden="true"></i> Kas Masuk </h1>
 			<hr>
-			 
-
-
+	
 			<div class="row">
 				<label for="jumlah" >Tanggal</label>
 				<input type="text" value="<?php echo date('Y-m-d'); ?>" class="form-control" style="max-width:150px;display:inline-block "  name="tanggal" id="tanggal">
 			</div>
 
 			<div class="row">
-				<label for="jumlah" >Pembayaran</label>
+				<label for="jumlah" >Akun Kas</label>
 				<select  style="width: 450px;display: inline"  id="pembayaran_via" class="form-control ">
                   <option value="CASH">CASH</option>
                   <?php 
 					$criteria = new CDbCriteria;
 					$criteria->select ='t.*';
-					$criteria->condition =" store_id = '".Yii::app()->user->store_id()."' and group_id = 5 ";
+					$criteria->condition =" store_id = '".Yii::app()->user->store_id()."' and group_id in (3,4) ";
 					$criteria->join =" INNER JOIN akuntansi_subgroup as a on a.id = t.subgroup_id ";
 
                   $m = Bank::model()->findAll("aktif=1");
                   foreach ($m as $key => $value) {
-                  	echo "<option  value='$value->nama'>$value->nama</option>";
+                  echo "<option  value='$value->nama'>$value->nama</option>";
                   } ?>
                   </select>
 
@@ -76,34 +74,25 @@
 			<select  style="width: 450px;display: inline" name="jeniskeluar" id="jeniskeluar">
 			<option>Pilih Akun Biaya</option>
 			<?php foreach (AkuntansiAkun::model()->findAll($criteria) as $jb) { ?>
-				<option value="<?php echo $jb->id ?>"><?php echo $jb->nama_akun ?></option>
+				<option value="<?php echo $jb->id ?>"><?php echo $jb->kode_akun ." - ".$jb->nama_akun ?></option>
 			<?php } ?>
 			</select>
 
 			</div>
 
 			<div class="row">
-				<label>Total Pengeluaran</label>
-				<input type="text" name="total" id="total" value="0" class="form-control" style="max-width:450px;display:inline-block;text-align:right">
+				<label>Total Kas Masuk</label>
+				<input onclick="this.select()" type="text" name="total" id="total" value="0" class="form-control" style="max-width:450px;display:inline-block;text-align:right">
 			</div>
 			
 			<div class="row">
 				<label>Catatan</label>
 				<textarea id="keterangan" class="form-control"  style="max-width:450px;display:inline-block;min-height:100px" >-</textarea>
 			</div>
-			
-		
-
-	
 		<div class="">
 			<div class="" style="display:inline">
-				<input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
-	
-				
+				<input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">				
 				<div class="data-table">
-				<!-- <legend style="font-weight:bolder">Data Barang</legend> -->
-
-			
 
 				<?php 
 
@@ -220,7 +209,7 @@
 					}
 						 
 						 $.ajax({
-							url: '<?php echo Yii::app()->createAbsoluteUrl('items/kaskeluar'); ?>', 
+							url: '<?php echo Yii::app()->createAbsoluteUrl('items/kasmasuk'); ?>', 
 							data: {
 								// jsonObj :jsonObj,
 								head :head

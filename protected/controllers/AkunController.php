@@ -92,8 +92,8 @@ class AkunController extends Controller
 		$rawData = Yii::app()->db->createCommand()
 		->select('aa.*,ag.nama_subgroup nama_group , asg.nama_subgroup as nama_subgroup')
 		->from('akuntansi_akun aa')
-		->join('akuntansi_group ag','ag.id = aa.subgroup_id')
-		->join('akuntansi_subgroup asg','asg.group_id = ag.id')
+		->join('akuntansi_subgroup asg','asg.id = aa.subgroup_id')
+		->join('akuntansi_group ag','ag.id = asg.group_id')
 		->where("1=1 and aa.store_id = '".Yii::app()->user->store_id()."' $filter")
 		->group("aa.id")
 		->queryAll();

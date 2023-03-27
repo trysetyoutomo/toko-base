@@ -1408,7 +1408,7 @@ public function getHargamodal($id){
 	
 
 }
-		public function actionpengeluaranbaru(){
+		public function actionkaskeluar(){
 			$transaction = Yii::app()->db->beginTransaction();
 			$username = Yii::app()->user->name;
 			$user = Users::model()->find('username=:un',array(':un'=>$username));
@@ -1424,10 +1424,6 @@ public function getHargamodal($id){
 				<?php 
 				}
 			endif;
-
-
-
-
 
 			if (isset($_REQUEST['head'])):
 			$nilai = $_REQUEST['jsonObj'];
@@ -1447,26 +1443,57 @@ public function getHargamodal($id){
 			if ($modelh->save()){
 				$transaction->commit();	
 				echo "sukses";
-				// foreach ($nilai as $n){
-				// 	$model = new BarangKeluarDetail;
-				// 	$model->kode = $n['idb'];
-				// 	$model->jumlah = $n['jml'];
-				// 	$model->head_id = $modelh->id;
-				// 	if ($model->save()){
-				// 		$brg = Items::model()->findByPk($model->kode);
-				// 		$brg->stok = $brg->stok - $model->jumlah;
-				// 		$brg->update();
-				// 		// echo "sukses bro";
-				// 	}else{
-				// 		print_r($model->getErrors());
-				// 	}
-				// }
 			}else{
 				print_r($modelh->getErrors());
 			}	
 			endif;
 			$this->render('pengeluaranbaru');
 		}
+
+		public function actionkasmasuk(){
+			$transaction = Yii::app()->db->beginTransaction();
+			$username = Yii::app()->user->name;
+			$user = Users::model()->find('username=:un',array(':un'=>$username));
+			$now = date("Y-m-d");
+			if ($user->level == "1"):
+				$cekKasir = Setor::model()->find(" is_closed = 1 and user_id = '$user->id' and  date(tanggal) = '$now'   ");
+				if ($cekKasir){
+				?>
+					<script type="text/javascript">
+					alert("Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo date("d M Y", strtotime($cekKasir->tanggal)) ?> telah ditutup pada <?php echo date("d M Y H:i", strtotime($cekKasir->updated_at)) ?> , kasir hanya bisa melakukan register 1 kali dalam sehari",);
+					window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+					</script>
+				<?php 
+				}
+			endif;
+
+			if (isset($_REQUEST['head'])):
+			$nilai = $_REQUEST['jsonObj'];
+			$head = $_REQUEST['head'];	
+
+			$modelh = new Kasmasuk;
+			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
+			$modelh->user = Yii::app()->user->name;
+			$modelh->branch_id = Yii::app()->user->branch();
+			$modelh->jenis_masuk = $_REQUEST['head']['jeniskeluar'];
+			$modelh->keterangan = $_REQUEST['head']['keterangan'];
+			$modelh->keterangan = $_REQUEST['head']['keterangan'];
+			$modelh->total = $_REQUEST['head']['total'];
+			$modelh->akun_id = $_REQUEST['head']['jeniskeluar'];
+			$modelh->pembayaran_via = $_REQUEST['head']['pembayaran_via'];
+			if ($modelh->save()){
+				JurnalController::createCashInTransaction($modelh); // journal posting
+				$transaction->commit();	
+				echo "sukses";
+			}else{
+				print_r($modelh->getErrors());
+			}	
+			endif;
+			$this->render('kasmasuk');
+		}
+
+
+
 		public function actionProsesrusakbarang(){
 			$transaction = Yii::app()->db->beginTransaction();
 

@@ -36,6 +36,7 @@ class AkuntansiAkun extends CActiveRecord
 	 public function attributeLabels() {
         return array(
             'subgroup_id' => 'Kategori Akun',
+            'subgroup_detail_id' => 'SubGroup Detail (Neraca)',
 
         );
     }

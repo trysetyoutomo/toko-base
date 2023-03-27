@@ -2,6 +2,8 @@
 <!-- Datatables -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- numeral js -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 
 <!-- Modal -->
@@ -239,19 +241,9 @@
 		<h1> <i class="fa fa-book"></i>&nbsp;Kelola Saldo Awal</h1>
 	</div>
 </div>
-<div class="row">
-  <div class="col-sm-12 alert alert-info col-xs-12 " role="alert">
-    <div id="shorcut"  >
-        <ul class="" style="list-style:none;" >
-          <li class="d-inline">Esc = Batal </li>
-          <li class="d-inline">F2 = Pilih Item </li>
-        </ul>
-    </div>
-  </div>
-</div>
 
+<br>
 <div class="row">
-     <legend style="font-weight:bolder">Data Transaksi</legend>
    <div class="col-sm-6">
       <table border="0" cellpadding="0" id="trx-b-masuk"  >
    
@@ -260,11 +252,12 @@
                Tanggal Transaksi <span class="text-danger">*</span>	
             </td>
             <td>
-               <input class="form-control" type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" name="tanggal" id="tanggal">
+               <input readonly class="form-control" type="text" value="<?php echo date('Y-m-d'); ?>" style="display:inline;padding:5px" name="tanggal" id="tanggal">
             </td>
          </tr>
         
       </table>
+      </hr>
       
    </div>
    
@@ -278,6 +271,8 @@
       </table>
    </div>
 </div>
+
+
 <div class="" >
          <div class="" >
             <input type="text" value="<?php echo Yii::app()->user->id ?>" style="display:none" name="user" id="user">
@@ -290,10 +285,10 @@
                   }
                    ?>
                <div class="row" >
-                  <div class="col-sm-4 col-lg-4">
+                  <div class="col-xs-8 col-sm-2 col-lg-2">
                      <!-- <label for="nama" style="margin-left: 5px;" >Barcode</label> -->
                         <?php //secho CHtml::dropDownList('nama2', '1', Items::model()->data_items("BAHAN"),array('class'=>'for m-control')  );?>
-                        <input list="browsers" class="form-control"  type="text" name="nama" id="namabarcode" placeholder="Cari nama akun">
+                        <input list="browsers" class="form-control "   type="text" name="nama" id="namabarcode" placeholder="Cari nama akun">
 
                         <datalist id="browsers">
                            <?php 
@@ -306,8 +301,10 @@
                         <!-- <input type="checkbox" name="add-all" id="add-all" > Tambah Semua Item						 -->
                      </label>
                   </div>
-                  <div class="col-sm-4 col-lg-5">
-                     <?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-contro l','style'=>'width:50px;'));?>
+                  <div class="col-sm-4 col-lg-5" >
+                     <div style="display: none;">   
+                        <?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-control','style'=>'width:50px;display:inline-block;margin-right:1rem'));?>
+                     </div>
                      <button class="btn btn-primary"  onClick="add_item($('#namabarcode').val())">Tambahkan</button>
                      
                   </div>
@@ -360,6 +357,7 @@
 </div>
 </div>
 <script>
+   var table;
    $(document).ready(function(){
 
    	$(document).on('keyup', '#total-diskon,#total-bayar', function(e) {
@@ -468,9 +466,9 @@
             url: '<?php echo Yii::app()->createAbsoluteUrl("Items/deletePO"); ?>',
             data : "id="+po_id,
                success:function(data){
-            //    alert(data);
-               // $(".supplier").eq(i).html(data);
-               // $("#namapel").val("umum").trigger("change");
+                  if (data.success){
+                     window.location.href = "/index.php?r=akun/admin";
+                  }
             },
             error:function(data){
                   // alert(data);
@@ -557,10 +555,16 @@
                         totalDebit += parseFloat($(this).find('.debit').val());
                         totalKredit += parseFloat($(this).find('.kredit').val());
    					});
-                    if (totalDebit > 0 && totalKredit > 0){
+
+                  $(".totaldebit").html( numeral(totalDebit).format('0,0'));
+                  $(".totalkredit").html( numeral(totalKredit).format('0,0'));
+
+                     if (totalDebit > 0 && totalKredit > 0){
                         if (totalDebit != totalKredit){
-                            $("#btn-simpan-saldo-awal").attr("disabled",true);
+                           $("#validationsaldo").html("<i class='text-danger'>(Kredit & Debit belum seimbang)</i>");
+                           $("#btn-simpan-saldo-awal").attr("disabled",true);
                         }else{
+                           $("#validationsaldo").html("");
                             $("#btn-simpan-saldo-awal").removeAttr("disabled");
                         }
                     }
@@ -593,8 +597,36 @@
    					var string = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
    					return string;
    				}
-   
-               var table = $("#users").DataTable();
+
+               // $("#users").html("");
+               $("#users").append(
+                  $('<tfoot / > ').append(
+                        "<tr>" +
+                     "<td colspan='3'><b>Total</b> <span id='validationsaldo'></span> </td>" +
+                     "<td class='totaldebit text-right'></td>" +
+                     "<td class='totalkredit text-right'></td>" +
+                     "<td></td>" +
+                        "</tr>"
+                     //    "<tr>" +
+                     // "<td></td>" +
+                     // "<td></td>" +
+                     // "<td></td>" +
+                     // "<td></td>" +
+                     // "<td></td>" +
+                     // "<td></td>" +
+                     // "</tr>"
+                  )
+               );
+
+               if ($.fn.DataTable.isDataTable('#users')) {
+                  $('#users').DataTable().destroy(); 	
+               }
+               $('#users tbody').empty();
+
+               
+               table = $("#users").DataTable({
+                  pageLength: 100,
+               });
                // table.column(1).visible(false) ;
    				function add_item(val){
    					if (val!=0 ){
@@ -626,14 +658,15 @@
                table.row.add(
                   [
                      no,
-                     json.kode_akun,
+                     '<span class="kode">'+json.kode_akun+'</span>',
                      json.nama_akun,
                      "<input class='form-control debit' value='0'  >",
                      "<input class='form-control kredit' value='0' >",
                      "&nbsp;<i  class='hapus-baris fa fa-times'></i>" 
                   ]).draw(false);              
    					kalkulasiSaldo();
-                    $("#namabarcode").val(" ");
+                    $("#namabarcode").val("");
+                    $("#namabarcode").focus();
                   
    				}
    
@@ -651,7 +684,10 @@
    				function kirim(){
    					
    
-   					var jml = $('.baris').length;
+   					var jml = $('.row').length;
+                  if (jml < 2  ) {
+                     alert('Transaksi saldo awal minimal 2 record'); return false;
+                  }
    					var jsonObj = [];
    					var inch = 0;
    					var tanggal  = $('#tanggal').val();
@@ -684,26 +720,6 @@
    						}
    					}
    	
-   					var head = {
-   						subtotal : subtotal,
-   						diskon : diskon,
-   						grand : grand,
-   						bayar : bayar,
-   						kembali : kembali,
-   						tanggal : tanggal,
-   						user : user,
-   						faktur : faktur,
-   						keterangan : keterangan,
-   						cabang : cabang,
-   						letak : letak,
-   						kode_trx : kode_trx,
-   						tanggal_jt : tanggal_jt,
-   						isbayar : isbayar,
-   						sumber : sumber,
-   						poid : poid,
-   						metode_pembayaran : metode_pembayaran
-   					}
-   					
    					if ($("#users tbody tr").length==0){
    						alert("tidak boleh kosong");
    						return false;
@@ -712,64 +728,33 @@
    					$('.kode').each(function (index, value){
    						array_kode.push($('.kode').eq(index).val());
    					});	
-   					// if (hasDuplicates(array_kode)){
-   					// 	alert('Terdapat kode yang sama');
-   					// 	return false;
-   					// }
-   					// alert(JSON.stringify(head));
-   					// alert(JSON.stringify(array_kode));
-   					// return false;
-   
+                  
+   					var head = {
+   						total : numeral($(".totaldebit").html()).value(),
+   						tanggal_posting : $("#tanggal").val(),
+   					}
+                  
+   				
    					$("#users tbody tr").each(function() {
    						var idb = $(this).find('.pk').html();
-   						// alert(idb);
-   						var jml = $(this).find('.jumlah').val().replace(",",".");
-
-                     
-   						jml = jml.replace(/,/g, '.');
-   						jml = parseFloat(jml);
-   						jml = Math.round(jml * 100) / 100;
-   
-   						// alert(jml);
-   						var kode = $(this).find('.kode').val();
-   						var status = $(this).find('.statusbarang').val();
-   						var harga = $(this).find('.harga').val();
-   						// var supplier = $(this).find('.supplier').val();
-   						// var satuan = $(this).find('.satuan').val();
-   						// var satuan = $(this).find('.satuan').find(" option:selected").attr("value-id");
-   						var satuan = $(this).find('.td-satuan').attr("value");
-
-   
-   						if (harga==""){
-   							alert('Harga tidak boleh kosong');
-   							exit;
-   						}
-   
+   						var kode = $(this).find('.kode').html();
+   						var kredit = $(this).find('.kredit').val();
+   						var debit = $(this).find('.debit').val();
    
    						if (parseFloat(jml)>0){	
    							item = {};
-   							item["idb"] = idb;
-   							item["jml"] = jml;
    							item["kode"] = kode;
-   							item["status"] = status;
-   							item["harga"] = harga;
-   							// item["supplier"] = supplier;
-   							item["satuan"] = satuan;
+   							item["kredit"] = kredit;
+   							item["debit"] = debit;
    							jsonObj.push(item);
    						}
    					});
    
-   					// alert(JSON.stringify(jsonObj));
-   					// alert(JSON.stringify(head));
-   						 
-   						var kembali = $("#total-kembali").attr("asli");
-   						if (kembali<0){
-   							alert(" Pembayaran dibawah harga total barang, sisa dari pembelian akan disimpan ke data piutang");
-   						}
-   						if (confirm("Yakin ?")==false){return}
+   	
+   						if (confirm("Yakin menyimpan saldo awal ?")==false){return}
    
    						 $.ajax({
-   							url: '<?php echo Yii::app()->createAbsoluteUrl('items/prosesmasukbarang'); ?>', 
+   							url: '<?php echo Yii::app()->createAbsoluteUrl('jurnal/saldoawal'); ?>', 
    							data: {
    								jsonObj :jsonObj,
    								head :head
@@ -780,7 +765,7 @@
    								// alert(re.status);
    								var re = JSON.parse(result);
    								if (re.status == "1"){
-   									alert('Berhasil! mencatat barang masuk  ');
+   									alert('Berhasil! mencatat saldo awal!  ');
    									
    									window.location.reload();
    									// window.location.assign('index.php?r=items/laporanmasuk');
