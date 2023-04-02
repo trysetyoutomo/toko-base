@@ -5,6 +5,192 @@ class JurnalController extends Controller
 {
     public $layout='main2';
 
+        // generate jurnal for setor tunai
+        public static function createTransfer($model){
+            $user = Users::model()->find('username=:un',array(':un'=>Yii::app()->user->name));
+            $jurnal = new AkuntansiJurnal;
+            $jurnal->tipejurnal_id = 1;
+            $jurnal->periode_id = 1;
+            $jurnal->tanggal_posting = date("Y-m-d H:i:s");
+            $jurnal->nomor = self::generateKodeJurnal();
+            $jurnal->user_id = $user->id;
+            $jurnal->saldo = $model->total;
+            $jurnal->created_at = date("Y-m-d H:i:s");
+            $jurnal->branch_id =  Yii::app()->user->branch();
+            if ($jurnal->save()){
+                $sumber =  $model->sumber;
+                $tujuan =  $model->tujuan;
+                
+                $jurnalDetail = new AkuntansiJurnalDetail;
+                $jurnalDetail->jurnal_id = $jurnal->id;
+                $jurnalDetail->akun_id = Bank::model()->find("nama = '".$sumber."'")->akun_id;
+                $jurnalDetail->debit = 0;
+                $jurnalDetail->kredit = $model->total;
+                $jurnalDetail->saldo = $model->total;
+                $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                $jurnalDetail->save();
+                // transaksi jurnal kredit
+                $jurnalDetail = new AkuntansiJurnalDetail;
+                $jurnalDetail->jurnal_id = $jurnal->id;
+                $jurnalDetail->akun_id = Bank::model()->find("nama = '".$tujuan."'")->akun_id;
+                $jurnalDetail->debit = $model->total;
+                $jurnalDetail->kredit = 0;
+                $jurnalDetail->saldo = $model->total;
+                $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                $jurnalDetail->save();
+    
+                // if the transaction has cost
+                if ($model->biaya > 0){
+                    // deduct the cast
+                    $jurnalDetail = new AkuntansiJurnalDetail;
+                    $jurnalDetail->jurnal_id = $jurnal->id;
+                    $jurnalDetail->akun_id =  Bank::model()->find("nama = '".$sumber."'")->akun_id;  // cost are provided by source or sender
+                    $jurnalDetail->debit = 0;
+                    $jurnalDetail->kredit = $model->biaya;
+                    $jurnalDetail->saldo = $model->biaya;
+                    $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                    $jurnalDetail->save();
+                    // add the cost
+                    $jurnalDetail = new AkuntansiJurnalDetail;
+                    $jurnalDetail->jurnal_id = $jurnal->id;
+                    $jurnalDetail->akun_id = 102; // admin bank
+                    $jurnalDetail->debit = $model->biaya;
+                    $jurnalDetail->kredit = 0;
+                    $jurnalDetail->saldo = $model->biaya;
+                    $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                    $jurnalDetail->save();
+    
+                }
+            }
+            $jurnal->keterangan = "Transaksi Transfer #{$model->id}";
+            $jurnal->jml_detail_jurnal =  count(AkuntansiJurnalDetail::model()->findAll(" jurnal_id = '$jurnal->id' "));
+            $jurnal->update();
+    
+        }
+
+    // generate jurnal for setor tunai
+    public static function createSetorTunai($model){
+        $user = Users::model()->find('username=:un',array(':un'=>Yii::app()->user->name));
+        $jurnal = new AkuntansiJurnal;
+        $jurnal->tipejurnal_id = 1;
+        $jurnal->periode_id = 1;
+        $jurnal->tanggal_posting = date("Y-m-d H:i:s");
+        $jurnal->nomor = self::generateKodeJurnal();
+        $jurnal->user_id = $user->id;
+        $jurnal->saldo = $model->total;
+        $jurnal->created_at = date("Y-m-d H:i:s");
+        $jurnal->branch_id =  Yii::app()->user->branch();
+        if ($jurnal->save()){
+            $pembayaran_via =  $model->pembayaran_via == "0" ? "CASH": $model->pembayaran_via;
+            $jurnalDetail = new AkuntansiJurnalDetail;
+            $jurnalDetail->jurnal_id = $jurnal->id;
+            $jurnalDetail->akun_id = 1; // CASH
+            $jurnalDetail->debit = 0;
+            $jurnalDetail->kredit = $model->total;
+            $jurnalDetail->saldo = $model->total;
+            $jurnalDetail->created_at = date("Y-m-d H:i:s");
+            $jurnalDetail->save();
+            // transaksi jurnal kredit
+            $jurnalDetail = new AkuntansiJurnalDetail;
+            $jurnalDetail->jurnal_id = $jurnal->id;
+            $jurnalDetail->akun_id = Bank::model()->find("nama = '".$pembayaran_via."'")->akun_id;
+            $jurnalDetail->debit = $model->total;
+            $jurnalDetail->kredit = 0;
+            $jurnalDetail->saldo = $model->total;
+            $jurnalDetail->created_at = date("Y-m-d H:i:s");
+            $jurnalDetail->save();
+
+            // if the transaction has cost
+            if ($model->biaya > 0){
+                // deduct the cast
+                $jurnalDetail = new AkuntansiJurnalDetail;
+                $jurnalDetail->jurnal_id = $jurnal->id;
+                $jurnalDetail->akun_id = 1; // CASH
+                $jurnalDetail->debit = 0;
+                $jurnalDetail->kredit = $model->biaya;
+                $jurnalDetail->saldo = $model->biaya;
+                $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                $jurnalDetail->save();
+                // add the cost
+                $jurnalDetail = new AkuntansiJurnalDetail;
+                $jurnalDetail->jurnal_id = $jurnal->id;
+                $jurnalDetail->akun_id = 102; // admin bank
+                $jurnalDetail->debit = $model->biaya;
+                $jurnalDetail->kredit = 0;
+                $jurnalDetail->saldo = $model->biaya;
+                $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                $jurnalDetail->save();
+
+            }
+        }
+        $jurnal->keterangan = "Transaksi Setor Tunai #{$model->id}";
+        $jurnal->jml_detail_jurnal =  count(AkuntansiJurnalDetail::model()->findAll(" jurnal_id = '$jurnal->id' "));
+        $jurnal->update();
+
+    }
+
+     // generate jurnal for setor tunai
+     public static function createTarikTunai($model){
+        $user = Users::model()->find('username=:un',array(':un'=>Yii::app()->user->name));
+        $jurnal = new AkuntansiJurnal;
+        $jurnal->tipejurnal_id = 1;
+        $jurnal->periode_id = 1;
+        $jurnal->tanggal_posting = date("Y-m-d H:i:s");
+        $jurnal->nomor = self::generateKodeJurnal();
+        $jurnal->user_id = $user->id;
+        $jurnal->saldo = $model->total;
+        $jurnal->created_at = date("Y-m-d H:i:s");
+        $jurnal->branch_id =  Yii::app()->user->branch();
+        if ($jurnal->save()){
+            $pembayaran_via =  $model->pembayaran_via == "0" ? "CASH": $model->pembayaran_via;
+            $jurnalDetail = new AkuntansiJurnalDetail;
+            $jurnalDetail->jurnal_id = $jurnal->id;
+            $jurnalDetail->akun_id = Bank::model()->find("nama = '".$pembayaran_via."'")->akun_id;
+            $jurnalDetail->debit = 0;
+            $jurnalDetail->kredit = $model->total;
+            $jurnalDetail->saldo = $model->total;
+            $jurnalDetail->created_at = date("Y-m-d H:i:s");
+            $jurnalDetail->save();
+            // transaksi jurnal kredit
+            $jurnalDetail = new AkuntansiJurnalDetail;
+            $jurnalDetail->jurnal_id = $jurnal->id;
+            $jurnalDetail->akun_id = 1; // CASH
+            $jurnalDetail->debit = $model->total;
+            $jurnalDetail->kredit = 0;
+            $jurnalDetail->saldo = $model->total;
+            $jurnalDetail->created_at = date("Y-m-d H:i:s");
+            $jurnalDetail->save();
+
+            // if the transaction has cost
+            if ($model->biaya > 0){
+                // deduct the cast
+                $jurnalDetail = new AkuntansiJurnalDetail;
+                $jurnalDetail->jurnal_id = $jurnal->id;
+                $jurnalDetail->akun_id =Bank::model()->find("nama = '".$pembayaran_via."'")->akun_id;
+                $jurnalDetail->debit = 0;
+                $jurnalDetail->kredit = $model->biaya;
+                $jurnalDetail->saldo = $model->biaya;
+                $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                $jurnalDetail->save();
+                // add the cost
+                $jurnalDetail = new AkuntansiJurnalDetail;
+                $jurnalDetail->jurnal_id = $jurnal->id;
+                $jurnalDetail->akun_id = 102; // admin bank
+                $jurnalDetail->debit = $model->biaya;
+                $jurnalDetail->kredit = 0;
+                $jurnalDetail->saldo = $model->biaya;
+                $jurnalDetail->created_at = date("Y-m-d H:i:s");
+                $jurnalDetail->save();
+
+            }
+        }
+        $jurnal->keterangan = "Transaksi Tarik #{$model->id}";
+        $jurnal->jml_detail_jurnal =  count(AkuntansiJurnalDetail::model()->findAll(" jurnal_id = '$jurnal->id' "));
+        $jurnal->update();
+
+    }
+
+
     public function actionSaldoawal()
 	{
         $transaction = Yii::app()->db->beginTransaction();
