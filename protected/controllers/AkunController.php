@@ -2,7 +2,7 @@
 class AkunController extends Controller
 {
 
-    public $layout='main2';
+    public $layout='backend';
 
 	public function accessRules() {
         return array(

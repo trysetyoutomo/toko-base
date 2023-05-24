@@ -3,7 +3,7 @@
 
 class BukubesarController extends Controller
 {
-    public $layout='main2';
+    public $layout='backend';
 
       public function actionIndex(){
 		$akunID = $_REQUEST['akun_id'];

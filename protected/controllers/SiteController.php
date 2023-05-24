@@ -46,7 +46,7 @@ class SiteController extends Controller
 
 	
 	public function actionPengaturan(){
-		$this->layout = "main2";
+		$this->layout = "backend";
 		// echo "<pre>";
 		// print_r($_REQUEST['Config']);
 		// echo "</pre>";
@@ -197,11 +197,11 @@ class SiteController extends Controller
 
 	// }
 	public function actionAdmin(){
-		$this->layout = "main2";
+		$this->layout = "backend";
 		$this->render("admin",array());
 	}
 	public function actionPajak(){
-		$this->layout = "main2";
+		$this->layout = "backend";
 		// echo "<pre>";
 		// print_r($_REQUEST[minimal]);
 		// echo "</pre>";
@@ -277,7 +277,7 @@ class SiteController extends Controller
 
 	}
 	public function actionUbahpassword(){
-	 	$this->layout = "main2";
+	 	$this->layout = "backend";
 		$user = Yii::app()->user->id;
 		// echo $user;
 		$model = Users::model()->find("username = '$user'");
@@ -651,7 +651,7 @@ class SiteController extends Controller
 					<?php 
 				}
 				$setor = new Setor;
-				$this->layout = "main2";
+				$this->layout = "backend";
 				$this->render('input_saldo',array("model"=>$setor));
 			}
 		}else{
@@ -677,7 +677,7 @@ class SiteController extends Controller
 						$this->redirect(array('site/index'));
 				}
 				// $setor = new Setor;
-				// $this->layout = "main2";
+				// $this->layout = "backend";
 				// $this->render('input_saldo',array("model"=>$setor));
 			}
 		}

@@ -50,9 +50,10 @@
 
 <h1>
 <i class="fa fa-balance-scale "></i>
-Laporan Neraca </h1>
+Laporan Neraca  </h1>
 
 <?php 
+
 if (isset($_REQUEST['Sales']['date'])){
 	$tgl = $_REQUEST['Sales']['date'];
 	$tgl2 = $_REQUEST['Sales']['date2'];
@@ -82,11 +83,57 @@ if (isset($_REQUEST['Sales']['date'])){
 ?>
 <form method="POST">
 <input type="hidden" name="r" value="sales/labarugi">
-<label>Tanggal</label>
-<input name="Sales[date]" type="text" value="<?php echo $tgl; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
-<label>sampai</label>
-<input name="Sales[date2]" type="text" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal">
-<input type="submit" name="submit" value="cari" class="btn btn-primary">
+<div style="display:none">
+	<!-- <label>Tanggal</label> -->
+	<!-- <input name="Sales[date]" type="text" value="<?php echo $tgl; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal"> -->
+</div>
+<label> Periode  </label>
+<select id="bulan" name="bulan">
+	<?php  
+	$thisMonth = date("m") == 1 ? 12 : date("m") -1 ;
+	for ($i=1; $i<=12; $i++) {
+         $month = date('F', mktime(0,0,0,$i, 1, date('Y')));
+         $x = date('m', mktime(0,0,0,$i, 1, date('Y')));
+		 if (isset($_POST['bulan'])){
+			if (intval($_POST['bulan']) === intval($x)){
+				$selected = "selected";
+			}else{
+				$selected = "";
+			}
+		}else{
+			if (intval($thisMonth) === intval($x)){
+				$selected = "selected";
+			}else{
+				$selected = "";
+			}
+		}
+         echo "<option $selected value='$x'>".ucfirst($month). '</option>';
+     }
+	 ?>
+</select>
+<select id="tahun" name="tahun">
+<?php 
+	for($i = 2022 ; $i <= date('Y'); $i++){
+		if (isset($_POST['tahun'])){
+			if ($i == $_POST['tahun']){
+				$selected = "selected";
+			}else{
+				$selected = "";
+			}
+		}else{
+			if ($i == date('Y')){
+				$selected = "selected";
+			}else{
+				$selected = "";
+			}
+		}
+		echo "<option $selected value='$i'>$i</option>";
+	}
+?>
+</select>
+
+<!-- <input name="Sales[date2]" type="text" value="<?php echo $tgl2; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal"> -->
+<input type="submit" name="submit" value="Lihat" class="btn btn-primary">
 <input onclick="$('#data-cetak').print()" type="button" name="cetak" value="cetak" class="btn btn-primary">
 <input type="button" value="Cetak Excel" class="no-print btn btn-primary" onclick="htmlTableToExcel('xlsx')" />
 
@@ -108,16 +155,27 @@ if (isset($_REQUEST['Sales']['date'])){
 
 
 <?php 
+if (isset($_REQUEST['bulan'])):
+$bulan = $_REQUEST['bulan'];
+$tahun = $_REQUEST['tahun'];
+
 $branch = Yii::app()->user->branch();
-$filter = "  and date(tanggal_posting)<='$tgl2' ";
+$filter = "  and month(tanggal_posting)<='$bulan' and year(tanggal_posting) <='$tahun' ";
 $sql = NeracaController::queryNeraca($branch,$filter," ORDER by ag.id asc");
 $model = Yii::app()->db->createCommand($sql)->queryAll();      
+if (count($model) <= 0){
+	echo "<p class='text-center text-warning' style='margin-top:5rem'>Tidak ada data ditemukan</p>";
+}else{
 
 // echo "<pre>";
 // print_r($model);
 // echo "</pre>";
 foreach ($model as $value):
-	$modifiedData[$value['nama_group']][$value['nama_subgroup']][$value['nama_akun']] = $value['debit'] == 0 ? $value['kredit'] : $value['debit'];
+	if ($value['debit'] == 0){
+		$modifiedData[$value['nama_group']][$value['nama_subgroup']][$value['nama_akun']] = in_array($value['ag_id'],[1,5,6]) ? $value['kredit'] *-1 : $value['kredit'] ;
+	}else{
+		$modifiedData[$value['nama_group']][$value['nama_subgroup']][$value['nama_akun']] = $value['debit'];
+	}
 endforeach;
 
 // echo "<pre>";
@@ -197,7 +255,7 @@ $table2 = getAccounts($modifiedData,['KEWAJIBAN','MODAL'],$totalBiaya);
 echo $table2['html'];
 // $table3 = getAccounts($modifiedData,['MODAL'],$totalModal);
 // echo $table3['html'];
-
+}
 
 // echo '
 // <tr>
@@ -205,7 +263,9 @@ echo $table2['html'];
 // 	<td style="text-align: right;">'.number_format($table1['totalNitip'] - $table2['totalNitip']).'</td>
 // </tr>'
 // ;
-
+else:
+	echo "<p class='text-center text-warning' style='margin-top:5rem'>Tidak ada data ditemukan</p>";
+endif;
 ?>
 
 

@@ -3,7 +3,7 @@
 
 class CashflowController extends Controller
 {
-    public $layout='main2';
+    public $layout='backend';
 
     public function actionSetortunai(){
         $transaction = Yii::app()->db->beginTransaction();

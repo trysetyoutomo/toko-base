@@ -7,7 +7,7 @@ class SalesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     // public $layout = '//layouts/admin';
-    public $layout = 'main2';
+    public $layout = 'backend';
 	public $comp ;
 	public $adr ;
 	public $tlp ;

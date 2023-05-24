@@ -7,7 +7,7 @@ class SalesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     // public $layout = '//layouts/admin';
-    public $layout = 'main2';
+    public $layout = 'backend';
 	public $comphead ;
 	public $comp ;
 	public $adr ;
@@ -343,17 +343,17 @@ class SalesController extends Controller {
     	$this->renderPartial('detailoutlet_print_v2', array());
     }
     public function actionRekap(){
-    	// $this->layout = "main2";
+    	// $this->layout = "backend";
     	$this->render('rekapkasir', array());
     }
 
 	public function actionLaporanPulsa(){
-    	// $this->layout = "main2";
+    	// $this->layout = "backend";
     	$this->render('laporanpulsa', array());
     }
 
      public function actionRekapdetail(){
-    	// $this->layout = "main2";
+    	// $this->layout = "backend";
     	$this->render('rekapkasirdetail', array());
     }
 
@@ -5405,7 +5405,7 @@ public function actionCetakReportAll(){
     }
 
  	 public function actionTransaksiHapus(){
-    	$this->layout = "main2";
+    	$this->layout = "backend";
 		$this->render('transaksihapus',array(
 		));
     }

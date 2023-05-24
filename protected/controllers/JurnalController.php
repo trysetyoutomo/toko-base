@@ -3,7 +3,7 @@
 
 class JurnalController extends Controller
 {
-    public $layout='main2';
+    public $layout='backend';
 
         // generate jurnal for setor tunai
         public static function createTransfer($model){

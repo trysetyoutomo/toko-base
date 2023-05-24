@@ -6,7 +6,7 @@ class ItemsController extends Controller
 	 * @var string the default yout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='main2';
+	public $layout='backend';
 
 	/**s
 	 * @return array action filters
@@ -1018,10 +1018,6 @@ class ItemsController extends Controller
 	public function actionProsesMasukbarang(){
 	$transaction = Yii::app()->db->beginTransaction();
 	try {
-		// echo "<pre>";
-		// print_r($_REQUEST);
-		// echo "</pre>";
-		// exit;
 			$nilai = $_REQUEST['jsonObj'];
 
 			if (count($nilai)<1){
@@ -1029,8 +1025,6 @@ class ItemsController extends Controller
 				exit;
 			}
 			$head = $_REQUEST['head'];	
-
-
 			$modelh = new BarangMasuk;
 			$modelh->tanggal = $_REQUEST['head']['tanggal']. " ".date("H:i:s");
 			$modelh->user = Yii::app()->user->name;
@@ -1113,12 +1107,7 @@ class ItemsController extends Controller
 					$d = new ItemsDetail;
 					// // $sat = ItemsSatuan::model()->find("item_id = '$n[idb]' and id='$n[satuan]' ")->satuan;
 					$d->kode = $items->id;
-				
-
 					if ($model->save() && $d->save(false) ){
-
-
-
 						$brg = Items::model()->findByPk($model->kode);
 						$untung = $brg->persentasi / 100;
 						//get harga jual
@@ -1134,23 +1123,20 @@ class ItemsController extends Controller
 							$po->status_aktif = 0;
 							$po->update();
 						}
-
 						
 						// update items satuan harga [start]
-						$metode_stok = SiteController::getConfig("metode_stok");
-						if ($metode_stok == "lifo"){
-							$sat = ItemsSatuan::model()->find("barcode = '$barcode' and id='$n[satuan]' ");
-							$sat->harga_beli = $n['harga']; 
-							$sat->save(); // update master by last price
-						}
+						$metode_stok = SiteController::getConfig("metode_stok"); 
+						// if ($metode_stok == "lifo"){
+						$sat = ItemsSatuan::model()->find("barcode = '$barcode' and id='$n[satuan]' ");
+						$sat->harga_beli = $n['harga']; 
+						$sat->save(); // update master by last price 
+						// }
 						// else if ($metode_stok == "average"){
 						// 	$sat = ItemsSatuan::model()->find("barcode = '$barcode' and id='$n[satuan]' ");
 						// 	$sat->harga_beli = $av; // set average price
 						// 	$sat->save(); // update master by average price
 						// }
 						// update items satuan harga [end]
-
-
 
 						//set stok
 						// $brg->persentasi = $untung * 100;

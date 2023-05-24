@@ -41,7 +41,7 @@
 		'name'=>'name',
 		'type'=>'raw',
 		'header'=>'Nama Item',
-		'value'=>'CHtml::link($data[name],array("items/view","id"=>$data[id]),array("style"=>"text-decoration:none","target"=>"_blank"))',
+		'value'=>'CHtml::link($data[name],array("SalesItems/update","id"=>$data[id]),array("style"=>"text-decoration:none","target"=>"_blank"))',
 		
 		),
 		array(

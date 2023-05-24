@@ -440,6 +440,7 @@
             <td colspan="3">
                <button onclick="kirim()" class="btn btn-large btn-success" style="float:right;margin-top:1rem">Simpan Transaksi</button>
                <button style="float:right;margin-top:1rem" id="btn-tambah-item" class="btn btn-primary">Item Baru</button>
+               <button style="float:right;margin-top:1rem" id="btn-cari" class="btn btn-primary">Cari Items</button>
             </td>
          </tr>
       </table>
@@ -519,6 +520,14 @@
    
    $(document).on("click","#btn-tambah-item",function(e){
       $("#tambah-item-baru").modal("show");
+   });
+
+   $(document).on("click","#btn-cari",function(e){
+      // $("#tambah-item-baru").modal("show");
+      // $('#wrapper-item-search').show();
+      $("#wrapper-item-search").show();
+      $("#full-screen").show();
+
    });
 
    $(document).on("change","#po-data",function(e){
@@ -1048,7 +1057,7 @@
    						 
    						var kembali = $("#total-kembali").attr("asli");
    						if (kembali<0){
-   							alert(" Pembayaran dibawah harga total barang, sisa dari pembelian akan disimpan ke data hutang/kewajiban");
+   							alert(" Pembayaran dibawah harga total barang, sisa dari pembelian akan disimpan ke data piutang");
    						}
    						if (confirm("Yakin ?")==false){return}
    

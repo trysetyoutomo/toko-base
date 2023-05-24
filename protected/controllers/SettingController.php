@@ -3,7 +3,7 @@
 class SettingController extends Controller
 {
 
-	public $layout='//layouts/admin';
+	public $layout='backend';
 	public function actionIndex()
 	{
 		$this->render('index');

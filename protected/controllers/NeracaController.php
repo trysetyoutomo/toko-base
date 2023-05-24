@@ -46,7 +46,7 @@ class NeracaController extends Controller
 		return $sql;
 	}
 
-    public $layout='main2';
+    public $layout='backend';
 
       public function actionIndex(){
 		$akunID = $_REQUEST['akun_id'];
