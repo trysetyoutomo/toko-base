@@ -1,4 +1,4 @@
-<div class="form">
+<div class="form wide">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'sales-items-form',
@@ -22,18 +22,12 @@
 	</div>
 	<?php endif;?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'Jumlah '); ?>
-		<?php echo $form->textField($model,'quantity_purchased'); ?>
-		<?php echo $form->error($model,'quantity_purchased'); ?>
-	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Jumlah '); ?>
-		<?php echo $form->textField($model,'quantity_purchased'); ?>
-		<?php echo $form->error($model,'quantity_purchased'); ?>
+		<?php echo $form->labelEx($model,'Harga Modal'); ?>
+		<?php echo $form->textField($model,'item_modal',['class'=>'form-control','style'=>'max-width:300px']); ?>
+		<?php echo $form->error($model,'item_modal'); ?>
 	</div>
-
 
 	<?php if ($model->isNewRecord): ?>
 	<div class="row">
@@ -68,7 +62,7 @@
 <?php endif; ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',['class'=>'btn btn-primary']); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

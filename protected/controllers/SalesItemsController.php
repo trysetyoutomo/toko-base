@@ -240,7 +240,62 @@ $crit->compare('item_total_cost', $query,true,"or");
 		// }
 	// }
 
-	public function actionUpdate($id)
+	public function actionUpdate($id){
+		$model=$this->loadModel($id);
+		if(isset($_POST['SalesItems']))
+		{
+			
+			$transaction = Yii::app()->db->beginTransaction();
+			try{
+			$model->item_modal = $_POST['SalesItems']['item_modal'];
+			if ($model->save()){
+
+				// update table barangkeluar
+				$BarangKeluar = BarangKeluar::model()->find("sales_id = '$model->sale_id'"); // find barangkeluar
+				if ($BarangKeluar){
+					$BarangKeluarDetail = BarangkeluarDetail::model()->find("head_id = '$BarangKeluar->id' and kode = '$model->item_id'");
+					if ($BarangKeluarDetail){
+						$BarangKeluarDetail->harga = $model->item_modal;
+						$BarangKeluarDetail->save();
+						
+						//update jurnal 
+						$AkuntansiJurnal = AkuntansiJurnal::model()->find("sales_id = '$model->sale_id' ");
+						if ($AkuntansiJurnal){
+							$akunPersediaan = 39;
+							$akunHPP  = 4;
+
+							$AkuntansiJurnalDetail = AkuntansiJurnalDetail::model()->find("akun_id = '$akunPersediaan' and jurnal_id = '$AkuntansiJurnal->id' ");
+							if ($AkuntansiJurnalDetail){
+								$AkuntansiJurnalDetail->kredit = $model->quantity_purchased * $model->item_modal;
+								if ($AkuntansiJurnalDetail->save())
+									echo "success";
+							}
+
+							$AkuntansiJurnalDetail = AkuntansiJurnalDetail::model()->find("akun_id = '$akunHPP' and jurnal_id = '$AkuntansiJurnal->id' ");
+							if ($AkuntansiJurnalDetail){
+								$AkuntansiJurnalDetail->debit = $model->quantity_purchased * $model->item_modal;
+								$AkuntansiJurnalDetail->save();
+							}
+							
+						}
+				
+						$transaction->commit();
+
+
+						$this->redirect(array('Sales/detailitems','id'=>$model->sale_id));
+					}
+				}
+
+			}
+			}catch(Exception $err){
+				$transaction->rollback();
+			}
+		}
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+	public function actionUpdate2($id)
 	{
 		$model=$this->loadModel($id);
 
