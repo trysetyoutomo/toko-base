@@ -8,7 +8,7 @@
  * @property integer $kode
  * @property integer $jumlah
  */
-class BarangmasukDetail extends CActiveRecord
+class BarangMasukDetail extends CActiveRecord
 {
 	public $ubahke;
 	/**

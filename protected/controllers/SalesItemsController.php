@@ -253,7 +253,7 @@ $crit->compare('item_total_cost', $query,true,"or");
 				// update table barangkeluar
 				$BarangKeluar = BarangKeluar::model()->find("sales_id = '$model->sale_id'"); // find barangkeluar
 				if ($BarangKeluar){
-					$BarangKeluarDetail = BarangkeluarDetail::model()->find("head_id = '$BarangKeluar->id' and kode = '$model->item_id'");
+					$BarangKeluarDetail = BarangKeluarDetail::model()->find("head_id = '$BarangKeluar->id' and kode = '$model->item_id'");
 					if ($BarangKeluarDetail){
 						$BarangKeluarDetail->harga = $model->item_modal;
 						$BarangKeluarDetail->save();

@@ -9,7 +9,7 @@
  * @property integer $jumlah
  * @property integer $head_id
  */
-class BarangkeluarDetail extends CActiveRecord
+class BarangKeluarDetail extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

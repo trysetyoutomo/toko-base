@@ -41,16 +41,6 @@ Mengelola Item
 
    <table id="datatable" class="table table-striped table-bordered">
        <thead>
-  		<!-- <tr> -->
-        <!--    <th>Aksi</th>
-          <th>No</th>
-          <th>Nama</th>
-          <th>Kategori</th>
-          <th>Sub Kategori</th>
-        -->
-  		<!-- </tr> -->
-       
-          <!-- <th>Aksi</th> -->
         </thead>
         <tbody>
 
@@ -175,12 +165,17 @@ Mengelola Item
                 name:'harga',
                 "searchable":true,  
               },
-
-               {
-                title: "Jenis Item",
-                name:'nama_letak',
+              {
+                title: "Harga Pokok",
+                name:'harga',
                 "searchable":true,  
-              }
+              },
+
+              {
+              title: "Jenis Item",
+              name:'nama_letak',
+              "searchable":true,  
+            }
           ]
 
           });

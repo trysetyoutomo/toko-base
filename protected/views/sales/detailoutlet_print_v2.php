@@ -126,6 +126,17 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		</option>
 		<?php endforeach; ?>
 	</select>
+	Kategori Items 
+	<?php  $nilai = Categories::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+	<select id="customer" name="category" class="tobe-select2 " style="display: inline;">
+		<option value="">Semua Kategori</option>
+		<?php foreach($nilai as $k): ?>
+		<option <?php if ($k->category==$_REQUEST['category']) echo "selected" ?> value="<?php echo $k->id ?>">
+		<?php echo $k->category ?>
+			
+		</option>
+		<?php endforeach; ?>
+	</select>
 
 	<input type="submit" value="cari">
 </form>
@@ -165,6 +176,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		$jmb_bris = count($q_tgl);
 		$branch_id = Yii::app()->user->branch();
 		$whereCustomer = isset($_REQUEST['customer']) && !empty($_REQUEST['customer']) ? " and s.nama = '".$_REQUEST['customer']."'" : ""; 
+		$whereCategory = isset($_REQUEST['category']) && !empty($_REQUEST['category']) ? " and i.category_id = '".$_REQUEST['category']."'" : ""; 
 		foreach ($q_tgl as $qtgl) { ?>
 		<td><?php echo date('d-m-Y',strtotime($qtgl[db_date] )); ?></td>
 		<?php } ?>
@@ -209,6 +221,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
 				and s.branch = '$branch_id'
 				{$whereCustomer}
+				{$whereCategory}
 				")
 			->group("si.item_id, si.item_price, si.item_modal ")
 			->order("i.item_name asc")
@@ -243,6 +256,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				and 
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
 				{$whereCustomer}
+				{$whereCategory}
 				AND si.item_id = $values[iid]  AND si.`item_id` = i.`id`
 					and si.item_price =  $values[unit_price]   and si.item_modal = $values[item_modal]
 				GROUP BY item_id
@@ -262,6 +276,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 			->where("
 				s.status = 1 
 				{$whereCustomer}
+				{$whereCategory}
 				and date(date) = '".$qtgl[db_date]."' 
 				and si.item_id = i.id 
 				and si.sale_id = s.id  

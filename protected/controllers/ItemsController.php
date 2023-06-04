@@ -2699,7 +2699,7 @@ public function getHargamodal($id){
 			m.nama as motif, 
 			iss.stok_minimum,
 			total_cost ,discount,
-			stok,modal,lokasi, item_name, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga
+			stok,modal,lokasi, item_name, has_bahan, c.category as nama_kategori, l.nama as nama_letak, iss.harga as harga, iss.harga_beli
 
 			FROM items i inner join items_satuan as iss on iss.item_id = i.id
 			left join categories as c on c.id = i.category_id
@@ -2900,6 +2900,10 @@ public function getHargamodal($id){
 			'<a href='.Yii::app()->createUrl("ItemsSatuan/admin", array("id"=>$value[id],"status"=>"ubah")).'>
 			'.number_format($value['harga']).'       
 			</a>',
+			'<a href='.Yii::app()->createUrl("ItemsSatuan/admin", array("id"=>$value[id],"status"=>"ubah")).'>
+			'.number_format($value['harga_beli']).'       
+			</a>',
+
   			$bahan
 
   			);
