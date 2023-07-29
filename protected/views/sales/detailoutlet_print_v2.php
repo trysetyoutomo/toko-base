@@ -131,7 +131,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	<select id="customer" name="category" class="tobe-select2 " style="display: inline;">
 		<option value="">Semua Kategori</option>
 		<?php foreach($nilai as $k): ?>
-		<option <?php if ($k->category==$_REQUEST['category']) echo "selected" ?> value="<?php echo $k->id ?>">
+		<option <?php if ($k->id==$_REQUEST['category']) echo "selected" ?> value="<?php echo $k->id ?>">
 		<?php echo $k->category ?>
 			
 		</option>
