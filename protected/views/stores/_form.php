@@ -113,7 +113,7 @@
 
 
 
-		<div class="row buttons mt-3" style="justify-content: center;">
+		<div class="row buttons mt-3" style="justify-content: left;">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Daftar' : 'Daftar ',array("class"=>"btn btn-primary","style"=>
 	"min-width:150px")); ?>
 		</div>
