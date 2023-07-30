@@ -68,6 +68,8 @@ class StoresController extends Controller
 		try
 		{
 		$model=new Stores;
+		$u = new Users;
+
 		// echo "123";
 		// echo "<pre>";
 		// print_r($_FILES['Stores[logo]']);
@@ -81,6 +83,10 @@ class StoresController extends Controller
 		if(isset($_POST['Stores']))
 		{
 			// $target_file = ;
+			// $u->password = $_POST['Users']['password'];
+			// $u->email = $_POST['Stores']['email'];
+
+			$u->attributes=$_POST['Users'];
 			$model->attributes=$_POST['Stores'];
 			$random = md5(date("YmdHis"));
 			$model->code = rand(5,99999999999999999999); 
@@ -88,62 +94,52 @@ class StoresController extends Controller
 				$model->logo->saveAs("/logo/{$random}.jpg");
 			}else{
 			}
-			if($model->save(false)){
+			if($model->save()){
 				$br = new Branch;
 				$br->company = $model->name ;
 				$br->branch_name = "Pusat" ;
 				$br->address = $model->address1;
 				$br->telp = $model->phone;
-				$br->slogan = "Noting";
+				$br->slogan = "Nothing";
 				$br->is_utama = 1;
 				$br->hapus = 0;
 				$br->store_id = $model->id ;
-				if ($br->save(false)){
-
+				if ($br->save()){
 					// simpan data user 
-					$u = new Users;
+					$u->password = $u->password;
 					$u->username = $model->email;
 					$u->name = $model->email;
 					$u->email = $model->email;
-					$u->password = $model->email;
 					$u->level = 2; // level admin
 					$u->branch_id = $br->id;
 					$u->store_id = $model->id;
-					if ($u->save(false)){
-
+					$u->status = 1;
+					if ($u->save()){
 						$Parameter=new Parameter;
 						$Parameter->store_id = $model->id ;
 						$Parameter->pajak = 0 ;
 						$Parameter->service = 0 ;
 						$Parameter->meja = 10 ;
-						$Parameter->gambar = "35_POS_LOGO.png";
-						$Parameter->gambar_putih = "35_POS_LOGO_putih.png";
+						$Parameter->gambar = "35_POS_LOGO.png"; // default logo
+						$Parameter->gambar_putih = "35_POS_LOGO_putih.png"; // default logo
 						if ($Parameter->save()){
 							$transaction->commit();
-							$this->redirect(array('view','id'=>$model->id));
+							$this->redirect(array('view'));
 						}
-						// else{
-						// 	print_r($Parameter->getErrors());
-						// 	exit;
-						// }
+						else{
+							// print_r($Parameter->getErrors());
+							exit;
+						}
 					}else{
-						echo "Gagal Membuat user";
-						exit;
-
+						// print_r($u->getErrors());
+						$message =  "Gagal Membuat user";
 					}
 				}else{
-					echo "Gagal Membuat cabang utama";
-					exit;
+					$message =  "Gagal Membuat cabang utama";					
 				}
 			}else{
-				// print_r($model->getErrors());
-				// exit;
+				print_r($model->getErrors());
 			}
-				
-				
-				
-				
-				
 				// $msg = "Hai ".$_POST['Stores']['name'].", Verifikasi akun anda dengan cara klik link dibawah ini \n 
 				// <a href='verifikasi email.php'>Verifikasi email</a>
 				// ";
@@ -157,21 +153,17 @@ class StoresController extends Controller
 				// }
 
 			// }// end save
-		}else{
-			// echo "ok";
-			// exit;
 		}
-
 		$this->render('create',array(
 			'model'=>$model,
+			'u'=>$u,
+			'message'=>$message,
 		));
-		
-
 		}
 		catch(Exception $e)
 		{
 			echo $e;
-			// $transaction->rollback();
+			$transaction->rollback();
 		}
 
 

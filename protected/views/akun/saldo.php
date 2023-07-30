@@ -305,7 +305,7 @@
                      <div style="display: none;">   
                         <?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-control','style'=>'width:50px;display:inline-block;margin-right:1rem'));?>
                      </div>
-                     <button class="btn btn-primary"  onClick="add_item($('#namabarcode').val())">Tambahkan</button>
+                     <button class="btn btn-primary"  onClick="add_item($('#namabarcode').val())"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambahkan ke tabel</button>
                      
                   </div>
 
@@ -764,7 +764,7 @@
    								// alert(result);
    								// alert(re.status);
    								var re = JSON.parse(result);
-   								if (re.status == "1"){
+   								if (re.success){
    									alert('Berhasil! mencatat saldo awal!  ');
    									
    									window.location.reload();

@@ -41,7 +41,7 @@ License: You must have a valid license purchased only from templatemonster to le
          }
          .errorMessage{
          color: red;
-         display: none;
+
          }
          input.error,select.error{
          border:1px solid red;
@@ -68,7 +68,7 @@ License: You must have a valid license purchased only from templatemonster to le
          div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
          {
          clear: left;
-         padding-left: 110px;
+         padding-left: 140px;
          }
 </style>
 
