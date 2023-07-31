@@ -184,7 +184,9 @@ class UsersController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Users::model()->findByPk($id);
+		$store_id = Yii::app()->user->store_id();
+		$model=Users::model()->find("id = '$id' and store_id = '$store_id' ");
+		// $model=Users::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
