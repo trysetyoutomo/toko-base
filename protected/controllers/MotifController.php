@@ -10,8 +10,10 @@ class MotifController extends Controller
 
 	public function actionGetKategori()
 	{
+		$branch_id = Yii::app()->user->branch();
+
 		?>
-            <?php foreach (Motif::model()->findAll() as $c) {?>
+            <?php foreach (Motif::model()->findAll("store_id = '$branch_id'") as $c) {?>
                 <option value="<?php echo $c->id ?>"><?php echo $c->nama ?></option>                            
             <?php } ?>
           <?php
