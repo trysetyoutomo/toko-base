@@ -1710,6 +1710,7 @@ public function getHargamodal($id){
 	
 	public function actionView($id)
 	{
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -2976,7 +2977,8 @@ public function getHargamodal($id){
 	 */
 	public function loadModel($id)
 	{
-		$model=Items::model()->findByPk($id);
+		$store_id = Yii::app()->user->store_id();
+		$model=Items::model()->find("id = '$id' and store_id = '$store_id' ");
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
