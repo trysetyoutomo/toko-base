@@ -17,6 +17,5 @@ Item baru</h1>
 <script type="text/javascript">
 	    $(document).ready(function(){
 	    	$("#Items_barcode").focus();
-	    	// alert("123");
 	    });
 </script>

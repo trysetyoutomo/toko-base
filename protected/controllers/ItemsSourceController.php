@@ -98,7 +98,7 @@ class ItemsSourceController extends Controller
 					$pd = new ItemsSource;
 
 					// var_dump($i);
-					$i = explode("-", $d['kode']);
+					$i = explode("##", $d['kode']);
 					$barcode = $i[0];
 					// echo $barcode;
 					$items = ItemsSatuan::model()->find("barcode = '$barcode' ");

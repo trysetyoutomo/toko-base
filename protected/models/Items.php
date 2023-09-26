@@ -50,12 +50,12 @@ class Items extends CActiveRecord
 			// is_stockable
 // is_bahan
 			// has_bahan
-			array('stok,is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
+			array('is_bahan, has_bahan,stok,is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
 
 
 
 // is_stockable,is_bahan,has_bahan,
-			array('panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required','on'=>'update','message'=>'{attribute} tidak boleh kosong'),
+			array('is_bahan, has_bahan,panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required','on'=>'update','message'=>'{attribute} tidak boleh kosong'),
 			array('persentasi,modal,category_id, tax_percent, total_cost, discount, status', 'numerical', 'integerOnly'=>true),
 
 			// array('barcode', 'unique','message'=>'Kode telah ada, tidak boleh sama '),

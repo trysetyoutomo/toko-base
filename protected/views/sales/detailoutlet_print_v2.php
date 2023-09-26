@@ -220,6 +220,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				and
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
 				and s.branch = '$branch_id'
+				and is_sales_item_bahan is null
 				{$whereCustomer}
 				{$whereCategory}
 				")
@@ -255,6 +256,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				s.status = 1
 				and 
 				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
+				
 				{$whereCustomer}
 				{$whereCategory}
 				AND si.item_id = $values[iid]  AND si.`item_id` = i.`id`
@@ -283,6 +285,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				and si.item_id = '".$values[iid]."' 
 				and si.item_price = '".$values[unit_price]."' 
 				and si.item_modal = '".$values[item_modal]."' 
+				
 			")
 			->group("i.id ,date(s.date)")
 			->queryRow();

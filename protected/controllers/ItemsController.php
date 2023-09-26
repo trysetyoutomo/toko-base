@@ -24,26 +24,28 @@ class ItemsController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	// public function accessRules()
-	// {
-	// 	return array(
-	// 		array('allow',  // allow all users to perform 'index' and 'view' actions
-	// 			'actions'=>array('kartupersediaan','averagene','sqlAverage','getAverage','getlistprice','laporanrusak','laporanmasuk','barangrusak','barangmasuk','cari','barcode','index','view','check','delete'),
-	// 			'users'=>array('*'),
-	// 		),
-	// 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-	// 			'actions'=>array('masukubahdetail','Pengeluaranhapus','laporan_pengeluaran','bayarhutang','masukubahdetail','masukhapusdetail','masukhapus','keluarhapus','cetakpinjam','batalkembali','setkembali','laporanpinjam','pinjam','notifikasi','prosesrusakbarang','getmotif','getname','prosesmasukbarang','detailpaket','adminpaket','admin','create','createpaket','update','unitprice','itemnumber','category'),
-	// 			'users'=>array('@'),
-	// 		),
-	// 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-	// 			'actions'=>array('Kosongkanstok','hapus','pengeluaranbaru','admin','checkbarcode'),
-	// 			'users'=>array('@'),
-	// 		),
-	// 		array('deny',  // deny all users
-	// 			'users'=>array('*'),
-	// 		),
-	// 	);
-	// }
+	public function accessRules()
+	{
+		return [
+			// ['allow',  'actions'=>['admin'], 'users'=>array('@')],
+			// ]
+			// array('allow',  // allow all users to perform 'index' and 'view' actions
+			// 	'actions'=>array('kartupersediaan','averagene','sqlAverage','getAverage','getlistprice','laporanrusak','laporanmasuk','barangrusak','barangmasuk','cari','barcode','index','view','check','delete'),
+			// 	'users'=>array('*'),
+			// )
+			// array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			// 	'actions'=>array('masukubahdetail','Pengeluaranhapus','laporan_pengeluaran','bayarhutang','masukubahdetail','masukhapusdetail','masukhapus','keluarhapus','cetakpinjam','batalkembali','setkembali','laporanpinjam','pinjam','notifikasi','prosesrusakbarang','getmotif','getname','prosesmasukbarang','detailpaket','adminpaket','admin','create','createpaket','update','unitprice','itemnumber','category'),
+			// 	'users'=>array('@'),
+			// ),
+			// array('deny', // allow admin user to perform 'admin' and 'delete' actions
+			// 	'actions'=>array('admin','hapus','pengeluaranbaru','admin','checkbarcode'),
+			// 	'users'=>array('@'),
+			// ),
+			// array('deny',  // deny all users
+			// 	'users'=>array('*'),
+			// ),
+		];
+	}
 	// public function actionSetstok($before,$skrg,$id){
 	// public function getLastPrice($id){
 
@@ -2212,12 +2214,6 @@ public function getHargamodal($id){
 
 		if(isset($_POST['Items']))
 		{
-			// echo "<pre>";
-			// print_r();
-			// echo "</pre>";
-			// exit;
-
-
 			$model->attributes = $_REQUEST['Items'];
 			$model->item_name = strtoupper($_REQUEST['Items']['item_name']);
 			$model->modal = $_REQUEST['Items']['total_cost'];
@@ -2354,7 +2350,13 @@ public function getHargamodal($id){
 						// if ($save){// jika berhasil simpan maka
 							$transaction->commit();
 
-							if (! isset($_POST['isajax'])){ $this->redirect(array('view',"id"=>$model->id));}
+							if (! isset($_POST['isajax'])){ 
+								if ($model->has_bahan == "1"){
+									$this->redirect(array('itemsSource/create',"id"=>$model->id));
+								}else{
+									$this->redirect(array('view',"id"=>$model->id));
+								}
+							}
 							else{ echo "sukses"; exit;}
 						// }else{// jika gagal save maka
 						// 	if (isset($_POST['isajax'])){
@@ -2846,7 +2848,12 @@ public function getHargamodal($id){
   		if ($value['is_bahan']=="1"){
   			$bahan = "Bahan Baku";
   		}else{
-  			$bahan = "Menu";
+			//cek bahan baku
+			$bahanBaku = itemsSource::model()->findAll("item_menu = '$value[id]' order by id asc ");
+			if (count($bahanBaku) > 0)
+	  			$bahan = "Menu  <a href='?r=itemsSource/create&id=$value[id]'>(".count($bahanBaku). " bahan baku)</a>" ;
+			else
+	  			$bahan = "Menu" ;
   		}
   		$aksi = '<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -2866,7 +2873,7 @@ public function getHargamodal($id){
 		     
 		       $aksi .= '<a href="'.Yii::app()->createUrl("itemsSource/create", array("id"=>$value[id])).'" >
 		        <i class="fa fa-pencil"></i>
-		        Kelola Sub Item
+		        Kelola Bahan Baku
 		      </a>';
 		      } 
 

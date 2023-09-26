@@ -109,7 +109,7 @@ foreach ($data as $key => $value) {
 <?php
 
 
-$sql  = "select * from barangkeluar where status_keluar = 1 and  1=1 $filter order by tanggal desc";
+$sql  = "select * from barangkeluar where status_keluar = 1 and  1=1 $filter  order by tanggal desc limit 50";
 
 $model = Yii::app()->db->createCommand($sql)->queryAll();
 
@@ -197,6 +197,8 @@ $model = Yii::app()->db->createCommand($sql)->queryAll();
 						si.satuan = iss.id
 
 						AND s.id = '$m[id]'
+						and 
+						is_sales_item_bahan is null
 						
 						";
 						// echo $sql;

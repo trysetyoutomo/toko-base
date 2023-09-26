@@ -26,13 +26,15 @@
 			$("#row-provider").show();
 	});
 	$(document).on("change","#Items_is_bahan",function(e){
-		// alert("123");
 		var val = $(this).val();
-		// alert(val);
-		if (val=="0")
+		if (val=="0"){
 			$("#row_has_bahan").show();
-		else
+			$("#Items_is_bahan").val(0);
+		}
+		else{
 			$("#row_has_bahan").hide();
+			$("#Items_has_bahan").val(0);
+		}
 	});
 	function generateBarcodeAction(){
 		$.ajax({
@@ -103,6 +105,11 @@
 	$(document).ready(function(){
 		// $("#Items_barcode").focus();
 		$("#nama").select2();
+		$("#Items_is_bahan").trigger("change");
+		//auto generate
+		setTimeout(function(){
+			$("#is_generate").trigger("click");
+		},100);
 		// $("#is_generate").trigger("click");
 
 		<?php if ($_REQUEST['is_generate']=="on"){ ?>
@@ -567,7 +574,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 
                 	<?php 
 				$usaha = SiteController::getConfig("jenis_usaha");
-				if ($usaha=="Restauran"){
+				// if ($usaha=="Restauran"){
 				?>
 		                   <tr id="row_is_bahan" >
 							<td><?php echo $form->labelEx($model,'is_bahan'); ?></td>
@@ -597,7 +604,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 		              	  ); ?></td>
 			                  <td><?php echo $form->error($model,'is_stockable'); ?></td>
 		                </tr>
-            	<?php } ?>
+            	<?php// } ?>
 
             	<?php  if ($usaha=="Konter"){ ?>
             		 <tr id="row_is_pulsa" >

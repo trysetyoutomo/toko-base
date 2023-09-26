@@ -1611,7 +1611,7 @@ class SalesController extends Controller {
 				WHERE
 				
 
-				sales.id = $id 
+				sales.id = $id and sales_items.is_sales_item_bahan is NULL
 				#and
 				#(items.has_bahan = 1 || (items.has_bahan = 0 and items.is_bahan=0 ))
 				group by sales_items.id
@@ -1780,7 +1780,7 @@ class SalesController extends Controller {
 
 		) AS A
 
-		WHERE A.date!='' and A.status = 1
+		WHERE A.date!='' and A.status = 1 
 		$where_branch
 		GROUP BY A.ID
 
@@ -2505,11 +2505,7 @@ public function actionSalesoutletweekly(){
 								// }
 							// }
 						}
-						// set source of item
-						$items = Items::model()->findByPk($detail['item_id']);
-						if ($items->has_bahan=="1"){
-							$this->kalkulasiBahanBaku($detail,$sales);
-						}
+
 						$total_cost = ($detail['item_price']*$detail['quantity_purchased']) + $detail['item_tax'] + $detail['item_service'];
 						$di->sale_id = $sales->id;
 	                    $di->item_id = $detail['item_id'];
@@ -2529,28 +2525,19 @@ public function actionSalesoutletweekly(){
 						$satuanUtamaKode_default = $satuanUtama2->item_id;
 						$satuanUtama_jumlah_2 = $satuanUtama2->satuan;
 
-						// var_dump($satuanUtama_jumlah_1);
-						// var_dump($satuanUtama_jumlah_2);
-						// exit;
-
 
 						$satuan_total_keluar = $satuanUtama_jumlah_1 * $satuanUtama_jumlah_2;
 						if ($satuanUtama_jumlah_2==1){
 							$satuan_total_keluar = $satuanUtama_jumlah_1*$detail['quantity_purchased'];
 						}
 
-
-
-						// if ($)
-
 						// set untuk multi satuan 
 						if ($sales->status=="1"){
 							$bkl = new BarangKeluarDetail;
+							// simpan detail barang keluar
 							$bkl->kode = $satuanUtamaKode_default ;
 							$bkl->jumlah = $satuan_total_keluar;
 							// $bkl->harga = intval($hm);
-							
-
 							if ($metode_stok == "average"){
 								$harga_mdl = ItemsController::getAverage($detail[item_id],$satuanUtamaID_default,Yii::app()->user->branch());
 								if ($harga_mdl<=0){ //jika di
@@ -2561,14 +2548,19 @@ public function actionSalesoutletweekly(){
 								$satuanharga = ItemsSatuan::model()->find("item_id = '".$detail['item_id']."' and id='".$detail['item_satuan_id']."' ")->harga_beli;
 								$harga_mdl = $satuanharga;
 							}						
-
 							$bkl->harga = $harga_mdl;
-
 							$bkl->head_id = $modelh->id;
 							// $bkl->satuan = $satuanUtamaID_default;
 							$bkl->satuan = $detail['item_satuan_id'];
 							$bkl->save();	
-						}						
+
+							// set source of item
+							$items = Items::model()->findByPk($detail['item_id']);
+							if ($items->has_bahan=="1"){
+								$this->kalkulasiBahanBaku($detail,$sales,$modelh);
+							}
+						}	
+											
 
 	                    $di->item_satuan_id = $detail['item_satuan_id'];
 	                    // $di->item_satuan_id = $satuanUtamaID;
@@ -2684,9 +2676,10 @@ public function actionSalesoutletweekly(){
 		}
     }
     
-	private function kalkulasiBahanBaku($detail,$sales){
+	private function kalkulasiBahanBaku($detail,$sales, $modelh){
 		$sql = "select * from items_source where item_menu = '$detail[item_id]' ";
 		$data = Yii::app()->db->createCommand($sql)->queryAll();
+		if (count($data) > 0):
 		foreach ($data as $key => $value) {
 
 			$satuanUtama = ItemsSatuan::model()->find(" is_default = '1' and item_id='$value[item_id]' ");
@@ -2696,10 +2689,8 @@ public function actionSalesoutletweekly(){
 			$satuanNow= ItemsSatuan::model()->find(" id='$value[satuan]' ");
 			$satuanNowSatuan = $satuanNow->satuan;
 			$satuanNowNilai = $satuanNow->jumlah;
-
-				
-
-
+			
+			// simpan ke detail penjualan [start]
 			$i = new SalesItems();
 			$i->sale_id = $sales->id;
             $i->item_id = $value['item_id'];
@@ -2717,13 +2708,32 @@ public function actionSalesoutletweekly(){
         	$i->item_modal = 0 ;
         	// $i->item_satuan_id = $value['satuan'] ;
         	$i->item_satuan_id = $satuanUtamaID ;
+        	$i->sales_item_name = Items::model()->findByPk($value['item_id'])->item_name ; // simpan nama item_name
+			$i->is_sales_item_bahan = 1;
         	if (!$i->save()){
         		array_push($i->getErrors(),"table Sales Items");
         		echo json_encode($i->getErrors());
         		exit;
-        		// print_r($i->getErrors());
-        	}									 	
+        	}		
+			// 	simpan ke detail penjualan [end]	
+			
+
+			// simpan ke detail barang keluar [start]
+			$bkl = new BarangKeluarDetail;
+			$bkl->kode =  $value['item_id'] ;
+			$bkl->jumlah = round($value['jumlah']/$satuanNowSatuan,2)*$detail['quantity_purchased'];					
+			$bkl->harga = 0;
+			$bkl->head_id = $modelh->id;
+			$bkl->satuan = $satuanUtamaID;
+			$bkl->is_sales_item_bahan = 1;
+			if (!$bkl->save()){
+        		array_push($i->getErrors(),"table Sales Items");
+        		echo json_encode($i->getErrors());
+        		exit;
+        	}		
+			// simpan ke detail barang keluar [end]
 		 } 
+		endif;
 	}
     private function spasi($banyak, $karakter) {
         $kar = "";

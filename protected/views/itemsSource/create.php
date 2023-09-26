@@ -1,3 +1,6 @@
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Items/admin'); ?>">Mengelola Items</a></li>
   <li class="breadcrumb-item active">
@@ -16,18 +19,14 @@ table#data tr td{
 padding: 10px
 } 	
 </style>
-<link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
 <?php 
 $item = Items::model()->findByPk($_REQUEST['id']);
 
 if ($_REQUEST['status']=="ubah"){ ?>
-	<h2> <i class="fa fa-book"></i> Ubah Bahan Baku <?php echo $item->item_name ?> </h1>
-<?php  }else{ ?>
-	<h1> <i class="fa fa-book"></i>
-Bahan Baku
+	<h1> <i class="fa fa-book"></i> Bahan Baku <b><?php echo $item->item_name ?></b> </h1>
+	<?php  }else{ ?>
+		<h1> <i class="fa fa-book"></i> Bahan Baku <b><?php echo $item->item_name ?></b> </h1>
 
-	</h2>
 
 <?php  } ?>
 <hr>
@@ -109,10 +108,7 @@ function simpan(){
 			jumlah = Math.round(jumlah * 100) / 100;
 
 			var harga = parseInt($(this).closest("tr").find(".harga").html()) ;
-			// alert(harga);
-			// var satuan = $(this).closest("tr").html();
 			var satuan = $(this).closest("tr").find(".satuan").val();
-			// alert(satuan);
 			array_kode.push({"kode":nilai,"harga":harga,"jumlah":jumlah,"satuan":satuan});
 		});	
 		$.ajax({
@@ -290,7 +286,7 @@ function additem(){
 					"<td><input class='jumlah' style='padding:4px;' maxlength='15'  value='1' type='number'/></td>" +
 					
 					"<td>"+select+"</td>" +
-					"<td align='right' class='harga'>" +harga_beli + "</td>" +
+					// "<td align='right' class='harga'>" +harga_beli + "</td>" +
 					"<td >&nbsp;<i class='fa fa-times hapus'></i > "+
 
 					"</td> " +
@@ -338,14 +334,14 @@ $li = CHtml::listData($data,'id','item_name');
 			<th>Nama Item</th>
 			<th>Jumlah</th>
 			<th>Satuan</th>
-			<th>Harga Satuan</th>
 			<th>aksi</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php 
 		$dd = itemsSource::model()->findAll("item_menu = '$_REQUEST[id]' order by id asc ");
-		if ($_REQUEST['status']=="ubah"){ 
+		
+		// if ($_REQUEST['status']=="ubah"){ 
 			// echo "kkkk";
 			$id = $_REQUEST['id'];
 			// echo "ok";
@@ -354,7 +350,7 @@ $li = CHtml::listData($data,'id','item_name');
 				$items = Items::model()->findByPk($value->item_id);
 			?>
 			<tr class='baris'>
-				<td style='display:none' class='pk' nilai='<?php echo $itemsSatuan->barcode."-".$value->satuan ?>'  >   </td>
+				<td style='display:none' class='pk' nilai='<?php echo $itemsSatuan->barcode."##".$value->satuan ?>'  >   </td>
 				<td>
 					<?php echo $itemsSatuan->barcode ?>
 				</td>
@@ -384,16 +380,16 @@ $li = CHtml::listData($data,'id','item_name');
 						?>
 					</select>
 				</td> 
-				<td class="harga" align="right">
+				<!-- <td class="harga" align="right">
 					<?php echo $value->harga ?>
-				</td>
+				</td> -->
 				<td><i class='fa fa-times hapus'></i> </td>  
 
 			</tr>
 
 		<?php
 			} 
-		}
+		// }
 	
 		?>
 	</tbody>
@@ -402,7 +398,7 @@ $li = CHtml::listData($data,'id','item_name');
 </div>
 <div class="mws-button-row">
 <?php if ($_REQUEST["status"]=="ubah"){ ?>
-<input type="button" onclick="simpan()" value="Rubah" class="btn btn-primary">
+<input type="button" onclick="simpan()" value="Simpan" class="btn btn-primary">
 <?php }else{ ?>
 <input type="button" onclick="simpan()" value="Simpan" class="	btn btn-primary">
 <?php } ?>

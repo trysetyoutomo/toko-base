@@ -5,7 +5,7 @@
 </ol>
 
 
-<h1>Rincian Item #<?php echo $model->item_name; ?></h1>
+<h1>Rincian Item <b><?php echo $model->item_name; ?></b></h1>
 <hr>
 <div class="row">
     <div class="col-sm-12">
