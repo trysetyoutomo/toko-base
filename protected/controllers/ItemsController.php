@@ -2846,14 +2846,14 @@ public function getHargamodal($id){
   	foreach ($rawData as $key => $value) {
 
   		if ($value['is_bahan']=="1"){
-  			$bahan = "Bahan Baku";
+  			$bahan = "<span class='badge' style='background:red'>Bahan Baku</span>";
   		}else{
 			//cek bahan baku
 			$bahanBaku = itemsSource::model()->findAll("item_menu = '$value[id]' order by id asc ");
 			if (count($bahanBaku) > 0)
-	  			$bahan = "Menu  <a href='?r=itemsSource/create&id=$value[id]'>(".count($bahanBaku). " bahan baku)</a>" ;
+	  			$bahan = "<span class='badge' style='background:green;'>Menu  <a style='color:white' href='?r=itemsSource/create&id=$value[id]'>(".count($bahanBaku). " bahan baku)</a></span>" ;
 			else
-	  			$bahan = "Menu" ;
+	  			$bahan = "<span class='badge' style='background:green;text-decoration:underline'>Menu</span>" ;
   		}
   		$aksi = '<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

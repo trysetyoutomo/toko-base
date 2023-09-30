@@ -11,7 +11,7 @@
     <div class="col-sm-12">
       <a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
              <button class="btn btn-primary">
-            <i class="fa fa-plus"></i> Tambah  
+            <i class="fa fa-plus"></i> Tambah Item
         </button>
         </a>
        <a href="<?php echo Yii::app()->controller->createUrl("admin") ?>">

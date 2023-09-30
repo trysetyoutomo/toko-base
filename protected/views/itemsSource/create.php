@@ -1,13 +1,21 @@
+<!-- animation css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+<!-- numeral js -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
+<?php 
+
+$produkName = Items::model()->findByPk($_REQUEST['id'])->item_name;
+?>
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Items/admin'); ?>">Mengelola Items</a></li>
   <li class="breadcrumb-item active">
   	
   	 <a style="text-decoration: underline;" href="<?php echo Yii::app()->controller->createUrl("items/view",array("id"=>$_REQUEST[id])) ?>">
 	<?php 
-	echo Items::model()->findByPk($_REQUEST['id'])->item_name;
+	echo $produkName
 	?>
 	</a>
   </li>
@@ -21,6 +29,9 @@ padding: 10px
 </style>
 <?php 
 $item = Items::model()->findByPk($_REQUEST['id']);
+$itemsSatuanUtama = ItemsSatuan::model()->find("item_id = '$_REQUEST[id]' and is_default = 1 ");
+// echo  $itemsSatuanUtama->harga_beli;
+
 
 if ($_REQUEST['status']=="ubah"){ ?>
 	<h1> <i class="fa fa-book"></i> Bahan Baku <b><?php echo $item->item_name ?></b> </h1>
@@ -28,7 +39,7 @@ if ($_REQUEST['status']=="ubah"){ ?>
 		<h1> <i class="fa fa-book"></i> Bahan Baku <b><?php echo $item->item_name ?></b> </h1>
 
 
-<?php  } ?>
+<?php  } ?>	
 <hr>
 <?php if ($from=="site"): ?>
 <style type="text/css">
@@ -41,7 +52,7 @@ if ($_REQUEST['status']=="ubah"){ ?>
 <script type="text/javascript">
 	$(document).on('click', '.close-btn', function(e) {
 		$("#tambah-paket-baru").hide();
-	});
+	});	
 </script>
 <div class="close-btn">
 	<i class="fa fa-times fa-2x"></i>
@@ -50,15 +61,52 @@ if ($_REQUEST['status']=="ubah"){ ?>
 
 
 <script type="text/javascript">
+
 $(document).ready(function(e){
+
+
 
 	$("#nama_item").select2();
 	$(document).on('click', '.hapus', function(e) {
 		var index = $('.hapus').index(this);
 		$('.baris').eq(index).remove();
+		getTotal();
 	});
 
+	$(document).on('input', '.jumlah', function(e) {
+		let hargasatuan = numeral($(this).closest(".baris").find(".hargasatuan").html()).value();
+		// alert(hargasatuan);
+		let jumlah = $(this).val();
+		let hpp = Math.round(parseFloat(hargasatuan) * parseFloat(jumlah));
+		hpp =  numeral(hpp).format('0,0')
+		$(this).closest(".baris").find(".harga").html(hpp);
+		getTotal();
+	});
+
+	<?php  if ($_REQUEST['status']=="ubah") { ?>
+		<?php } ?>
+		setTimeout(() => {
+			$(".jumlah").trigger("input");
+		}, 500);
+
+	
+
 });
+
+function getTotal(){
+	let hargaHPPsaatIni = <?php echo $itemsSatuanUtama->harga_beli ?>; 
+	let totalHarga = 0;
+	$('.harga').each(function(e){
+		totalHarga += numeral($(this).html()).value();
+	});
+
+	$("#total-estimasi").html(numeral(totalHarga).format("0,0"));
+	if (totalHarga != hargaHPPsaatIni){
+		$("#wrapper-ubah-harga").show();
+	}else{
+		$("#wrapper-ubah-harga").hide();
+	}
+}
 
 function validasi(){
 	var nama = $("#nama").val();
@@ -70,6 +118,8 @@ function validasi(){
 
 function simpan(){
 	var pesan = "";
+	var ubah_harga = $("#ubah-harga").val();
+	var harga_estimasi = numeral($("#total-estimasi").html()).value();
 	var nama = $("#namasimpan").val();
 	var menu = $("#menu").val();
 	var kode_paket = $("#kode_paket").val();
@@ -114,7 +164,7 @@ function simpan(){
 		$.ajax({
 			type: 'GET',
 			url: '<?php echo Yii::app()->createAbsoluteUrl("itemsSource/create"); ?>',
-			data: {"item_id":"<?php echo $_REQUEST['id'] ?>","kode":array_kode,"nama":nama,"total":total,"status":status,'kode_paket':kode_paket},
+			data: {"item_id":"<?php echo $_REQUEST['id'] ?>","kode":array_kode,"nama":nama,"total":total,"status":status,'kode_paket':kode_paket,"ubah_harga":ubah_harga,"harga_estimasi":harga_estimasi},
 			success:function(data){
 				var json = JSON.parse(data);
 				if (json.sukses==true){
@@ -234,6 +284,19 @@ function getTgl(){
 			dataType:'json'
 		});
 	});
+function empty(e) {
+  switch (e) {
+    case "":
+    case 0:
+    case "0":
+    case null:
+    case false:
+    case undefined:
+      return true;
+    default:
+      return false;
+  }
+}
 function additem(){
 	if ($('#nama_item').val()!=0 && $('#nama_item').val()!=null ){
 	$.ajax({
@@ -252,7 +315,6 @@ function additem(){
 
 
 			var nama = $('#nama_item');
-			// alert(nama.val());
 			var stok = $('#stok');
 			// alert(stok.val());
 			var count = $('.pk[nilai="'+nama.val()+'"]').length;
@@ -276,6 +338,35 @@ function additem(){
 				});
 				
 				var select = "<select  style='width:100%' class='satuan'>"+string+"</select>";
+				// var listCodes =
+
+
+				let listCodes = [];
+				$('.baris').each(function(){
+					let barcode = $(this).find(".pk").attr("nilai");
+					listCodes.push(barcode);
+					// let singleCode = "";
+					// if (!empty(barcode)){
+					// 	singleCode = barcode.split("##")[0];
+					// }
+				});
+
+				if (listCodes.includes(nama.val())){
+					// alert('123');
+					$("[nilai='"+ nama.val() +"']").closest(".baris").addClass("animate__animated animate__flash");
+					
+					setTimeout(() => {
+						$("[nilai='"+ nama.val() +"']").closest(".baris").removeClass("animate__animated animate__flash");
+					}, 1000);
+					// attr("nilai",nama.val()).hide();
+
+					// animate__animated animate__bounce
+					return;
+				}
+
+
+				// if (kode == )
+
 
 				$('#users tbody').append(
 					"<tr class='baris'>" +
@@ -286,7 +377,7 @@ function additem(){
 					"<td><input class='jumlah' style='padding:4px;' maxlength='15'  value='1' type='number'/></td>" +
 					
 					"<td>"+select+"</td>" +
-					// "<td align='right' class='harga'>" +harga_beli + "</td>" +
+					"<td align='right' class='harga'>" +harga_beli + "</td>" +
 					"<td >&nbsp;<i class='fa fa-times hapus'></i > "+
 
 					"</td> " +
@@ -334,20 +425,26 @@ $li = CHtml::listData($data,'id','item_name');
 			<th>Nama Item</th>
 			<th>Jumlah</th>
 			<th>Satuan</th>
+			<th>Harga Satuan</th>
+			<th>Estimasi HPP</th>
 			<th>aksi</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php 
-		$dd = itemsSource::model()->findAll("item_menu = '$_REQUEST[id]' order by id asc ");
-		
+
+			$dd = itemsSource::model()->findAll("item_menu = '$_REQUEST[id]' order by id asc ");
+			// item satuan utama pada menu ini 
+			
 		// if ($_REQUEST['status']=="ubah"){ 
 			// echo "kkkk";
 			$id = $_REQUEST['id'];
+			$totalestimasi = 0;
 			// echo "ok";
 			foreach ($dd as $key => $value) {
 				$itemsSatuan = ItemsSatuan::model()->find("id = '$value->satuan' ");
-				$items = Items::model()->findByPk($value->item_id);
+				$items = Items::model()->findByPk($value->item_id);	
+
 			?>
 			<tr class='baris'>
 				<td style='display:none' class='pk' nilai='<?php echo $itemsSatuan->barcode."##".$value->satuan ?>'  >   </td>
@@ -361,7 +458,7 @@ $li = CHtml::listData($data,'id','item_name');
 					
 
 				</td> 
-				<td><input class='jumlah' style='padding:4px;' step='.01' value='<?php echo $value->jumlah ?>' type='number'/>
+				<td><input class='jumlah' style='padding:4px;' step='.01' value='<?php echo $value->jumlah ?>' type='number' maxlength="3"/>
 	
 				</td> 
 				
@@ -380,19 +477,29 @@ $li = CHtml::listData($data,'id','item_name');
 						?>
 					</select>
 				</td> 
-				<!-- <td class="harga" align="right">
-					<?php echo $value->harga ?>
-				</td> -->
+				<td class="hargasatuan" style="text-align:right"><?php echo  number_format($itemsSatuan->harga_beli) ?></td>
+				<td class="harga" style="text-align:right"><?php echo $value->harga ?></td>
 				<td><i class='fa fa-times hapus'></i> </td>  
 
 			</tr>
 
 		<?php
+		// $totalestimasi += 
 			} 
 		// }
 	
 		?>
 	</tbody>
+	<tfoot>
+		<td colspan="5" style="text-align:right">Total Estimasi</b></td>
+		<td style="text-align: right;"><span class='badge badge-success' style="background-color: green;" id="total-estimasi"></span>
+		</td>
+		<td style="width: 100px;">
+			<div id="wrapper-ubah-harga" style="display: none;">
+				<label><input style="width: auto;" type="checkbox" id="ubah-harga" name="ubah-harga" />&nbsp;Ubah Harga Pokok <br/> <small>(harga estimasi berbeda dengan harga saat ini, centang untuk merubah harga)</small></label>
+			</div>
+		</td>
+	</tfoot>
 </table>
 
 </div>

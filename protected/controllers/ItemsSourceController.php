@@ -85,6 +85,17 @@ class ItemsSourceController extends Controller
 			$total =  $_REQUEST['total'];
 			$status =  $_REQUEST['status'];
 			$kode_paket =  $_REQUEST['kode_paket'];
+			$ubah_harga =  $_REQUEST['ubah_harga'];
+
+			if ($ubah_harga == "on"){	
+				// ubah harga
+				
+				$itemsSatuanUtama = ItemsSatuan::model()->find("item_id = '$item_id ' and is_default = 1 ");
+				$itemsSatuanUtama->harga_beli = $_REQUEST['harga_estimasi'];
+				$itemsSatuanUtama->save();	
+
+			}
+
 			// $satuan =  $_REQUEST['satuan'];
 			
 
@@ -102,10 +113,6 @@ class ItemsSourceController extends Controller
 					$barcode = $i[0];
 					// echo $barcode;
 					$items = ItemsSatuan::model()->find("barcode = '$barcode' ");
-					// print_r($items);
-					// exit;
-					// echo $items->item_id;
-					// exit;
 					$pd->item_id = $items->item_id;
 					$pd->item_menu = $item_id;
 					$pd->jumlah = $d['jumlah'];

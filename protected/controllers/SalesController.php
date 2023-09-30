@@ -1115,6 +1115,7 @@ class SalesController extends Controller {
 		s.branch = '$branch_id'
 		and 
 		date(s.date) >= '$tgl' and date(s.date) <= '$tgl2'
+		and is_sales_item_bahan is NULL
 		$filter
 
 		group by i.id
