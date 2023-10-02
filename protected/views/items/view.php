@@ -34,7 +34,7 @@
         if ($model->has_bahan=="1"):
         ?>
          <a href="<?php echo Yii::app()->controller->createUrl("ItemsSource/create",array("id"=>$_REQUEST[id],"status"=>"ubah")) ?>">
-            <button class="btn btn-primary">
+            <button class="btn btn-danger">
                 <i class="fa fa-pencil"></i> Kelola Bahan Baku
             </button>
         </a>

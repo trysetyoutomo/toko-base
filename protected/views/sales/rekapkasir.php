@@ -20,7 +20,7 @@ $this->renderPartial('application.views.site.main');
 <form method="post">
 	<input type="hidden" name="r" value="sales/rekap"  />
 			<label style="margin-right:1rem"> Tanggal Transaksi </label>
-			<input type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
+			<input readonly type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
 	<button type="submit" name="Cari" class="btn btn-primary" style="display:inline" >
 		<i class="fa fa-search"></i>  Cari Data
 	</button>

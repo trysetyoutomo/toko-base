@@ -1596,7 +1596,7 @@ $usaha = SiteController::getConfig("jenis_usaha");
              
 
                 break;
-              case 115 :  $("#e1").selectedt2("close"); $("#e1").select2("close"); liveSearchPanel_SalesItems.getView().focus(); liveSearchPanel_SalesItems.getView().focus(); liveSearchPanel_SalesItems.getSelectionModel().select(0);
+              case 115 :   $("#e1").select2("close"); liveSearchPanel_SalesItems.getView().focus(); liveSearchPanel_SalesItems.getView().focus(); liveSearchPanel_SalesItems.getSelectionModel().select(0);
                   break;
               case 116 : baru(); kalkulasi1(); break;
               case 118 :

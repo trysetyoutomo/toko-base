@@ -62,11 +62,16 @@ if ($_REQUEST['status']=="ubah"){ ?>
 
 <script type="text/javascript">
 
+function initSelect2(){
+	$("#nama_item").select2({
+		closeOnSelect : true,
+		escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+		minimumInputLength: 2,
+		minimumResultsForSearch : 5
+	});
+}
 $(document).ready(function(e){
-
-
-
-	$("#nama_item").select2();
+	initSelect2();
 	$(document).on('click', '.hapus', function(e) {
 		var index = $('.hapus').index(this);
 		$('.baris').eq(index).remove();
@@ -118,7 +123,7 @@ function validasi(){
 
 function simpan(){
 	var pesan = "";
-	var ubah_harga = $("#ubah-harga").val();
+	var ubah_harga = $("#ubah-harga").prop("checked");
 	var harga_estimasi = numeral($("#total-estimasi").html()).value();
 	var nama = $("#namasimpan").val();
 	var menu = $("#menu").val();
@@ -162,7 +167,7 @@ function simpan(){
 			array_kode.push({"kode":nilai,"harga":harga,"jumlah":jumlah,"satuan":satuan});
 		});	
 		$.ajax({
-			type: 'GET',
+		type: 'GET',
 			url: '<?php echo Yii::app()->createAbsoluteUrl("itemsSource/create"); ?>',
 			data: {"item_id":"<?php echo $_REQUEST['id'] ?>","kode":array_kode,"nama":nama,"total":total,"status":status,'kode_paket':kode_paket,"ubah_harga":ubah_harga,"harga_estimasi":harga_estimasi},
 			success:function(data){
@@ -262,10 +267,18 @@ function getTgl(){
 		dataType:'html'
 	});
 }
+
+function resetSelect(){
+	$("#nama_item").val("");
+	initSelect2();
+}
 // function GetSatuanByID(id){
 	// var th = this;
 	// alert(th.index(this));
 	// var menu = $('#menu').val();
+	$(document).on('change', '#nama_item', function(e) {
+		additem();
+	})
 	$(document).on('change', '.satuan', function(e) {
 		var th = $(this);
 		$.ajax({
@@ -274,12 +287,11 @@ function getTgl(){
 			data:'id='+th.val(),
 			success:function(data){
 				var hrg = data.harga_beli;
+				let  satuan  = data.satuan; // satuan ke gramasi utama
 				// th.index()
-				// alert(hrg);
-				th.closest("tr").find(".harga").html(hrg);
-				// alert(data);
-
-				// $("#total").val(data);
+				hrg = numeral(hrg).format("0,0");
+				th.closest("tr").find(".hargasatuan").html(hrg);
+				$(".jumlah").trigger("input");
 			},
 			dataType:'json'
 		});
@@ -337,7 +349,7 @@ function additem(){
 				// 	}
 				});
 				
-				var select = "<select  style='width:100%' class='satuan'>"+string+"</select>";
+				var select = "<select  style='width:100%' class='satuan form-control'>"+string+"</select>";
 				// var listCodes =
 
 
@@ -357,10 +369,9 @@ function additem(){
 					
 					setTimeout(() => {
 						$("[nilai='"+ nama.val() +"']").closest(".baris").removeClass("animate__animated animate__flash");
+						resetSelect();
 					}, 1000);
-					// attr("nilai",nama.val()).hide();
 
-					// animate__animated animate__bounce
 					return;
 				}
 
@@ -374,17 +385,20 @@ function additem(){
 					"<td style='display:none' class='pk' nilai="+nama.val()+"  >" + nama.val() + "</td>" +
 					"<td>" +kode + "</td>" +
 					"<td>" +name + "</td>" +
-					"<td><input class='jumlah' style='padding:4px;' maxlength='15'  value='1' type='number'/></td>" +
-					
+					"<td><input class='jumlah form-control' style='padding:4px;' maxlength='15'  value='1' type='number'/></td>" +
 					"<td>"+select+"</td>" +
-					"<td align='right' class='harga'>" +harga_beli + "</td>" +
+					"<td align='right' class='hargasatuan'>" + numeral(harga_beli).format("0,0") + "</td>" +
+					"<td align='right' class='harga'>0</td>" +
 					"<td >&nbsp;<i class='fa fa-times hapus'></i > "+
 
 					"</td> " +
 
 					"</tr>"
 				);
-		    $("#nama").select2("open");
+				$(".jumlah").trigger("input");
+				getTotal();
+		   		 $("#nama").select2("open");
+				
 
 		}
 	});
@@ -412,7 +426,7 @@ $li = CHtml::listData($data,'id','item_name');
 			}
 			echo CHtml::dropDownList('nama_item', '1', Items::model()->data_items("BAHAN"),
 				array(
-					'class'=>'',
+					'style'=>'width:450px',
 					// 'id'=>,
 					'empty'=>'Pilih Item'
 				) );?>		
@@ -422,10 +436,10 @@ $li = CHtml::listData($data,'id','item_name');
 	<thead>
 		<tr>
 			<th>Barcode</th>
-			<th>Nama Item</th>
-			<th>Jumlah</th>
-			<th>Satuan</th>
-			<th>Harga Satuan</th>
+			<th>Nama Bahan </th>
+			<th>Total Bahan</th>
+			<th>Satuan Bahan</th>
+			<th>Harga Satuan Bahan</th>
 			<th>Estimasi HPP</th>
 			<th>aksi</th>
 		</tr>
@@ -458,12 +472,12 @@ $li = CHtml::listData($data,'id','item_name');
 					
 
 				</td> 
-				<td><input class='jumlah' style='padding:4px;' step='.01' value='<?php echo $value->jumlah ?>' type='number' maxlength="3"/>
+				<td><input class='jumlah form-control' style='padding:4px;' step='.01' value='<?php echo $value->jumlah ?>' type='number' maxlength="3"/>
 	
 				</td> 
 				
 				<td>
-					<select  class="satuan" style="width: 100%">
+					<select  class="satuan form-control" style="width: 100%">
 						<?php 
 						foreach (ItemsSatuan::model()->findAll("item_id = '$value->item_id' ") as $key2 => $value2) {
 							if ($value->satuan==$value2->id){	
@@ -491,12 +505,12 @@ $li = CHtml::listData($data,'id','item_name');
 		?>
 	</tbody>
 	<tfoot>
-		<td colspan="5" style="text-align:right">Total Estimasi</b></td>
+		<td colspan="5" style="text-align:right">Total Estimasi <b>Menu/Produk</b></td>
 		<td style="text-align: right;"><span class='badge badge-success' style="background-color: green;" id="total-estimasi"></span>
 		</td>
 		<td style="width: 100px;">
 			<div id="wrapper-ubah-harga" style="display: none;">
-				<label><input style="width: auto;" type="checkbox" id="ubah-harga" name="ubah-harga" />&nbsp;Ubah Harga Pokok <br/> <small>(harga estimasi berbeda dengan harga saat ini, centang untuk merubah harga)</small></label>
+				<label><input style="width: auto;" type="checkbox" id="ubah-harga" name="ubah-harga" />&nbsp;Ubah Harga Pokok <br/> <small>(harga estimasi berbeda dengan harga saat ini, centang untuk merubah harga saat ini)</small></label>
 			</div>
 		</td>
 	</tfoot>

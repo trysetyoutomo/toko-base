@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nama'); ?>
-		<?php echo $form->textField($model,'nama',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'nama',array('size'=>50,'maxlength'=>50, "class"=>"form-control","style"=>"width:300px")); ?>
 		<?php echo $form->error($model,'nama'); ?>
 	</div>
 

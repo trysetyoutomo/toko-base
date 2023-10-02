@@ -182,6 +182,9 @@
 			success : function(data)
 			{
 				$("#Items_motif").html(data);
+				setTimeout(function(e){
+					$("#Items_motif").val($("#Items_motif option:last").val());
+				},100)
 			},
 		});
 	}

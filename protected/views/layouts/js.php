@@ -61,7 +61,7 @@
 
       $(document).ready(function(e){
       	   $("#tambah-satuan-form,#tambah-kategori-form,#tambah-subkategori-form").dialog({
-           height: 200,
+           height: 300,
            width: 700
          });
          $("#tambah-satuan-form").dialog("close");
@@ -90,7 +90,8 @@
         e.preventDefault();
          var i = $(".tambah-subkategori").index(this);
          $("#tambah-subkategori-form").dialog("open");
-         getSubkategori();
+        //  getSubkategori();
+        // getMotif(null);
        });
 
     $(document).on("submit","#motif-form",function(e){
@@ -107,8 +108,9 @@
                success:function(data){
                    // alert(data);
                    if (data=="sukses"){
-                      getSubkategori();
-                        $("#tambah-subkategori-form").dialog("close");
+                      getMotif($("#Items_category_id").val());
+                      // set default sub category, to follow last input 
+                      $("#tambah-subkategori-form").dialog("close");
                    }
                    else
                        alert(data);
@@ -202,7 +204,7 @@
          ?>
   </div>
 
-  <div id="tambah-subkategori-form" title="Tambah Sub Kategori" style="width: 500px;display: none;" >
+  <div id="tambah-subkategori-form" title="Tambah Sub Kategori" style="width: 500px;display: none;height:200px" >
         <?php
         $model = new Motif;
         $this->renderPartial('application.views.motif._form',array("model"=>$model));

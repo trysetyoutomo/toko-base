@@ -140,6 +140,7 @@ class ItemsController extends Controller
 	    }
 	    /* END of POST variables */
 		$query  = "select 
+		i.is_bahan,
 		m.nama nama_sub_kategori,
 		concat(i.item_name,'  ','') as item_name,
 		c.category as nama_kategori,
@@ -637,11 +638,13 @@ class ItemsController extends Controller
 	}
 	public function actionGetMotif($id){
 	  	$store_id = Yii::app()->user->store_id();     
-		if (empty($id))
-			$model = Motif::model()->findAll(" store_id = '".$store_id."' ");
-		else
-			$model = Motif::model()->findAll(" category_id = '$id' and  store_id = '".$store_id."'  ");
+		if (empty($id)){
+			 echo "<option>Pilih</option>";
+			 exit;
+		}
+			// $model = Motif::model()->findAll(" store_id = '".$store_id."' ");
 
+		$model = Motif::model()->findAll(" category_id = '$id' and  store_id = '".$store_id."'  ");
 		echo "<option>Pilih</option>";
 		foreach ($model as $k ) {
 			echo "<option value='$k->id' > $k->nama </option>";
@@ -2825,7 +2828,7 @@ public function getHargamodal($id){
   			$value['nama_kategori'],
   			$value['motif'],
   			// $aksi,
-			$value['item_name'],
+			$value['item_name'] ." <br/>  ". ($value['is_bahan']=="1" ? "<span class='badge' style='background:red'>Bahan Baku</span>" : ""),
 			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
 			// $satuanlist,
 			number_format((float)$stok, 2, '.', ''),

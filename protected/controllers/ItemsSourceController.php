@@ -44,6 +44,8 @@ class ItemsSourceController extends Controller
 		);
 	}
 
+
+
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -87,7 +89,7 @@ class ItemsSourceController extends Controller
 			$kode_paket =  $_REQUEST['kode_paket'];
 			$ubah_harga =  $_REQUEST['ubah_harga'];
 
-			if ($ubah_harga == "on"){	
+			if ($ubah_harga == "true"){	
 				// ubah harga
 				
 				$itemsSatuanUtama = ItemsSatuan::model()->find("item_id = '$item_id ' and is_default = 1 ");

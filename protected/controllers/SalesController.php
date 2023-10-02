@@ -2697,9 +2697,9 @@ public function actionSalesoutletweekly(){
             $i->item_id = $value['item_id'];
 			// $i->quantity_purchased = $value['jumlah'];
 			// if ($satuanNowNilai>0){	
-			$i->quantity_purchased = round($value['jumlah']/$satuanNowSatuan,2)*$detail['quantity_purchased'];
+			// $i->quantity_purchased = round($value['jumlah']/$satuanNowSatuan,2)*$detail['quantity_purchased'];
 			// }else{
-			// 	$i->quantity_purchased = $value['jumlah'];
+				$i->quantity_purchased = $value['jumlah'];
 			// }
             $i->item_tax = 0;
             $i->item_discount = 0;
@@ -2722,7 +2722,8 @@ public function actionSalesoutletweekly(){
 			// simpan ke detail barang keluar [start]
 			$bkl = new BarangKeluarDetail;
 			$bkl->kode =  $value['item_id'] ;
-			$bkl->jumlah = round($value['jumlah']/$satuanNowSatuan,2)*$detail['quantity_purchased'];					
+			$bkl->jumlah = $value['jumlah'];					
+			// $bkl->jumlah = round($value['jumlah']/$satuanNowSatuan,2)*$detail['quantity_purchased'];					
 			$bkl->harga = 0;
 			$bkl->head_id = $modelh->id;
 			$bkl->satuan = $satuanUtamaID;

@@ -70,7 +70,7 @@ class ItemsSatuan extends CActiveRecord
 			'nama_satuan' => 'Nama Satuan',
 			'satuan' => 'Nilai pada Satuan Utama ',
 			'harga' => 'Harga Jual Satuan',
-			'harga_beli' => 'Harga Modal Satuan',
+			'harga_beli' => 'Harga Modal/Beli Satuan',
 			'letak_id' => 'Letak '
 		);
 	}

@@ -62,7 +62,7 @@ class Motif extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'category_id' => 'Category',
+			'category_id' => 'Nama Kategori',
 			'nama' => 'Nama',
 		);
 	}
