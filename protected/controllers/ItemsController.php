@@ -160,18 +160,28 @@ class ItemsController extends Controller
 		order by c.category, m.id, i.item_name  asc
 
 		";
-
+		
 
 	    $recordsTotal = count($this->getAdminJSON($query,$adjust));
-	      if(!empty($_REQUEST['search']['value'])){
+		// echo "<pre>".print_r($_REQUEST['columns'])."</pre>";exit;
+		// echo ($_REQUEST['search']['value']);exit;
 
+	    //   if(!empty($_REQUEST['search']['value'])){
+	    //   if(!empty($_REQUEST['search']['value'])){
+		if (count($_REQUEST['columns']) > 0 ){
 	        for($i=0 ; $i<count($_REQUEST['columns']);$i++){
 	        	// echo  $_REQUEST['columns'][$i]['searchable'];
 	        	// echo "<br>";
+				// echo $_REQUEST['columns'][$i]['searchable'];'
+
+				// echo $_REQUEST['columns'][$i]['searchable'];
+				// echo "<br>";
+
 	        	if ($_REQUEST['columns'][$i]['searchable']=="true"){
 
 		            $column     =   $_REQUEST['columns'][$i]['name'];//we get the name of each column using its index from POST request
-		            $where[]    =   "$column like '%".$_REQUEST['search']['value']."%'";
+		            $where[]    =   "$column like '%".$_REQUEST['columns'][$i]['search']['value']."%'";
+					// echo "123";
 	        	}else{
 	        		// echo "masuk";
 	        	}
@@ -181,7 +191,7 @@ class ItemsController extends Controller
 
 	        // $sql = sprintf("SELECT * FROM %s %s %s", $query , $where, " AND CREATED_BY='".$uid."'");//Search query without limit clause (No pagination)
             $sql = "SELECT * FROM ($query) as d $where  limit  $start,$length  ";
-
+			// echo $sql;
 
 
 	        $recordsFiltered = count($this->getLaporanStokJSON($sql,$adjust));//Count of search result

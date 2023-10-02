@@ -189,16 +189,50 @@ $(document).ready(function(){
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
 
+
 <script type="text/javascript">
 	$(document).ready(function() {
-    reloadItems();
+    reloadItems();	
 
 
-    $('#datatable tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    });
+	var filterInputs = "";
+     $('#datatable thead th').each( function () {
+         var title = $(this).text();
+	 	let listTitle = ["Kategori","Sub Kategori"];
+	 	if (listTitle.includes(title)){
+			if (title === "Kategori"){
+				filterInputs += '<th>'+
+				<?php $nilai = Categories::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+				'<select id="customer" name="category" class="tobe-select2 form-control " style="display: inline;">'+
+				'<option value="">Semua Kategori</option>'+
+				<?php foreach($nilai as $k): ?>
+				'<option <?php if ($k->id==$_REQUEST['category']) echo "selected" ?> value="<?php echo $k->category ?>">'+
+				'<?php echo $k->category ?>'+
+				'</option>'+
+				<?php endforeach; ?>
+				'</select>'+			
+				'</th>';
+			}else if  (title === "Sub Kategori"){
+				filterInputs += '<th>'+
+				<?php $nilai = Motif::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+				'<select  name="subcategory" class="tobe-select2 form-control " style="display: inline;">'+
+				'<option value="">Semua Sub Kategori</option>'+
+				<?php foreach($nilai as $k): ?>
+				'<option  value="<?php echo $k->nama ?>">'+
+				'<?php echo $k->nama ?>'+
+				'</option>'+
+				<?php endforeach; ?>
+				'</select>'+			
+				'</th>';
+			}
+		}else{
+			 filterInputs += '<th></th>';
+		}
+     });
 
+
+	$("#datatable thead").append("<tr>"+filterInputs+"</tr>");
+	
 	 // var table = $('#datatable').DataTable({
 		// 	"pageLength": 20,
 		// 	 "autoWidth": true
@@ -207,7 +241,7 @@ $(document).ready(function(){
        myTable.columns().every( function () {
         var that = this;
  
-        $( 'input', this.footer() ).on( 'keyup change', function () {
+        $( 'select, input', this.footer() ).on( 'keyup change', function () {
             if ( that.search() !== this.value ) {
                 that
                     .search( this.value )
@@ -259,17 +293,20 @@ $(document).ready(function(){
                 title: "No ",
                 name:'nomor',
                 "searchable":false,                
+                "orderable":false,                
               },
               {
-                title: "Kategori ",
+                title: "Kategori",
                 name:'nama_kategori',
-                "searchable":true,                
+                "searchable":true,   
+				"orderable":false,                             
               },
 
               {
                title: "Sub Kategori",
                 name:'nama_sub_kategori',
                 "searchable":true,  
+				"orderable":false,                
               }, 
               //  {
               //  title: "Nama Letak",
@@ -279,12 +316,14 @@ $(document).ready(function(){
               {
                 title: "Nama Item",
                 name:'item_name',
-                "searchable":true,  
+                "searchable":false,
+				"orderable":false,                  
               },
               {
                 title: "Stok",
                 name:'stok',
                 "searchable":false,  
+				"orderable":false,                
               }
           ]
 
