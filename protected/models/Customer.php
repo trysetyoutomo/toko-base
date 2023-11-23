@@ -37,11 +37,11 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array(' nama, alamat, no_telepon, customer_type', 'required'),
+			array(' nama', 'required'),
 			// array('nama, alamat, no_telepon', '', 'integerOnly'=>true),
 			array('id', 'length', 'max'=>40),
 			// array('id', 'required'),
-			array('kode', 'required'),
+			// array('kode', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, nama, alamat, no_telepon', 'safe', 'on'=>'search'),

@@ -169,18 +169,19 @@ class ItemsController extends Controller
 	    //   if(!empty($_REQUEST['search']['value'])){
 	    //   if(!empty($_REQUEST['search']['value'])){
 		if (count($_REQUEST['columns']) > 0 ){
-	        for($i=0 ; $i<count($_REQUEST['columns']);$i++){
-	        	// echo  $_REQUEST['columns'][$i]['searchable'];
+			for($i=0 ; $i<count($_REQUEST['columns']);$i++){
+				// echo  $_REQUEST['columns'][$i]['searchable'];
 	        	// echo "<br>";
 				// echo $_REQUEST['columns'][$i]['searchable'];'
-
+				
 				// echo $_REQUEST['columns'][$i]['searchable'];
 				// echo "<br>";
-
+				
 	        	if ($_REQUEST['columns'][$i]['searchable']=="true"){
-
-		            $column     =   $_REQUEST['columns'][$i]['name'];//we get the name of each column using its index from POST request
+					
+					$column     =   $_REQUEST['columns'][$i]['name'];//we get the name of each column using its index from POST request
 		            $where[]    =   "$column like '%".$_REQUEST['columns'][$i]['search']['value']."%'";
+					$where[]    =   "$column like '%".$_REQUEST['search']['value']."%'";
 					// echo "123";
 	        	}else{
 	        		// echo "masuk";
@@ -2862,7 +2863,7 @@ public function getHargamodal($id){
   			$bahan = "<span class='badge' style='background:red'>Bahan Baku</span>";
   		}else{
 			//cek bahan baku
-			$bahanBaku = itemsSource::model()->findAll("item_menu = '$value[id]' order by id asc ");
+			$bahanBaku = ItemsSource::model()->findAll("item_menu = '$value[id]' order by id asc ");
 			if (count($bahanBaku) > 0)
 	  			$bahan = "<span class='badge' style='background:green;'>Menu  <a style='color:white' href='?r=itemsSource/create&id=$value[id]'>(".count($bahanBaku). " bahan baku)</a></span>" ;
 			else

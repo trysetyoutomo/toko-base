@@ -69,7 +69,7 @@ class SalesController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index','tutupregister','lunasin','labarugi','hapus','rekapmenu','create', 'update','grafikmember','GetCustomer2'),
+                'actions' => array('adminjson','index','tutupregister','lunasin','labarugi','hapus','rekapmenu','create', 'update','grafikmember','GetCustomer2'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -1698,6 +1698,8 @@ class SalesController extends Controller {
 		// return $sql;
 
 	}
+
+
 	public function sqlSales(){
 			$branch_id = Yii::app()->user->branch();
 			// if ($branch_id!=""){
@@ -1762,7 +1764,6 @@ class SalesController extends Controller {
 				sum($subtotal) sale_sub_total,
 				sum($submodal) sale_sub_modal,
 				sum(si.item_modal*si.quantity_purchased) ttm,
-				#sum(sp.voucher) voucher ,
 				sp.voucher voucher,
 				sum(si.item_tax) tax,
 				sum(si.item_service) service , 
@@ -5432,17 +5433,139 @@ public function actionCetakReportAll(){
             Yii::app()->end();
         }
     }
+
+
+	public function actionAdminJSON() {
+		// echo "<pre>";
+		// print_r($_REQUEST);
+		// exit;
+
+
+
+	    $draw                   = $_REQUEST["draw"];//counter used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables
+	    $orderByColumnIndex     = $_REQUEST['order'][0]['column'];// index of the sorting column (0 index based - i.e. 0 is the first record)
+	   	if ($_REQUEST['columns'][$orderByColumnIndex]['data']=="0") {
+			$orderBy = "id";
+	   	}else{
+	    	$orderBy                = $_REQUEST['columns'][$orderByColumnIndex]['data'];//Get name of the sorting column from its index
+	   	}
+	    $orderType              = $_REQUEST['order'][0]['dir']; // ASC or DESC
+	    if (isset($_REQUEST['start'])){	
+		    $start                  = $_REQUEST["start"];//Paging first record indicator.
+	    }else{
+		    $start                  = 0;
+	    }
+
+	    if (isset($_REQUEST['length'])){	
+	    $length                 = $_REQUEST['length'];//Number of records that the table can display in the current draw
+	    }else{
+	    	$length = 0;
+	    }
+	    /* END of POST variables */
+
+		$username = Yii::app()->user->name;
+		$user = Users::model()->find('username=:un',array(':un'=>$username));
+		$idk = $user->level; 
+
 	
-	}
-	// public function __construct()
-	// {
-	 	// $this->comp = Branch::model()->findByPk(1)->branch_name;
-		// $this->adr =  Branch::model()->findByPk(1)->address;
-		// $this->tlp =  Branch::model()->findByPk(1)->telp;
-	// }
-	// public function beforeAction(cetak){
-        // $this->comp = Branch::model()->findByPk(1)->branch_name;
-		// $this->adr =  Branch::model()->findByPk(1)->address;
-		// $this->tlp =  Branch::model()->findByPk(1)->telp;
-	// }
+
+		if ($_REQUEST['month']){
+			$day2 = $_REQUEST['day'];
+			$month = $_REQUEST['month'];
+			$year = $_REQUEST['year'];
+		}else{
+			$day2 = intval(Date('d'));
+			$month = intval(Date('m'));
+			$year = intval(Date('Y'));
+		}
+		
+			if($idk != 2) //jika kasir
+			$filter = " and inserter = '$user->username'";
+			else
+			$filter = "";
+			// $filter = " ";
+
+			if(isset($_REQUEST['status'])){
+			
+			if ($_REQUEST['status']!='semua'){		
+				$this->status_bayar = "  having sb = '$_REQUEST[status]'";
+			}else{
+				$this->status_bayar = "";
+			}
+
+			}else{
+			$this->status_bayar = "";
+			}
+		
+		$table = $this->sqlSales();
+		// echo $table;
+		// exit;
+		$cabang = $_REQUEST['cabang'];
+		if (!empty($cabang)){
+			$where_branch = " and branch='$cabang'";
+		}else{
+			// $where_branch = " ";
+			$bcdefault = Yii::app()->user->branch();
+			$where_branch = " and branch='$bcdefault'";
+			// echo $where_branch;
+		}
+
+		// echo $table;
+		// exit;
+
+		$sql = "  SELECT * FROM ($table) AS  D 
+		where month(D.date)=$month and year(D.date)=$year and day(D.date)=$day2 $where_branch 
+			$filter
+		group by D.id
+		$this->status_bayar
+
+		order by D.date asc
+		";
+
+
+		// echo $sql ;
+		// exit;
+	    $recordsTotal = count(Yii::app()->db->createCommand($sql)->queryAll());
+	      if(!empty($_REQUEST['search']['value'])){
+
+	        for($i=0 ; $i<count($_REQUEST['columns']);$i++){
+	        	if ($_REQUEST['columns'][$i]['searchable']=="true"){
+					echo "123";
+
+		            $column     =   $_REQUEST['columns'][$i]['name'];//we get the name of each column using its index from POST request
+					$where[]    =   "$column like '%".$_REQUEST['columns'][$i]['search']['value']."%'";
+					// $where[]    =   "$column like '%".$_REQUEST['search']['value']."%'";
+	        	}else{
+	        		// echo "masuk";
+	        	}
+	        }
+	        $where = "WHERE ".implode(" OR " , $where);// id like '%searchValue%' or name like '%searchValue%' ....
+	        /* End WHERE */
+
+	        // $sql = sprintf("SELECT * FROM %s %s %s", $query , $where, " AND CREATED_BY='".$uid."'");//Search query without limit clause (No pagination)
+            $sql = "SELECT * FROM ($sql) as d $where  limit  $start,$length  ";
+			// echo '123';
+	        $recordsFiltered = count($data);//Count of search result
+    	}
+    	else {
+			// echo '456';
+         $sql = "SELECT * FROM ($sql) as d  ORDER BY $orderBy $orderType limit  $start,$length ";
+         $data =  Yii::app()->db->createCommand($sql)->queryAll();
+         $recordsFiltered = $recordsTotal;
+    	}
+
+    	 $response = array(
+	         "draw"             => intval($draw),
+	         "recordsTotal"     => $recordsTotal,
+	         "recordsFiltered"  => $recordsFiltered,
+	         "data"             => $data
+        );
+
+    	
+        echo json_encode($response);
+        exit;
+      }
+
+
 	
+}

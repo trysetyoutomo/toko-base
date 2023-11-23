@@ -126,487 +126,221 @@ Preview Rekap
 <?php //echo CHtml::button('Export to CSV',array('id'=>'export')); ?>
 <?php //$this->endWidget(); ?>
 
-<?php
-	function getCustomer($data)
-	{
-		if($data == 1){
-			return "Pelanggan";
-		}
-	}
-	
-	function getBarista($data)
-	{
-		if($data == 1){
-			return "Pasir Kaliki";
-		}else if($data == 2){
-			return "Baltos";
-		}else if($data == 3){
-			return "City Link";
-		}else if($data == 4){
-			return "BTC";
-		}
-		// $cabang = Branch::model()->find('branch_name=:bn',array(':bn'=>$data));
-		// return $cabang->id;
-	}
-	
-	function getPaid($data)
-	{
-		if($data == 1){
-			return "Cash";
-		}else if($data == 3){
-			return "BCA";
-		}else if($data == 4){
-			return "Mandiri";
-		}else if($data == 5){
-			return "CIMB Niaga";
-		}else if($data == 12){
-			return "Compl";
-		}else if($data == 99){
-			return "Voucher";
-		}
 
-		
-	}
-	
-	$username = Yii::app()->user->name;
-	$user = Users::model()->find('username=:un',array(':un'=>$username));
-	$idk = $user->level; 
-	$a = true;
-	if($idk < 5)
-	$a = true;
-	else
-	$a = false;
+
+<table id="datatable" class="table table-striped table-bordered"></table>
+
+<?php 
+// exit();
 ?>
 
-<?php
-$usaha = SiteController::getConfig("jenis_usaha");
-$jenis_printer = SiteController::getConfig("jenis_printer");
-$ukuran_kertas = SiteController::getConfig("ukuran_kertas");
 
-$array_cetak = array();
-if ( ($ukuran_kertas=="80mm" || $ukuran_kertas=="58mm") && $jenis_printer === "Epson LX" ){
-	$array_cetak = 	array(
-			'name'=>'print', 
-			'header'=>'Cetak',
-			'type'=>'raw',
-			'value'=>function($data){
+<!-- Datatables -->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 
-		return '<a onclick="openWin(this)" data-href="'.Yii::app()->createUrl("sales/cetakfaktur_mini&id=$data[id]").'" class="btn btn-primary">Cetak</a>';
-		}
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/dataTables.editor.min.js"></script>
+
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/dataTables.select.min.js"></script>
+
+<!--
+-->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jszip/dist/jszip.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    reloadItems();
+
+	var filterInputs = "";
+     $('#datatable thead th').each( function () {
+         var title = $(this).text();
+	 	// let listTitle = ["Kasir","Sub Kategori"];
+	 	// if (listTitle.includes(title)){
+				filterInputs += '<th><input class="form-control" type="text" placeholder="Cari  '+title+'" /></th>';
 			
-	 );
-}
-else if ($ukuran_kertas=="80mm" || $ukuran_kertas=="58mm"){
-	$array_cetak = array(
-		'type'=>'raw',
-		'name'=>'aa',
-		'header'=>'Cetak',
-		'value'=>function($data){
+		// }else{
+		// 	 filterInputs += '<th></th>';
+		// }
+     });
 
-			// "abv"
-			// return $data['id'];
-			return '<div value="'.$data['id'].'" class="btn btn-primary btn-cetak-ulang ">Cetak</div>';
-		}
-		
-	);
-}else{ // jika mini
-	$array_cetak = 	array(
-			'name'=>'print',
-			'header'=>'Cetak',
-			'type'=>'raw',
-			'value'=>function($data){
 
-		return '<a href="'.Yii::app()->createUrl("sales/cetakfaktur&id=$data[id]").'" class="btn btn-primary">Cetak</a>';
-		}
-			
-	 );
-}
-// var_dump($array_cetak);
-// echo "<pre>";
-// print_r($array_cetak);
-// echo "</pre>";
-// echo $array_cetak;
-$columnaja = array(
-		array(
-			'header'=>'No.',
-			'value'=>'($this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize) + array_search($data,$this->grid->dataProvider->getData())+1',
-		),
-		array(
-		'name'=>'faktur_id',
-		'header'=>'ID Penjualan'
-		),
-		array(
-		'name'=>'date',
-		'header'=>'Tgl Transaksi'
-		),
-		array(
-		'name'=>'tanggal_jt',
-		'header'=>'Tgl jatuh Tempo'
-		),
-		array(
-		'name'=>'nama',
-		'header'=>'Nama pembeli'
-		),
-		// 'date',
-// 		array(
-// 		'name'=>'Total_items',
-// 		'header'=>'Total Item',
-// 			'class'=>'ext.gridcolumns.TotalColumn',
-// //			'value'=>'$data->nilai',
-// 			'type'=>'number',
-// 			'footer'=>true,
-// 		),	
+	$("#datatable thead").append("<tr>"+filterInputs+"</tr>");
 	
-		array(
-			'name'=>'sale_sub_modal',
-			'header'=>'Total modal',
-			'visible'=>Yii::app()->user->getLevel()==2,
 
-			'type'=>'number',
-			'htmlOptions'=>array('style'=>'text-align:right'),
-			'class'=>'ext.gridcolumns.TotalColumn',
-//			'value'=>'$data->nilai',
-			// 'visible'=>$a,
-			'type'=>'number',
-			'footer'=>true,
-			'htmlOptions'=>array('style'=>'text-align:right'),
 
-		),	
-		array(
-			'name'=>'sale_sub_total',
-			'header'=>'Total Kotor',
-			'type'=>'number',
-			'htmlOptions'=>array('style'=>'text-align:right'),
-			'class'=>'ext.gridcolumns.TotalColumn',
-//			'value'=>'$data->nilai',
-			'type'=>'number',
-			'footer'=>true,
-			// 'visible'=>Yii::app()->user->getLevel()==2,
+    // $('#datatable tfoot th').each( function () {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    // });
 
-			'htmlOptions'=>array('style'=>'text-align:right'),
-
-		),	
-// 			array(
-// 			'name'=>'untung',
-// 			'header'=>'Total Keuntungan',
-// 			'type'=>'number',
-// 			// 'htmlOptions'=>array('style'=>'text-align:right'),
-// 			'class'=>'ext.gridcolumns.TotalColumn',
-// //			'value'=>'$data->nilai',
-// 			'visible'=>$a,
-// 			'type'=>'number',
-// 			'footer'=>true,
-// 			'htmlOptions'=>array('style'=>'text-align:right'),
-
-// 		),	
-// 		array(
-// 			'name'=>'sale_tax',
-// 			'header'=>'Total pajak',
-// 			'type'=>'number',
-// 			'htmlOptions'=>array('style'=>'text-align:right'),
-// //			'value'=>'$data->nilai',
-// 			'class'=>'ext.gridcolumns.TotalColumn',
-// 			'type'=>'number',
-// 			'footer'=>true,
-// 			'htmlOptions'=>array('style'=>'text-align:right'),
-
-// 		),	
-// 		array(
-// 			'name'=>'sale_service',
-// 			'header'=>'Total service',
-// 			'type'=>'number',
-// 			'htmlOptions'=>array('style'=>'text-align:right'),
-// 			'class'=>'ext.gridcolumns.TotalColumn',
-// //			'value'=>'$data->nilai',
-// 			'type'=>'number',
-// 			'footer'=>true,
-// 			'htmlOptions'=>array('style'=>'text-align:right'),
-
-// 		),	
-		array(
-			'name'=>'sale_discount',
-			'header'=>'Total diskon',
-			'type'=>'number',
-			'visible'=>Yii::app()->user->getLevel()==2,
-			'htmlOptions'=>array('style'=>'text-align:right'),
-			'class'=>'ext.gridcolumns.TotalColumn',
-//			'value'=>'$data->nilai',
-			'type'=>'number',
-			'footer'=>true,
-			'htmlOptions'=>array('style'=>'text-align:right'),
-		),
-		array(
-			'name'=>'voucher',
-			'header'=>'Total Potongan',
-			'type'=>'number',
-			'htmlOptions'=>array('style'=>'text-align:right'),
-			'class'=>'ext.gridcolumns.TotalColumn',
-//			'value'=>'$data->nilai',
-			'type'=>'number',
-			'footer'=>true,
-					'visible'=>Yii::app()->user->getLevel()==2,
-
-			'htmlOptions'=>array('style'=>'text-align:right'),
-
-		),
-
-		
-		array(
-			'name'=>'sale_total_cost',
-			'header'=>'Total Bersih',
-			'type'=>'number',
-			'visible'=>Yii::app()->user->getLevel()==2,
-
-			'htmlOptions'=>array('style'=>'text-align:right'),
-			'class'=>'ext.gridcolumns.TotalColumn',
-//			'value'=>'$data->nilai',
-			'type'=>'number',
-			'footer'=>true,
-			'htmlOptions'=>array('style'=>'text-align:right'),
-
-		),
-		array(
-			'name'=>'inserter',
-			'header'=>'Kasir',
-			'type'=>'number',
-			'htmlOptions'=>array('style'=>'text-align:right'),
-			'class'=>'ext.gridcolumns.TotalColumn',
-			// 'value'=>'$data->user->username',
-			'type'=>'text',
-			'footer'=>true,
-			'htmlOptions'=>array('style'=>'text-align:right'),
-
-		),
-		// array(
-		// 	'name'=>'table',
-		// 	'header'=>'Meja',
-		// ),
-		// array(
-		// 	'name'=>'waiter',
-		// 	'header'=>'waiter',
-		// )
-		// 'table'
-		// ,
-		array(
-			'name'=>'bayar',
-			'class'=>'ext.gridcolumns.TotalColumn',
-			'header'=>'bayar',
-			'type'=>'number',		
-			'footer'=>true,
-
-		),
-		array(
-			'name'=>'pembayaran_via',
-			'class'=>'ext.gridcolumns.TotalColumn',
-			'header'=>'Kartu',
-			// 'type'=>'number',		
-			'footer'=>true,
-
-		),
-		// array(
-		// 	'name'=>'sb',
-		// 	'type'=>'raw',
-		// 	'header'=>'status bayar',
-		// 	// 'visible'=>false,
-		// 	// 'value'=> "$data[bayar]==0 ? 'Belum Lunas' : 'Lunas'",		
-		// ),
-		//'comment',
-		// 'status',
-		array(
-		'type'=>'raw',
-		'header'=>'Rincian',
-		'value'=>'CHtml::link("Detail",array("Sales/detailitems","id"=>$data[id]),array("style"=>"text-decoration:none"))',
-		
-		),
-		// array(
-		// 'type'=>'raw',
-		// 'header'=>'Cetak',
-		// 'value'=>'CHtml::link("Cetak",array("Sales/cetakfaktur","id"=>$data[id]),array("class"=>"btn btn-primary ","style"=>"text-decoration:none"))',
-		
-		// ),
-		// array(
-		// 	"name"=>"comment",
-		// 	"header"=>"Description",
-		// ),
-		array(
-		'type'=>'raw',
-		'header'=>'hapus',
-		'visible'=>Yii::app()->user->getLevel()==2,
-		'value'=>'CHtml::link("",array("Sales/hapus","id"=>$data[id]),array("style"=>"text-decoration:none","class"=>"fa fa-times hapus "))',
-		
-		),
-		// 	array
-		// (
-		// 	'name'=>'print',
-		// 	'header'=>'Cetak Faktur',
-		// 	'type'=>'raw',
-		// 	'value'=>"CHtml::link('Cetak Faktur', array('sales/cetakfaktur&id=$data[id]'), array('class' => 'btn btn-primary'));"
-
-		// 	// 'value'=>"<a href='123'>123</a>",
-
-	 // ),	
-		// array(
-		// 'class'=>'CButtonColumn',
-		// 'template'=>'',
-		// // 'visible'=>$a,
-		// 'buttons' => array(
-		// // 'delete' => array(
-		// // 	'url'=>'Yii::app()->createUrl("Sales/delete", array("id"=>$data[id]))',      //A PHP expression for generating the URL of the button.
-		// // ),
-		// 		'bayar' => array(
-		// 			'url'=>'Yii::app()->createUrl("Sales/bayarhutang", array("id"=>$data[id]))',      //A PHP expression for generating the URL of the button.
-		// 			'imageUrl'=>Yii::app()->request->baseUrl."/img/pay.png",
-		// 			'class'=>'bayarhutang',
-		// 			'options'=>array(
-		// 				'class'=>'bayarhutang'
-		// 			),
-		// 			'visible'=>'$data[sb]=="Kredit"',
-		// 		),
-		// 	),
-		
-		// ), 		
-	);
-	array_push($columnaja, $array_cetak);
-	?>
-<div id="data-cetak">
-	
-<?php
- $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'sales-grid',
-	'dataProvider'=>$dataProvider,
-	// 'filter'=>$model->search(),
-	'columns'=>$columnaja
-)); ?>
-</div>
-<?php
-// $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-//     'id' => 'dialog_export',
-//     // additional javascript options for the dialog plugin
-//     'options' => array(
-//         'title' => 'Meja',
-//         'autoOpen' => false,
-//         'modal' => true,
-//         'width' => 250,
-//         'height' => 80,
-//     ),
-// ));
-
-// echo "data sales berhasil di export";
-// //echo "ramdnai";
-
-// $this->endWidget('zii.widgets.jui.CJuiDialog');
-?>
-<script>
-	function openWin(th){
-		var url = (th.getAttribute("data-href"));
-		// console.log(th.href);
-		// let url = e.getAttribute("data-url");;
-		// console.log(url);
-		// e.preventDefault();
-		var myWindow=window.open(url,'top=0,fullscreen=yes, left=0');
-
-		// myWindow.document.close();
-		// myWindow.focus();
-		// // myWindow.print();
-		// myWindow.close();
-	}
-$(document).ready(function(){
-	
-	// $(".fa-times").click(function(e){
-	// 	// e.preventDefault();
-	// 	if (!confirm("Yakin ? ")){
-	// 		return false;
-	// 	}
-
-	// });
-	 $('.tanggal').datepicker(
-        { 
-            dateFormat: 'yy-mm-dd',
-            changeYear: true,
-            changeMonth: true
-
-    });
-
-	$('.bayarhutang').click(function(e){
-		if (!confirm("yakin  ? ")){
-			return false;
-		}
-
-		// e.preventDefault();
-		
-		// alert('123');
-		// var tanggal = $('#Sales_date').val();
-		// $.ajax({
-		// 	url:'<? //$this->createUrl('sales/export')?>',
-		// 	data:'tanggal='+tanggal,
-		// 	success: function(data){
-		// 		$("#dialog_export").dialog("open");
-		// 		$("#hasil").html(data);
-		// 		// alert(data);
-		// 	},
-		// 	error: function(data){
-		// 		$("#hasil").html(data);
-		// 		// alert(data);
-		// 		// alert('data gagal di export');
-		// 	}
+	 // var table = $('#datatable').DataTable({
+		// 	"pageLength": 20,
+		// 	 "autoWidth": true
 		// });
-	});
-	
 
-	$('.btn-cetak-ulang').click(function(e){
-		e.preventDefault();
-		var value = $(this).attr("value");
-		// alert(va)
-		$.ajax({
-			url:'<?=$this->createUrl('sales/CetakReport')?>',
-			data:'id='+value,
-			success: function(data){
-				var json = jQuery.parseJSON(data);
-				print_bayar(json);
-				// alert(JSON.stringify(json));
-				// $('#hasiljson').html(data);
-				// print_rekap(json);
-				// console.log(data);
-				
-			},
-			error: function(data){
-				alert('error');
-			}
-		});
-	});
-	$('#cetakrekap').click(function(){
-		var tanggal = $('#Sales_date').val();
-		var tanggal2 = $('#Sales_date2').val();
-		
-		if(tanggal==''){
-			alert('Pilih tanggal terlebih dahulu');
-			return false;
-		}else{
-			$.ajax({
-				url:'<?=$this->createUrl('sales/cetakrekap')?>',
-				data:'tanggal_rekap='+tanggal+'&tanggal_rekap2='+tanggal2,
-				success: function(data){
-					var json = jQuery.parseJSON(data);
-					// alert(JSON.stringify(json));
-					// $('#hasiljson').html(data);
-					print_rekap(json);
-					// console.log(data);
-					
-				},
-				error: function(data){
-					alert('error');
+	myTable.columns().every( function () {
+        var that = this;
+		console.log(that.search() );
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+			if (this.value.length > 4){
+				myTable.columns(0).search(table.columns(0).search() + ' ' +  this.value).draw();
+				// if ( that.search() !== this.value ) {
+				// 	that.search( this.value ).draw();
+				// }
+            }
+        } );
+    } );
+
+    var myTable;
+    var myTableMember;
+    var editor;
+
+
+
+  // $('#datatable').on( 'click', 'tbody td:not(:first-child)', function (e) {
+  //   editor.inline( this );
+  // } );
+
+
+   function reloadItems(){
+    if (myTable){
+            myTable.destroy();
+          }
+          // $(".loader").show();
+          myTable =  $('#datatable').DataTable({
+            "searching": false,
+            "processing": true,
+            "serverSide": true,
+            "lengthMenu": [[5, 10, 25, 50, 1000000], [5, 10, 25, 50, "Semua"]],
+			"ajax": {
+				"url" : "<?php echo Yii::app()->createUrl("sales/adminJSON") ?>",
+				"dataSrc": "data",
+				"data" : {
+					"day" : $("#day").val(),
+					"month" : $("#month").val(),
+					"year" : $("#year").val(),
+					"cabang" : $("#cabang").val(),
+					"status" : $("#status").val()
 				}
-			});
-		}
-	});
-});
-</script>
-<div id="hasil">
-</div>
-<applet name="jzebra" code="jzebra.PrintApplet.class" archive="jZebra/jzebra/jzebra.jar" width="0" height="0">
-    <param name="printer" value="zebra">
-</applet>
+			},
+            "fnDrawCallback": function( oSettings ) {
+           },
 
+            "footerCallback": function ( row, data, start, end, display ) {
+ 
+	        },
+            columns:
+            [  
+			{
+				title: "Faktur ID",
+				data:'faktur_id',
+				name:'faktur_id',
+			},
+			{
+				title: "Tgl Transaksi",
+				data:'date',
+				name:'date',
+			},
+			{
+				title: 'Tgl jatuh Tempo',
+				data:'tanggal_jt',
+				name:'tanggal_jt',
+			},
+			{
+				title: "Nama pembeli",
+				data:'nama',
+				name:'nama',
+			},
+			{
+				title: "Total modal",
+				data:'sale_sub_modal',
+				name:'sale_sub_modal',
+				hidden : <?=Yii::app()->user->getLevel()!=2 ? 'true' : 'false'?>
+			},
+			{
+				title: "Total Kotor",
+				data:'sale_sub_total',
+				name:'sale_sub_total',
+				render :  function(data){
+					return numeral(data).format(0,0);
+				}
+			},
+			{
+				title: "Total diskon",
+				data:'sale_discount',
+				name:'sale_discount',
+				render :  function(data){
+					return numeral(data).format(0,0);
+				}
+			},
+			{
+				title: "Total Potongan",
+				data:'voucher',
+				name:'voucher',
+				render :  function(data){
+					return numeral(data).format(0,0);
+				}
+			},
+			{
+				title: "Total Bersih",
+				data:'sale_total_cost',
+				name:'sale_total_cost',
+				render :  function(data){
+					return numeral(data).format(0,0);
+				}
+			},
+			{
+				title: "Kasir",
+				data:'inserter',
+				name:'inserter',
+				searchable:true,
+			},
+			{
+				title: "bayar",
+				data:'bayar',
+				name:'bayar',
+				render :  function(data){
+					return numeral(data).format(0,0);
+				}
+			},
+			{
+				title: "Kartu",
+				data:'pembayaran_via',
+				name:'pembayaran_via',
+			},
+			{
+				title: "Rincian",
+				data: "id",
+				render : function(data,row){
+					return '<a href="index.php?r=sales/detailitems&id='+data+'">Detail</a>';
+				}
+			},
+			{
+				title: "Hapus",
+				data: "id",
+				render : function(data,row){
+					return '<a class="fa fa-times hapus" href="index.php?r=sales/hapus&id='+data+'"> </a>';
+				}
+			},
+          ]
+
+          });
+  }
+          });
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-bukti-bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -629,3 +363,5 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+
+

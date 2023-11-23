@@ -121,6 +121,7 @@ class Items extends CActiveRecord
 			c.category nama_kategori,
 			m.nama nama_sub_kategori,
 			m.nama category,
+			c.category category_name,
 			iss.id satuan_id,
 			i.id id,
 			concat(i.item_name,' (',iss.nama_satuan,')') as nama,
@@ -249,7 +250,7 @@ class Items extends CActiveRecord
 						 $color = $stoknow > 0 ? "green" : "red";
                     	 $x = "";
 	                    // $x = trim($item['ukuran']).".".trim($item['ketebalan']).".".trim($item['panjang']); 
-						$data[$item['barcode']."##".$item['satuan_id']] = trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x. "<b style='color:$color'>Stok : $stoknow</b>";
+						$data[$item['barcode']."##".$item['satuan_id']] =  trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x. "<b style='color:$color'>Stok : $stoknow</b>". " <span class='badge badge-secondary'>".trim($item['category_name']) . "</span> ";
                     }else{
 						
                     	 $data[$item['barcode']."##".$item['satuan_id']] = $item['barcode']." - ".$item['nama'];

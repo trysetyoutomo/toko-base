@@ -26,6 +26,9 @@
 
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
       <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+      <!-- numeral js -->
+      <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
 
 
 <script>
