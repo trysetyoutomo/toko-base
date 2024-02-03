@@ -327,14 +327,14 @@
          .fa,.glyphicon{
          cursor: pointer;
          }
-         div.wide.form label
+         /* div.wide.form label
          {
          float: left;
          margin-right: 10px;
          position: relative;
          text-align: right;
          width: 140px;
-         }
+         } */
          div.wide.form .row
          {
          clear: left;

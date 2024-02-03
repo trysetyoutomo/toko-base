@@ -145,6 +145,8 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	<tr>
 		<td>No</td>
 		<td>Nama</td>
+		<td>Kategori</td>
+		<td>Sub Kategori</td>
 		<?php
 		$date1 = $tglheader;
 		$date2 = $tgl2header;
@@ -209,8 +211,14 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		
 		$items = Yii::app()->db->createCommand()
 			->select('si.sale_id slid,i.id iid,
-				i.item_name item_name, si.item_price unit_price, si.item_modal item_modal, si.item_modal modal')
-			->from(' items i, sales s, sales_items si ')
+				i.item_name item_name, 
+				c.category category_name, 
+				sc.nama subcategory_name, 
+				si.item_price unit_price, 
+				si.item_modal item_modal, 
+				si.item_modal modal
+				')
+			->from(' items i, sales s, sales_items si, categories c, motif sc ')
 			->where("s.id = si.sale_id
 				and
 				si.item_id = i.id 
@@ -268,6 +276,8 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		<tr style="width:100px;overflow:visible;" >
 			<td><?php echo $no?></td>
 			<td style="text-transform:uppercase"><?php echo $values["item_name"]?></td>
+			<td style="text-transform:uppercase"><?php echo $values["category_name"]?></td>
+			<td style="text-transform:uppercase"><?php echo $values["subcategory_name"]?></td>
 		
 		<?php
 		$km = 1;
@@ -325,7 +335,9 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	
 	<tr style="border:0px solid black">
 	<td></td>
-	<td></td>
+	<td></td>	
+	<td></td>	
+	<td></td>	
 	<?php
 	 for ($zzz=1;$zzz<=$jmb_bris;$zzz++) {?>
 	
