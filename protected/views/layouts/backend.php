@@ -243,13 +243,11 @@
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
       <!-- bootstrap-progressbar -->
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-      <!-- jVectorMap 
-      <link href="<?php echo Yii::app()->request->baseUrl; ?>/production/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
-      -->
       <!-- Bootstrap -->
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <!-- Font Awesome -->
-      <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
       <!-- iCheck -->
       <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
       <!-- Datatables -->
@@ -462,15 +460,21 @@
          }
       </style>
       <style type="text/css">
-  
- 
-</style>
+      .form .container .row{
+         margin-top:10px;
+      } 
+
+      .form-control {
+         max-width: 700px!important;
+      }
+
+      </style>
 
    </head>
    <body class="nav-md">
 
       <div class="loader">
-         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/loader.gif">
+         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ajax-loader.gif">
       </div>
       <div id="full"></div>
 

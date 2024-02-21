@@ -57,8 +57,10 @@
 	}
 </style>
 <?php 
+$store_id = Yii::app()->user->store_id();
 $bid = Yii::app()->user->branch();
 $branch = Branch::model()->findByPk($bid);
+$store = Stores::model()->findByPk($store_id);
 $parameter = Parameter::model()->findByPk(1);
 $sql = "
 select 
@@ -138,7 +140,7 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 	<tr>
 		<td valign="top" align="center" style="text-align: center;padding:0px 15px 0px 15px" >
 			<!-- <img src="<?php echo Yii::app()->request->baseUrl ?>/logo/<?php echo $parameter['gambar'] ?>" width="100" > -->
-			<h3 style="display: inline;"><?php echo $branch->branch_name ?></h3>
+			<h3 style="display: inline;"><?php echo $store->name ?></h3>
 			<h4 style="margin:0px;">
 				<?php echo $branch->address." ".$branch->telp ?>
 			</h4>

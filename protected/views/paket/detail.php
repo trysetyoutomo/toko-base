@@ -107,7 +107,7 @@
 		// ),
 		// array(
 		// 	'name'=>'total_cost',
-		// 	'header'=>'Harga Konsumen ',
+		// 	'header'=>'Harga Member ',
 		// 	'type'=>'number',
 		// ),
 		// // array(

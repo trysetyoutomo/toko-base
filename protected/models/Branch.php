@@ -81,7 +81,7 @@ class Branch extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'branch_name' => 'Nama Tempat',
+			'branch_name' => 'Nama Cabang',
 			'address' => 'Alamat',
 			'telp' => 'Telepon/HP',
 		);

@@ -118,7 +118,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	Customer 
 	<?php  $nilai = Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
 	<select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
-		<option value="">Semua Konsumen</option>
+		<option value="">Semua Member</option>
 		<?php foreach($nilai as $k): ?>
 		<option <?php if ($k->nama==$_REQUEST['customer']) echo "selected" ?> value="<?php echo $k->nama ?>">
 		<?php echo $k->nama ?>

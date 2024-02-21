@@ -1,29 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
 <style>
-	/* 
-	p,h1,h2,h3,h4,h5,a,td,th,label,body{
-		font-family: 'Open Sans', sans-serif;
-	}
-	.container{
-		background-color: #ffff;
-		position: relative;
-		top:4rem;
-		padding-bottom: 5rem;
-	}
-	*/
-
-	
-	 .container input, .container select, .container textarea{
-		border-radius: 5px;
-		border:1px gray solid;
-		padding:5px;
-	} 
-	.container .row{
-		margin-top:10px;
-	} 
-
 	#Users_password::after{
 		color:red;
 	}
@@ -46,7 +21,7 @@
   </script>
 <div class="form wide" style="margin-left:1rem" >
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-12">
 		<div class="container mt-20" >
 			
 			<?php $form=$this->beginWidget('CActiveForm', array(
@@ -68,7 +43,7 @@
 		<div class="row-group d-block">
 		<div class="row">
 		<?php echo $form->labelEx($model,'name',array('class'=>"col-sm-2")); ?> 	
-		<?php echo $form->textField($model,'name',array('class'=>'col-sm-10','size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'name',array('class'=>'col-sm-10 form-control','size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'name'); ?>
 		</div>
 
@@ -80,6 +55,7 @@
 					'warungMakan' => 'Warung Makan',
 					'katering' => 'Katering',
 					'kueRoti' => 'Kue dan Roti',
+					'cemilan' => 'Cemilan'
 					// Tambahkan jenis usaha kuliner lainnya sesuai kebutuhan
 				),
 				'Pertanian' => array(
@@ -168,7 +144,7 @@
 		?>
 		<div class="row">
 		<?php echo $form->labelEx($model,'store_type',array('class'=>"col-sm-2")); ?>
-		<?php echo $form->dropdownList($model,'store_type',getJenisUsahaOptions(),array('class'=>'col-sm-10','maxlength'=>50,'prompt'=>"Pilih jenis usaha")); ?>
+		<?php echo $form->dropdownList($model,'store_type',getJenisUsahaOptions(),array('class'=>'col-sm-10 form-control','maxlength'=>50,'prompt'=>"Pilih jenis usaha")); ?>
 		<?php echo $form->error($model,'store_type'); ?>
 		</div>
 
@@ -176,33 +152,33 @@
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'email',array('class'=>"col-sm-2")); ?>
-		<?php echo $form->textField($model,'email',array('class'=>'col-sm-10','size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'email',array('class'=>'col-sm-10 form-control','size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'email'); ?>
 		</div>
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'phone',array('class'=>"col-sm-2")); ?>
-		<?php echo $form->textField($model,'phone',array('class'=>'col-sm-10','size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'phone',array('class'=>'col-sm-10 form-control','size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'phone'); ?>
 		</div>
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'address1',array('class'=>"col-sm-2")); ?>
-		<?php echo $form->textArea($model,'address1',array('size'=>200,'maxlength'=>200,'class'=>'col-sm-10')); ?>
+		<?php echo $form->textArea($model,'address1',array('size'=>200,'maxlength'=>200,'class'=>'col-sm-10 form-control')); ?>
 		<?php echo $form->error($model,'address1'); ?>
 		</div>
 
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'postal_code',array('class'=>"col-sm-2")); ?>
-		<?php echo $form->textField($model,'postal_code',array('class'=>'col-sm-10','size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'postal_code',array('class'=>'col-sm-10 form-control','size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'postal_code'); ?>
 		</div>
 		</div>
 		<?php if ($model->isNewRecord): ?>
 		<div class="row" style="position:relative" >
 			<?php echo $form->labelEx($u,'password',array('class'=>"col-sm-2")); ?>
-			<?php echo $form->passwordField($u,'password',array('class'=>'col-sm-10','size'=>50,'maxlength'=>50)); ?>
+			<?php echo $form->passwordField($u,'password',array('class'=>'col-sm-10 form-control','size'=>50,'maxlength'=>50)); ?>
 			<i style="position:absolute;right:1.5rem;top:13px;" id="togglePasswordIcon" class="fas fa-eye icon" onclick="togglePasswordVisibility()"></i> 
 			<?php echo $form->error($u,'password'); ?>
 		</div>
@@ -212,7 +188,7 @@
 
 		<div class="row" style="margin-top:2rem" >
 		<label> </label>
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Daftar ',array("class"=>"btn btn-primary","style"=>"min-width:150px")); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Simpan' : 'Daftar ',array("class"=>"btn btn-primary","style"=>"min-width:auto")); ?>
 		</div>
 
 		<?php $this->endWidget(); ?>

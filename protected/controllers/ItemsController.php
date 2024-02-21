@@ -11,13 +11,13 @@ class ItemsController extends Controller
 	/**s
 	 * @return array action filters
 	 */
-	// public function filters()
-	// {
-	// 	return array(
-	// 		'accessControl', // perform access control for CRUD operations
-	// 		'postOnly + delete', // we only allow deletion via POST request
-	// 	);
-	// }
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
+		);
+	}
 
 	/**
 	 * Specifies the access control rules.
@@ -29,21 +29,21 @@ class ItemsController extends Controller
 		return [
 			// ['allow',  'actions'=>['admin'], 'users'=>array('@')],
 			// ]
-			// array('allow',  // allow all users to perform 'index' and 'view' actions
-			// 	'actions'=>array('kartupersediaan','averagene','sqlAverage','getAverage','getlistprice','laporanrusak','laporanmasuk','barangrusak','barangmasuk','cari','barcode','index','view','check','delete'),
-			// 	'users'=>array('*'),
-			// )
-			// array('allow', // allow authenticated user to perform 'create' and 'update' actions
-			// 	'actions'=>array('masukubahdetail','Pengeluaranhapus','laporan_pengeluaran','bayarhutang','masukubahdetail','masukhapusdetail','masukhapus','keluarhapus','cetakpinjam','batalkembali','setkembali','laporanpinjam','pinjam','notifikasi','prosesrusakbarang','getmotif','getname','prosesmasukbarang','detailpaket','adminpaket','admin','create','createpaket','update','unitprice','itemnumber','category'),
-			// 	'users'=>array('@'),
-			// ),
-			// array('deny', // allow admin user to perform 'admin' and 'delete' actions
-			// 	'actions'=>array('admin','hapus','pengeluaranbaru','admin','checkbarcode'),
-			// 	'users'=>array('@'),
-			// ),
-			// array('deny',  // deny all users
-			// 	'users'=>array('*'),
-			// ),
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('GetdataPO','laporanstok','prosesmasukbarangPO','kaskeluar','setstok','laporanstokJSON','cetaklabel','adminJSON','kasmasuk','purchase_order','kartupersediaan','averagene','sqlAverage','getAverage','getlistprice','laporanrusak','laporanmasuk','barangrusak','barangmasuk','cari','barcode','index','view','check','delete'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('masukubahdetail','Pengeluaranhapus','laporan_pengeluaran','bayarhutang','masukubahdetail','masukhapusdetail','masukhapus','keluarhapus','cetakpinjam','batalkembali','setkembali','laporanpinjam','pinjam','notifikasi','prosesrusakbarang','getmotif','getname','prosesmasukbarang','detailpaket','adminpaket','admin','create','createpaket','update','unitprice','itemnumber','category'),
+				'users'=>array('@'),
+			),
+			array('deny', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','hapus','pengeluaranbaru','admin','checkbarcode'),
+				'users'=>array('@'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
 		];
 	}
 	// public function actionSetstok($before,$skrg,$id){
@@ -138,29 +138,42 @@ class ItemsController extends Controller
 	    }else{
 	    	$length = 0;
 	    }
+
+		if (isset($_REQUEST['search']['value'])){
+			$filter =  " where  iss.barcode like '%".$_REQUEST['search']['value']."%' ";
+		}
 	    /* END of POST variables */
-		$query  = "select 
+		$query  = "SELECT
 		i.is_bahan,
 		m.nama nama_sub_kategori,
-		concat(i.item_name,'  ','') as item_name,
-		c.category as nama_kategori,
-		m.nama as motif,
-		i.hapus hapus, iss.id as satuan_id, i.id id, 
-		iss.barcode barcode
-
-		from items i inner join items_satuan iss 
-		on iss.item_id = i.id and i.is_stockable = 1 
-		left join categories as c on c.id = i.category_id
-		left join motif m on m.category_id = c.id and m.id = i.motif
-		inner join stores s on s.id =  i.store_id 
-
-		$filter 
-		and iss.is_default = 1 and i.hapus=0 and s.id = ".Yii::app()->user->store_id()."
-		group by i.id
-		order by c.category, m.id, i.item_name  asc
-
+		concat( i.item_name, '  ', '' ) AS item_name,
+		c.category AS nama_kategori,
+		m.nama AS motif,
+		i.hapus hapus,
+		iss.id AS satuan_id,
+		i.id id,
+		iss.barcode barcode 
+	FROM
+		items i
+		INNER JOIN items_satuan iss ON iss.item_id = i.id 
+		AND i.is_stockable = 1
+		LEFT JOIN categories AS c ON c.id = i.category_id
+		LEFT JOIN motif m ON m.category_id = c.id 
+		INNER JOIN stores s ON s.id = i.store_id
+		AND iss.is_default = 1 
+		AND i.hapus = 0 
+		AND s.id = ".Yii::app()->user->store_id()." 
+		 {$filter} 
+	GROUP BY
+		i.id 
+	ORDER BY
+		c.category,
+		m.id,
+		i.item_name ASC
 		";
 		
+		// echo $query;
+		// exit;
 
 	    $recordsTotal = count($this->getAdminJSON($query,$adjust));
 		// echo "<pre>".print_r($_REQUEST['columns'])."</pre>";exit;
@@ -2813,7 +2826,7 @@ public function getHargamodal($id){
 				$satuanlist = "";
 				$cabang = Branch::model()->findAll("store_id = '$store_id' ");
 				$satuanlist .= "<table class='table'>";  
-				$satuanlist .= "<thead><tr><td>Tempat</td><td>Stok</td></tr></thead>";  
+				$satuanlist .= "<thead><tr><td>Cabang</td><td>Stok</td></tr></thead>";  
 					foreach ($cabang as $key => $value2) {
 						$stokx = ItemsController::getStok($value['id'],"",$value2->id);
 						$satuanlist .= "<tr>";  					

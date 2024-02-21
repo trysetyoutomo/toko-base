@@ -1,11 +1,11 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Customer/admin'); ?>">Mengelola Pelanggan</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Customer/admin'); ?>">Mengelola Member</a></li>
 </ol>
 
 <h1>
 <i class="fa fa-book"></i>
-Konsumen
+Member
 </h1>
 <hr>
 <div class="row">
@@ -30,12 +30,12 @@ Konsumen
        <thead>
   		<tr>
            <th>Aksi</th>
-          <th>Kode</th>
+           <th>No Handphone</th>
+           <th>Nama </th>
+          <!-- <th>Kode</th> -->
           <th>Kode Agen</th>
-          <th>Nama </th>
           <th>Alamat</th>
-          <th>Telepon</th>
-          <th>Tipe Konsumen</th>
+          <th>Tipe Member</th>
 
   		</tr>
        
@@ -72,24 +72,21 @@ Konsumen
                 <i class="fa fa-times"></i> Hapus
               </a>
     </li>
-    <!-- <li role="separator" class="divider"></li> -->
-    <!-- <li><a href="#">Separated link</a></li> -->
   </ul>
 </div>
 
             
               <!-- <a href=""></a> -->
             </td>
-            <td><?php echo $value['kode']; ?></td>
-        		<td><?php echo $value['kode_agen']; ?></td>
-        		<td>
-					<a href="<?php echo Yii::app()->createUrl("Customer/update", array("id"=>$value['id'])) ?>">
-        			<?php echo $value['nama']; ?>
-        			</a>
-        			
-        		</td>
-        		<td><?php echo $value['alamat']; ?></td>
+            <!-- <td><?php echo $value['kode']; ?></td> -->
             <td><?php echo $value['no_telepon']; ?></td>
+        		<td>
+					    <a href="<?php echo Yii::app()->createUrl("Customer/update", array("id"=>$value['id'])) ?>">
+        			  <?php echo $value['nama']; ?>
+        			</a>
+        		</td>
+        		<td><?php echo $value['kode_agen']; ?></td>
+        		<td><?php echo $value['alamat']; ?></td>
         		<td><?php 
             
             echo CustomerType::model()->findByPk($value['customer_type'])->customer_type;

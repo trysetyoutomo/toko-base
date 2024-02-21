@@ -37,7 +37,7 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array(' nama', 'required'),
+			array(' nama, no_telepon', 'required'),
 			// array('nama, alamat, no_telepon', '', 'integerOnly'=>true),
 			array('id', 'length', 'max'=>40),
 			// array('id', 'required'),
@@ -65,12 +65,12 @@ class Customer extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'kode_agen' => 'kode customer',
+			'kode_agen' => 'Kode Member',
 			'id' => 'ID',
 			'nama' => 'Nama',
 			'alamat' => 'Alamat',
-			'no_telepon' => 'No Telepon',
-			'customer_type' => 'Tipe Konsumen',
+			'no_telepon' => 'No Handphone',
+			'customer_type' => 'Tipe Member',
 		);
 	}
 

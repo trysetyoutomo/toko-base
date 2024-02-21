@@ -75,9 +75,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 	<tr >
 		<td>
 <?php  $nilai = Branch::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");?>
-<label>
-	Tempat
-</label>
+<label>Cabang</label>
 			
 		</td>
 		<td>
@@ -202,12 +200,8 @@ else if ($ukuran_kertas=="80mm" || $ukuran_kertas=="58mm"){
 		'name'=>'aa',
 		'header'=>'Cetak',
 		'value'=>function($data){
-
-			// "abv"
-			// return $data['id'];
 			return '<div value="'.$data['id'].'" class="btn btn-primary btn-cetak-ulang ">Cetak</div>';
 		}
-		
 	);
 }else{ // jika mini
 	$array_cetak = 	array(

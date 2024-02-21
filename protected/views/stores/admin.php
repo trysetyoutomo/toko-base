@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
 <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-<li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Stores/admin'); ?>">Mengelola Pelanggan</a></li>
+<li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Stores/admin'); ?>">Mengelola Member</a></li>
 </ol>
 
 <h1>

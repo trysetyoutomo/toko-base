@@ -294,7 +294,7 @@
 					<tr style="display: none;">
 					<td>
 						
-					Letak 
+					Etalase 
 					</td>
 					<td>
 						<select id="letak">
@@ -363,7 +363,7 @@
 				<div class="row">
 					<label for="jumlah" >Jumlah</label>
 					<?php echo CHtml::textField('stok', '1',array('type'=>'number','id'=>'stok','class'=>'form-control','style'=>'max-width:50px;display:inline'));?>
-					<button class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke Keranjang</button>
+					<button style="margin-top: 1rem;" class="btn btn-primary"  onClick="add_item($('#nama').val())">Tambah ke Keranjang</button>
 			
 				</div>
 				<hr>

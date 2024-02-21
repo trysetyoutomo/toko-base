@@ -1,18 +1,18 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Letak/admin'); ?>">Mengelola Letak</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Letak/admin'); ?>">Mengelola Etalase</a></li>
 </ol>
 
 <h1>
 <i class="fa fa-book"></i>
-Mengelola Letak
+Mengelola Etalase
 </h1>
 <hr>
 <div class="row">
 	<div class="col-sm-8">
 		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
 		<button class="btn btn-primary">
-			<i class="fa fa-plus"></i> Tambah Letak
+			<i class="fa fa-plus"></i> Tambah Etalase
 		</button>
 		</a>
 
@@ -36,9 +36,8 @@ Mengelola Letak
   		<tr>
            <th>Aksi</th>
           <th>No</th>
-    
           <th>Nama</th>
-          <th>Tempat</th>
+          <th>Cabang</th>
 
   		</tr>
        
@@ -177,7 +176,7 @@ Mengelola Letak
 // 		),
 // 		array(
 // 			'name'=>'total_cost',
-// 			'header'=>'Harga Konsumen ',
+// 			'header'=>'Harga Member ',
 // 			'type'=>'number',
 // 		),
 // 		// array(

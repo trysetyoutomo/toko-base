@@ -36,7 +36,8 @@ class Motif extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_id', 'numerical', 'integerOnly'=>true),
+			array('category_id,nama', 'required'),
+			array('category_id', 'numerical','integerOnly'=>true),
 			array('nama', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -72,7 +72,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 
 		</td>
 	</tr>
-	<tr >
+	<tr style="display: none;">
 		<td>
 <?php  $nilai = Branch::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");?>
 <label>
@@ -122,6 +122,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 <!-- <a href="<?php echo Yii::app()->createUrl('sales/cetakrekap&noprint=true') ?>" type="button" class="btn btn-primary"  name="btn-preview">
 Preview Rekap
 </a> -->
+
 <?php //echo CHtml::button('Cetak Rekap',array('id'=>'cetakrekap','class'=>'btn btn-primary')); ?>
 <?php //echo CHtml::button('Export to CSV',array('id'=>'export')); ?>
 <?php //$this->endWidget(); ?>
@@ -162,6 +163,28 @@ Preview Rekap
 <script type="text/javascript">
 	$(document).ready(function() {
     reloadItems();
+	
+	$('.btn-cetak-ulang').click(function(e){
+		e.preventDefault();
+		var value = $(this).attr("value");
+		// alert(va)
+		$.ajax({
+			url:'<?=$this->createUrl('sales/CetakReport')?>',
+			data:'id='+value,
+			success: function(data){
+				var json = jQuery.parseJSON(data);
+				print_bayar(json);
+				// alert(JSON.stringify(json));
+				// $('#hasiljson').html(data);
+				// print_rekap(json);
+				// console.log(data);
+				
+			},
+			error: function(data){
+				alert('error');
+			}
+		});
+	});
 
 	var filterInputs = "";
      $('#datatable thead th').each( function () {
@@ -176,7 +199,7 @@ Preview Rekap
      });
 
 
-	$("#datatable thead").append("<tr>"+filterInputs+"</tr>");
+	// $("#datatable thead").append("<tr>"+filterInputs+"</tr>");
 	
 
 
@@ -329,12 +352,12 @@ Preview Rekap
 				}
 			},
 			{
-				title: "Hapus",
+				title: "Aksi",
 				data: "id",
 				render : function(data,row){
-					return '<a class="fa fa-times hapus" href="index.php?r=sales/hapus&id='+data+'"> </a>';
+					return '<a target="_blank" href="index.php?r=sales/cetakfaktur_mini&id='+data+'" class="btn btn-primary">Cetak</a> &nbsp; <a class=" btn-danger btn  hapus" href="index.php?r=sales/hapus&id='+data+'"> Hapus </a>';
 				}
-			},
+			}
           ]
 
           });

@@ -2,238 +2,15 @@
 <!-- Datatables -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
-
-<!-- Modal -->
-<div class="modal fade" id="tambah-item-baru" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Item Baru</h4>
-      </div>
-      <div class="modal-body">
-        <?php 
-            $model = new Items;
-            $datasatuan= new ItemsSatuan;
-            $this->renderPartial('application.views.items._form',array(
-               "model"=>$model,
-               "datasatuan"=>$datasatuan
-            ));
-            $this->renderPartial('application.views.items._form_js');
-        ?>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="tambah-kategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
-      </div>
-      <div class="modal-body">
-       <?php 
-         $model = new Categories;
-        $this->renderPartial('application.views.categories._form',array("model"=>$model));
-       ?>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="tambah-kategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
-      </div>
-      <div class="modal-body">
-       <?php 
-         $model = new Categories;
-        $this->renderPartial('application.views.categories._form',array("model"=>$model));
-       ?>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="tambah-satuan-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Satuan Baru</h4>
-      </div>
-      <div class="modal-body">
-       <?php
-        $model = new ItemsSatuanMaster;
-        $this->renderPartial('application.views.itemsSatuanMaster._form',array("model"=>$model));
-         ?>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="tambah-subkategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Subkategori Baru</h4>
-      </div>
-      <div class="modal-body">
-       <?php
-          $model = new Motif;
-        $this->renderPartial('application.views.motif._form',array("model"=>$model));
-         ?>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<style type="text/css">
-   #users_wrapper{
-      overflow:auto;
-   }
-   tr td{
-   padding: 2px;
-   }
-   #footer{
-   display: none;
-   }
-   #users tr td{
-   border: 1px solid #c3d9ff;
-   }
-   .dalem{
-   width:100%;
-   }
-   #page{
-   }
-   label{
-   /* width: 100px; */
-   }
-   .row{
-   /*margin-left: 0px;*/
-   /*margin-bottom: 5px;*/
-   }
-</style>
-<style type="text/css">
-   #wrap-selisih{
-   position: fixed;
-   top: 20px;
-   right: 20px;
-   width: 300px;
-   height: 350px;
-   background-color: white;
-   padding: 10px;
-   border: 3px solid black;
-   }
-</style>
 <?php 
   $model = Items::model()->data_items("TANPA_PULSA");
    $this->renderPartial('inc-pencarian-items',array('model'=>$model));
-   ?>
-<!-- 
-   <div id="wrap-selisih" style="display: none;">
-   	<legend style="font-weight:bolder">Masukan Menu</legend>
-       <hr>
-       <table>
-       	<tr>
-       		<td><h5>Sub Total</h5></td>
-       		<td style="width: 30px;">:</td>
-       		<td><label id="total-sub">0</label></td>
-       	</tr>
-       	<tr>
-       		<td>Diskon</td>
-       		<td>:</td>
-       		<td>
-       			<input type="number" id="total-diskon" value="0">
-       		</td>
-       	</tr>
-       	<tr>
-       		<td>Grand Total</td>
-       		<td>:</td>
-       		<td>
-       			<label id="total-grand">0</label>
-       		</td>
-       	</tr>
-       	<tr>
-       		<td>Bayar</td>
-       		<td>:</td>
-       		<td>
-       			<input type="number" id="total-bayar" value="0">
-       		</td>
-       	</tr>
-       	<tr>
-       		<td>Kembali</td>
-       		<td>:</td>
-       		<td>
-       			<input type="text" id="total-kembali" value="0">
-       		</td>
-       	</tr>
-       	<tr>
-       		<td colspan="2">
-   					<button onclick="kirim()" class="btn btn-primary">Simpan</button>
-   
-       		</td>
-       	</tr>
-   
-   
-   
-   
-       </table>
-   </div> -->
-<script type="text/javascript">
-
-
-   $(document).ready(function(){
-   	$( "#tambah-supplier-form" ).dialog({
-   		minWidth : 650,
-   		modal : true,
-   		open : false
-   	});
-   	 $("#tambah-supplier-form").dialog("close");
-   	 $('#tanggal').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
-   	 $('#tanggal-jt').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
-   
-   
-   	// $('#namabarcode').select2("open");
-   
-   	$(document).on("change","#isbayar",function(e){
-   		if ($(this).val()=="0")
-   			$("#row-jatuh-tempo").show();
-   		else
-   			$("#row-jatuh-tempo").hide();
-   	});
-   	$(document).on("keypress",".select2-input",function(e){
-   		if(e.which == 13) {
-   		    add_item($('#namabarcode').val());
-               // $("#nama").select2("open");row-jatuh-tempo
-   
-   		}
-   
-   	});
-   
-    
-   });
-</script>
+?>
   <?php 
   $branch_id = Yii::app()->user->branch();
   $store_id = Yii::app()->user->store_id();
-  ?>
+?>
+
 <div class="row">
 	<div class="col-12">
 		<h1> <i class="fa fa-book"></i>&nbsp;Pembelian</h1>
@@ -252,7 +29,7 @@
 
 <div class="row">
      <legend style="font-weight:bolder">Data Transaksi</legend>
-   <div class="col-sm-6">
+   <div class="col-sm-5">
       <table border="0" cellpadding="0" id="trx-b-masuk"  >
          <tr>
             <td colspan="4">
@@ -354,7 +131,7 @@
          </tr>
          <tr style="display: none;">
             <td>
-               Letak 
+               Etalase 
             </td>
             <td>
                <select id="letak">
@@ -385,7 +162,6 @@
    </div>
    
    <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6" >
-      <!-- <legend></legend> -->
       <table style="width:100%" border="0" cellpadding="0">  
          <tr>
             <td>
@@ -606,6 +382,35 @@
 </script>
 </div>
 </div>
+<script type="text/javascript">
+
+
+   $(document).ready(function(){
+      $( "#tambah-supplier-form" ).dialog({
+   		minWidth : 650,
+   		modal : true,
+   		open : false
+   	});
+   	 $("#tambah-supplier-form").dialog("close");
+   	 $('#tanggal').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
+   	 $('#tanggal-jt').datepicker({ dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,});
+   
+   
+   	// $('#namabarcode').select2("open");
+   
+   	$(document).on("change","#isbayar",function(e){
+   		if ($(this).val()=="0")
+   			$("#row-jatuh-tempo").show();
+   		else
+   			$("#row-jatuh-tempo").hide();
+   	});
+   	$(document).on("keypress",".select2-input",function(e){
+   		if(e.which == 13) {
+   		    add_item($('#namabarcode').val());
+   		}
+   	}); 
+   });
+</script>
 <script>
    $(document).ready(function(){
 
@@ -1101,3 +906,144 @@
      $("#nama").focus();
   });
 </script>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-item-baru" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Item Baru</h4>
+      </div>
+      <div class="modal-body">
+        <?php 
+            $model = new Items;
+            $datasatuan= new ItemsSatuan;
+            $this->renderPartial('application.views.items._form',array(
+               "model"=>$model,
+               "datasatuan"=>$datasatuan
+            ));
+            $this->renderPartial('application.views.items._form_js');
+        ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-kategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php 
+         $model = new Categories;
+        $this->renderPartial('application.views.categories._form',array("model"=>$model));
+       ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-kategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php 
+         $model = new Categories;
+        $this->renderPartial('application.views.categories._form',array("model"=>$model));
+       ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-satuan-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Satuan Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php
+        $model = new ItemsSatuanMaster;
+        $this->renderPartial('application.views.itemsSatuanMaster._form',array("model"=>$model));
+         ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tambah-subkategori-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Subkategori Baru</h4>
+      </div>
+      <div class="modal-body">
+       <?php
+          $model = new Motif;
+        $this->renderPartial('application.views.motif._form',array("model"=>$model));
+         ?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+   #users_wrapper{
+      overflow:auto;
+   }
+   tr td{
+   padding: 2px;
+   }
+   #footer{
+   display: none;
+   }
+   #users tr td{
+   border: 1px solid #c3d9ff;
+   }
+   .dalem{
+   width:100%;
+   }
+   #page{
+   }
+   label{
+   /* width: 100px; */
+   }
+   .row{
+   /*margin-left: 0px;*/
+   /*margin-bottom: 5px;*/
+   }
+</style>
+<style type="text/css">
+   #wrap-selisih{
+   position: fixed;
+   top: 20px;
+   right: 20px;
+   width: 300px;
+   height: 350px;
+   background-color: white;
+   padding: 10px;
+   border: 3px solid black;
+   }
+</style>

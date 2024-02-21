@@ -69,7 +69,7 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 		<td>
 <?php  $nilai = Branch::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");?>
 <label >
-	Tempat
+Cabang
 </label>
 			
 		</td>
@@ -106,13 +106,13 @@ echo CHtml::dropDownList('year', $year, $arr_year);
 	</tr>
 	<tr>
 		<td>
-			<label>Konsumen</label>
+			<label>Member</label>
 		</td>
 		<td>
 	<?php  $nilai = Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
 
 <select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
-<option>Pilih Konsumen</option>
+<option>Pilih Member</option>
 <?php foreach($nilai as $k): ?>
 	<option <?php if ($k->nama==$_REQUEST['customer']) echo "selected" ?> value="<?php echo $k->nama ?>">
 	<?php echo $k->nama ?>

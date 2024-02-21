@@ -191,7 +191,7 @@ echo Items::model()->findByPk($_REQUEST['id'])->item_name;
 // 		),
 // 		array(
 // 			'name'=>'total_cost',
-// 			'header'=>'Harga Konsumen ',
+// 			'header'=>'Harga Member ',
 // 			'type'=>'number',
 // 		),
 // 		// array(

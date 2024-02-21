@@ -1,3 +1,3 @@
-<h1>Konsumen Baru</h1>
-
+<h1>Member Baru</h1>
+<hr>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

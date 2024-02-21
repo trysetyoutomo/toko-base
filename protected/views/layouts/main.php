@@ -198,7 +198,7 @@
                 
                <button type="button"  class="btn btn-nevy btn-sm mt-2 f-button-tambah-customer"  id="tambah-pelanggan-2">
                <i class="fa fa-plus"></i>
-               Tambah Customer</button>
+               Tambah Member</button>
             </div>
 
               <div style="display: none;">
@@ -231,6 +231,7 @@
                   <input type=button onClick="cetakbillterakhir()" value="Struk Terakhir" class="btn btn-nevy btn-sm"> 
                   <?php } ?>
                   <input  type="button" value="Item Baru" id="btn-item-baru" class="btn btn-nevy btn-sm f-button-tambah-item">
+                  <input  type="button" value="Data Sementara"  class="btn btn-nevy btn-sm " onclick="list_action(114)" />
                   <?php 
                   echo CHtml::button('Closing / Tutup Buku',array('id'=>'closingbtn','class'=>"btn btn-danger btn-sm w-100")); 
                   ?>

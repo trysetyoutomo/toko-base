@@ -44,7 +44,7 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email,username, name, password, level, status,branch_id', 'required','message'=>'{attribute} tidak boleh kosong'),
+			array('username, name, password, level, status,branch_id', 'required','message'=>'{attribute} tidak boleh kosong'),
 			array('level, status, branch_id', 'numerical', 'integerOnly'=>true),
 			array('email', 'email'),
 			array('username, name, password', 'length', 'max'=>50),
@@ -84,7 +84,7 @@ class Users extends CActiveRecord
 			'password' => 'Password',
 			'level' => 'Level',
 			'status' => 'Status',
-			'branch_id' => 'Tempat',
+			'branch_id' => 'Cabang',
 		);
 	}
 

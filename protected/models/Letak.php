@@ -37,7 +37,7 @@ class Letak extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('branch_id,kode', 'required'),
+			array('branch_id, nama', 'required'),
 			array('nama', 'length', 'max'=>100),
 			array('kode', 'length', 'max'=>10),
 			array('keterangan', 'length', 'max'=>255),
@@ -64,7 +64,7 @@ class Letak extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'branch_id' => 'Tempat',
+			'branch_id' => 'Cabang',
 			'id' => 'ID',
 			'nama' => 'Nama',
 			'kode' => 'Kode',

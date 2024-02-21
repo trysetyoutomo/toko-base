@@ -1,17 +1,17 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Motif/admin'); ?>">Mengelola Biaya</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Motif/admin'); ?>">Mengelola Sub Kategori</a></li>
 </ol>
 
 <h1>
 <i class="fa fa-book"></i>
-SubKategori
+Sub Kategori
 </h1>
 <hr>
 <div class="row">
 	<div class="col-sm-8">
 		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
-		<button class="btn btn-primary">
+		<button class="btn btn-primary ">
 			<i class="fa fa-plus"></i> Tambah
 		</button>
 		</a>

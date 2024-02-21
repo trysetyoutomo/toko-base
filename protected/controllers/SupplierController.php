@@ -83,10 +83,12 @@ class SupplierController extends Controller
 					echo "sukses";
 					// $this->redirect(array('admin','id'=>$model->id));
 			}else{
-				foreach ($model->getErrors() as $key => $value) {
-					// echo $value."<br>";
-					foreach ($value as $z => $b) {
-						echo " $b \n";
+				if (isset($_POST['isajax']) ){
+					foreach ($model->getErrors() as $key => $value) {
+						// echo $value."<br>";
+						foreach ($value as $z => $b) {
+							echo " $b \n";
+						}
 					}
 				}
 			}

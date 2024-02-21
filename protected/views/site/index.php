@@ -1532,30 +1532,21 @@ $usaha = SiteController::getConfig("jenis_usaha");
           switch(act)
           {
               case 112 :
-                          // alert($('#sum_sale_total').html());
-                          // if ( parseInt($('#sum_sale_total').html()) !=0 ){
-                          // alert(JSON.stringify(data_detail));
-          $("#e1").select2("close"); $("#pembayaran").val(estimate($("#total_bayar").html()));
-          $("#dialog_bayar").dialog("open");
-          $("#pembayaran").focus();
-          $("#kembalian").val(kembalian);
-          $('#cash').val(sum_sale_total);
-          $('#edcbca').val(0);
-          $('#edcniaga').val(0);
-          $('#creditbca').val(0);
-          $('#creditmandiri').val(0);
-          $('#compliment').val(0);
-          $('#voucher').val(0);
-          $('#dll').val(0);
-          changebayar();
-          $('#total_bayar').html($('#sum_sale_total').html());
-                    // }
-                          // else{
-                          //     alert('Silahkan isi item terlebih dahulu .. ');
-                          // }
-
-                          break;
-
+                $("#e1").select2("close"); $("#pembayaran").val(estimate($("#total_bayar").html()));
+                $("#dialog_bayar").dialog("open");
+                $("#pembayaran").focus();
+                $("#kembalian").val(kembalian);
+                $('#cash').val(sum_sale_total);
+                $('#edcbca').val(0);
+                $('#edcniaga').val(0);
+                $('#creditbca').val(0);
+                $('#creditmandiri').val(0);
+                $('#compliment').val(0);
+                $('#voucher').val(0);
+                $('#dll').val(0);
+                changebayar();
+                $('#total_bayar').html($('#sum_sale_total').html());
+                    break;
               case 27 :
                   $("#full-screen").hide();
                   $("#wrapper-item-search").hide();
@@ -1624,9 +1615,6 @@ $usaha = SiteController::getConfig("jenis_usaha");
                             bayar(0,number_meja,data);
                             alert("Slot Nomor "+number_meja+" telah berhasil di update!");
                             $("#head-meja").html("");
-
-
-
                         },
                         error: function(){
                             // alert('gagal'+data);
@@ -1773,13 +1761,13 @@ function numberWithCommas(x) {
        'id' => 'tambah-pelanggan-form',
        // additional javascript options for the dialog plugin
        'options' => array(
-           'title' => 'Tambah pelanggan',
+           'title' => 'Tambah Member',
            'autoOpen' => false,
            'modal' => true,
-           'width' => 400,
+           'width' => 700,
        ),
    ));
-   echo "Pelanggan Baru";
+   echo "Member Baru";
    $model = new Customer;
    $this->renderPartial('application.views.customer._form',array("model"=>$model));
 

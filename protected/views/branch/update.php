@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Ubah Tempat #<?php echo $model->id; ?></h1>
+<h1>Ubah Cabang #<?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

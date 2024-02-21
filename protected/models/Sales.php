@@ -50,7 +50,7 @@ class Sales extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('customer_id, sale_sub_total, sale_discount, sale_service, sale_tax, sale_total_cost, sale_payment, paidwith_id, total_items, branch, user_id, status', 'required'),
+            array('customer_id, sale_sub_total, sale_discount, sale_service, sale_tax, sale_total_cost, sale_payment, total_items, branch, user_id, status', 'required'),
             array('customer_id, sale_sub_total, sale_discount, sale_service, sale_tax, sale_total_cost, sale_payment, paidwith_id, branch, user_id, status', 'numerical', 'integerOnly' => true),
             array('comment', 'length', 'max' => 200),
             // array('date', 'default',
@@ -71,7 +71,7 @@ class Sales extends CActiveRecord {
         return array(
 			'user'=>array(self::BELONGS_TO,'users','inserter'),
 			'branch'=>array(self::BELONGS_TO,'Branch','branch'),
-			'sales_items'=>array(self::HAS_MANY,'SalesItems','id'),
+			'sales_items'=>array(self::HAS_MANY,'SalesItems','sale_id'),
         );
     }
 

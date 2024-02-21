@@ -11,6 +11,6 @@ $this->menu=array(
 ?>
 <h1>Store Baru <?php echo $model->id; ?></h1>
 
-
+<hr/>
 <?php //echo $this->renderPartial('_form', array('model'=>$model,"u"=>$u,'message'=>$message)); ?>
 <?php echo $this->renderPartial('_form_admin', array('model'=>$model,"u"=>$u,'message'=>$message)); ?>

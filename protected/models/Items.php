@@ -19,13 +19,13 @@
 class Items extends CActiveRecord
 {
 	public $min = 0;
-	public $gambar ;
+	public $gambar;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Items the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
@@ -38,7 +38,7 @@ class Items extends CActiveRecord
 		return 'items';
 	}
 
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -48,30 +48,31 @@ class Items extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			// is_stockable
-// is_bahan
+			// is_bahan
 			// has_bahan
-			array('is_bahan, has_bahan,stok,is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required','on'=>'insert','message'=>'{attribute} tidak boleh kosong'),
+			array('is_bahan, has_bahan,stok,is_pulsa,satuan_id,panjang,ukuran,ketebalan,persentasi,barcode,stok_minimum,modal,lokasi,item_name, item_number, description, category_id, unit_price,  status,category_id', 'required', 'on' => 'insert', 'message' => '{attribute} tidak boleh kosong'),
 
 
 
-// is_stockable,is_bahan,has_bahan,
-			array('is_bahan, has_bahan,panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required','on'=>'update','message'=>'{attribute} tidak boleh kosong'),
-			array('persentasi,modal,category_id, tax_percent, total_cost, discount, status', 'numerical', 'integerOnly'=>true),
+			// is_stockable,is_bahan,has_bahan,
+			array('is_bahan, has_bahan,panjang,ukuran,ketebalan,price_reseller,price_distributor,stok_minimum,modal,lokasi,item_name, total_cost, description, category_id,  status,category_id', 'required', 'on' => 'update', 'message' => '{attribute} tidak boleh kosong'),
+			array('persentasi,modal,category_id, tax_percent, total_cost, discount, status', 'numerical', 'integerOnly' => true),
 
 			// array('barcode', 'unique','message'=>'Kode telah ada, tidak boleh sama '),
 			// array('gambar', 'file'),
-			array('item_name', 'length', 'max'=>30),
-			array('item_number', 'length', 'max'=>20),
-			array('image', 'length', 'max'=>80),
+			array('item_name', 'length', 'max' => 30),
+			array('item_number', 'length', 'max' => 20),
+			array('image', 'length', 'max' => 80),
 
 			// array('stok_minimum', 'compare','operator'=>'>=','compareAttribute'=>'min','message'=>'{attribute} minimal 1'),
-			array('modal,unit_price', 'compare','operator'=>'>=','compareAttribute'=>'min','message'=>'{attribute} minimal 500'),
+			array('modal,unit_price', 'compare', 'operator' => '>=', 'compareAttribute' => 'min', 'message' => '{attribute} minimal 500'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, item_name, item_number, description, category_id, unit_price, tax_percent, total_cost, discount, image, status', 'safe', 'on'=>'search'),
+			array('id, item_name, item_number, description, category_id, unit_price, tax_percent, total_cost, discount, image, status', 'safe', 'on' => 'search'),
 		);
 	}
-	public function getQty($id){
+	public function getQty($id)
+	{
 		$sql = "SELECT 
 		b.id id ,
 		b.item_name,
@@ -82,28 +83,29 @@ class Items extends CActiveRecord
 		INNER JOIN store s on s.id = b.store_id
 		WHERE 
 		b.id = '$id'
-		and s.id = ".Yii::app()->user->store_id()."
+		and s.id = " . Yii::app()->user->store_id() . "
 		GROUP BY b.id";
 		$model = Yii::app()->db->createCommand($sql)->queryRow();
 
 		return $model['stok'];
 	}
-	public  function queryDataItems($with_bahan){
+	public  function queryDataItems($with_bahan)
+	{
 		// var_dump($with_bahan);
 		// exit;
 		// $with_bahan = "ALL";
 		$where = "";
-		if ($with_bahan=="BAHAN"){ // dengan sub detail
+		if ($with_bahan == "BAHAN") { // dengan sub detail
 			// $where = " and i.is_stockable = 1 ";
 			$where = " and i.is_bahan = 1 ";
 			// $where = " and c.category = 'BAHAN BAKU' or c.category = 'LAIN - LAIN'   ";
-		}else if ($with_bahan=="MENU"){ // dengan sub detail
+		} else if ($with_bahan == "MENU") { // dengan sub detail
 			// $where = " and (c.category like '%MENU PORSI' or c.category like '%MENU PAKET')  ";
 			// $where = " and (c.category like '%MENU PORSI' or c.category like '%MENU PAKET')  ";
 			$where = " and i.is_bahan = 0 ";
-		}else if ($with_bahan=="ALL"){ 
+		} else if ($with_bahan == "ALL") {
 			$where = "  ";
-		}else if ($with_bahan=="TANPA_PULSA"){
+		} else if ($with_bahan == "TANPA_PULSA") {
 			$where = " and i.is_pulsa <> 1 ";
 		}
 
@@ -114,6 +116,7 @@ class Items extends CActiveRecord
 		FROM
 		(
 			SELECT
+			i.category_id,
 			iss.harga_beli harga_beli,
 			iss.harga harga_jual,
 			iss.id nama_satuan_id,
@@ -140,7 +143,7 @@ class Items extends CActiveRecord
 			INNER JOIN items_satuan iss on iss.item_id = i.id
 			INNER JOIN stores as s on s.id = i.store_id 
 
-			AND i.hapus = 0 and s.id = ".Yii::app()->user->store_id()."
+			AND i.hapus = 0 and s.id = " . Yii::app()->user->store_id() . "
 			where  1=1 $where 
 			group by iss.id
 #			group by i.id
@@ -160,7 +163,8 @@ class Items extends CActiveRecord
 	}
 
 
-	public  function queryDataItemsPO($poid){
+	public  function queryDataItemsPO($poid)
+	{
 		// var_dump($with_bahan);queryDataItemsPO
 		// exit;
 		// $where = "";
@@ -226,39 +230,41 @@ class Items extends CActiveRecord
 		// echo $que;
 		// exit;
 	}
-	
-	
-	public function data_items($with_bahan)
+
+
+	public function data_items($with_bahan, $mobile = false)
 	{
 		$que = $this->queryDataItems($with_bahan);
-		
-		
-		$command=Yii::app()->db->createCommand($que);
-		$reader=$command->query();
-		$branch_id = Yii::app()->user->branch();
 
-			
-				$data = array();
-                foreach ($reader as $item)
-                {
-                    $temp = array();
-                    $stok = 0;
-                    // $stok = ItemsController::getStok($item['id']);
-                    // $data[$item->id] = $item->outlet->status." ".$item->item_name;
-                    if ($item['is_paket']=="0"){
-						 $stoknow = ItemsController::getStok($item['id'],$item['satuan_id'],$branch_id);
-						 $color = $stoknow > 0 ? "green" : "red";
-                    	 $x = "";
-	                    // $x = trim($item['ukuran']).".".trim($item['ketebalan']).".".trim($item['panjang']); 
-						$data[$item['barcode']."##".$item['satuan_id']] =  trim($item['barcode'])." - ".trim($item['category'])." ".trim($item['nama'])." ".$x. "<b style='color:$color'>Stok : $stoknow</b>". "<span class='badge badge-secondary'>".trim($item['category_name']) . "</span> ";
-                    }else{
-						
-                    	 $data[$item['barcode']."##".$item['satuan_id']] = $item['barcode']." - ".$item['nama'];
-                    }
 
-                }
-                return $data;
-				// print_r($data);
+		$command = Yii::app()->db->createCommand($que);
+		
+		if (!$mobile) {
+			$reader = $command->query();
+			$branch_id = Yii::app()->user->branch();
+			$data = array();
+			foreach ($reader as $item) {
+				$temp = array();
+				$stok = 0;
+				// $stok = ItemsController::getStok($item['id']);
+				// $data[$item->id] = $item->outlet->status." ".$item->item_name;
+				if ($item['is_paket'] == "0") {
+					$stoknow = ItemsController::getStok($item['id'], $item['satuan_id'], $branch_id);
+					$color = $stoknow > 0 ? "green" : "red";
+					$x = "";
+					// $x = trim($item['ukuran']).".".trim($item['ketebalan']).".".trim($item['panjang']); 
+					$data[$item['barcode'] . "##" . $item['satuan_id']] =  trim($item['barcode']) . " - " . trim($item['category']) . " " . trim($item['nama']) . " " . $x . "<b style='color:$color'>Stok : $stoknow</b>" . "<span class='badge badge-secondary'>" . trim($item['category_name']) . "</span> ";
+				} else {
+
+					$data[$item['barcode'] . "##" . $item['satuan_id']] = $item['barcode'] . " - " . $item['nama'];
+				}
+			}
+			return $data;
+		} else {
+			$reader = $command->queryAll();
+			return $reader;
+		}
+		// print_r($data);
 	}
 
 	/**
@@ -269,8 +275,8 @@ class Items extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'outlet'=>array(self::BELONGS_TO,'outlet','kode_outlet'),
-			'categories'=>array(self::BELONGS_TO,'categories','id'),
+			'outlet' => array(self::BELONGS_TO, 'outlet', 'kode_outlet'),
+			'categories' => array(self::BELONGS_TO, 'categories', 'id'),
 		);
 	}
 
@@ -319,23 +325,23 @@ class Items extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('item_name',$this->item_name,true);
-		$criteria->compare('item_number',$this->item_number,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('category_id',$this->category_id);
-		$criteria->compare('unit_price',$this->unit_price);
-		$criteria->compare('tax_percent',$this->tax_percent);
-		$criteria->compare('total_cost',$this->total_cost);
-		$criteria->compare('discount',$this->discount);
-		$criteria->compare('image',$this->image,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('kode_outlet',$this->kode_outlet);
+		$criteria->compare('id', $this->id);
+		$criteria->compare('item_name', $this->item_name, true);
+		$criteria->compare('item_number', $this->item_number, true);
+		$criteria->compare('description', $this->description, true);
+		$criteria->compare('category_id', $this->category_id);
+		$criteria->compare('unit_price', $this->unit_price);
+		$criteria->compare('tax_percent', $this->tax_percent);
+		$criteria->compare('total_cost', $this->total_cost);
+		$criteria->compare('discount', $this->discount);
+		$criteria->compare('image', $this->image, true);
+		$criteria->compare('status', $this->status);
+		$criteria->compare('kode_outlet', $this->kode_outlet);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 }

@@ -13,14 +13,14 @@
 
 <h1>
 <i class="fa fa-book"></i>
-Mengelola Tempat
+Mengelola Cabang
 </h1>
 <hr>
 <div class="row">
 	<div class="col-sm-8">
 		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
 		<button class="btn btn-primary">
-			<i class="fa fa-plus"></i> Tambah Tempat
+			<i class="fa fa-plus"></i> Tambah Cabang
 		</button>
 		</a>
 	</div>
@@ -32,7 +32,7 @@ Mengelola Tempat
            <th>Aksi</th>
           <th>No</th>
           <!-- <th>Nama</th> -->
-          <th>Nama Tempat</th>
+          <th>Nama Cabang</th>
           <th>Alamat</th>
           <th>Telepon</th>
           <th>Slogan</th>

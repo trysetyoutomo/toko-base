@@ -11,5 +11,5 @@ $this->menu=array(
 ?>
 
 <h1>Sub Kategori Baru</h1>
-
+<hr>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

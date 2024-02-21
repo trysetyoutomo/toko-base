@@ -112,7 +112,7 @@ class StoresController extends Controller
 						$Parameter->gambar_putih = "35_POS_LOGO_putih.png"; // default logo
 						if ($Parameter->save()){
 							$transaction->commit();
-							$this->redirect(array('admin',"id"=>$br->id));
+							$this->redirect(array('admin',"create"=>"success"));
 						}
 						else{
 							// print_r($Parameter->getErrors());
@@ -120,7 +120,7 @@ class StoresController extends Controller
 						}
 					}else{
 						// print_r($u->getErrors());
-						$message =  "Gagal Membuat user";
+						$message =  "Gagal Membuat user : ". $u->getErrors();
 					}
 				}else{
 					$message =  "Gagal Membuat cabang utama";					
