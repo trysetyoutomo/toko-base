@@ -75,6 +75,7 @@ Mengelola Item
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jszip/dist/jszip.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js" integrity="sha512-hUhvpC5f8cgc04OZb55j0KNGh4eh7dLxd/dPSJ5VyzqDWxsayYbojWyl5Tkcgrmb/RVKCRJI1jNlRbVP4WWC4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -120,6 +121,16 @@ Mengelola Item
           }
           // $(".loader").show();
           myTable =  $('#datatable').DataTable({
+            dom: 'Bfrtipl',
+            buttons: [
+                // 'csv', 
+                // 'excel', 
+                // 'pdf'
+                {
+                    extend: 'excel',
+                    filename: 'produk'  // Specify your custom filename here
+                }
+            ],
             "processing": true,
             "serverSide": true,
             "lengthMenu": [[5, 10, 25, 50, 1000000], [5, 10, 25, 50, "Semua"]],
