@@ -38,7 +38,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'form-input-saldo',
 	'enableAjaxValidation'=>false,
-	"action"=>$this->createUrl("site/index"),
+	"action"=>$this->createUrl($callback),
 	'htmlOptions'=>array(
 		"method"=>"POST",
 		'name'=>'form-input-saldo',

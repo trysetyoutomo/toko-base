@@ -113,6 +113,7 @@ class SalesController extends Controller {
 		sum(sale_total_cost) total_omset,
 		sum(adt_cost) as total_biaya,
 		sum(cash) as cash,
+		sum(edc_bca) as cashless,
 		sum(voucher) as voucher,
 		sum(total_fisik) as total_fisik,
 		sum(total_fisik) - sum(sale_total_cost) as selisih	
@@ -124,6 +125,7 @@ class SalesController extends Controller {
 		total_awal,
 		sp.voucher voucher,
 		sp.cash cash,
+		sp.edc_bca edc_bca,
 		#SUM(adt_cost)/total_items as total_biaya,
 		adt_cost,
 		u.username nama_user,
@@ -192,7 +194,8 @@ class SalesController extends Controller {
 			"pengeluaran"=>$data_pengeluaran['total_pengeeluaran'] === null ? 0 : $data_pengeluaran['total_pengeeluaran'],
 			"potongan"=>$dta['voucher'],
 			"cash"=>$dta['cash'],
-			"total_awal"=>$dta['total_awal']
+			"total_awal"=>$dta['total_awal'],
+			"cashless"=>$dta['cashless']
 		));
 
 

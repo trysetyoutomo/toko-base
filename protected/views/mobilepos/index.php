@@ -202,42 +202,44 @@
             <div class="row mb-3">
                 <label for="expected-cash" class="col-sm-4 col-form-label">Pengeluaran</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="expected-cash" v-model="closing.expense" @change="closingkalkulasi">
+                <input type="text" class="form-control" id="expected-cash" v-model="closing.expense" @change="closingkalkulasi" disabled>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="expected-cash" class="col-sm-4 col-form-label">Jumlah Cash Transaksi</label>
+                <label for="expected-cash" class="col-sm-4 col-form-label">Total Transaksi Cash</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="expected-cash" v-model="closing.expectedCash" @change="closingkalkulasi">
+                <input type="text" class="form-control" id="expected-cash" v-model="closing.expectedCash" @change="closingkalkulasi" disabled>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label for="withdrawal-bank" class="col-sm-4 col-form-label">Total Transaksi Bank</label>
+                <div class="col-sm-8">
+                <input type="text" class="form-control" id="withdrawal-bank" v-model="closing.withdrawBank" @change="closingkalkulasi" disabled>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <label for="counted-cash" class="col-sm-4 col-form-label">Cash Terhitung</label>
+                <div class="col-sm-8">
+                <input type="text" class="form-control" id="counted-cash" v-model="closing.countedCash" @input="closingkalkulasi">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="counted-cash" class="col-sm-4 col-form-label">Counted Cash</label>
+                <label for="remaining-cash" class="col-sm-4 col-form-label">Kurang/Lebih Cash</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="counted-cash" v-model="closing.countedCash" @change="closingkalkulasi">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="withdrawal-bank" class="col-sm-4 col-form-label">Withdrawal to Bank</label>
-                <div class="col-sm-8">
-                <input type="text" class="form-control" id="withdrawal-bank" v-model="closing.withdrawBank" @change="closingkalkulasi">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="remaining-cash" class="col-sm-4 col-form-label">Remaining Cash</label>
-                <div class="col-sm-8">
-                <input type="text" class="form-control" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi">
+                <input type="text" class="form-control" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi" disabled>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="comment" class="col-sm-4 col-form-label">Comment</label>
                 <div class="col-sm-8">
-                <textarea class="form-control" id="comment" rows="3" v-model="closing.comment"></textarea>
+                <textarea placeholder="Catatan khusus Closing" class="form-control" id="comment" rows="3" v-model="closing.comment"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Close Register</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button @disabled="disabledTutupRegister" @click="clickTutupRegister" type="button" class="btn btn-primary">Tutup Register</button>
             </div>
             </form>
         </div>
@@ -452,7 +454,7 @@
                     <div class="row pt-4 d-none">
                         <div class="col-3 mt-1">
                             <div class="fs-4 text-center">
-                                <img src="https://seeklogo.com/images/Q/quick-response-code-indonesia-standard-qris-logo-F300D5EB32-seeklogo.com.png" width="60" />
+                                <img src="https://media.istockphoto.com/id/1191080960/photo/traditional-turkish-breakfast-and-people-taking-various-food-wide-composition.jpg?s=612x612&w=0&k=20&c=PP5ejMisEwzcLWrNmJ8iPPm_u-4P6rOWHEDpBPL2n7Q=" width="60" />
                             </div>
                         </div>
                         <div class="col-9 mt-1">
@@ -584,7 +586,7 @@
                         <div v-if="keranjang.length > 0" class="card pt-2 pb-2 mt-2" v-for="item in keranjang" :key="item.id">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-3">
-                                    <img class="w-100 p-1 summary-item-image" src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/10/4/1/FN_chain-restaurant-entrees_Applebees_Bourbon-Street-Chicken-Shrimp_s6x4.jpg.rend.hgtvcom.616.411.suffix/1538685780055.jpeg" alt="item menu" />
+                                    <img class="w-100 p-1 summary-item-image" src="https://media.istockphoto.com/id/1191080960/photo/traditional-turkish-breakfast-and-people-taking-various-food-wide-composition.jpg?s=612x612&w=0&k=20&c=PP5ejMisEwzcLWrNmJ8iPPm_u-4P6rOWHEDpBPL2n7Q=" alt="item menu" />
                                 </div>
                                 <div class="col-5 ">
                                     <div class="summary-item-name fs-9">{{item.nama}}</div>
@@ -680,375 +682,240 @@
         </div>
     </div>
     <script>
-        const {
-            createApp,
-            ref
-        } = Vue
-        createApp({
-            methods: {
-                convertToZero(value) {
-                    // Check if the value is NaN, null, or an empty string
-                    if (isNaN(value) || value === null || value === "") {
-                    // Convert to 0
-                    return 0;
-                    } else {
-                    // Return the original value if it's a valid number or other non-empty value
-                    return value;
+    const {createApp, ref} = Vue;
+    const app = Vue.createApp({
+        methods: {
+            clickTutupRegister(){
+                let vm = this;
+                let tanggal = '<?php echo date("Y-m-d"); ?>';
+                $.ajax({
+                url:'<?=$this->createUrl('sales/cetakrekap')?>',
+                data:'tanggal_rekap='+tanggal+"&uangmasuk="+vm.closing.countedCash,
+                beforeSend : function(){
+                    vm.disabledTutupRegister = true;
+                },  
+                success: function(data){
+                    var json = jQuery.parseJSON(data);
+                    var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
+                    if (jenis_printer === "Mini Printer" )
+                      print_rekap(json,false);               
+                    vm.disabledTutupRegister = false;     
+                    setTimeout(function() {
+                        alert("Data berhasil disimpan!, sistem akan logout secara otomatis");
+                        window.location.assign("<?php echo $this->createUrl('site/logout'); ?>");
+                    }, 100);
+                },
+                error: function(data){
+                    alert('error');
+                }
+            });
+            },
+            convertToZero(value) {
+                // Check if the value is NaN, null, or an empty string
+                if (isNaN(value) || value === null || value === "") {
+                // Convert to 0
+                return 0;
+                } else {
+                // Return the original value if it's a valid number or other non-empty value
+                return parseInt(value);
+                }
+            },
+            clickClosing(){
+                this.getClosingInformation();
+            },
+            getClosingInformation(){
+                const vm = this;
+                <?php 
+                $username = Yii::app()->user->name;
+                $user = Users::model()->find('username=:un',array(':un'=>$username));
+                ?>
+                var tanggal = '<?php echo date("Y-m-d"); ?>';
+                var user_id = "<?php echo $user->id ?>";
+
+                $.ajax({
+                    url : "<?php echo Yii::app()->createUrl('sales/GetOmsetByUser'); ?>",
+                    data : "date="+tanggal+"&user_id="+user_id,
+                    success:function(data){
+                        var js = JSON.parse(data);
+                        let omset = js.cash;
+                        vm.closing.openAmount = vm.convertToZero(js.total_awal);
+                        vm.closing.withdrawBank = vm.convertToZero(js.cashless);
+                        vm.closing.expectedCash =  vm.convertToZero(js.total_awal) +  vm.convertToZero(js.cash)-vm.convertToZero(js.potongan)-vm.convertToZero(js.pengeluaran);
+                        vm.modalCloseRegister.show();
                     }
-                },
-                clickClosing(){
-                    this.getClosingInformation();
-                },
-                getClosingInformation(){
-                    const vm = this;
-                    <?php 
-                    $username = Yii::app()->user->name;
-                    $user = Users::model()->find('username=:un',array(':un'=>$username));
+                });
 
-                    ?>
-                    var tanggal = '<?php echo date("Y-m-d"); ?>';
-                    var user_id = "<?php echo $user->id ?>";
+            },
+            closingkalkulasi(){
+                this.closing.remainingCash = parseInt(this.closing.countedCash) - ( parseInt(this.closing.expectedCash) + parseInt(this.closing.openAmount));
+            },
+            setCashlessMethod(){
+                if (this.payment_bank)
+                    this.payment_bank_method = event.currentTarget.getAttribute("bank_name");
+                this.kalkulasi();
+            },
+            updateTableItems() {
+                let param = {
+                    "active": false,
+                    "no_meja": this.activeTableNumber
+                }
+                this.dineIn(param);
+            },
+            onpaymentBankChange(){
+                if (this.leftAmount >= 0 && this.payment_bank){
+                    this.input_bank = this.leftAmount;
+                }else{
+                    this.input_bank = "";
+                }
+                this.kalkulasi()
+            },
+            onpaymentcashChange(){
+                if (this.payment_cash && this.payment_bank === false)
+                    this.input_cash = this.estimate(this.grandtotal);
+                else
+                    this.input_cash = "";
 
-                    $.ajax({
-                        url : "<?php echo Yii::app()->createUrl('sales/GetOmsetByUser'); ?>",
-                        data : "date="+tanggal+"&user_id="+user_id,
-                        success:function(data){
-                            var js = JSON.parse(data);
-                            let omset = js.cash;
-                            vm.closing.openAmount = vm.convertToZero(js.total_awal);
-                            vm.closing.expectedCash =  vm.convertToZero(js.total_awal) +  vm.convertToZero(js.cash)-vm.convertToZero(js.potongan)-vm.convertToZero(js.pengeluaran);
-                            
-                            vm.modalCloseRegister.show();
+                if (this.payment_bank && this.payment_cash === false)
+                    this.input_bank = this.grandtotal;
+                else
+                    this.input_bank = "";
 
-                        }
+
+                this.kalkulasi()
+            },
+            kalkulasi() {
+                const vm = this;
+
+
+                if (this.payment_bank === false && this.payment_cash === true ){
+                    if (this.leftAmount === this.grandtotal){
+                    }else if (this.leftAmount > 0){ // jika masih ada sisa
+                        this.disabledPaymentBank = false;
+                        if (this.payment_bank)   
+                            this.input_bank = this.leftAmount;
+                        else
+                            this.input_bank = "";
+                    }
+                    else{
+                        // this.payment_bank = false;
+                        // this.disabledPaymentBank = true;
+                    }
+                }
+
+
+                vm.leftAmount = vm.grandtotal - ( (isNaN(vm.input_cash) ? 0 : vm.input_cash) + (isNaN(vm.input_bank) ? 0 : vm.input_bank)) ;
+                vm.subtotal = 0;
+                this.keranjang.forEach((obj) => {
+                    vm.subtotal += parseInt(obj.harga_jual) * parseInt(obj.qty);
+                });
+                vm.discount = vm.discount_type === "percent" ?  vm.subtotal * this.discount_value / 100 : vm.discount_value;
+                vm.subtotalAfterDiscount = vm.subtotal - vm.discount;
+                vm.tax = vm.subtotalAfterDiscount * this.percent_tax / 100;
+                vm.service = vm.subtotalAfterDiscount * this.percent_service / 100;
+                vm.grandtotal = (vm.subtotalAfterDiscount + vm.tax + vm.service);
+                vm.rounded = this.roundTotalToNearestMultiple(vm.grandtotal, 100) - vm.grandtotal;
+                vm.grandtotal = this.roundTotalToNearestMultiple(vm.grandtotal, 100);
+                if (vm.payment_cash && !vm.payment_bank)
+                    vm.change = vm.input_cash > vm.grandtotal ?  vm.formatMoney(vm.input_cash - vm.grandtotal) : "Uang cash kurang!";
+                
+
+
+            },
+            roundTotalToNearestMultiple(total, multiple) {
+                // Ensure multiple is a positive integer greater than 0
+                multiple = Math.abs(Math.floor(multiple)) || 1;
+
+                // Round the total to the nearest multiple
+                const roundedTotal = Math.round(total / multiple) * multiple;
+
+                return roundedTotal;
+            },
+            searchItem(event) {
+                if (event.target.value.length > 0) {
+                    this.items = this.items.filter(obj =>
+                        obj.nama.toLowerCase().includes(event.target.value)
+                    );
+                } else {
+                    this.items = this.originalItems;
+                }
+                this.kalkulasi();
+            },
+            removeItem(id) {
+                this.keranjang = this.keranjang.filter(obj => obj["id"] !== id);
+                this.kalkulasi();
+            },
+            saveNote() {
+                let isExist = this.keranjang.find(obj => obj.id === this.keranjangItemActive);
+                if (isExist) {
+                    isExist.comment = this.comment_item;
+                    this.modalNote.hide();
+                }
+            },
+            saveDiscount() {
+                this.modalDiscount.hide();
+                this.kalkulasi();
+            },
+            addNote(id) {
+                this.keranjangItemActive = id;
+                let isExist = this.keranjang.find(obj => obj.id === id);
+                if (isExist) {
+                    this.comment_item = isExist.comment;
+                    this.modalNote.show();
+                    this.$refs.comment_item.focus();
+                }
+            },
+            add(id,qty = 1) {
+                let isExist = this.keranjang.find(obj => obj.id === id);
+                if (isExist === undefined) {
+                    let findItem = this.originalItems.filter(function(i) {
+                        return (i.id === id);
                     });
+                    findItem[0].qty = qty;
+                    this.keranjang.push(findItem[0]);
+                } else {
+                    isExist.qty += 1;
+                }
+                this.kalkulasi();
+            },
+            formatMoney(value) {
+                // Convert the numeric value to Rupiah format
+                const formattedValue = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                }).format(value);
 
-                },
-                closingkalkulasi(){
-                    this.closing.remainingCash = parseInt(this.closing.countedCash) - parseInt(this.closing.expectedCash);
-                },
-                setCashlessMethod(){
-                    if (this.payment_bank)
-                        this.payment_bank_method = event.currentTarget.getAttribute("bank_name");
-                    this.kalkulasi();
-                },
-                updateTableItems() {
-                    let param = {
-                        "active": false,
-                        "no_meja": this.activeTableNumber
-                    }
-                    this.dineIn(param);
-                },
-                onpaymentBankChange(){
-                    if (this.leftAmount >= 0 && this.payment_bank){
-                        this.input_bank = this.leftAmount;
-                    }else{
-                        this.input_bank = "";
-                    }
-                    this.kalkulasi()
-                },
-                onpaymentcashChange(){
-                    if (this.payment_cash && this.payment_bank === false)
-                        this.input_cash = this.estimate(this.grandtotal);
-                    else
-                        this.input_cash = "";
-
-                    if (this.payment_bank && this.payment_cash === false)
-                        this.input_bank = this.grandtotal;
-                    else
-                        this.input_bank = "";
-
-
-                    this.kalkulasi()
-                },
-                kalkulasi() {
-                    const vm = this;
-
-
-                    if (this.payment_bank === false && this.payment_cash === true ){
-                        if (this.leftAmount === this.grandtotal){
-                        }else if (this.leftAmount > 0){ // jika masih ada sisa
-                            this.disabledPaymentBank = false;
-                            if (this.payment_bank)   
-                                this.input_bank = this.leftAmount;
-                            else
-                                this.input_bank = "";
-                        }
-                        else{
-                            // this.payment_bank = false;
-                            // this.disabledPaymentBank = true;
-                        }
-                    }
-
-
-                    vm.leftAmount = vm.grandtotal - ( (isNaN(vm.input_cash) ? 0 : vm.input_cash) + (isNaN(vm.input_bank) ? 0 : vm.input_bank)) ;
-                    vm.subtotal = 0;
-                    this.keranjang.forEach((obj) => {
-                        vm.subtotal += parseInt(obj.harga_jual) * parseInt(obj.qty);
-                    });
-                    vm.discount = vm.discount_type === "percent" ?  vm.subtotal * this.discount_value / 100 : vm.discount_value;
-                    vm.subtotalAfterDiscount = vm.subtotal - vm.discount;
-                    vm.tax = vm.subtotalAfterDiscount * this.percent_tax / 100;
-                    vm.service = vm.subtotalAfterDiscount * this.percent_service / 100;
-                    vm.grandtotal = (vm.subtotalAfterDiscount + vm.tax + vm.service);
-                    vm.rounded = this.roundTotalToNearestMultiple(vm.grandtotal, 100) - vm.grandtotal;
-                    vm.grandtotal = this.roundTotalToNearestMultiple(vm.grandtotal, 100);
-                    if (vm.payment_cash && !vm.payment_bank)
-                        vm.change = vm.input_cash > vm.grandtotal ?  vm.formatMoney(vm.input_cash - vm.grandtotal) : "Uang cash kurang!";
-                    
-
-
-                },
-                roundTotalToNearestMultiple(total, multiple) {
-                    // Ensure multiple is a positive integer greater than 0
-                    multiple = Math.abs(Math.floor(multiple)) || 1;
-
-                    // Round the total to the nearest multiple
-                    const roundedTotal = Math.round(total / multiple) * multiple;
-
-                    return roundedTotal;
-                },
-                searchItem(event) {
-                    if (event.target.value.length > 0) {
-                        this.items = this.items.filter(obj =>
-                            obj.nama.toLowerCase().includes(event.target.value)
-                        );
-                    } else {
-                        this.items = this.originalItems;
-                    }
-                    this.kalkulasi();
-                },
-                removeItem(id) {
-                    this.keranjang = this.keranjang.filter(obj => obj["id"] !== id);
-                    this.kalkulasi();
-                },
-                saveNote() {
-                    let isExist = this.keranjang.find(obj => obj.id === this.keranjangItemActive);
-                    if (isExist) {
-                        isExist.comment = this.comment_item;
-                        this.modalNote.hide();
-                    }
-                },
-                saveDiscount() {
-                    this.modalDiscount.hide();
-                    this.kalkulasi();
-                },
-                addNote(id) {
-                    this.keranjangItemActive = id;
-                    let isExist = this.keranjang.find(obj => obj.id === id);
-                    if (isExist) {
-                        this.comment_item = isExist.comment;
-                        this.modalNote.show();
-                        this.$refs.comment_item.focus();
-                    }
-                },
-                add(id,qty = 1) {
-                    let isExist = this.keranjang.find(obj => obj.id === id);
-                    if (isExist === undefined) {
-                        let findItem = this.originalItems.filter(function(i) {
-                            return (i.id === id);
-                        });
-                        findItem[0].qty = qty;
-                        this.keranjang.push(findItem[0]);
-                    } else {
-                        isExist.qty += 1;
-                    }
-                    this.kalkulasi();
-                },
-                formatMoney(value) {
-                    // Convert the numeric value to Rupiah format
-                    const formattedValue = new Intl.NumberFormat('id-ID', {
-                        style: 'currency',
-                        currency: 'IDR',
-                        minimumFractionDigits: 0,
-                    }).format(value);
-
-                    return formattedValue;
-                },
-                isInKeranjang(id) {
-                    let isExist = this.keranjang.find(obj => obj.id === id);
-                    return isExist == undefined
-                },
-                addQTY(id) {
-                    this.keranjang.filter((obj) => obj.id == id)[0].qty += 1;
-                    this.kalkulasi()
-                },
-                minQTY(id) {
-                    this.keranjang.filter((obj) => obj.id == id)[0].qty -= 1;
-                    if (this.keranjang.filter((obj) => obj.id == id)[0].qty <= 0) {
-                        this.removeItem(id)
-                    }
-                    this.kalkulasi()
-                },
-                async dineIn(item) {
-                    const vm = this;
-                    if (item.active) {
-                        if (vm.keranjang.length > 0 && vm.activeTableNumber === ""){
-                            let confirmBuka = confirm("Anda memiliki keranjang aktif, dengan membuka meja ini data keranjang akan hilang, apakah anda yakin untuk membukanya ? ");
-                            if (!confirmBuka)
-                                return false;
-                        } 
-                        const apiUrl = `index.php?r=mobilepos/Gettablebynumber&id=${item.id}`;
-                        try {
-                            const response = await fetch(apiUrl, {
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                }
-                            });
-
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! Status: ${response.status}`);
-                            }
-
-                            const data = await response.json();
-                            vm.keranjang = [];
-                            if (data.detail.length > 0) {
-                                data.detail.map((obj) => {
-                                    vm.add(obj.item_id, parseInt(obj.quantity_purchased));
-                                })
-                                vm.activeTableNumber = data.main.table;
-                                vm.activeTable = "(Meja " + data.main.table + ")";
-                                vm.modalTable.hide();
-                            }
-                            // Handle the data returned from the server
-                        } catch (error) {
-                            // Handle errors during the fetch
-                            console.error('Fetch error:', error);
-                        }
-
-                    } else { // if inactive
-                        this.bayar(0, item.no_meja);
-                    }
-                },
-                bayar(status, no_meja){
-                    let vm = this;
-                    let sales = {
-                        sale_id: null,
-                        subtotal: vm.subtotal,
-                        discount: vm.discount,
-                        tax: vm.tax,
-                        service: vm.service,
-                        total_cost: vm.grandtotal,
-                        payment: null,
-                        paidwith_id: vm.payment_bank_method === "" ? "CASH" : vm.payment_bank_method,
-                        status: status,
-                        table: no_meja === undefined ? this.activeTableNumber : no_meja,
-                        custype: null,
-                        bayar: vm.input_cash
-                    };
-
-
-                        let sales_payment = {
-                            cash: vm.input_cash,
-                            edcbca: vm.input_bank,
-                            edcniaga: 0,
-                            voucher: vm.discount,
-                            compliment: 0,
-                            dll: 0
-                        }
-                        let sales_items = [];
-                        vm.keranjang.forEach(function(rec) {
-                            sales_items.push({
-                                "item_id": rec.id,
-                                "item_name": rec.nama,
-                                "quantity_purchased": rec.qty,
-                                "item_tax": 0,
-                                "item_discount": 0,
-                                "item_price": rec.harga_jual,
-                                "item_total_cost": rec.harga_jual * rec.qty,
-                                "permintaan": rec.comment
-                            });
-                        });
-
-                        if (sales_items.length < 0) {
-                            alert("gagal!");
-                        }
-
-                        $.ajax({
-                            url: 'index.php?r=sales/bayar',
-                            type: 'POST',
-                            data: {
-                                data: sales,
-                                data_detail: sales_items,
-                                data_payment: sales_payment
-                            },
-                            success: function(data) {
-                                var sales = JSON.parse(data);
-                                vm.refreshTable();
-                                vm.cleanUpOrder()
-                     
-                                vm.modalTable.hide();
-                                if (sales.status == 1)
-                                    {
-                                        var jenis_cetak = '<?php echo SiteController::getConfig("ukuran_kertas"); ?>';
-                                        var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
-
-                                        if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
-
-                                            var c = confirm("Cetak Bukti ?? ");
-                                            if (c){	
-                                                $.ajax({
-                                                    url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
-                                                    data : {
-                                                        id : sales.sale_id
-                                                    },
-                                                    success:function(data){
-                                                    $('.body-bukti').html(data);
-                                                    $(".btn-modal-preview").trigger("click");
-
-                                                    }
-                                                });
-                                            // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-                                            }
-                                        }else if ( (jenis_cetak=="80mm" || jenis_cetak=="58mm") && jenis_printer === "Epson LX" ){
-                                            var c = confirm("Cetak Bukti ?? ");
-                                            if (c){ 
-                                                window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+sales.sale_id);
-                                            }
-                                        }else{
-                                            var i =1;
-                                            var ulang  =  1;
-                                            function myLoop(){
-                                                setTimeout(function(){
-                                                    print_bayar(sales);
-                                                    i++;
-                                                    
-                                                    if (i<=ulang){
-                                                        myLoop();
-                                                        
-                                                    }
-                                                },1000)
-                                            }
-                                            myLoop();
-                                        }
-                                        // alert("Tekan OK untuk mendapatkan rekap ke 2.");
-                                        // if (confirm("Cetak receipt ke - 2 ? ")){	
-                                        // }
-                                        // $("#vouchernominal").val("");
-                                    }
-
-                                if (sales.error){
-                                    alert(sales.error);
-                                }
-                            },
-                            error: function(data) {
-                                alert(data);
-                            }
-                        });
-                },
-                async getActiveTable() {
-                    // Construct the URL with the tableNumber parameter
-                    const apiUrl = `http://localhost/toko-base/index.php?r=mobilepos/table`;
-
+                return formattedValue;
+            },
+            isInKeranjang(id) {
+                let isExist = this.keranjang.find(obj => obj.id === id);
+                return isExist == undefined
+            },
+            addQTY(id) {
+                this.keranjang.filter((obj) => obj.id == id)[0].qty += 1;
+                this.kalkulasi()
+            },
+            minQTY(id) {
+                this.keranjang.filter((obj) => obj.id == id)[0].qty -= 1;
+                if (this.keranjang.filter((obj) => obj.id == id)[0].qty <= 0) {
+                    this.removeItem(id)
+                }
+                this.kalkulasi()
+            },
+            async dineIn(item) {
+                const vm = this;
+                if (item.active) {
+                    if (vm.keranjang.length > 0 && vm.activeTableNumber === ""){
+                        let confirmBuka = confirm("Anda memiliki keranjang aktif, dengan membuka meja ini data keranjang akan hilang, apakah anda yakin untuk membukanya ? ");
+                        if (!confirmBuka)
+                            return false;
+                    } 
+                    const apiUrl = `index.php?r=mobilepos/Gettablebynumber&id=${item.id}`;
                     try {
-                        // Make a GET request using the fetch API with the Content-Type header set to application/json
                         const response = await fetch(apiUrl, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
-                                // You can add other headers if needed
-                                // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
                             }
                         });
 
@@ -1056,172 +923,336 @@
                             throw new Error(`HTTP error! Status: ${response.status}`);
                         }
 
-                        // Parse the JSON response
                         const data = await response.json();
-
+                        vm.keranjang = [];
+                        if (data.detail.length > 0) {
+                            data.detail.map((obj) => {
+                                vm.add(obj.item_id, parseInt(obj.quantity_purchased));
+                            })
+                            vm.activeTableNumber = data.main.table;
+                            vm.activeTable = "(Meja " + data.main.table + ")";
+                            vm.modalTable.hide();
+                        }
                         // Handle the data returned from the server
-                        return data;
                     } catch (error) {
                         // Handle errors during the fetch
                         console.error('Fetch error:', error);
                     }
 
-                },
-                async refreshTable() {
-                    let activeTable = await this.getActiveTable();
-                    activeTable = activeTable.map(obj => obj.table);
-                    this.table = this.table.map((obj) => {
-                        if (activeTable.includes(obj.no_meja))
-                            return {
-                                ...obj,
-                                active: true
-                            };
-                        else
-                            return {
-                                ...obj,
-                                active: false
-                            };
-                    });
-                },
-                cleanUpOrder() {
-                    this.subtotal = 0;
-                    this.discount = 0;
-                    this.tax = 0;
-                    this.service = 0;
-                    this.rounded = 0;
-                    this.grandtotal = 0;
-                    this.keranjang = [];
-                    this.activeTableNumber = "";
-                    this.activeTable = "";
-                    this.payment_cash = true;
-                    this.payment_bank = false;
-                    this.search_keyword = "";
-                    this.discount_type = "percent";
-                    this.discount_value = 0;
-                    this.payment_bank_method = "";
-
-                },
-                estimate(num) {
-                    if (num < 10000) {
-                        num = 10000;
-                        return num;
-                    } else if (num <= 20000) {
-                        return 20000;
-                    } else if (num <= 20000) {
-                        return 20000;
-                    } else if (num <= 50000) {
-                        return 50000;
-                    } else if (num <= 100000) {
-                        return 100000;
-                    } else if (num <= 150000) {
-                        return 150000;
-                    } else if (num <= 200000) {
-                        return 200000;
-                    } else if (num <= 250000) {
-                        return 250000;
-                    } else if (num <= 300000) {
-                        return 300000;
-                    } else {
-                        return num;
-                    }
-
-                },
-                setInputCash(event) {
-                    if (this.payment_cash)
-                        this.input_cash = event.currentTarget.getAttribute("idr-value");
-                    this.kalkulasi();
-                },
-                filterCategory(id) {
-                    this.activeCategory = id;
-                    if (id === "all"){
-                        this.items = this.originalItems;
+                } else { // if inactive
+                    this.bayar(0, item.no_meja);
+                }
+            },
+            bayar(status, no_meja){
+                let vm = this;
+                let sales = {
+                    sale_id: null,
+                    subtotal: vm.subtotal,
+                    discount: vm.discount,
+                    tax: vm.tax,
+                    service: vm.service,
+                    total_cost: vm.grandtotal,
+                    payment: null,
+                    paidwith_id: vm.payment_bank_method === "" ? "CASH" : vm.payment_bank_method,
+                    status: status,
+                    table: no_meja === undefined ? this.activeTableNumber : no_meja,
+                    custype: null,
+                    bayar: vm.input_cash
+                };
+                
+                    let total_cash = 0;
+                    if (vm.payment_cash && vm.payment_bank === false){
+                        total_cash = vm.grandtotal;
                     }else{
-                        this.items = this.originalItems.filter(obj =>
-                            obj.category_id == id
-                        );
+                        total_cash = vm.input_cash; 
                     }
-                    this.kalkulasi();
-                },
-                showDiscountPopup(){
-                    this.modalDiscount.show();
-                }
+
+                    let sales_payment = {
+                        cash: total_cash,
+                        edcbca: vm.input_bank,
+                        edcniaga: 0,
+                        voucher: vm.discount,
+                        compliment: 0,
+                        dll: 0
+                    }
+                    let sales_items = [];
+                    vm.keranjang.forEach(function(rec) {
+                        sales_items.push({
+                            "item_id": rec.id,
+                            "item_name": rec.nama,
+                            "quantity_purchased": rec.qty,
+                            "item_tax": 0,
+                            "item_discount": 0,
+                            "item_price": rec.harga_jual,
+                            "item_total_cost": rec.harga_jual * rec.qty,
+                            "permintaan": rec.comment
+                        });
+                    });
+
+                    if (sales_items.length < 0) {
+                        alert("gagal!");
+                    }
+
+                    $.ajax({
+                        url: 'index.php?r=sales/bayar',
+                        type: 'POST',
+                        data: {
+                            data: sales,
+                            data_detail: sales_items,
+                            data_payment: sales_payment
+                        },
+                        success: function(data) {
+                            var sales = JSON.parse(data);
+                            vm.refreshTable();
+                            vm.cleanUpOrder()
+                    
+                            vm.modalTable.hide();
+                            if (sales.status == 1)
+                                {
+                                    var jenis_cetak = '<?php echo SiteController::getConfig("ukuran_kertas"); ?>';
+                                    var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
+
+                                    if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
+
+                                        var c = confirm("Cetak Bukti ?? ");
+                                        if (c){	
+                                            $.ajax({
+                                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
+                                                data : {
+                                                    id : sales.sale_id
+                                                },
+                                                success:function(data){
+                                                $('.body-bukti').html(data);
+                                                $(".btn-modal-preview").trigger("click");
+
+                                                }
+                                            });
+                                        // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
+                                        }
+                                    }else if ( (jenis_cetak=="80mm" || jenis_cetak=="58mm") && jenis_printer === "Epson LX" ){
+                                        var c = confirm("Cetak Bukti ?? ");
+                                        if (c){ 
+                                            window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+sales.sale_id);
+                                        }
+                                    }else{
+                                        var i =1;
+                                        var ulang  =  1;
+                                        function myLoop(){
+                                            setTimeout(function(){
+                                                print_bayar(sales);
+                                                i++;
+                                                
+                                                if (i<=ulang){
+                                                    myLoop();
+                                                    
+                                                }
+                                            },1000)
+                                        }
+                                        myLoop();
+                                    }
+                                    // alert("Tekan OK untuk mendapatkan rekap ke 2.");
+                                    // if (confirm("Cetak receipt ke - 2 ? ")){	
+                                    // }
+                                    // $("#vouchernominal").val("");
+                                }
+
+                            if (sales.error){
+                                alert(sales.error);
+                            }
+                        },
+                        error: function(data) {
+                            alert(data);
+                        }
+                    });
             },
-            computed() {
+            async getActiveTable() {
+                // Construct the URL with the tableNumber parameter
+                const apiUrl = `<?php echo $this->createUrl('mobilepos/table');?>`;
+
+                try {
+                    // Make a GET request using the fetch API with the Content-Type header set to application/json
+                    const response = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // You can add other headers if needed
+                            // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    // Parse the JSON response
+                    const data = await response.json();
+
+                    // Handle the data returned from the server
+                    return data;
+                } catch (error) {
+                    // Handle errors during the fetch
+                    console.error('Fetch error:', error);
+                }
 
             },
-            data() {
-                return {
-                    subtotal: 0,
-                    discount: 0,
-                    discount_value: 0,
-                    discount_type: "percent", //percent or amount
-                    percent_tax: <?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->pajak ?>,
-                    percent_service: <?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->service ?>,
-                    tax: 0,
-                    service: 0,
-                    rounded: 0,
-                    grandtotal: 0,
-                    keranjang: [],
-                    originalItems: <?php echo $items; ?>,
-                    items: <?php echo $items; ?>,
-                    table: <?php echo $table; ?>,
-                    categories: <?php echo $categories; ?>,
-                    activeTableNumber: "",
-                    activeTable: "",
-                    activeCategory: "all",
-                    modalTable: null,
-                    payment_cash: true,
-                    payment_bank: false,
-                    payment_bank_method: "",
-                    input_bank: 0,
-                    input_cash: 0,
-                    change: 0,
-                    leftAmount: 0,
-                    disabledPaymentBank : false,
-                    keranjangItemActive : "",
-                    comment_item : "",
-                    modalInfo : null,
-                    modalInfoMessage : "",
-                    modalCloseRegister : null,
-                    closing : {
-                        expectedCash : 0,
-                        countedCash : 0,
-                        withdrawBank : 0,
-                        remainingCash : 0,
-                        comment : 0,
-                        expense : 0,
-                        openAmount : 0
-                    }
+            async refreshTable() {
+                let activeTable = await this.getActiveTable();
+                activeTable = activeTable.map(obj => obj.table);
+                this.table = this.table.map((obj) => {
+                    if (activeTable.includes(obj.no_meja))
+                        return {
+                            ...obj,
+                            active: true
+                        };
+                    else
+                        return {
+                            ...obj,
+                            active: false
+                        };
+                });
+            },
+            cleanUpOrder() {
+                this.subtotal = 0;
+                this.discount = 0;
+                this.tax = 0;
+                this.service = 0;
+                this.rounded = 0;
+                this.grandtotal = 0;
+                this.keranjang = [];
+                this.activeTableNumber = "";
+                this.activeTable = "";
+                this.payment_cash = true;
+                this.payment_bank = false;
+                this.search_keyword = "";
+                this.discount_type = "percent";
+                this.discount_value = 0;
+                this.payment_bank_method = "";
+
+            },
+            estimate(num) {
+                if (num < 10000) {
+                    num = 10000;
+                    return num;
+                } else if (num <= 20000) {
+                    return 20000;
+                } else if (num <= 20000) {
+                    return 20000;
+                } else if (num <= 50000) {
+                    return 50000;
+                } else if (num <= 100000) {
+                    return 100000;
+                } else if (num <= 150000) {
+                    return 150000;
+                } else if (num <= 200000) {
+                    return 200000;
+                } else if (num <= 250000) {
+                    return 250000;
+                } else if (num <= 300000) {
+                    return 300000;
+                } else {
+                    return num;
                 }
+
             },
-            mounted() {
-                this.modalTable = new bootstrap.Modal(document.getElementById('modalTable'));
-                this.modalNote = new bootstrap.Modal(document.getElementById('modalNote'));
-                this.modalDiscount = new bootstrap.Modal(document.getElementById('modalDiscount'));
-                this.modalInfo = new bootstrap.Modal(document.getElementById('modalInfo'));
-                this.modalCloseRegister = new bootstrap.Modal(document.getElementById('modalCloseRegister'));
-                this.refreshTable();
+            setInputCash(event) {
+                if (this.payment_cash)
+                    this.input_cash = event.currentTarget.getAttribute("idr-value");
+                this.kalkulasi();
             },
-            watch: {
-                "grandtotal": function() {
-                    this.input_cash = this.estimate(this.grandtotal);
-                },
-                "input_cash": function() {
-                    this.kalkulasi();
-                },
-                "input_bank": function() {
-                    this.kalkulasi();
-                },
-                // "items": function() {
-                //     this.items =  this.items.slice().sort((a, b) => a.qty - b.qty);
-                // }
+            filterCategory(id) {
+                this.activeCategory = id;
+                if (id === "all"){
+                    this.items = this.originalItems;
+                }else{
+                    this.items = this.originalItems.filter(obj =>
+                        obj.category_id == id
+                    );
+                }
+                this.kalkulasi();
             },
-            setup() {
-                const message = ref('Hello vue!')
-                return {
-                    message,
+            showDiscountPopup(){
+                this.modalDiscount.show();
+            }
+        },
+        computed() {
+
+        },
+        data() {
+            return {
+                subtotal: 0,
+                discount: 0,
+                discount_value: 0,
+                discount_type: "percent", //percent or amount
+                percent_tax: <?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->pajak ?>,
+                percent_service: <?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->service ?>,
+                tax: 0,
+                service: 0,
+                rounded: 0,
+                grandtotal: 0,
+                keranjang: [],
+                originalItems: <?=($items == "" ? "[]" : $items); ?>,
+                items: <?=($items == "" ? "[]" : $items); ?>,
+                table:  <?=($table == "" ? "[]" : $table); ?>,
+                categories: <?=($categories == "" ? "[]" : $categories); ?>,
+                activeTableNumber: "",
+                activeTable: "",
+                activeCategory: "all",
+                payment_cash: true,
+                payment_bank: false,
+                payment_bank_method: "",
+                input_bank: 0,
+                input_cash: 0,
+                change: 0,
+                leftAmount: 0,
+                disabledPaymentBank : false,
+                disabledTutupRegister : false,
+                keranjangItemActive : "",
+                comment_item : "",
+                modalTable: null,
+                modalInfo : null,
+                modalInfoMessage : null,
+                modalCloseRegister : null,
+                modalNote : null,
+                closing : {
+                    expectedCash : 0,
+                    countedCash : 0,
+                    withdrawBank : 0,
+                    remainingCash : 0,
+                    comment : "",
+                    expense : 0,
+                    openAmount : 0
                 }
             }
-        }).mount('#app')
-    </script>
+        },
+        mounted() {
+            this.modalTable = new bootstrap.Modal(document.getElementById('modalTable'));
+            this.modalNote = new bootstrap.Modal(document.getElementById('modalNote'));
+            this.modalDiscount = new bootstrap.Modal(document.getElementById('modalDiscount'));
+            this.modalInfo = new bootstrap.Modal(document.getElementById('modalInfo'));
+            this.modalCloseRegister = new bootstrap.Modal(document.getElementById('modalCloseRegister'));
+            this.refreshTable();
+        },
+        watch: {
+            "grandtotal": function() {
+                this.input_cash = this.estimate(this.grandtotal);
+            },
+            "input_cash": function() {
+                this.kalkulasi();
+            },
+            "input_bank": function() {
+                this.kalkulasi();
+            },
+            // "items": function() {
+            //     this.items =  this.items.slice().sort((a, b) => a.qty - b.qty);
+            // }
+        },
+        setup() {
+            const message = ref('Hello vue!')
+            return {
+                message,
+            }
+        }
+    });
 
+    app.mount('#app');
+</script>

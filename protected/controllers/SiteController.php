@@ -652,7 +652,7 @@ class SiteController extends Controller
 				}
 				$setor = new Setor;
 				$this->layout = "backend";
-				$this->render('input_saldo',array("model"=>$setor));
+				$this->render('application.views.site.input_saldo',array("model"=>$setor,"callback"=>"site/index"));
 			}
 		}else{
 				$criteria = new CDbCriteria;
