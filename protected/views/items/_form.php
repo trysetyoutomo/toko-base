@@ -48,42 +48,6 @@
 		});
 
 	}
-	// 	if ($('#nama').val()!=0 && $('#nama').val()!=null ){
-	// 	$.ajax({
-	// 		data : "id="+$('#nama').val(),
-	// 		url : "<?php echo Yii::app()->createAbsoluteUrl('items/getname') ?>",
-	// 		success : function(data){
-
-	// 			var nama = $('#nama');
-	// 			// alert(nama.val());
-	// 			var stok = $('#stok');
-	// 			// alert(stok.val());
-	// 			var count = $('.pk[nilai="'+nama.val()+'"]').length;
-	// 			// if (count==0){
-
-	// 				$('#users tbody').append(
-	// 					"<tr class='baris'>" +
-	// 					// "<td></td>";
-	// 					"<td style='display:none' class='pk' nilai="+nama.val()+"  >" + nama.val() + "</td>" +
-	// 					"<td>" + data + "</td>" +
-	// 					// "<td><input class='kode' style='width:100%;padding:4px;' maxlength='15' type='text' value='0'/></td>" +
-	// 					"<td><input class='harga' style='width:100%;padding:4px;' maxlength='15' value='1' type='text'/></td>" +
-	// 					"<td class='hapus'>&nbsp;<i class='fa fa-times'></i > "+
-
-	// 					"</td> " +
-
-	// 					"</tr>"
-	// 				);
-	// 		    $("#nama").select2("open");
-
-	// 		}
-	// 	});
-	// 	}else{
-	// 		alert('tidak boleh kosong');
-	// 		$('#stok').val(1);
-	// 	}
-	// }
-
 </script>
 <?php 
 // var_dump($_REQUEST['is_generate']);
@@ -240,14 +204,15 @@
 <div class="col-sm-10">
 
 
-    <div class="mws-panel-body no-padding">
-        <?php $form=$this->beginWidget('CActiveForm', array(
+	<div class="mws-panel-body no-padding">
+	<?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'items-form',
 	'enableAjaxValidation'=>false,
-        'htmlOptions' => array(
-                'class' => 'mws-form',
-            )
-)); ?>
+	'htmlOptions' => array(
+		'class' => 'mws-form',
+		'enctype' => 'multipart/form-data',
+	)
+	)); ?>
 <?php
 $store_id = Yii::app()->user->store_id();
 
@@ -557,11 +522,19 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 	                <td><?php echo $form->dropDownList($model,'lokasi',array('1'=>'Bar','2'=>'Dapur')); ?></td>
 	                <td><?php echo $form->error($model,'lokasi'); ?></td>
                 </tr>
-                 <tr style="display:none">
-					<td><?php echo $form->labelEx($model,'gambar'); ?></td>
-	                <td><?php echo $form->filefield($model,'gambar',array('1'=>'Bar','2'=>'Dapur')); ?></td>
-	                <td><?php echo $form->error($model,'gambar'); ?></td>
+                 <tr>
+					<td><?php echo $form->labelEx($model,'image'); ?></td>
+	                <td><?php echo $form->filefield($model,'image'); ?></td>
+	                <td><?php echo $form->error($model,'image'); ?></td>
                 </tr>
+				<?php if (!$model->isNewRecord): ?>
+					<tr>
+						<td></td>
+						<td colspan="2">
+							<img width="100" src="<?php echo Yii::app()->request->baseUrl; ?>/img/produk/<?=$model->image?>?" alt="image not found" class="avatar-img rounded-circle">
+						</td>
+					</tr>
+				<?php endif; ?>
              
                  <tr style="display: none;">
 					<td><?php echo $form->labelEx($model,'ispaket'); ?></td>
@@ -684,19 +657,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 				 -->
                 </table>
               
-				
-           
-
-              
-                  
-				<div class="mws-form-row" style="display:none">
-                    <?php echo $form->labelEx($model,'image'); ?>
-                    <div class="mws-form-item">
-                        <?php echo $form->textField($model,'image',array('size'=>60,'maxlength'=>80)); ?>
-                    </div>
-                    <?php echo $form->error($model,'image'); ?>
-
-                </div>
+			
                 <div class="mws-form-row">
                     <div class="mws-form-item">
                         <?php echo $form->hiddenField($model,'status',array('value'=>1)); ?>

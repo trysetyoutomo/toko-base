@@ -1,4 +1,4 @@
-
+<meta name="google" content="notranslate">
 <style>
     :root {
         --gray-light: #8598AE;
@@ -8,6 +8,10 @@
     body {
         background-color: #F7F7F8;
         font-family: 'Work Sans', sans-serif;
+    }
+
+    .modal-dialog label{
+        font-size:12px;
     }
 
     .navpos{
@@ -62,12 +66,12 @@
         border-radius: 1rem;
         object-fit: cover;
         width: 100%;
-        max-height: 150px;
-        min-height: 150px;
+        max-height: 100px;
+        min-height: 75px;
     }
 
     .item-name {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         font-weight: 500;
     }
 
@@ -150,6 +154,30 @@
         min-height: 50px;
         
     }
+
+    .tabsize{
+        font-size: 11px;
+    }
+
+    /* @media (min-width: 576px) and (min-height: 700px) { */
+        .full-height {
+            height: 100vh!important;
+        }
+        
+        .full-height-half{
+            height: 60vh!important;
+        }
+
+        .money-box{
+            bottom: 0px;
+        }
+    /* } */
+
+    /* @media (min-width: 300px) and (min-height: 100px)  {
+        .full-height-half{
+            height: 125px!important;
+        }
+    } */
 </style>
 <!-- Button trigger modal -->
 
@@ -157,17 +185,19 @@
 
 
 <!-- Your content goes here -->
-<div class=" navpos align-items-center position-fixed w-100" style="height: 70px;top:0px;left:0px;z-index: 99">
-    <div class="row">
+<div class=" navpos align-items-center position-fixed w-100" style="top:0px;left:0px;z-index: 99;">
+    <div class="row"  style="height: 40px;">
         <div class="col-2 py-3 text-center">
-            <div class="bg-white" style="    border-radius: 0px 0px 20px 20px;position: relative;top: -1rem;left: 1rem;">
+            <div class="bg-white" style="    border-radius: 0px 0px 20px 20px;position: relative;top: -1rem;left: 1rem; width:100px">
                 <img class="brand-img img ml-3" style="width:80px;height:auto;" src="logo/35_POS_LOGO.png" alt="">
             </div>
         </div>
         <div class="col-10 text-end text-white" style="display: flex;
             flex-wrap: nowrap;
             flex-direction: row-reverse;
-            align-items: center;">
+            align-items: flex-start;
+            height:0px
+            ">
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php echo Yii::app()->user->name ?>
@@ -182,7 +212,7 @@
     </div>
 </div>
 
-<div class="container-fluid" id="app">
+<div class="container-fluid" id="app" v-cloak style="overflow-x:hidden">
     <!-- Modal Close Register-->
     <div class="modal fade" id="modalCloseRegister" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -196,45 +226,45 @@
             <div class="row mb-3">
                 <label for="expected-cash" class="col-sm-4 col-form-label">Saldo Awal</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="expected-cash" v-model="closing.openAmount" @change="closingkalkulasi" disabled>
+                <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.openAmount" @change="closingkalkulasi" disabled>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="expected-cash" class="col-sm-4 col-form-label">Pengeluaran</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="expected-cash" v-model="closing.expense" @change="closingkalkulasi" disabled>
+                <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.expense" @change="closingkalkulasi" disabled>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="expected-cash" class="col-sm-4 col-form-label">Total Transaksi Cash</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="expected-cash" v-model="closing.expectedCash" @change="closingkalkulasi" disabled>
+                <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.expectedCash" @change="closingkalkulasi" disabled>
                 </div>
             </div>
             
             <div class="row mb-3">
                 <label for="withdrawal-bank" class="col-sm-4 col-form-label">Total Transaksi Bank</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="withdrawal-bank" v-model="closing.withdrawBank" @change="closingkalkulasi" disabled>
+                <input type="text" class="form-control form-control-sm" id="withdrawal-bank" v-model="closing.withdrawBank" @change="closingkalkulasi" disabled>
                 </div>
             </div>
             <hr>
             <div class="row mb-3">
                 <label for="counted-cash" class="col-sm-4 col-form-label">Cash Terhitung</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="counted-cash" v-model="closing.countedCash" @input="closingkalkulasi">
+                <input type="text" class="form-control form-control-sm" id="counted-cash" v-model="closing.countedCash" @input="closingkalkulasi">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="remaining-cash" class="col-sm-4 col-form-label">Kurang/Lebih Cash</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi" disabled>
+                <input type="text" class="form-control form-control-sm" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi" disabled>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row mb-3 d-none">
                 <label for="comment" class="col-sm-4 col-form-label">Comment</label>
                 <div class="col-sm-8">
-                <textarea placeholder="Catatan khusus Closing" class="form-control" id="comment" rows="3" v-model="closing.comment"></textarea>
+                    <textarea placeholder="Catatan khusus Closing" class="form-control form-control-sm tabsize" id="comment" rows="3" v-model="closing.comment"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -287,7 +317,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="comment_item" class="form-label">Nilai Diskon</label>
-                    <input :maxlength="discount_type === 'percent' ? 2 : 10" v-model="discount_value" ref="discount_value" type="text" class="form-control" id="discount_value" placeholder="Enter your text" />
+                    <input :maxlength="discount_type === 'percent' ? 2 : 10" v-model="discount_value" ref="discount_value" type="text" class="form-control form-control-sm" id="discount_value" placeholder="Enter your text" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -310,7 +340,7 @@
                 <!-- Input field -->
                 <div class="mb-3">
                 <label for="comment_item" class="form-label">Catatan Pesanan</label>
-                <textarea maxlength="50" v-model="comment_item" ref="comment_item" type="text" class="form-control" id="comment_item" placeholder="Enter your text"></textarea>
+                <textarea maxlength="50" v-model="comment_item" ref="comment_item" type="text" class="form-control form-control-sm" id="comment_item" placeholder="Enter your text"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -326,13 +356,17 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modalMeja">Total Bayar ({{formatMoney(grandtotal)}})</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="modalMeja">Total Bayar ({{formatMoney(grandtotal)}})</h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    <div>
+                        <button type="button" class="btn btn-secondary me-1 " data-bs-dismiss="modal">Batal</button>
+                        <button :disabled="leftAmount > 0" @click="bayar(1)" type="button" class="btn btn-success " data-bs-dismiss="modal">Bayar</button>
+                    </div>
                 </div>
-                <div class="modal-body" style="min-height: 400px;">
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-3 mt-1">
-                            <div class="fs-4 text-center">
+                            <div class=" text-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-check form-switch">
@@ -345,47 +379,46 @@
                         </div>
                         <div class="col-9 mt-1">
                             <div class="row">
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-1000 btn btn-success w-100" idr-value="1000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-2000 btn btn-success w-100" idr-value="2000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-5000 btn btn-success w-100" idr-value="5000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-10000 btn btn-success w-100" idr-value="10000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-20000 btn btn-success w-100" idr-value="20000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-50000 btn btn-success w-100" idr-value="50000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-75000 btn btn-success w-100" idr-value="75000" @click="setInputCash"></button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button class="btn-money-100000 btn btn-success w-100" idr-value="100000" @click="setInputCash"></button>
                                 </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-1">
                                 <div class="col-12">
-                                    <div class="input-group input-group-lg mb-3">
-                                        <div class="input-group-prepend input-group-lg">
+                                    <div class="input-group mb-1">
+                                        <div class="input-group-prepend ">
                                             <span class="input-group-text">IDR </span>
                                         </div>
-                                        <input :disabled="payment_cash === false" @change="kalkulasi" @change="this.select()" v-model="input_cash" placeholder="Masukan nilai Rupiah" type="text" class="form-control">
+                                        <input :disabled="payment_cash === false" @change="kalkulasi" @change="this.select()" v-model="input_cash" placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row pt-4">
+                    <div class="row pt-1">
                         <div class="col-3 mt-1">
-                            <div class="fs-4 text-center">
+                            <div class=" text-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-check form-switch">
@@ -397,7 +430,7 @@
                             </div>
                         </div>
                         <div class="col-9 mt-1">
-                            <div class="row mb-4">
+                            <div class="row mb-1">
                                 <div class="col">
                                     <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BCA">BCA</button>
                                 </div>
@@ -412,60 +445,57 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend input-group-lg">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend ">
                                         <span class="input-group-text">IDR </span>
                                     </div>
-                                    <input placeholder="Masukan nilai Rupiah" type="text" class="form-control" :disabled="disabledPaymentBank || payment_bank === false" v-model="input_bank" />
+                                    <input placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm" :disabled="disabledPaymentBank || payment_bank === false" v-model="input_bank" />
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend input-group-lg">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend ">
                                         <span class="input-group-text">0.0 </span>
                                     </div>
-                                    <input :disabled="disabledPaymentBank || payment_bank === false" placeholder="Masukan Nomor Kartu" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                    <input :disabled="disabledPaymentBank || payment_bank === false" placeholder="Masukan Nomor Kartu" type="text" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <hr  v-if="payment_cash && !payment_bank">
-                    <div class="row pt-4" v-if="payment_cash && !payment_bank">
+                    <div class="row pt-1" v-if="payment_cash && !payment_bank">
                         <div class="col-3 mt-1">
-                            <div class="fs-4 text-center">
+                            <div class=" text-center">
                                 <div class="row">
-                                    <div class="col-12">
-                                        Uang Kembali
+                                    <div class="col-12 tabsize">
+                                        Uang Kembali/ Change
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-9 mt-1">
                             <div class="col-12">
-                                <div class="input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend input-group-lg">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend ">
                                         <span class="input-group-text">IDR </span>
                                     </div>
-                                    <input  readonly="true" v-model="change" placeholder="Change" type="text" :class="{'form-control':true,'text-danger':change === 'Uang cash kurang!'}" aria-label="Amount (to the nearest dollar)">
+                                    <input   readonly="true" v-model="change" placeholder="Change" type="text" :class="{'form-control form-control-sm':true,'text-danger':change === 'Uang cash kurang!'}" aria-label="Amount (to the nearest dollar)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row pt-4 d-none">
                         <div class="col-3 mt-1">
-                            <div class="fs-4 text-center">
+                            <div class=" text-center">
                                 <img src="https://media.istockphoto.com/id/1191080960/photo/traditional-turkish-breakfast-and-people-taking-various-food-wide-composition.jpg?s=612x612&w=0&k=20&c=PP5ejMisEwzcLWrNmJ8iPPm_u-4P6rOWHEDpBPL2n7Q=" width="60" />
                             </div>
                         </div>
                         <div class="col-9 mt-1">
-                            <button class="btn btn-danger btn-lg "><i class="fa fa-qrcode"></i> Tampilkan QR Code</button>
+                            <button class="btn btn-danger  "><i class="fa fa-qrcode"></i> Tampilkan QR Code</button>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Batal</button>
-                    <button :disabled="leftAmount > 0" @click="bayar(1)" type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal">Bayar</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -491,34 +521,31 @@
                     <h5 class="modal-title" id="modalMeja">Meja</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="min-height: 400px;">
+                <div class="modal-body">
                     <div class="row g-2">
                         <div class="col-3" v-for="item in table" :key="item.id">
-                            <button :disabled="keranjang.length <= 0 && item.active === false" @click="dineIn(item)" :class="{ 'btn-lg':true,'btn':true,'btn-outline-primary':item.active === true,'w-100':true}"><i class="fa fa-chair"></i> Meja {{item.no_meja}} </button>
+                            <button :disabled="keranjang.length <= 0 && item.active === false" @click="dineIn(item)" :class="{ '':true,'btn':true,'btn-outline-primary':item.active === true,'w-100':true}"><i class="fa fa-chair"></i> Meja {{item.no_meja}} </button>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row" style="z-index: 1;margin-top: 5rem;">
-        <div class="col-8 ">
-            <h5 class="mb-4 mt-4">Menu Items <span style="color:var(--gray-light)">({{items.length}})</span></h5>
-            <div class="row mt-3 mb-2">
+    <div class="row" style="z-index: 1;margin-top: 2.2rem;overflow:hidden!important">
+        <div class="col-8 col-sm-7 ">
+            <h5 class="mb-2 mt-4">Menu <span style="color:var(--gray-light)">({{items.length}})</span></h5>
+            <div class="row mt-3 ">
                 <div class="col-12">
                     <div class="input-group mb-3">
-                        <input v-model="search_keyword" @input="searchItem" type="text" class="form-control" placeholder="Cari Items" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input v-model="search_keyword" @input="searchItem" type="text" class="form-control form-control-sm" placeholder="Cari Items" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         <div class="input-group-append">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row" style="">
-                <div style="width:100000px;white-space: nowrap;overflow-x: auto;">
+                <div style="width:100000px;white-space: nowrap;overflow-x: auto!important;">
                     <ul id="menu-category">
                         <li @click="filterCategory('all')" :class="{'active':activeCategory === 'all'}">Semua Kategori</li>
                         <li @click="filterCategory(item.id)" :class="{'active':item.id === activeCategory}" v-for="item in categories" :key="item.id">{{item.category.toLowerCase()}}</li>
@@ -526,10 +553,10 @@
                 </div>
             </div>
             <div class="row gy-3 gx-2"> 
-                <div class="col-1 col-lg-4 col-md-4 col-sm-3" v-for="item in items" :key="item.id">
-                    <div :class="{ 'item-menu':true,'card':true,'border-primary': !isInKeranjang(item.id), 'border-3': !isInKeranjang(item.id) }" style="min-height:315px;">
+                <div class="col-1 col-lg-4 col-md-4 col-sm-6" v-for="item in items" :key="item.id">
+                    <div :class="{ 'item-menu':true,'card':true,'border-primary': !isInKeranjang(item.id), 'border-3': !isInKeranjang(item.id) }" style="min-height:210px;">
                         <div class="row" @click="add(item.id)">
-                            <img src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/10/4/1/FN_chain-restaurant-entrees_Applebees_Bourbon-Street-Chicken-Shrimp_s6x4.jpg.rend.hgtvcom.616.411.suffix/1538685780055.jpeg" alt="item menu" />
+                            <img :src="'img/produk/' + item.image" alt="image not found" class="avatar-img rounded-circle">
                         </div>
                         <div class="row mt-2 mb-2" @click="add(item.id)">
                             <div class="item-name">
@@ -542,17 +569,17 @@
                         <div class="row">
                             <div class=" col-12">
                                 <div v-if=(isInKeranjang(item.id))>
-                                    <button @click="add(item.id)" class="btn btn-outline-primary w-100 rounded">Tambah Item <i class=" fa fa-plus"></i></button>
+                                    <button @click="add(item.id)" class="btn btn-outline-primary w-100 rounded btn-sm">Tambah Item <i class=" fa fa-plus"></i></button>
                                 </div>
                                 <div v-else>
 
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <button @click="minQTY(item.id)" class="btn btn-primary" type="button"><i class="fa fa-minus"></i></button>
+                                            <button @click="minQTY(item.id)" class="btn btn-primary btn-sm" type="button"><i class="fa fa-minus"></i></button>
                                         </span>
-                                        <input v-model="keranjang.filter((obj) => obj.id == item.id)[0].qty" type="text" class="form-control text-center" readonly />
+                                        <input v-model="keranjang.filter((obj) => obj.id == item.id)[0].qty" type="text" class="form-control form-control-sm text-center" readonly />
                                         <span class="input-group-btn">
-                                            <button @click="addQTY(item.id)" class="btn btn-primary" type="button"><i class="fa fa-plus"></i></button>
+                                            <button @click="addQTY(item.id)" class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus"></i></button>
                                         </span>
                                     </div>
 
@@ -565,17 +592,17 @@
             </div>
 
         </div>
-        <div class="col-4">
-            <div class="card mt-4 position-fixed " style="width: -webkit-fill-available;">
-                <div class="card-header p-3"> <span class="h5">Ringkasan Pesanan <span style="color: var(--gray-light);">{{activeTable}}</span>
+        <div class="col-4 col-sm-3">
+            <div class="card mt-2 position-fixed full-height" style="width: -webkit-fill-available;" >
+                <div class="card-header p-2"> <span class="">Ringkasan Pesanan <span style="color: var(--gray-light);">{{activeTable}}</span>
                         &nbsp;
                         &nbsp;
                         &nbsp;
                         <button @click="updateTableItems" :class="{ 'ml-1':true, 'btn':true, 'btn-success' : true, 'btn-sm':true, 'd-none':activeTableNumber == ''  }"><i class="fa fa-check"></i></button>
                 </div>
                 <div class="card-body">
-                    <div v-if="keranjang.length > 0"><span class="fw-medium">Total Items</span> <span style="color:var(--gray-light)">({{ keranjang.length}})</div>
-                    <div id="chart-items" id="summary-item" style="height:400px;overflow-y:auto;overflow-x:hidden">
+                    <div v-if="keranjang.length > 0"><span class="fw-medium fs-8">Total Items</span> <span style="color:var(--gray-light)">({{ keranjang.length}})</div>
+                    <div id="chart-items" class="full-height-half"  style="overflow-y:auto;overflow-x:hidden" >
                         <div v-if="keranjang.length <=0" class="pt-2 pb-2 mt-2 w-100">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-12 text-center" style="color: var(--gray-light)">
@@ -583,14 +610,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="keranjang.length > 0" class="card pt-2 pb-2 mt-2" v-for="item in keranjang" :key="item.id">
+                        <div v-if="keranjang.length > 0" class="card pt-1 mt-1" v-for="item in keranjang" :key="item.id">
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-3">
-                                    <img class="w-100 p-1 summary-item-image" src="https://media.istockphoto.com/id/1191080960/photo/traditional-turkish-breakfast-and-people-taking-various-food-wide-composition.jpg?s=612x612&w=0&k=20&c=PP5ejMisEwzcLWrNmJ8iPPm_u-4P6rOWHEDpBPL2n7Q=" alt="item menu" />
-                                </div>
-                                <div class="col-5 ">
-                                    <div class="summary-item-name fs-9">{{item.nama}}</div>
-                                    <div class="summary-item-qty">({{formatMoney(item.harga_jual)}}) x {{item.qty}}</div>
+                                <div class="col-7 ">
+                                    <div class="summary-item-name" style="font-size:11px">{{item.nama}}</div>
+                                    <div class="summary-item-qty" style="font-size:11px">({{formatMoney(item.harga_jual)}}) x {{item.qty}}</div>
                                 </div>
                                 <div class=" col-2 summary-item-deletion">
                                     <div @click="removeItem(item.id)" class="card" style="width: 30px;height: 30px;justify-content: center;align-items: center;border-radius: 50%;">
@@ -603,75 +627,69 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="item.comment != '' ">
-                                <div class="ml-2 ps-3">
-                                    <p style="font-style:italic;color:brown" class="py-0">{{item.comment}}</p>
-                                </div>
+                            <div v-if="item.comment != '' " class="ml-2 ps-3">
+                                <p style="font-style:italic;color:brown" class="py-0">{{item.comment}}</p>
                             </div>
                         </div> <!-- end card -->
                     </div>
 
-                    <div class="card mt-4 ">
+                    <div class="card mt-4 money-box" style="bottom:0px">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">Subtotal</div>
-                                <div class="col-6 text-end">{{formatMoney(subtotal)}}</div>
+                                <div class="col-6 tabsize"  >Subtotal</div>
+                                <div class="col-6 text-end tabsize">{{formatMoney(subtotal)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6 text-danger">Diskon 
+                                <div class="col-6 text-danger tabsize">Diskon 
                                 <div @click="showDiscountPopup()" class="card d-inline-block border-danger" style="border-radius: 50%;">
-                                    <div style="display: flex;align-items: center;justify-content: center;width: 30px;height: 30px;">    
+                                    <div style="display: flex;align-items: center;justify-content: center;width: 20px;height: 20px;">    
                                         <i class="fa fa-edit text-danger "></i>
                                     </div>
                                 </div>
                             
                             </div>
-                                <div class="col-6 text-end">{{formatMoney(discount)}}</div>
+                                <div class="col-6 text-end tabsize">{{formatMoney(discount)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6">Pajak ({{percent_tax}}%)</div>
-                                <div class="col-6 text-end">{{formatMoney(tax)}}</div>
+                                <div class="col-6 tabsize">Pajak ({{percent_tax}}%)</div>
+                                <div class="col-6 text-end tabsize">{{formatMoney(tax)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6">Service ({{percent_service}}%)</div>
-                                <div class="col-6 text-end">{{formatMoney(service)}}</div>
+                                <div class="col-6 tabsize" >Service ({{percent_service}}%)</div>
+                                <div class="col-6 text-end tabsize">{{formatMoney(service)}}</div>
                             </div>
 
-                            <div class="row justify-content-center align-items-center">
-                                <hr>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-6">Pembulatan</div>
-                                <div class="col-6 text-end">{{formatMoney(rounded)}}</div>
+                            <div class="row">
+                                <div class="col-6 tabsize">Pembulatan</div>
+                                <div class="col-6 tabsize text-end">{{formatMoney(rounded)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6 h5">Total</div>
-                                <div class="col-6 text-end h5">{{formatMoney(grandtotal)}}</div>
+                                <div class="col-6 h5 tabsize ">Total</div>
+                                <div class="col-6 text-end h5 tabsize">{{formatMoney(grandtotal)}}</div>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-3">
-                                    <button :disabled="activeTableNumber != ''" type="button" class="btn btn-primary w-100 btn-lg" data-bs-toggle="modal" data-bs-target="#modalTable">
-                                        <i class="fa fa-chair"></i>
+                            <div class="row mt-1">
+                                <div class="col">
+                                    <button :disabled="activeTableNumber != ''" type="button" class="btn btn-primary w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#modalTable">
+                                        Meja
                                     </button>
                                 </div>
-                                <div class="col-3">
-                                    <button @click="cleanUpOrder" type="button" class="btn btn-primary w-100 btn-lg">
-                                        <i class="fa fa-refresh"></i>
+                                <div class="col">
+                                    <button @click="cleanUpOrder" type="button" class="btn btn-primary w-100 btn-sm">
+                                        Refresh
                                     </button>
                                 </div>
-                                
-                                <div class="col-6">
-                                    <button :disabled="keranjang.length <= 0" type="button" class="btn btn-success w-100 btn-lg" data-bs-toggle="modal" data-bs-target="#modal-payment">Lanjut Bayar</button>
-                                    
+                                <div class="col">
+                                    <button :disabled="keranjang.length <= 0" type="button" class="btn btn-success w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#modal-payment"> Bayar</button>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <button @click="clickClosing" type="button" class="btn btn-primary w-100 btn-lg">
-                                        <i class="fa fa-refresh"></i> Closing
-                                    </button>
+                                <div class="col">
+                                <button @click="clickClosing" type="button" class="btn btn-danger w-100 btn-sm">
+                                        <!-- <i class="fa fa-times"></i> -->
+                                        Tutup
+                                    </button>                                    
                                 </div>
+                               
                             </div>
+                         
 
                         </div>
                     </div>

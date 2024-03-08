@@ -116,6 +116,7 @@ class Items extends CActiveRecord
 		FROM
 		(
 			SELECT
+			i.image,
 			i.category_id,
 			iss.harga_beli harga_beli,
 			iss.harga harga_jual,

@@ -24,28 +24,28 @@ class ItemsController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
-		return [
-			// ['allow',  'actions'=>['admin'], 'users'=>array('@')],
-			// ]
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('GetdataPO','laporanstok','prosesmasukbarangPO','kaskeluar','setstok','laporanstokJSON','cetaklabel','adminJSON','kasmasuk','purchase_order','kartupersediaan','averagene','sqlAverage','getAverage','getlistprice','laporanrusak','laporanmasuk','barangrusak','barangmasuk','cari','barcode','index','view','check','delete'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('masukubahdetail','Pengeluaranhapus','laporan_pengeluaran','bayarhutang','masukubahdetail','masukhapusdetail','masukhapus','keluarhapus','cetakpinjam','batalkembali','setkembali','laporanpinjam','pinjam','notifikasi','prosesrusakbarang','getmotif','getname','prosesmasukbarang','detailpaket','adminpaket','admin','create','createpaket','update','unitprice','itemnumber','category'),
-				'users'=>array('@'),
-			),
-			array('deny', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','hapus','pengeluaranbaru','admin','checkbarcode'),
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		];
-	}
+	// public function accessRules()
+	// {
+	// 	return [
+	// 		// ['allow',  'actions'=>['admin'], 'users'=>array('@')],
+	// 		// ]
+	// 		array('allow',  // allow all users to perform 'index' and 'view' actions
+	// 			'actions'=>array('GetHargaJualBySatuan','GetdataPO','laporanstok','prosesmasukbarangPO','kaskeluar','setstok','laporanstokJSON','cetaklabel','adminJSON','kasmasuk','purchase_order','kartupersediaan','averagene','sqlAverage','getAverage','getlistprice','laporanrusak','laporanmasuk','barangrusak','barangmasuk','cari','barcode','index','view','check','delete'),
+	// 			'users'=>array('@'),
+	// 		),
+	// 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
+	// 			'actions'=>array('masukubahdetail','Pengeluaranhapus','laporan_pengeluaran','bayarhutang','masukubahdetail','masukhapusdetail','masukhapus','keluarhapus','cetakpinjam','batalkembali','setkembali','laporanpinjam','pinjam','notifikasi','prosesrusakbarang','getmotif','getname','prosesmasukbarang','detailpaket','adminpaket','admin','create','createpaket','update','unitprice','itemnumber','category'),
+	// 			'users'=>array('@'),
+	// 		),
+	// 		array('deny', // allow admin user to perform 'admin' and 'delete' actions
+	// 			'actions'=>array('admin','hapus','pengeluaranbaru','admin','checkbarcode'),
+	// 			'users'=>array('@'),
+	// 		),
+	// 		array('deny',  // deny all users
+	// 			'users'=>array('*'),
+	// 		),
+	// 	];
+	// }
 	// public function actionSetstok($before,$skrg,$id){
 	// public function getLastPrice($id){
 
@@ -2236,7 +2236,7 @@ public function getHargamodal($id){
 	public function actionCreate()
 	{
 		$transaction = Yii::app()->db->beginTransaction();
-		$model=new Items;
+		$model= new Items;
 		$satuan = new ItemsSatuan;
 
 		if(isset($_POST['Items']))
@@ -2253,8 +2253,37 @@ public function getHargamodal($id){
 			$model->lokasi = $_POST['Items']['lokasi'];
 			$model->letak_id = $_POST['Items']['letak_id'];
 			$model->provider_id = $_POST['Items']['provider_id'];
+			$model->price_distributor = $_POST['Items']['price_distributor'];
+			$model->price_reseller = $_POST['Items']['price_reseller'];
 			if($model->save()){
-
+				$model->image = CUploadedFile::getInstance($model, 'image');
+				if ($model->validate()) {
+					if ($model->image !== null) { 
+						// Generate a unique filename
+						$fileName = uniqid().'.'.$model->image->getExtensionName(); 
+					
+						// Set the file path where you want to save the image
+						$folderPath = Yii::getPathOfAlias('webroot').'/img/produk/';
+						$filePath = $folderPath.$fileName;
+					
+						// Check if the folder exists, and create it if not
+						if (!file_exists($folderPath)) {
+							if (!mkdir($folderPath, 0755, true)) {
+								throw new CHttpException(500, 'Unable to create the folder for images.');
+							}
+						}
+						// Save the uploaded file
+						$model->image->saveAs($filePath);
+						$model->image = $fileName;
+						$model->update();
+					} else {
+						echo "Image is blank";
+						exit;
+					}
+				}else{
+					print_r($model->getErrors());
+					exit;
+				}
 
 				// jika generate
 				if (isset($_REQUEST['is_generate'])){
@@ -2265,7 +2294,6 @@ public function getHargamodal($id){
 						$ib->save();
 					}
 				}
-
 
 					// buat satuan baru
 					$satuan->item_id = $model->id;
@@ -2291,20 +2319,13 @@ public function getHargamodal($id){
 
 					$cekUnique    =    ItemsSatuan::model()->findAll($criteria);
 
-
-
-					// $cekUnique = ItemsSatuan::model()->findAll("barcode = '".$satuan->barcode."' and hapus = 0 ");
-					// $cekUnique2 = Items::findByPk();
 					if (count($cekUnique)){
 							echo "barcode sudah digunakan <br>";
 							echo "<a href='' onclick='window.history.back()'>Klik disini untuk Kembali</a>";
 						exit;
 					}
 
-
 					if ($satuan->save()){
-
-
 						// bkin stok baru awal
 						if (isset($_REQUEST['Items']['stok']) && $_REQUEST['Items']['stok'] > 0 ){
 							$modelh = new BarangMasuk;
@@ -2339,11 +2360,6 @@ public function getHargamodal($id){
 							}
 						}
 						// end bikin stok baru 
-
-
-						// echo "masuk 2";
-						// exit;
-						//save to itemprice
 						$price = new ItemsSatuanPrice;
 						$price->item_satuan_id = $satuan->id;
 						$price->price_type = "HARGA 1";
@@ -2401,10 +2417,7 @@ public function getHargamodal($id){
 						if (! isset($_POST['isajax'])){ 
 								echo "barcode sudah digunakan<br>";
 								echo "<a onclick='window.history.back()'>Klik disini untuk Kembali</a>";
-								// echo "<pre>";
-								// print_r($satuan->getErrors());
-								// print_r($model->getErrors());
-								// echo "</pre>";
+
 						exit;
 
 						}else{ 
@@ -2427,24 +2440,13 @@ public function getHargamodal($id){
 							}
 							exit;
 						}else{
-							// echo "<pre>";
-							// print_r($model->getErrors());
-							// echo "</pre>";
 						}
 				}
 			}
 			else{
-
-				// echo "<pre>";
-				// print_r($model->getErrors());
-				// echo "</pre>";
-				// exit;
 			}
-			
-			// else
-				// print_r($model->getErrors());
 		
-			$transaction->commit();
+
 		$this->render('create',array(
 			'model'=>$model,
 			'datasatuan'=>$satuan
@@ -2638,9 +2640,32 @@ public function getHargamodal($id){
 			
 			// $model->stok = $_POST['Items']['stok'];
 
-
-			if($model->save())
+			if($model->save()){
+				$model->image = CUploadedFile::getInstance($model, 'image');
+				if ($model->image !== null) { 
+					// Generate a unique filename
+					$fileName = uniqid().'.'.$model->image->getExtensionName(); 
+				
+					// Set the file path where you want to save the image
+					$folderPath = Yii::getPathOfAlias('webroot').'/img/produk/';
+					$filePath = $folderPath.$fileName;
+				
+					// Check if the folder exists, and create it if not
+					if (!file_exists($folderPath)) {
+						if (!mkdir($folderPath, 0755, true)) {
+							throw new CHttpException(500, 'Unable to create the folder for images.');
+						}
+					}
+					// Save the uploaded file
+					$model->image->saveAs($filePath);
+					$model->image = $fileName;
+					$model->update();
+				} else {
+					echo "Image is blank";
+					exit;
+				}
 				$this->redirect(array('Items/view&id='.$id));
+			}
 		}
 
 		$this->render('update',array(

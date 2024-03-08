@@ -1,24 +1,36 @@
+<?php 
+$store_id = Yii::app()->user->store_id();
+$bid = Yii::app()->user->branch();
+$branch = Branch::model()->findByPk($bid);
+$store = Stores::model()->findByPk($store_id);
+$parameter = Parameter::model()->findByPk(1);
+?>
 <script>
 	const userAgent = navigator.userAgent.toLowerCase();
 	const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
 
 	function printOptions(){
-		if (!isTablet){
-			$('#faktur').print();
-		}else{
-			window.print();
+		try{
+			if (!isTablet){
+				window.print();
+				// $('#faktur').print();
+			}else{
+				window.print();
+			}
+		}catch(err){
+			alert(err);
 		}
 	}
 
 	function onload(){
-		if (!isTablet){
-			$('#faktur').print();
-			setTimeout(function() {
-				window.close();
-			}, 1000); 
-		}else{
-			window.print();
-		}
+		// if (!isTablet){
+		// 	$('#faktur').print();
+		// 	setTimeout(function() {
+		// 		window.close();
+		// 	}, 1000); 
+		// }else{
+		// 	window.print();
+		// }
 		// window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }
 	}
 </script>
@@ -57,11 +69,7 @@
 	}
 </style>
 <?php 
-$store_id = Yii::app()->user->store_id();
-$bid = Yii::app()->user->branch();
-$branch = Branch::model()->findByPk($bid);
-$store = Stores::model()->findByPk($store_id);
-$parameter = Parameter::model()->findByPk(1);
+
 $sql = "
 select 
 refno,
@@ -139,8 +147,12 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 	>
 	<tr>
 		<td valign="top" align="center" style="text-align: center;padding:0px 15px 0px 15px" >
-			<!-- <img src="<?php echo Yii::app()->request->baseUrl ?>/logo/<?php echo $parameter['gambar'] ?>" width="100" > -->
-			<h3 style="display: inline;"><?php echo $store->name ?></h3>
+			<?php if ($store->logo != "") :?>
+				<div>
+					<img src="<?php echo Yii::app()->request->baseUrl ?>/logo/<?php echo $store->logo ?>" width="100" alt="" >
+				</div>
+			<?php endif; ?>
+			<h3 style="margin:0px;" ><?php echo $store->name ?></h3>
 			<h4 style="margin:0px;">
 				<?php echo $branch->address." ".$branch->telp ?>
 			</h4>
@@ -282,7 +294,6 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 
 <?php // } ?>
 </div>
-<div style="clear: both"></div>
 
 <button style="float: left;" class="btn btn-primary" onclick="printOptions()"> <i class="fa fa-print"></i> Cetak </button>
 <?php 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>35pos</title>
-
+    <meta name="google" content="notranslate">
     <!-- jquery -->
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jquery/dist/jquery.min.js"></script>
     
@@ -40,7 +40,7 @@
 
 </head>
 
-<body>
+<body style="overflow hidden!important;">
 <?php 
     echo $content;
 ?>
