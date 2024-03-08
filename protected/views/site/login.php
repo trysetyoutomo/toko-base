@@ -17,6 +17,8 @@ License: You must have a valid license purchased only from templatemonster to le
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 
+<link rel="manifest" href="https://koperasi-bersama.id/public/35pos/manifest.json">
+
 <!-- Toggles CSS -->
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/burnette/vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/burnette/vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet" type="text/css">
@@ -35,18 +37,9 @@ License: You must have a valid license purchased only from templatemonster to le
 		background: #2A3F54;
 	}
 </style>
-<script>
-  function initFreshChat() {
-    window.fcWidget.init({
-      token: "9008a611-28ae-4050-b54b-1f41c63c7b40",
-      host: "https://wchat.freshchat.com"
-    });
-  }
-  function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
-</script>
+
 </head>
 <body>
-<!-- Preloader -->
 <div class="preloader-it">
 <div class="loader-pendulums"></div>
 </div>
@@ -84,7 +77,7 @@ License: You must have a valid license purchased only from templatemonster to le
 )); ?>
 
 							<h1 class="display-4 text-center mb-10">Selamat Datang</h1>
-							<p class="text-center mb-30">Gunakan email dan password untuk masuk ke sistem 35pos.</p> 
+							<p class="text-center mb-30">Gunakan username/email dan password untuk masuk ke sistem 35pos.</p> 
 							<div class="form-group">
 								<!-- <input class="form-control" placeholder="Email" type="email"> -->
 								<?php echo $form->textField($model,'username',array("class"=>"form-control","placeholder"=>"email")); ?>
@@ -116,16 +109,10 @@ License: You must have a valid license purchased only from templatemonster to le
 						Masuk
 					</span>
 				</button>
-				</div>
-				<div class="col-sm-12 mb-20">
-				<!-- <button > 
-				<a class="btn btn-danger btn-block" href="<?php echo Yii::app()->createUrl("stores/create") ?>"  style="color:white"> 
-					<span class="btn-text">
-						Daftar
-					</span>
-				</a>
-				-->
-				<!-- </button> -->
+				
+			</div>
+			<div class="col-sm-12 mb-20 text-center">
+					<button type="button" style="margin:0 auto!important;background:#2A3F54;border:none;" id="installButton" class="install-button btn btn-primary btn-lg"><i class="fa fa-download"></i> Instal 35pos </button><!-- Preloader -->
 				</div>
 
 								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
@@ -147,6 +134,8 @@ License: You must have a valid license purchased only from templatemonster to le
 
 <!-- JavaScript -->
 
+
+
 <!-- jQuery -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/burnette/vendors/jquery/dist/jquery.min.js"></script>
 
@@ -165,5 +154,49 @@ License: You must have a valid license purchased only from templatemonster to le
 
 <!-- Init JavaScript -->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/burnette/dist/js/init.js"></script>
+
+<script>
+$(document).ready(function(){
+
+let installButton = document.getElementById('installButton');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI to notify the user they can add to home screen
+  showInstallPromotion();
+});
+
+window.addEventListener('appinstalled', (event) => {
+  alert('123');
+});
+
+function showInstallPromotion() {
+  // Display the install promotion UI
+  installButton.style.display = 'block';
+}
+
+installButton.addEventListener('click', (e) => {
+  // Hide the install button, then show the install prompt
+  installButton.style.display = 'none';
+  deferredPrompt.prompt();
+  // Wait for the user to respond to the prompt
+  deferredPrompt.userChoice
+    .then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      } else {
+        console.log('User dismissed the A2HS prompt');
+      }
+      deferredPrompt = null;
+    });
+});
+
+})
+
+</script>
+
 </body>
 </html>
