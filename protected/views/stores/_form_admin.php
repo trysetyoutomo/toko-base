@@ -50,93 +50,94 @@
 		<?php 
 		function getJenisUsahaOptions()
 		{
-			$jenisUsahaUMKM = $jenisUsahaUMKM = array(
-				'Kuliner' => array(
-					'warungMakan' => 'Warung Makan',
-					'katering' => 'Katering',
-					'kueRoti' => 'Kue dan Roti',
-					'cemilan' => 'Cemilan'
+			$jenisUsahaUMKM = array(
+				'KULINER' => array(
+					'WARUNGMAKAN' => 'WARUNG MAKAN',
+					'KATERING' => 'KATERING',
+					'KUEROTI' => 'KUE DAN ROTI',
+					'CEMILAN' => 'CEMILAN'
 					// Tambahkan jenis usaha kuliner lainnya sesuai kebutuhan
 				),
-				'Pertanian' => array(
-					'pertanianSayuran' => 'Pertanian Sayuran',
-					'peternakan' => 'Peternakan',
-					'perkebunan' => 'Perkebunan',
+				'PERTANIAN' => array(
+					'PERTANIANSAYURAN' => 'PERTANIAN SAYURAN',
+					'PETERNAKAN' => 'PETERNAKAN',
+					'PERKEBUNAN' => 'PERKEBUNAN',
 					// Tambahkan jenis usaha pertanian lainnya sesuai kebutuhan
 				),
-				'Jasa' => array(
-					'jasaKebersihan' => 'Jasa Kebersihan',
-					'jasaPengiriman' => 'Jasa Pengiriman',
-					'jasaPerawatanTanaman' => 'Jasa Perawatan Tanaman',
+				'JASA' => array(
+					'JASAKEBERSIHAN' => 'JASA KEBERSIHAN',
+					'JASAPENGIRIMAN' => 'JASA PENGIRIMAN',
+					'JASAPERAWATANTANAMAN' => 'JASA PERAWATAN TANAMAN',
 					// Tambahkan jenis usaha jasa lainnya sesuai kebutuhan
 				),
-				'Pakaian dan Aksesoris' => array(
-					'produksiPakaian' => 'Produksi dan Penjualan Pakaian',
-					'tokoAksesoris' => 'Toko Aksesoris',
-					'jasaJahit' => 'Jasa Jahit',
+				'PAKAIANDANAKSESORIS' => array(
+					'PRODUKSIPAKAIAN' => 'PRODUKSI DAN PENJUALAN PAKAIAN',
+					'TOKOAKSESORIS' => 'TOKO AKSESORIS',
+					'JASAJAHIT' => 'JASA JAHIT',
 					// Tambahkan jenis usaha pakaian dan aksesoris lainnya sesuai kebutuhan
 				),
-				'Kecantikan dan Kesehatan' => array(
-					'salonKecantikan' => 'Salon Kecantikan',
-					'tokoKosmetik' => 'Toko Kosmetik',
-					'jasaPijat' => 'Jasa Pijat atau Spa',
+				'KECANTIKANDANKESEHATAN' => array(
+					'SALONKECANTIKAN' => 'SALON KECANTIKAN',
+					'TOKOKOSMETIK' => 'TOKO KOSMETIK',
+					'JASAPIJAT' => 'JASA PIJAT ATAU SPA',
 					// Tambahkan jenis usaha kecantikan dan kesehatan lainnya sesuai kebutuhan
 				),
-				'Teknologi Informasi dan Komunikasi (TIK)' => array(
-					'jasaPembuatanWebsite' => 'Jasa Pembuatan Website',
-					'penjualanElektronik' => 'Penjualan dan Perbaikan Perangkat Elektronik',
-					'pengembanganAplikasi' => 'Pengembangan Aplikasi',
+				'TEKNOLOGIINFORMASIDANKOMUNIKASI(TIK)' => array(
+					'JASAPEMBUATANWEBSITE' => 'JASA PEMBUATAN WEBSITE',
+					'PENJUALANELEKTRONIK' => 'PENJUALAN DAN PERBAIKAN PERANGKAT ELEKTRONIK',
+					'PENGEMBANGANAPLIKASI' => 'PENGEMBANGAN APLIKASI',
 					// Tambahkan jenis usaha TIK lainnya sesuai kebutuhan
 				),
-				'Kreatif dan Desain' => array(
-					'desainGrafis' => 'Desain Grafis',
-					'produksiKerajinan' => 'Produksi Kerajinan Tangan',
-					'fotografi' => 'Fotografi',
+				'KREATIFDANDESAIN' => array(
+					'DESAINGRAFIS' => 'DESAIN GRAFIS',
+					'PRODUKSIKERAJINAN' => 'PRODUKSI KERAJINAN TANGAN',
+					'FOTOGRAFI' => 'FOTOGRAFI',
 					// Tambahkan jenis usaha kreatif dan desain lainnya sesuai kebutuhan
 				),
-				'Pendidikan dan Pelatihan' => array(
-					'lesPrivat' => 'Les Privat',
-					'pelatihanKeterampilan' => 'Pusat Pelatihan Keterampilan',
-					'jasaPenerjemah' => 'Jasa Penerjemah',
+				'PENDIDIKANDANPELATIHAN' => array(
+					'LESPRIVAT' => 'LES PRIVAT',
+					'PELATIHANKETERAMPILAN' => 'PUSAT PELATIHAN KETERAMPILAN',
+					'JASAPENERJEMAH' => 'JASA PENERJEMAH',
 					// Tambahkan jenis usaha pendidikan dan pelatihan lainnya sesuai kebutuhan
 				),
-				'Pariwisata' => array(
-					'pengelolaanHomestay' => 'Pengelolaan Homestay',
-					'jasaPemanduWisata' => 'Jasa Pemandu Wisata',
-					'jualanSouvenir' => 'Jual Beli Souvenir Lokal',
+				'PARIWISATA' => array(
+					'PENGELOLAANHOMESTAY' => 'PENGELOLAAN HOMESTAY',
+					'JASAPEMANDUWISATA' => 'JASA PEMANDU WISATA',
+					'JUALANSOUVENIR' => 'JUAL BELI SOUVENIR LOKAL',
 					// Tambahkan jenis usaha pariwisata lainnya sesuai kebutuhan
 				),
-				'Perdagangan' => array(
-					'tokoKelontong' => 'Toko Kelontong',
-					'tokoBahanBangunan' => 'Toko Bahan Bangunan',
-					'tokoPakaianSecondHand' => 'Toko Pakaian Second-Hand',
+				'PERDAGANGAN' => array(
+					'TOKOKELONTONG' => 'TOKO KELONTONG',
+					'TOKOBAHANBANGUNAN' => 'TOKO BAHAN BANGUNAN',
+					'TOKOPAKAIANSECONDHAND' => 'TOKO PAKAIAN SECOND-HAND',
 					// Tambahkan jenis usaha perdagangan lainnya sesuai kebutuhan
 				),
-				'Perikanan' => array(
-					'budidayaIkan' => 'Usaha Budidaya Ikan',
-					'pengolahanHasilPerikanan' => 'Usaha Pengolahan Hasil Perikanan',
-					'jualanHasilPerikanan' => 'Penjualan Hasil Perikanan',
+				'PERIKANAN' => array(
+					'BUDIDAYAIKAN' => 'USAHA BUDIDAYA IKAN',
+					'PENGOLAHANHASILPERIKANAN' => 'USAHA PENGOLAHAN HASIL PERIKANAN',
+					'JUALANHASILPERIKANAN' => 'PENJUALAN HASIL PERIKANAN',
 					// Tambahkan jenis usaha perikanan lainnya sesuai kebutuhan
 				),
-				'Manufaktur' => array(
-					'produksiKerajinan' => 'Produksi Kerajinan Tangan',
-					'produksiMakananOlahan' => 'Produksi Makanan Olahan',
-					'industriKecilMenengah' => 'Industri Kecil dan Menengah',
+				'MANUFAKTUR' => array(
+					'PRODUKSIKERAJINANTANGAN' => 'PRODUKSI KERAJINAN TANGAN',
+					'PRODUKSIMAKANANOLAHAN' => 'PRODUKSI MAKANAN OLAHAN',
+					'INDUSTRIKECILDANMENENGAH' => 'INDUSTRI KECIL DAN MENENGAH',
 					// Tambahkan jenis usaha manufaktur lainnya sesuai kebutuhan
 				),
-				'Pertukangan' => array(
-					'bengkelMotor' => 'Bengkel Motor',
-					'bengkelTukangKayu' => 'Bengkel Tukang Kayu',
-					'jasaReparasi' => 'Jasa Reparasi Alat-alat Rumah Tangga',
+				'PERTUKANGAN' => array(
+					'BENGKELMOTOR' => 'BENGKEL MOTOR',
+					'BENGKELTUKANGKAYU' => 'BENGKEL TUKANG KAYU',
+					'JASAREPARASIALATALATRUMAHTANGGA' => 'JASA REPARASI ALAT-ALAT RUMAH TANGGA',
 					// Tambahkan jenis usaha pertukangan lainnya sesuai kebutuhan
 				),
-				'E-commerce' => array(
-					'penjualanOnline' => 'Penjualan Online',
-					'tokoOnline' => 'Toko Online di Platform Tertentu',
-					'dropshipping' => 'Dropshipping',
+				'E-COMMERCE' => array(
+					'PENJUALANONLINE' => 'PENJUALAN ONLINE',
+					'TOKOONLINE' => 'TOKO ONLINE DI PLATFORM TERTENTU',
+					'DROPSHIPPING' => 'DROPSHIPPING',
 					// Tambahkan jenis usaha e-commerce lainnya sesuai kebutuhan
 				),
 			);
+			
 			
 			
 			return $jenisUsahaUMKM;
