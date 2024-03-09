@@ -159,6 +159,13 @@ License: You must have a valid license purchased only from templatemonster to le
 $(document).ready(function(){
 
 let installButton = document.getElementById('installButton');
+// Check if the PWA is already installed
+const isAppInstalled = localStorage.getItem('isAppInstalled') === 'true';
+
+
+if (isAppInstalled){
+	$("#installButton").hide();
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
   // Prevent Chrome 67 and earlier from automatically showing the prompt
@@ -169,8 +176,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
   showInstallPromotion();
 });
 
+// Listen for the 'appinstalled' event
 window.addEventListener('appinstalled', (event) => {
-  alert('123');
+  console.log('PWA installed successfully');
+  // Update the installation status
+  localStorage.setItem('isAppInstalled', 'true');
 });
 
 function showInstallPromotion() {
@@ -187,6 +197,7 @@ installButton.addEventListener('click', (e) => {
     .then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt');
+		localStorage.setItem('isAppInstalled', 'true');
       } else {
         console.log('User dismissed the A2HS prompt');
       }
