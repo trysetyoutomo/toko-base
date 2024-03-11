@@ -161,7 +161,7 @@
 
     /* @media (min-width: 576px) and (min-height: 700px) { */
         .full-height {
-            height: 100vh!important;
+            height: 50vh!important;
         }
         
         .full-height-half{
@@ -172,12 +172,28 @@
             bottom: 0px;
         }
     /* } */
-
-    /* @media (min-width: 300px) and (min-height: 100px)  {
+/* 
+    @media (min-height: 300px) {
         .full-height-half{
             height: 125px!important;
         }
     } */
+
+    #backToTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+    }
 </style>
 <!-- Button trigger modal -->
 
@@ -213,6 +229,8 @@
 </div>
 
 <div class="container-fluid" id="app" v-cloak style="overflow-x:hidden">
+<button id="backToTopBtn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
     <!-- Modal Close Register-->
     <div class="modal fade" id="modalCloseRegister" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -261,7 +279,7 @@
                 <input type="text" class="form-control form-control-sm" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi" disabled>
                 </div>
             </div>
-            <div class="row mb-3 d-none">
+            <div class="row mb-3">
                 <label for="comment" class="col-sm-4 col-form-label">Comment</label>
                 <div class="col-sm-8">
                     <textarea placeholder="Catatan khusus Closing" class="form-control form-control-sm tabsize" id="comment" rows="3" v-model="closing.comment"></textarea>
@@ -359,8 +377,8 @@
                     <h5 class="modal-title" id="modalMeja">Total Bayar ({{formatMoney(grandtotal)}})</h5>
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     <div>
-                        <button type="button" class="btn btn-secondary me-1 " data-bs-dismiss="modal">Batal</button>
-                        <button :disabled="leftAmount > 0" @click="bayar(1)" type="button" class="btn btn-success " data-bs-dismiss="modal">Bayar</button>
+                        <button type="button" class="btn btn-secondary me-1 btn-sm " data-bs-dismiss="modal">Batal</button>
+                        <button :disabled="leftAmount > 0" @click="bayar(1)" type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Bayar</button>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -500,19 +518,6 @@
         </div>
     </div>
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="...">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Hello, world! This is a toast message.
-            </div>
-        </div>
-    </div>
     <!-- Modal -->
     <div class="modal fade" id="modalTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -533,7 +538,7 @@
     </div>
 
     <div class="row" style="z-index: 1;margin-top: 2.2rem;overflow:hidden!important">
-        <div class="col-8 col-sm-7 ">
+        <div class="col-6 col-md-8 col-sm-7 ">
             <h5 class="mb-2 mt-4">Menu <span style="color:var(--gray-light)">({{items.length}})</span></h5>
             <div class="row mt-3 ">
                 <div class="col-12">
@@ -553,10 +558,11 @@
                 </div>
             </div>
             <div class="row gy-3 gx-2"> 
-                <div class="col-1 col-lg-4 col-md-4 col-sm-6" v-for="item in items" :key="item.id">
+                <div class="col-12 col-lg-4 col-md-4 col-sm-6" v-for="item in items" :key="item.id">
                     <div :class="{ 'item-menu':true,'card':true,'border-primary': !isInKeranjang(item.id), 'border-3': !isInKeranjang(item.id) }" style="min-height:210px;">
                         <div class="row" @click="add(item.id)">
-                            <img :src="'img/produk/' + item.image" alt="image not found" class="avatar-img rounded-circle">
+                            <img v-if="item.image != '' && item.image.toLowerCase() !== 'images/items/item.gif'" :src="'img/produk/' + item.image" alt="image not found" class="avatar-img rounded-circle" />
+                            <img v-if="item.image.toLowerCase() == 'images/items/item.gif'" src="https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" alt="image not found" class="avatar-img rounded-circle" />
                         </div>
                         <div class="row mt-2 mb-2" @click="add(item.id)">
                             <div class="item-name">
@@ -592,17 +598,19 @@
             </div>
 
         </div>
-        <div class="col-4 col-sm-3">
-            <div class="card mt-2 position-fixed full-height" style="width: -webkit-fill-available;" >
-                <div class="card-header p-2"> <span class="">Ringkasan Pesanan <span style="color: var(--gray-light);">{{activeTable}}</span>
+        <div class="col-6 col-md-4">
+            <div class="card mt-2 position  w-100" style="width: -webkit-fill-available;" >
+                <div class="card-header p-2 h5"> <span class="">Ringkasan Pesanan 
+                    <!-- <span  style="color:var(--gray-light)">({{ keranjang.length}})</span> -->
+                     <span style="color: var(--gray-light);">{{activeTable}}</span>
                         &nbsp;
                         &nbsp;
                         &nbsp;
                         <button @click="updateTableItems" :class="{ 'ml-1':true, 'btn':true, 'btn-success' : true, 'btn-sm':true, 'd-none':activeTableNumber == ''  }"><i class="fa fa-check"></i></button>
                 </div>
-                <div class="card-body">
-                    <div v-if="keranjang.length > 0"><span class="fw-medium fs-8">Total Items</span> <span style="color:var(--gray-light)">({{ keranjang.length}})</div>
-                    <div id="chart-items" class="full-height-half"  style="overflow-y:auto;overflow-x:hidden" >
+                <div class="card-body pt-0">
+                    <div v-if="keranjang.length > 0"> </div>
+                    <div id="chart-items" class="full-height"  style="overflow-y:auto;overflow-x:hidden" >
                         <div v-if="keranjang.length <=0" class="pt-2 pb-2 mt-2 w-100">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-12 text-center" style="color: var(--gray-light)">
@@ -610,18 +618,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="keranjang.length > 0" class="card pt-1 mt-1" v-for="item in keranjang" :key="item.id">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-7 ">
+                        <div v-if="keranjang.length > 0" class="card pt-1 mt-1 p-1 pb-0 p-md-0" v-for="item in keranjang" :key="item.id">
+                            <div class="row justify-content-center align-items-center mt-1">
+                                <div class="col-12 col-md-6 ">
                                     <div class="summary-item-name" style="font-size:11px">{{item.nama}}</div>
                                     <div class="summary-item-qty" style="font-size:11px">({{formatMoney(item.harga_jual)}}) x {{item.qty}}</div>
                                 </div>
-                                <div class=" col-2 summary-item-deletion">
+                                <div class=" col-6 col-md-2 summary-item-deletion mt-1 mt-md-0">
                                     <div @click="removeItem(item.id)" class="card" style="width: 30px;height: 30px;justify-content: center;align-items: center;border-radius: 50%;">
                                         <i class="fa fa-trash " style="color: #deb7b7;"></i>
                                     </div>
                                 </div>
-                                <div class=" col-2 summary-item-note">
+                                <div class=" col-6 col-md-3 summary-item-note mt mt-md-0">
                                     <div @click="addNote(item.id)" class="card" style="width: 30px;height: 30px;justify-content: center;align-items: center;border-radius: 50%;">
                                         <i class="fa fa-note-sticky " style="color: rgb(226 228 92);"></i>
                                     </div>
@@ -633,14 +641,14 @@
                         </div> <!-- end card -->
                     </div>
 
-                    <div class="card mt-4 money-box" style="bottom:0px">
+                    <div class="card mt-2" style="bottom:0px">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6 tabsize"  >Subtotal</div>
-                                <div class="col-6 text-end tabsize">{{formatMoney(subtotal)}}</div>
+                                <div class="col-12 col-md-6 tabsize"  >Subtotal</div>
+                                <div class="col-12 col-md-6 text-end tabsize">{{formatMoney(subtotal)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6 text-danger tabsize">Diskon 
+                                <div class="col-12 col-md-6 text-danger tabsize">Diskon 
                                 <div @click="showDiscountPopup()" class="card d-inline-block border-danger" style="border-radius: 50%;">
                                     <div style="display: flex;align-items: center;justify-content: center;width: 20px;height: 20px;">    
                                         <i class="fa fa-edit text-danger "></i>
@@ -648,40 +656,40 @@
                                 </div>
                             
                             </div>
-                                <div class="col-6 text-end tabsize">{{formatMoney(discount)}}</div>
+                                <div class="col-12 col-md-6 text-end tabsize">{{formatMoney(discount)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6 tabsize">Pajak ({{percent_tax}}%)</div>
-                                <div class="col-6 text-end tabsize">{{formatMoney(tax)}}</div>
+                                <div class="col-12 col-md-6 tabsize">Pajak ({{percent_tax}}%)</div>
+                                <div class="col-12 col-md-6 text-end tabsize">{{formatMoney(tax)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6 tabsize" >Service ({{percent_service}}%)</div>
-                                <div class="col-6 text-end tabsize">{{formatMoney(service)}}</div>
+                                <div class="col-12 col-md-6 tabsize" >Service ({{percent_service}}%)</div>
+                                <div class="col-12 col-md-6 text-end tabsize">{{formatMoney(service)}}</div>
                             </div>
 
                             <div class="row">
-                                <div class="col-6 tabsize">Pembulatan</div>
-                                <div class="col-6 tabsize text-end">{{formatMoney(rounded)}}</div>
+                                <div class="col-12 col-md-6 tabsize">Pembulatan</div>
+                                <div class="col-12 col-md-6 tabsize text-end">{{formatMoney(rounded)}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-6 h5 tabsize ">Total</div>
-                                <div class="col-6 text-end h5 tabsize">{{formatMoney(grandtotal)}}</div>
+                                <div class="col-12 col-md-6 h5 tabsize ">Total</div>
+                                <div class="col-12 col-md-6 text-end h5 tabsize">{{formatMoney(grandtotal)}}</div>
                             </div>
                             <div class="row mt-1">
-                                <div class="col">
+                                <div class="col mt-1 mt-md-1 ">
                                     <button :disabled="activeTableNumber != ''" type="button" class="btn btn-primary w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#modalTable">
                                         Meja
                                     </button>
                                 </div>
-                                <div class="col">
+                                <div class="col mt-1 mt-md-1">
                                     <button @click="cleanUpOrder" type="button" class="btn btn-primary w-100 btn-sm">
                                         Refresh
                                     </button>
                                 </div>
-                                <div class="col">
+                                <div class="col mt-1 mt-md-1">
                                     <button :disabled="keranjang.length <= 0" type="button" class="btn btn-success w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#modal-payment"> Bayar</button>
                                 </div>
-                                <div class="col">
+                                <div class="col mt-1 mt-md-1">
                                 <button @click="clickClosing" type="button" class="btn btn-danger w-100 btn-sm">
                                         <!-- <i class="fa fa-times"></i> -->
                                         Tutup
@@ -851,7 +859,7 @@
             searchItem(event) {
                 if (event.target.value.length > 0) {
                     this.items = this.items.filter(obj =>
-                        obj.nama.toLowerCase().includes(event.target.value)
+                        obj.nama.toLowerCase().includes(event.target.value.toLowerCase())
                     );
                 } else {
                     this.items = this.originalItems;
@@ -1273,4 +1281,24 @@
     });
 
     app.mount('#app');
+</script>
+
+<script>
+// Function to scroll back to the top of the page
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide the button based on scroll position
+window.onscroll = function () {
+    var btn = document.getElementById('backToTopBtn');
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        btn.style.display = 'block';
+    } else {
+        btn.style.display = 'none';
+    }
+};
 </script>
