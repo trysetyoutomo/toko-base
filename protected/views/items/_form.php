@@ -527,7 +527,7 @@ $data2 = CHtml::listData($nilai2,'kode_outlet','nama_outlet');
 	                <td><?php echo $form->filefield($model,'image'); ?></td>
 	                <td><?php echo $form->error($model,'image'); ?></td>
                 </tr>
-				<?php if (!$model->isNewRecord): ?>
+				<?php if (!$model->isNewRecord && $model->image != ""): ?>
 					<tr>
 						<td></td>
 						<td colspan="2">

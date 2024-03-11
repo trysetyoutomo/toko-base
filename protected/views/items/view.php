@@ -85,14 +85,16 @@
         // 'status',
         // 'ketebalan',
         // 'ukuran',
-        // array(
-        //     "name"=>"barcode",
-        //     "label"=>"Barcode",
-        //     // "value"=>number_format($model[persentasi]),
+        array(
+            'name' => 'image',
+            'type' => 'raw',
+            'value' => CHtml::image(Yii::app()->request->baseUrl . '/img/produk/' . $model->image, 'image not found', array('width' => '100')),
+        ),
         // ),
         // '',
     ),
 )); ?>
+
 
 <br>
 <?php 

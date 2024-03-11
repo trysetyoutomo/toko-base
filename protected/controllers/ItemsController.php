@@ -2276,10 +2276,7 @@ public function getHargamodal($id){
 						$model->image->saveAs($filePath);
 						$model->image = $fileName;
 						$model->update();
-					} else {
-						echo "Image is blank";
-						exit;
-					}
+					} 
 				}else{
 					print_r($model->getErrors());
 					exit;
@@ -2660,10 +2657,7 @@ public function getHargamodal($id){
 					$model->image->saveAs($filePath);
 					$model->image = $fileName;
 					$model->update();
-				} else {
-					echo "Image is blank";
-					exit;
-				}
+				} 
 				$this->redirect(array('Items/view&id='.$id));
 			}
 		}
