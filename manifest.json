@@ -1,0 +1,20 @@
+{
+  "name": "35pos",
+  "short_name": "35pos",
+  "icons": [
+    {
+      "src": "https://koperasi-bersama.id/public/35pos/logo/35_POS_LOGO.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://koperasi-bersama.id/public/35pos/logo/35_POS_LOGO.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "https://koperasi-bersama.id/public/35pos/index.php?r=mobilepos/index",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
