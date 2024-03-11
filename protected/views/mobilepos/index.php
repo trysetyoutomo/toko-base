@@ -449,16 +449,16 @@
                         </div>
                         <div class="col-9 mt-1">
                             <div class="row mb-1">
-                                <div class="col">
+                                <div class="col col-3">
                                     <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BCA">BCA</button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BRI">BRI</button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BNI">BNI</button>
                                 </div>
-                                <div class="col">
+                                <div class="col col-3">
                                     <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="1" bank_name="QRIS">QRIS</button>
                                 </div>
                             </div>
@@ -600,13 +600,10 @@
         </div>
         <div class="col-6 col-md-4">
             <div class="card mt-2 position  w-100" style="width: -webkit-fill-available;" >
-                <div class="card-header p-2 h5"> <span class="">Ringkasan Pesanan 
+                <div class="card-header p-2"> <span class="">Ringkasan Pesanan 
                     <!-- <span  style="color:var(--gray-light)">({{ keranjang.length}})</span> -->
-                     <span style="color: var(--gray-light);">{{activeTable}}</span>
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        <button @click="updateTableItems" :class="{ 'ml-1':true, 'btn':true, 'btn-success' : true, 'btn-sm':true, 'd-none':activeTableNumber == ''  }"><i class="fa fa-check"></i></button>
+                     <span v-if="activeTable!==''" style="color: var(--gray-light);">{{activeTable}}</span>
+                     <button @click="updateTableItems" :class="{ 'ml-1':true, 'btn':true, 'btn-success' : true, 'btn-sm':true, 'd-none':activeTableNumber == ''  }"><i class="fa fa-check"></i></button>
                 </div>
                 <div class="card-body pt-0">
                     <div v-if="keranjang.length > 0"> </div>
@@ -760,7 +757,7 @@
 
                 $.ajax({
                     url : "<?php echo Yii::app()->createUrl('sales/GetOmsetByUser'); ?>",
-                    data : "date="+tanggal+"&user_id="+user_id,
+                    data : "date="+tanggal+"&user_id="+user_id+"&comment="+vm.closing.comment,
                     success:function(data){
                         var js = JSON.parse(data);
                         let omset = js.cash;
