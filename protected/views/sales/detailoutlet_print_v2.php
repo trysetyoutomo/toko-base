@@ -118,7 +118,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	Customer 
 	<?php  $nilai = Customer::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
 	<select id="customer" name="customer" class="tobe-select2 " style="display: inline;">
-		<option value="">Semua Member</option>
+		<option value="">Semua Konsumen</option>
 		<?php foreach($nilai as $k): ?>
 		<option <?php if ($k->nama==$_REQUEST['customer']) echo "selected" ?> value="<?php echo $k->nama ?>">
 		<?php echo $k->nama ?>
@@ -138,6 +138,18 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		<?php endforeach; ?>
 	</select>
 
+	Cabang 
+	<?php  $nilai = Branch::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+	<select id="branch" name="branch" class="tobe-select2 " style="display: inline;">
+		<option value="">Semua Cabang</option>
+		<?php foreach($nilai as $k): ?>
+		<option <?php if ($k->id==$_REQUEST['branch']) echo "selected" ?> value="<?php echo $k->id ?>">
+		<?php echo $k->branch_name ?>
+			
+		</option>
+		<?php endforeach; ?>
+	</select>
+
 	<input type="submit" value="cari">
 </form>
 
@@ -147,6 +159,9 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		<td>Nama</td>
 		<td>Kategori</td>
 		<td>Sub Kategori</td>
+		<td>Harga Jual</td>
+		<td>Harga Modal</td>
+
 		<?php
 		$date1 = $tglheader;
 		$date2 = $tgl2header;
@@ -176,108 +191,98 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		// echo $sql_tgl;
 		$q_tgl = Yii::app()->db->createCommand($sql_tgl)->queryAll();
 		$jmb_bris = count($q_tgl);
+		$store_id = Yii::app()->user->store_id();
 		$branch_id = Yii::app()->user->branch();
 		$whereCustomer = isset($_REQUEST['customer']) && !empty($_REQUEST['customer']) ? " and s.nama = '".$_REQUEST['customer']."'" : ""; 
 		$whereCategory = isset($_REQUEST['category']) && !empty($_REQUEST['category']) ? " and i.category_id = '".$_REQUEST['category']."'" : ""; 
+		$whereBranch = isset($_REQUEST['branch']) && !empty($_REQUEST['branch']) ? " and s.branch = '".$_REQUEST['branch']."'" : ""; 
 		foreach ($q_tgl as $qtgl) { ?>
 		<td><?php echo date('d-m-Y',strtotime($qtgl[db_date] )); ?></td>
 		<?php } ?>
 
 		
 			<td>Total QTY</td>
-			<td>Harga Jual</td>
 			<td>Total Harga Penjualan</td>
-			<td>Diskon</td>
-			<td>Voucher/Potongan</td>
-			<td>Omzet</td>
-			<td>Harga Modal</td>
+			<!-- <td>Diskon</td> -->
+			<!-- <td>Voucher/Potongan</td> -->
+			<!-- <td>Omzet</td> -->
 			<td>Total Harga Modal</td>
+			<td>Total Laba/Rugi</td>
 			<!-- <td>Grand Total </td> -->
 			<!-- <td>Keterangan</td> -->
 		</tr>
-		<?php
-			// $connection = Yii::app()->db;
-			// ` = $connection->createCommand("		
-			// select  from
-			// 
-			// where
-			// 
-			// group by 
-			// order by i.item_name asc
-			// ");
-		// $items = Items::model()->findAll("kode_outlet=$id",array('order' => 'id')); 
-		// echo $tgl1;
-		// echo $tgl2;
-		
-		$items = Yii::app()->db->createCommand()
-			->select('si.sale_id slid,i.id iid,
-				i.item_name item_name, 
-				c.category category_name, 
-				sc.nama subcategory_name, 
-				si.item_price unit_price, 
-				si.item_modal item_modal, 
-				si.item_modal modal
-				')
-			->from(' items i, sales s, sales_items si, categories c, motif sc ')
-			->where("s.id = si.sale_id
-				and
-				si.item_id = i.id 
-				
-				and
-				s.status=1
-				and
-				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
-				and s.branch = '$branch_id'
-				and is_sales_item_bahan is null
-				{$whereCustomer}
-				{$whereCategory}
-				")
-			->group("si.item_id, si.item_price, si.item_modal ")
-			->order("i.item_name asc")
-			->queryAll();
-				// and
-				// date(s.date) > '$tgl1' and date(s.date) < '$tgl2'  				
-		// print_r($items);
+		<?php 
+	$items = Yii::app()->db->createCommand()
+    ->select('si.sale_id slid, i.id iid,
+        i.item_name item_name, 
+        c.category category_name, 
+        sc.nama subcategory_name, 
+        si.item_price unit_price, 
+        si.item_modal item_modal, 
+        si.item_modal modal')
+    ->from('items i')
+    ->join('sales_items si', 'si.item_id = i.id')
+    ->join('sales s', 's.id = si.sale_id')
+    ->join('categories c', 'i.category_id = c.id')
+    ->join('branch b', 'b.id = s.branch')
+    ->join('stores st', 'st.id = b.store_id')
+    ->leftJoin('motif sc', 'i.motif = sc.id') // Use LEFT JOIN for motif
+    ->where("
+        s.status = 1
+        and date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
+        and st.id = '$store_id'
+        and is_sales_item_bahan is null
+        {$whereCustomer}
+        {$whereCategory}
+        {$whereBranch}
+		")
+    ->group("si.item_id, si.item_price, si.item_modal ")
+    ->order("i.item_name asc")
+    ->queryAll();
+
 		$no = 0;
 		$km =1;
-		$sql_vouc = "select sum(voucher) as voucher from sales s inner join sales_payment sp
-		on sp.id = s.id 
-		where 
-		status = 1
-		and s.branch = '$branch_id'
-		{$whereCustomer}
-		and
-		date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' ";
-		// echo $sql_vouc;
-		$query_voucher = Yii::app()->db->createCommand($sql_vouc)->queryRow();
+// 		$sql_vouc = "select sum(voucher) as voucher from sales s inner join sales_payment sp
+// 		on sp.id = s.id 
+// 		where 
+// 		status = 1
+// #		and st.id = '$store_id'
+// 		{$whereCustomer}
+// 		and
+// 		date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' ";
+// 		// echo $sql_vouc;
+// 		$query_voucher = Yii::app()->db->createCommand($sql_vouc)->queryRow();
 		foreach($items as $values){
-			$sqldis = "
-				SELECT sale_id,item_id,
-				SUM(item_discount/100*si.quantity_purchased)*item_price diskon
-				FROM 
-				sales_items si,sales s,items i
-				WHERE 
-				si.sale_id = s.id
-				AND
-				si.quantity_purchased !=0
-				AND
-				s.status = 1
-				and 
-				date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
+			// $sqldis = "
+			// 	SELECT sale_id,item_id,
+			// 	SUM(item_discount/100*si.quantity_purchased)*item_price diskon
+			// 	FROM 
+			// 	sales_items si,sales s,items i
+			// 	WHERE 
+			// 	si.sale_id = s.id
+			// 	AND
+			// 	si.quantity_purchased !=0
+			// 	AND
+			// 	s.status = 1
+			// 	and 
+			// 	date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
 				
-				{$whereCustomer}
-				{$whereCategory}
-				AND si.item_id = $values[iid]  AND si.`item_id` = i.`id`
-					and si.item_price =  $values[unit_price]   and si.item_modal = $values[item_modal]
-				GROUP BY item_id
-			";
-			$getdiscount = Yii::app()->db->createCommand($sqldis)->queryRow();
+			// 	{$whereCustomer}
+			// 	{$whereCategory}
+			// 	AND si.item_id = $values[iid]  AND si.`item_id` = i.`id`
+			// 		and si.item_price =  $values[unit_price]   and si.item_modal = $values[item_modal]
+			// 	GROUP BY item_id
+			// ";
+			// $getdiscount = Yii::app()->db->createCommand($sqldis)->queryRow();
 		$jml=0;$no++?>
 		<tr style="width:100px;overflow:visible;" >
 			<td><?php echo $no?></td>
 			<td style="text-transform:uppercase"><?php echo $values["item_name"]?></td>
 			<td style="text-transform:uppercase"><?php echo $values["category_name"]?></td>
 			<td style="text-transform:uppercase"><?php echo $values["subcategory_name"]?></td>
+			<td><?php echo number_format(abs($values['unit_price']))?></td>
+			<td><?php echo number_format(($values['modal']))?></td>
+
 		
 		<?php
 		$km = 1;
@@ -289,6 +294,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 				s.status = 1 
 				{$whereCustomer}
 				{$whereCategory}
+				{$whereBranch}
 				and date(date) = '".$qtgl[db_date]."' 
 				and si.item_id = i.id 
 				and si.sale_id = s.id  
@@ -312,13 +318,13 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		</td>
 		<?php } ?>
 			<td><?php echo $jml?></td>
-			<td><?php echo number_format(abs($values['unit_price']))?></td>
 			<td><?php echo number_format(abs($values['unit_price'])*$jml )  ?></td>
-			<td><?php echo number_format($getdiscount['diskon']) ?></td>
-			<td><?php echo number_format(0) ?></td>
-			<td><?php echo number_format(abs($values['unit_price'])*$jml - ($getdiscount['diskon']) )  ?></td>
-			<td><?php echo number_format(($values['modal']))?></td>
+			<!-- <td><?php //echo number_format($getdiscount['diskon']) ?></td> -->
+			<!-- <td><?php //echo number_format(0) ?></td> -->
+			<!-- <td><?php // echo number_format(abs($values['unit_price'])*$jml - ($getdiscount['diskon']) )  ?></td> -->
 			<td><?php echo number_format(($values['modal'])*$jml)?></td>
+			<td><?php echo number_format(( $values['unit_price']*$jml) - ($values['modal']*$jml)) ?></td>
+
 		</tr>
 		<?php 
 		$total_qty += $jml;
@@ -328,7 +334,10 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		$total_price += ($values['unit_price']);
 		$total_bruto += $values['unit_price']*$jml;
 		$total_netto += $values['unit_price']*$jml - $getdiscount['diskon'] ;
+		// $total_ += $values['unit_price']*$jml - $getdiscount['diskon'] ;
+		// $total_netto += $values['unit_price']*$jml - $getdiscount['diskon'] ;
 		$total_modal += $values['modal']*$jml;
+		$total_labarugi += ($values['unit_price']*$jml) - ($values['modal']*$jml);
 		 ?>
 	<?php } ?> 
 
@@ -338,22 +347,24 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	<td></td>	
 	<td></td>	
 	<td></td>	
+	<td></td>	
+	<td></td>	
 	<?php
 	 for ($zzz=1;$zzz<=$jmb_bris;$zzz++) {?>
 	
 	<td style="border:1px solid black"></td>
 	<?php } ?>
 	<td><?php echo number_format($total_qty)?></td>
-	<td>-</td>
 	<td><?php echo number_format($total_bruto)?></td>
-	<td><?php echo number_format($total_diskon); ?></td>
+	<!-- <td><?php echo number_format($total_diskon); ?></td> -->
 	<!-- <td><?php echo number_format($total_voucher); ?></td> -->
-	<td><?php echo 0 ?></td>
-	<td><?php echo number_format($total_netto-$total_voucher); ?></td>
+	<!-- <td><?php echo 0 ?></td> -->
+	<!-- <td><?php echo number_format($total_netto-$total_voucher); ?></td> -->
+	<td><?php echo number_format($total_modal); ?></td>
+	<td><?php echo number_format($total_labarugi); ?></td>
 	
 	
-	<td class="footer"></td>
-	<td class="footer"><?php echo number_format($total_modal)?></td>
+	<!-- <td class="footer"><?php echo number_format($total_modal)?></td> -->
 	</tr>
 
 
