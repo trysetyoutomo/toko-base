@@ -23,8 +23,8 @@
 $this->renderPartial('application.views.site.main');
 ?>
 <div id="hasil"></div>
-<h1>
-<i class="fa fa-book"></i> Laporan Penjualan Harian </h1>
+<div class="h1 font-size-sm">
+<i class="fa fa-book"></i> Laporan Penjualan Harian </div>
 <hr>
 
 <?php
@@ -55,66 +55,60 @@ for($x=1; $x<=31;$x++){
 
 echo CHtml::beginForm();
 ?>
-<table cellpadding="20" id="sales-filter">
-	<tr>
-		<td>
-			<label>Transaksi</label>
-			
-		</td>
-		<td>
-			
-<?php 
-echo CHtml::dropDownList('day', $day2, $day);
-echo CHtml::dropDownList('month', $month, $data);
-echo CHtml::dropDownList('year', $year, $arr_year);
-//echo CHtml::button('Cari', array('submit' => array('sales/Salesmonthly'),'class'=>'btn btn-primary' ) );
-?>
 
-		</td>
-	</tr>
-	<tr style="display: none;">
-		<td>
-<?php  $nilai = Branch::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");?>
-<label>
-	Tempat
-</label>
-			
-		</td>
-		<td>
-			<?php 
+<div class="row">
+    <div class="col-md-2 col-xs-12">
+        <label for="day">Tanggal Transaksi</label>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <?php
+            $dropdownOptions = array('class' => 'form-control d-inline-block');
+            echo CHtml::dropDownList('day', $day2, $day, $dropdownOptions);
+            ?>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <?php echo CHtml::dropDownList('month', $month, $data, array('class' => 'form-control')); ?>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <?php echo CHtml::dropDownList('year', $year, $arr_year, array('class' => 'form-control')); ?>
+        </div>
+    </div>
+</div>
 
-			?>
-<select id="cabang" name="cabang" class="form-control" style="display: inline;">
+<div class="row">
+    <div class="col-md-2 col-xs-12">
+        <?php $nilai = Branch::model()->findAll("store_id = '".Yii::app()->user->store_id()."' "); ?>
+        <label>Cabang</label>
+</div>
+<div class="col-md-10 col-xs-12">
+        <select id="cabang" name="cabang" class="form-control">
+            <?php foreach ($nilai as $k): ?>
+                <option <?php if ($k->id == $cabang) echo "selected" ?> value="<?php echo $k->id ?>">
+                    <?php echo $k->branch_name ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
 
-<?php foreach($nilai as $k): ?>
-	<option <?php if ($k->id==Yii::app()->user->store_id()) echo "selected" ?> value="<?php echo $k->id ?>">
-	<?php echo $k->branch_name ?>
-		
-	</option>
-<?php endforeach; ?>
-	
-</select>
-		</td>
+<div class="row " style="margin-top: 1rem; display:none">
+	<div class="col-md-2 col-xs-12">
+        <label for="day">Status Bayar</label>
+    </div>
+    <div class="col-md-10 col-xs-12">
+        <select name="status" class="form-control">
+            <option <?php if ($_REQUEST['status'] == 'semua') echo "selected" ?> value="semua">SEMUA</option>
+            <option <?php if ($_REQUEST['status'] == 'Kredit') echo "selected" ?> value="Kredit">BELUM BAYAR / KURANG BAYAR</option>
+            <option <?php if ($_REQUEST['status'] == 'Lunas') echo "selected" ?> value="Lunas">SUDAH BAYAR</option>
+        </select>
+    </div>
+</div>
 
-	</tr>
-	<tr>
-		<td>
-			<label>
-	Status Bayar
-</label>
-
-
-		</td>
-		<td>
-			<select name="status" class="form-control" style="display: inline;" >
-	<!-- <optgroup>Pilih Status</optgroup> -->
-	<option <?php if($_REQUEST[status]=='semua') echo "selected" ?> value="semua">SEMUA</option>
-	<option <?php if($_REQUEST[status]=='Kredit') echo "selected" ?> value="Kredit">BELUM BAYAR / KURANG BAYAR</option>
-	<option <?php if($_REQUEST[status]=='Lunas') echo "selected" ?> value="Lunas">SUDAH BAYAR</option>
-</select>
-		</td>
-	</tr>
-</table>
 <hr>
 <?php echo CHtml::submitButton('Cari',array('class'=>'btn btn-primary')); ?>
 <input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
@@ -262,9 +256,41 @@ Preview Rekap
             "fnDrawCallback": function( oSettings ) {
            },
 
-            "footerCallback": function ( row, data, start, end, display ) {
- 
-	        },
+		   "footerCallback": function(row, data, start, end, display) {
+				var total = 0;
+				var total_sisa = 0;
+				var api = this.api(),
+					intVal = function(i) {
+						return typeof i === 'string' ? i.replace(/[, Rs]|(\.\d{2})/g, "") * 1 : typeof i === 'number' ? i : 0;
+					},		
+					total = api.column(5).data().reduce(function(a, b) {
+						return intVal(a) + intVal(b);
+                    }, 0);
+                    total_sisa = api.column(6).data().reduce(function(a, b) {
+						return intVal(a) + intVal(b);
+					}, 0);
+					// alert(total);
+					// alert(total_sisa);
+
+				if (isNaN(total)) {
+					total = 0;
+                }
+                
+                
+				if (isNaN(total_sisa)) {
+					total_sisa = 0;
+				}
+
+				if (data.length > 0) {
+					$(api.column(3).footer()).html('Total');
+					$(api.column(5).footer()).html(' ' + numeral(total).format('0,0') + '');
+                    $(api.column(6).footer()).html(' ' + numeral(total_sisa).format('0,0') + '');
+                    let total_all = total+total_sisa;
+                    $('tr:eq(1) td:eq(3)', api.table().footer()).html("Total Keseluruhan ");
+                    $('tr:eq(1) td:eq(5)', api.table().footer()).html(numeral(total_all).format("0,0"));
+					// $(api.column(6).footer(1)).html(' ' + numeral(total_sisa).format('0,0') + '');
+				}
+			},
             columns:
             [  
 			{
@@ -291,6 +317,9 @@ Preview Rekap
 				title: "Total modal",
 				data:'sale_sub_modal',
 				name:'sale_sub_modal',
+				render :  function(data){
+					return numeral(data).format(0,0);
+				},
 				hidden : <?=Yii::app()->user->getLevel()!=2 ? 'true' : 'false'?>
 			},
 			{

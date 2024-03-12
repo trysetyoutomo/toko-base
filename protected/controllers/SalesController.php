@@ -3960,6 +3960,7 @@ public function actionCetakReportAll(){
 			'month'=>$month,
 			'year'=>$year,
 			'day2'=>$day2,
+			'cabang'=>$cabang,
         ));
     }
 
