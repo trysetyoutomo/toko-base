@@ -598,7 +598,7 @@
             </div>
 
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-4 col-sm-5">
             <div class="card mt-2 position  w-100" style="width: -webkit-fill-available;" >
                 <div class="card-header p-2"> <span class="">Ringkasan Pesanan 
                     <!-- <span  style="color:var(--gray-light)">({{ keranjang.length}})</span> -->
@@ -713,7 +713,7 @@
                 let tanggal = '<?php echo date("Y-m-d"); ?>';
                 $.ajax({
                 url:'<?=$this->createUrl('sales/cetakrekap')?>',
-                data:'tanggal_rekap='+tanggal+"&uangmasuk="+vm.closing.countedCash,
+                data:'tanggal_rekap='+tanggal+"&uangmasuk="+vm.closing.countedCash+"&comment="+vm.closing.comment,
                 beforeSend : function(){
                     vm.disabledTutupRegister = true;
                 },  
@@ -757,7 +757,7 @@
 
                 $.ajax({
                     url : "<?php echo Yii::app()->createUrl('sales/GetOmsetByUser'); ?>",
-                    data : "date="+tanggal+"&user_id="+user_id+"&comment="+vm.closing.comment,
+                    data : "date="+tanggal+"&user_id="+user_id,
                     success:function(data){
                         var js = JSON.parse(data);
                         let omset = js.cash;
@@ -1002,6 +1002,7 @@
                     vm.keranjang.forEach(function(rec) {
                         sales_items.push({
                             "item_id": rec.id,
+                            "item_satuan_id": rec.nama_satuan_id,
                             "item_name": rec.nama,
                             "quantity_purchased": rec.qty,
                             "item_tax": 0,
