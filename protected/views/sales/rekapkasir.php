@@ -35,6 +35,7 @@ if (isset($_REQUEST['tanggal'])){
 		
 		<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
 			<td>No</td>
+			<td>Cabang</td>
 			<td>Petugas </td>
 			<td>Saldo Cash Awal </td>
 			<td>Total Cash Masuk</td>
@@ -58,7 +59,7 @@ $branch_id = Yii::app()->user->branch();
 $sql  = "
 select 
 
-
+branch_name,
 nama_user,
 sum(sale_total_cost) total_omset,
 sum(sale_total_cost) total_omset,
@@ -74,6 +75,7 @@ created_at
 from 
 (
 SELECT
+	b.branch_name,
 	se.created_at,
 	se.is_closed,
 	se.total_awal,
@@ -114,6 +116,7 @@ INNER JOIN sales_items si ON s.id = si.sale_id
 INNER JOIN users u ON s.inserter = u.id
 INNER JOIN items i ON i.id = si.item_id
 INNER JOIN sales_payment sp ON sp.id = s.id
+INNER JOIN branch b ON b.id = s.branch
 LEFT JOIN (
 	SELECT DISTINCT
 		tanggal,
@@ -171,6 +174,7 @@ group by A.nama_user
 		?>
 		<tr >
 			<td><?php echo $no ?></td>
+			<td><?php echo $m['branch_name']; ?>
 			<td><?php echo $m['nama_user']; ?>
 				<?php 
 				if ($m['created_at']!="" && $m['is_closed']=="0"){
@@ -289,7 +293,7 @@ group by A.nama_user
 		?>
 		<tfoot>
 			<tr>
-				<td colspan="2">Total</td>
+				<td colspan="3">Total</td>
 				<td><?php echo number_format($t_awal); ?></td>
 				<td><?php echo number_format($c); ?></td>
 				<td><?php echo number_format($ttl); ?></td>

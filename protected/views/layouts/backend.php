@@ -945,9 +945,9 @@
                            <span class=" fa fa-angle-down"></span>
                            </a>
                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                             
-                              <li style="display:none">
-                                 <a href="javascript:;">Help</a>
+
+                              <li>
+                                 <a  href="<?php echo Yii::app()->createUrl('stores/storeku') ?>">Profil</a>
                               </li>
                               <li> <a href="<?php echo Yii::app()->createUrl('site/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Keluar</a>
                               </li>

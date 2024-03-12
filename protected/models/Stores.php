@@ -62,7 +62,7 @@ class Stores extends CActiveRecord
 			array('country', 'length', 'max'=>25),
 			array('currency_code', 'length', 'max'=>3),
 			array('TaxType', 'length', 'max'=>5),
-			array('receipt_header, receipt_footer', 'safe'),
+			array('receipt_header, receipt_footer, instagram, percent_tax, percent_service', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, code, logo, email, phone, address1, address2, city, state, postal_code, country, currency_code, receipt_header, receipt_footer, TaxType, nop', 'safe', 'on'=>'search'),
@@ -87,6 +87,8 @@ class Stores extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID Stores',
+			'percent_tax' => 'Pajak',
+			'percent_service' => 'Service',
 			'name' => 'Nama Toko',
 			'store_type' => 'Bidang Usaha',
 			'code' => 'Kode Toko',

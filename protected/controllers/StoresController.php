@@ -26,23 +26,24 @@ class StoresController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+			array('allow',  
+				'actions' => array('index', 'view'),
+				'users' => array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','hapus'),
-				'users'=>array('@'),
+			array('allow', 
+				'actions' => array('create', 'update', 'hapus'),
+				'users' => array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('*'),
+			array('allow',
+				'actions' => array('storeku'),
+				'expression' => 'Yii::app()->user->level() == "2"',  // Check if the user is an admin using the isAdmin property/method
 			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
+			array('deny',  
+				'users' => array('*'),
 			),
 		);
 	}
+	
 
 	/**
 	 * Displays a particular model.
@@ -216,6 +217,50 @@ class StoresController extends Controller
 			'model'=>$model,
 			'u'=>$u,
 			'message'=>$message,
+		));
+		}
+		catch(Exception $e)
+		{
+			echo $e;
+			$transaction->rollback();
+		}
+
+
+	}
+
+	public function actionStoreku()
+	{
+		$transaction= Yii::app()->db->beginTransaction();
+		try
+		{
+		$model=$this::loadModel(Yii::app()->user->store_id());
+		$u = new Users;
+
+		if(isset($_POST['Stores']))
+		{
+			// $target_file = ;
+			// $u->password = $_POST['Users']['password'];
+			// $u->email = $_POST['Stores']['email'];
+
+			$u->attributes=$_POST['Users'];
+			$model->attributes=$_POST['Stores'];
+			$random = md5(date("YmdHis"));
+			$model->code = rand(5,99999999999999999999); 
+			if ($model->logo = CUploadedFile::getInstance($model,'logo')) {
+				$model->logo->saveAs("/logo/{$random}.jpg");
+			}else{
+			}
+			if($model->save()){
+				$transaction->commit();
+				Yii::app()->user->setFlash('success', 'Store berhasil diubah!');
+				$this->redirect(array('storeku'));
+			}
+			// }// end save
+		}
+		$this->render('storeku',array(
+			'model'=>$model,
+			'u'=>$u,
+			'message'=>$message,	
 		));
 		}
 		catch(Exception $e)
