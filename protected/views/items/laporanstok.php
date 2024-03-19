@@ -41,10 +41,13 @@ $this->renderPartial('application.views.site.main');
 <h1><i class="fa fa-book"></i>
 	Laporan Stok
 </h1>
+<?php  ?>
+<?php if (Yii::app()->user->getLevel()==1): ?>
 <h4>
 	Stok items tidak sesuai ?? sesuaikan <a href="<?php echo Yii::app()->createUrl("sales/laporanstok") ?>">disini</a>
 </h4>
 <br>
+<?php endif; ?>
 
 <!-- <input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#datatable').print()" /> -->
 
@@ -200,33 +203,33 @@ $(document).ready(function(){
          var title = $(this).text();
 	 	let listTitle = ["Kategori","Sub Kategori"];
 	 	if (listTitle.includes(title)){
-			if (title === "Kategori"){
-				filterInputs += '<th>'+
-				<?php $nilai = Categories::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
-				'<select id="customer" name="category" class="tobe-select2 form-control " style="display: inline;">'+
-				'<option value="">Semua Kategori</option>'+
-				<?php foreach($nilai as $k): ?>
-				'<option <?php if ($k->id==$_REQUEST['category']) echo "selected" ?> value="<?php echo $k->category ?>">'+
-				'<?php echo $k->category ?>'+
-				'</option>'+
-				<?php endforeach; ?>
-				'</select>'+			
-				'</th>';
-			}else if  (title === "Sub Kategori"){
-				filterInputs += '<th>'+
-				<?php $nilai = Motif::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
-				'<select  name="subcategory" class="tobe-select2 form-control " style="display: inline;">'+
-				'<option value="">Semua Sub Kategori</option>'+
-				<?php foreach($nilai as $k): ?>
-				'<option  value="<?php echo $k->nama ?>">'+
-				'<?php echo $k->nama ?>'+
-				'</option>'+
-				<?php endforeach; ?>
-				'</select>'+			
-				'</th>';
-			}
+			// if (title === "Kategori"){
+			// 	filterInputs += '<th>'+
+			// 	<?php $nilai = Categories::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+			// 	'<select id="customer" name="category" class="tobe-select2 form-control " style="display: inline;">'+
+			// 	'<option value="">Semua Kategori</option>'+
+			// 	<?php foreach($nilai as $k): ?>
+			// 	'<option <?php if ($k->id==$_REQUEST['category']) echo "selected" ?> value="<?php echo $k->category ?>">'+
+			// 	'<?php echo $k->category ?>'+
+			// 	'</option>'+
+			// 	<?php endforeach; ?>
+			// 	'</select>'+			
+			// 	'</th>';
+			// }else if  (title === "Sub Kategori"){
+			// 	filterInputs += '<th>'+
+			// 	<?php $nilai = Motif::model()->findAll(" store_id = ".Yii::app()->user->store_id()." ");?>
+			// 	'<select  name="subcategory" class="tobe-select2 form-control " style="display: inline;">'+
+			// 	'<option value="">Semua Sub Kategori</option>'+
+			// 	<?php foreach($nilai as $k): ?>
+			// 	'<option  value="<?php echo $k->nama ?>">'+
+			// 	'<?php echo $k->nama ?>'+
+			// 	'</option>'+
+			// 	<?php endforeach; ?>
+			// 	'</select>'+			
+			// 	'</th>';
+			// }
 		}else{
-			 filterInputs += '<th></th>';
+			//  filterInputs += '<th></th>';
 		}
      });
 
@@ -266,6 +269,7 @@ $(document).ready(function(){
 				'csvHtml5',
 				'pdfHtml5'
         	],
+			pageLength: 50,
 			//  buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print'],	
             "lengthMenu": [[10, 25, 50, 1000000], [10, 25, 50, "Semua"]],
             "serverSide": true,
@@ -294,36 +298,41 @@ $(document).ready(function(){
                 name:'nomor',
                 "searchable":false,                
                 "orderable":false,                
-              },
-              {
-                title: "Kategori",
+				"width":10,
+			},
+			{
+				title: "Kategori",
                 name:'nama_kategori',
                 "searchable":true,   
 				"orderable":false,                             
-              },
-
-              {
-               title: "Sub Kategori",
+				"width":10,
+			},
+			
+			{
+				title: "Sub Kategori",
                 name:'nama_sub_kategori',
                 "searchable":true,  
 				"orderable":false,                
-              }, 
-              //  {
-              //  title: "Nama Letak",
-              //   name:'nama_letak',
-              //   "searchable":true,  
-              // }, 
-              {
-                title: "Nama Item",
-                name:'item_name',
-                "searchable":false,
+				"width":100,
+			}, 
+			//  {
+				//  title: "Nama Letak",
+				//   name:'nama_letak',
+				//   "searchable":true,  
+				// }, 
+				{
+				title: "Nama Item",
+				name:'item_name',
+				"searchable":false,
 				"orderable":false,                  
+				"width":100
               },
               {
                 title: "Stok",
                 name:'stok',
                 "searchable":false,  
-				"orderable":false,                
+				"orderable":false,     
+				"width":150           
               }
           ]
 

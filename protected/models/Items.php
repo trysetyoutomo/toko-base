@@ -143,14 +143,12 @@ class Items extends CActiveRecord
 
 			INNER JOIN items_satuan iss on iss.item_id = i.id
 			INNER JOIN stores as s on s.id = i.store_id 
-
-			AND i.hapus = 0 and s.id = " . Yii::app()->user->store_id() . "
-			where  1=1 $where 
+			INNER JOIN branch as b on b.store_id = s.id
+			#INNER JOIN branch_category_items bci on bci.branch_id = b.id AND i.hapus = 0 and b.hapus = 0 and s.id = " . Yii::app()->user->store_id() . "
+			where  1=1 and i.category_id in (select category_id from branch_category_items where branch_id = ".Yii::app()->user->branch()." ) $where 
 			group by iss.id
 #			group by i.id
-			order by nama_kategori,nama_sub_kategori desc
-			
-
+			order by nama_kategori,nama_sub_kategori desc limit 10
 			
 			) AS i
 		order by nama_kategori,nama_sub_kategori desc
@@ -254,7 +252,7 @@ class Items extends CActiveRecord
 					$color = $stoknow > 0 ? "green" : "red";
 					$x = "";
 					// $x = trim($item['ukuran']).".".trim($item['ketebalan']).".".trim($item['panjang']); 
-					$data[$item['barcode'] . "##" . $item['satuan_id']] =  trim($item['barcode']) . " - " . trim($item['category']) . " " . trim($item['nama']) . " " . $x . "<b style='color:$color'>Stok : $stoknow</b>" . "<span class='badge badge-secondary'>" . trim($item['category_name']) . "</span> ";
+					$data[$item['barcode'] . "##" . $item['satuan_id']] =  trim($item['barcode']) . " - " . trim($item['category']) . " " . trim($item['nama']) . " " . $x . "<b style='color:$color'>Stok : $stoknow</b>" . " <span class='badge badge-secondary'>" . trim($item['category_name']) . "</span> ";
 				} else {
 
 					$data[$item['barcode'] . "##" . $item['satuan_id']] = $item['barcode'] . " - " . $item['nama'];

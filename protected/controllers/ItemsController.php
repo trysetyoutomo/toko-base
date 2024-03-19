@@ -2843,16 +2843,23 @@ public function getHargamodal($id){
 		if (isset($_REQUEST['cabangpusat'])){
 			if ($_REQUEST['cabangpusat'] == "1"){
 				$satuanlist = "";
-				$cabang = Branch::model()->findAll("store_id = '$store_id' ");
+				$cabang = Branch::model()->findAll("store_id = '$store_id' and hapus = 0 and is_utama = 0");
 				$satuanlist .= "<table class='table'>";  
 				$satuanlist .= "<thead><tr><td>Cabang</td><td>Stok</td></tr></thead>";  
+					$totalCabang = 0;
 					foreach ($cabang as $key => $value2) {
 						$stokx = ItemsController::getStok($value['id'],"",$value2->id);
 						$satuanlist .= "<tr>";  					
 							$satuanlist .= "<td>".$value2->branch_name."</td>";  					
 							$satuanlist .= "<td>".$stokx."</td>";  					
-						$satuanlist .= "</tr>";  
+						$satuanlist .= "</tr>";
+						$totalCabang +=  $stokx;
 					}
+					$satuanlist .= "<tr style='font-weight:bolder'>";  					
+					$satuanlist .= "<td>Total Stok</td>";  					
+					$satuanlist .= "<td>".$totalCabang."</td>";  					
+					$satuanlist .= "</tr>";
+
 					$satuanlist .= "</table>";  
 			}
 		}
@@ -2873,7 +2880,7 @@ public function getHargamodal($id){
   			// $aksi,
 			$value['item_name'] ." <br/>  ". ($value['is_bahan']=="1" ? "<span class='badge' style='background:red'>Bahan Baku</span>" : ""),
 			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
-			// $satuanlist,
+			$satuanlist,
 			number_format((float)$stok, 2, '.', ''),
   		);
   		if ($adjust=="1"){
