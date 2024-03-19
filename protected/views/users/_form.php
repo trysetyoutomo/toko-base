@@ -62,7 +62,7 @@
 	</div>
 		<div class="row">
 		<?php 
-		$nilai = Branch::model()->findAll(" store_id = '".Yii::app()->user->store_id()."' ");
+		$nilai = Branch::model()->findAll(" hapus = 0 and store_id = '".Yii::app()->user->store_id()."' ");
 		$data = CHtml::listData($nilai,'id','branch_name');
 
 		?>
