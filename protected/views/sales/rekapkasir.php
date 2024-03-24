@@ -17,7 +17,7 @@ $this->renderPartial('application.views.site.main');
 			$date = date("Y-m-d");
 		}
 ?>
-<form method="post">
+<form method="get">
 	<input type="hidden" name="r" value="sales/rekap"  />
 			<label style="margin-right:1rem"> Tanggal Transaksi </label>
 			<input readonly type="text" value="<?php echo $date; ?>" style="display:inline;padding:5px" name="tanggal" class="tanggal" id="tanggal">
@@ -39,13 +39,13 @@ if (isset($_REQUEST['tanggal'])){
 			<td>Petugas </td>
 			<td>Saldo Cash Awal </td>
 			<td>Total Cash Masuk</td>
-			<td>Total Omset Cash (Hari ini) </td>
+			<td>Total Omset (Hari ini) </td>
 			<td>Total Biaya Bank </td>
 			<td>Total Potongan </td>
 			<td>Total Pengeluaran </td>
 			<!-- <td>Total Akhir </td> -->
-			<td>Total Uang Fisik harus Ada </td>
-			<td>Total Uang Fisik (Input Akhir)</td>
+			<td>Total Uang Cash harus Ada </td>
+			<td>Total Uang Cash (Input Akhir)</td>
 			<td>Selisih</td>
 			<td>Cetak</td>
 		</tr>
@@ -56,6 +56,7 @@ if (isset($_REQUEST['tanggal'])){
 	<?php 
 		
 $branch_id = Yii::app()->user->branch();
+$store_id = Yii::app()->user->store_id();
 $sql  = "
 select 
 
@@ -75,6 +76,7 @@ created_at
 from 
 (
 SELECT
+	b.id bid,
 	b.branch_name,
 	se.created_at,
 	se.is_closed,
@@ -109,7 +111,7 @@ SELECT
 				) / 100
 			)
 		)
-	) sale_total_cost
+	) + s.pembulatan sale_total_cost 
 FROM
 	sales s
 INNER JOIN sales_items si ON s.id = si.sale_id
@@ -133,12 +135,12 @@ WHERE
 	
  date(se.tanggal) = '$date'
 AND s. STATUS = 1
-and branch = '$branch_id'
+and b.store_id = '$store_id'
 GROUP BY
 	s.inserter,s.id
 ) AS A 
 
-group by A.nama_user
+group by A.nama_user, A.bid
 ";
 // echo $sql;
 // exit;
@@ -175,14 +177,14 @@ group by A.nama_user
 		<tr >
 			<td><?php echo $no ?></td>
 			<td><?php echo $m['branch_name']; ?>
-			<td><?php echo $m['nama_user']; ?>
+			<td><div><?php echo $m['nama_user']; ?></div>
 				<?php 
 				if ($m['created_at']!="" && $m['is_closed']=="0"){
-					echo "<label class='badge badge-success'>Sedang Bertugas</label>";
+					echo "<div class='badge badge-success'>Sedang Bertugas</div>";
 				}else if ($m['created_at']!="" && $m['is_closed']=="1"){
-					echo "<label class='badge badge-danger'>Sudah Closing</label>";
+					echo "<div class='badge badge-danger'>Sudah Closing</div>";
 				}else{
-					echo "<label class='badge badge-danger'>Belum Mulai</label>";
+					echo "<div class='badge badge-danger'>Belum Mulai</div>";
 				}
 				?>
 			</td>
@@ -232,9 +234,16 @@ group by A.nama_user
 					?>
 					<a 
 					href="<?php echo Yii::app()->createUrl("sales/hapusregister&tanggal_rekap=$date&noprint=true&inserter=$m[userid]") ?>"
-					class="btn-primary btn btn-hapus-register" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+					class="btn-danger btn btn-hapus-register" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
 					<i class="fa fa-refresh" style="color:white!important"></i>
 					Hapus Register </a>
+					<?php if ($m['is_closed'] == 1):  ?>
+					<a 
+					href="<?php echo Yii::app()->createUrl("sales/reopenregister&tanggal_rekap=$date&noprint=true&inserter=$m[userid]") ?>"
+					class="btn-warning btn btn-reopen-register" inserter="<?php echo $m['userid']; ?>" tanggal="<?php echo $date ?>" >
+					<i class="fa fa-arrow-rotate-right" style="color:white!important"></i>
+					Buka kembali  </a>
+					<?php endif;?>
 				<?php 
 				}
 				if ($m['is_closed'] == 0 && $m['created_at']!=""):

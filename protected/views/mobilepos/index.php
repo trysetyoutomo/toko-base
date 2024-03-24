@@ -1,204 +1,67 @@
-<meta name="google" content="notranslate">
-<style>
-    :root {
-        --gray-light: #8598AE;
-        --primary : #2E4057;
-    }
+<?php 
+// var_dump($cekClosed);
+// var_dump($setor);
+// exit;
+		if ($cekKasir){ // cek apakah transaksi kasir ini sudah di tutup
+			?>
+				<script type="text/javascript">
+				Swal.fire("Informasi","Tranksaksi kasir <?php echo $username ?> pada tanggal <?php echo date("d M Y", strtotime($cekKasir->tanggal)) ?> telah ditutup pada <?php echo date("d M Y H:i", strtotime($cekKasir->updated_at)) ?> , kasir hanya bisa melakukan register 1 kali dalam sehari", 'info')
+                .then((result) => {
+                    window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+                });
+				</script>
+			<?php 
+		}
 
-    body {
-        background-color: #F7F7F8;
-        font-family: 'Work Sans', sans-serif;
-    }
+		if (!$cekClosed && $cekSales <= 0){ // cek apakah kasir belum closing dan cek apkah transaksi d bawah 0 
+			if ($setor){ //cek apakah sudah register
+			}else{ // cek user belum melakukan register, user diarahkan ke setor
+				if ($level != "1"){
+					?>
+					<script type="text/javascript">
+                        Swal.fire("Hanya pengguna dengan level kasir yang dapat mengakses halaman ini")
+                        .then((result) => {
+                            window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+                        });
+					</script>
+					<?php 
+				}
 
-    .modal-dialog label{
-        font-size:12px;
-    }
+                ?>
+                <script type="text/javascript">
+                window.location.href = '<?php echo Yii::app()->createUrl('mobilepos/inputsaldo') ?>';
+                </script>
+                <?php 
 
-    .navpos{
-        background-color: var(--primary)!important;
+			}
+		}else{
+            $criteria = new CDbCriteria;
+            $criteria->select = 't.* ';
+            $criteria->join = ' INNER JOIN `sales_items` AS `si` ON si.sale_id = t.id INNER JOIN `items` AS `i` ON i.id = si.item_id';
+            $criteria->addCondition("t.inserter = '$user_id' and  date(t.date) = '".$cekClosed->tanggal."' and t.status = 1 and store_id = '".Yii::app()->user->store_id()."' ");
+			$cekSales  = Sales::model()->findAll($criteria);
+			if (count($cekSales) > 0){
+			?>
+                <script type="text/javascript">
+                Swal.fire('Informasi', "Tranksaksi kasir <?php echo $username ?> pada tanggal  <?php echo date("d M Y", strtotime($cekClosed->tanggal)) ?>  belum ditutup, silahkan hubungi admin ", 'info')
+                .then((result) => {
+                    window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
+                });
+                </script>
+            <?php 
+			}else{  // jika tidak ada transaksi sales, dan belum d close maka close otomatis dengan reason tidak ada trasnsaksi
+				$setor = Setor::model()->find(" user_id = '$user_id' and  date(tanggal) = '".$cekClosed->tanggal."' and store_id = '".Yii::app()->user->store_id()."' ");
+				if ($setor){
+					$setor->is_closed = 1;
+					$setor->closed_reason = "Otomatis tutup, karena tidak ada transaksi";
+					if ($setor->save())
+						$this->redirect(array('mobilepos'));
+				}
     }
-
-    .btn-primary{
-        background-color: var(--primary)!important;
-        border-color:var(--primary)!important;
-    }
-    .btn-outline-primary{
-        color: var(--primary)!important;
-        border-color:var(--primary)!important;
-    }
-    
-    .bg-primary{
-        background-color: var(--primary)!important;
-    }
-
-
-    #menu-category {
-        padding-left: 0px;
-    }
-
-    #menu-category li.active {
-        background-color: var(--bs-primary);
-        color: white
-    }
-
-    #menu-category li:first-child {
-        margin-left: 0rem;
-    }
-
-    #menu-category li {
-        display: inline-block;
-        margin-left: 1rem;
-        padding: 3px 15px 3px 15px;
-        color: gray;
-        border-radius: 0.5rem;
-        border: 1px solid gray;
-        text-align: center;
-        cursor: pointer;
-    }
-
-    .item-menu {
-        min-height: 100px;
-        padding: 0.5rem 0.5rem 1rem 0.5rem;
-        border-radius: 0.5rem;
-    }
-
-    .item-menu img {
-        border-radius: 1rem;
-        object-fit: cover;
-        width: 100%;
-        max-height: 100px;
-        min-height: 75px;
-    }
-
-    .item-name {
-        font-size: 0.9rem;
-        font-weight: 500;
-    }
-
-    .item-price {
-        font-size: 1.1rem;
-        font-weight: regular;
-    }
-
-    .btn-selected {
-        border-radius: 1rem;
-    }
-
-    .summary-item-qty {
-        color: var(--gray-light)
-    }
-
-    .summary-item-image {
-        border-radius: 20%;
-        min-height: 70px;
-        object-fit: cover;
-        margin-left: 0.5rem;
-    }
-
-    .brand-img {
-        max-width: 75px;
-    }
-    .btn-money-5000{
-        background-image: url("img/uang/5000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .btn-money-2000{
-        background-image: url("img/uang/2000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
     }
 
 
-    .btn-money-1000{
-        background-image: url("img/uang/1000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .btn-money-10000{
-        background-image: url("img/uang/10000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .btn-money-20000{
-        background-image: url("img/uang/20000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .btn-money-50000{
-        background-image: url("img/uang/50000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .btn-money-75000{
-        background-image: url("img/uang/75000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .btn-money-100000{
-        background-image: url("img/uang/100000.jpg");
-        background-size: cover;
-        min-height: 50px;
-        
-    }
-
-    .tabsize{
-        font-size: 11px;
-    }
-
-    /* @media (min-width: 576px) and (min-height: 700px) { */
-        .full-height {
-            height: 50vh!important;
-        }
-        
-        .full-height-half{
-            height: 60vh!important;
-        }
-
-        .money-box{
-            bottom: 0px;
-        }
-    /* } */
-/* 
-    @media (min-height: 300px) {
-        .full-height-half{
-            height: 125px!important;
-        }
-    } */
-
-    #backToTopBtn {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        font-size: 24px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        padding: 10px;
-        cursor: pointer;
-        width: 50px;
-        height: 50px;
-    }
-</style>
-<!-- Button trigger modal -->
-
-
-
+?>
 
 <!-- Your content goes here -->
 <div class=" navpos align-items-center position-fixed w-100" style="top:0px;left:0px;z-index: 99;">
@@ -229,7 +92,15 @@
 </div>
 
 <div class="container-fluid" id="app" v-cloak style="overflow-x:hidden">
-<button id="backToTopBtn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+<div v-if="isLoading">Loading .. </div>
+
+  <button @click.prevent="clickkeranjang()"   href="#" class="btn btn-primary rounded-circle floating-button summary-button d-block d-md-none d-sm-none d-lg-none">
+    <i class="fas fa-shopping-cart"></i>
+    <span v-if="keranjang.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{  keranjang.length  }}
+        <span class="visually-hidden">unread messages</span>
+      </span>
+</button>
 
     <!-- Modal Close Register-->
     <div class="modal fade" id="modalCloseRegister" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -244,31 +115,36 @@
             <div class="row mb-3">
                 <label for="expected-cash" class="col-sm-4 col-form-label">Saldo Awal</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.openAmount" @change="closingkalkulasi" disabled>
+                <!-- <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.openAmount" @change="closingkalkulasi" disabled> -->
+                <label>{{closing.openAmount.toLocaleString('id-ID', { style: 'currency',currency: 'IDR'})}}</label>
+
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="expected-cash" class="col-sm-4 col-form-label">Pengeluaran</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.expense" @change="closingkalkulasi" disabled>
+                <!-- <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.expense" @change="closingkalkulasi" disabled> -->
+                <label>{{closing.expense.toLocaleString('id-ID', { style: 'currency',currency: 'IDR'})}}</label>
+
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="expected-cash" class="col-sm-4 col-form-label">Total Transaksi Cash</label>
+                <label for="expected-cash" class="col-sm-4 col-form-label">Total Cash harus ada </label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.expectedCash" @change="closingkalkulasi" disabled>
+                <label style="border-bottom:2px dashed gray">{{closing.expectedCash.toLocaleString('id-ID', { style: 'currency',currency: 'IDR'})}}</label>
+                <!-- <input type="text" class="form-control form-control-sm" id="expected-cash" v-model="closing.expectedCash" @change="closingkalkulasi" disabled> -->
                 </div>
             </div>
             
             <div class="row mb-3">
-                <label for="withdrawal-bank" class="col-sm-4 col-form-label">Total Transaksi Bank</label>
+                <label for="withdrawal-bank" class="col-sm-4 col-form-label">Total Transaksi Cashless</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" id="withdrawal-bank" v-model="closing.withdrawBank" @change="closingkalkulasi" disabled>
+                <label>{{closing.withdrawBank.toLocaleString('id-ID', { style: 'currency',currency: 'IDR'})}}</label>
                 </div>
             </div>
             <hr>
             <div class="row mb-3">
-                <label for="counted-cash" class="col-sm-4 col-form-label">Cash Terhitung</label>
+                <label for="counted-cash" class="col-sm-4 col-form-label">Cash Terhitung + Saldo Awal</label>
                 <div class="col-sm-8">
                 <input type="text" class="form-control form-control-sm" id="counted-cash" v-model="closing.countedCash" @input="closingkalkulasi">
                 </div>
@@ -276,7 +152,8 @@
             <div class="row mb-3">
                 <label for="remaining-cash" class="col-sm-4 col-form-label">Kurang/Lebih Cash</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi" disabled>
+                <!-- <input type="text" class="form-control form-control-sm" id="remaining-cash" v-model="closing.remainingCash" @change="closingkalkulasi" disabled> -->
+                <label>{{closing.remainingCash.toLocaleString('id-ID', { style: 'currency',currency: 'IDR'})}}</label>
                 </div>
             </div>
             <div class="row mb-3">
@@ -378,7 +255,7 @@
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     <div>
                         <button type="button" class="btn btn-secondary me-1 btn-sm " data-bs-dismiss="modal">Batal</button>
-                        <button :disabled="leftAmount > 0" @click="bayar(1)" type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Bayar</button>
+                        <button :disabled="leftAmount > 0 || (payment_cash === false && payment_bank === false)" @click="bayar(1)" type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Bayar</button>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -398,37 +275,40 @@
                         <div class="col-9 mt-1">
                             <div class="row">
                                 <div class="col col-3">
-                                    <button class="btn-money-1000 btn btn-success w-100" idr-value="1000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false" class="btn-money-1000 btn btn-success w-100" idr-value="1000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-2000 btn btn-success w-100" idr-value="2000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false" class="btn-money-2000 btn btn-success w-100" idr-value="2000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-5000 btn btn-success w-100" idr-value="5000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false"  class="btn-money-5000 btn btn-success w-100" idr-value="5000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-10000 btn btn-success w-100" idr-value="10000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false"  class="btn-money-10000 btn btn-success w-100" idr-value="10000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-20000 btn btn-success w-100" idr-value="20000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false"  class="btn-money-20000 btn btn-success w-100" idr-value="20000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-50000 btn btn-success w-100" idr-value="50000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false"  class="btn-money-50000 btn btn-success w-100" idr-value="50000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-75000 btn btn-success w-100" idr-value="75000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false"  class="btn-money-75000 btn btn-success w-100" idr-value="75000" @click="setInputCash"></button>
                                 </div>
                                 <div class="col col-3">
-                                    <button class="btn-money-100000 btn btn-success w-100" idr-value="100000" @click="setInputCash"></button>
+                                    <button :disabled="payment_cash === false"  class="btn-money-100000 btn btn-success w-100" idr-value="100000" @click="setInputCash"></button>
+                                </div>
+                                <div class="col col-3 mt-1">
+                                    <button :disabled="payment_cash === false"  class="btn btn-success w-100" idr-value="pass" @click="setInputCash"><i class="fa fa-check-circle"></i> Uang Pas</button>
                                 </div>
                             </div>
                             <div class="row mt-1">
                                 <div class="col-12">
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend ">
-                                            <span class="input-group-text">IDR </span>
+                                            <span class="input-group-text">Bayar CASH (Rp) </span>
                                         </div>
-                                        <input :disabled="payment_cash === false" @change="kalkulasi" @change="this.select()" v-model="input_cash" placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm">
+                                        <input :disabled="payment_cash === false" v-model="input_cash" @input="kalkulasi()"  placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
                             </div>
@@ -448,34 +328,100 @@
                             </div>
                         </div>
                         <div class="col-9 mt-1">
-                            <div class="row mb-1">
-                                <div class="col col-3">
-                                    <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BCA">BCA</button>
-                                </div>
-                                <div class="col col-3">
-                                    <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BRI">BRI</button>
-                                </div>
-                                <div class="col col-3">
-                                    <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="50000" bank_name="BNI">BNI</button>
-                                </div>
-                                <div class="col col-3">
-                                    <button @click="setCashlessMethod" class="btn btn-light w-100" payment-minimal="1" bank_name="QRIS">QRIS</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
+                        <div class="row mb-1">
+                        <div class="col col-3 d-block">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-mandiri':true,'btn-payment-active':payment_bank_method === 'MANDIRI' && payment_bank}"  
+                                payment-minimal="50000" 
+                                bank_name="MANDIRI"></button>
+                        </div>
+                        <div class="col col-3 d-block">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-bca':true,'btn-payment-active':payment_bank_method === 'BCA' && payment_bank }"  
+                                payment-minimal="50000" 
+                                bank_name="BCA"></button>
+                        </div>
+                        <div class="col col-3">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-bri':true,'btn-payment-active':payment_bank_method === 'BRI' && payment_bank}"  
+                                payment-minimal="50000" 
+                                bank_name="BRI"></button>
+                        </div>
+                        <div class="col col-3">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-bni':true,'btn-payment-active':payment_bank_method === 'BNI' && payment_bank}"  
+                                payment-minimal="50000" 
+                                bank_name="BNI"></button>
+                        </div>
+                        <div class="col col-3">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-qris':true,'btn-payment-active':payment_bank_method === 'QRIS' && payment_bank}"  
+                                payment-minimal="1" 
+                                bank_name="QRIS"></button>
+                        </div>
+                        <div class="col col-3">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-ovo':true,'btn-payment-active':payment_bank_method === 'OVO' && payment_bank}" 
+                                payment-minimal="1" 
+                                bank_name="OVO"></button>
+                        </div>
+                        <div class="col col-3">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-gopay':true,'btn-payment-active':payment_bank_method === 'GOPAY' && payment_bank}" 
+                                payment-minimal="1" 
+                                bank_name="GOPAY"></button>
+                        </div>
+                        <div class="col col-3">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-shopeepay':true,'btn-payment-active':payment_bank_method === 'SHOPEEPAY' && payment_bank}" 
+                                payment-minimal="1" 
+                                bank_name="SHOPEEPAY"></button>
+                        </div>
+                        <div class="col col-3 d-none">
+                            <button :disabled="payment_bank === false" @click="setCashlessMethod" 
+                                :class="{'btn':true, 'btn-light':true, 'w-100':true, 'btn-payment':true, 'btn-payment-dana':true,'btn-payment-active':payment_bank_method === 'DANA' && payment_bank}" 
+                                payment-minimal="1" 
+                                bank_name="DANA"></button>
+                        </div>
+                    </div>
+
+
+                            <!-- <div class="col-12">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend ">
-                                        <span class="input-group-text">IDR </span>
+                                        <span class="input-group-text">`IDR` </span>Masukan nilai Rupiah"
                                     </div>
-                                    <input placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm" :disabled="disabledPaymentBank || payment_bank === false" v-model="input_bank" />
+                                    <input placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm" :readonly="disabledPaymentBank || payment_bank === false" v-model="input_bank" />
+                                </div>
+                            </div> -->
+
+
+                            <div class="col-12">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp </span>
+                                    </div>
+                                    <!-- :readonly="disabledPaymentBank || payment_bank === false" -->
+                                    <input placeholder="Masukan nilai Rupiah" type="text" class="form-control form-control-sm" id="rupiahInput"  v-model="input_bank" readonly>
                                 </div>
                             </div>
+
+
+
                             <div class="col-12">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text">0.0 </span>
                                     </div>
                                     <input :disabled="disabledPaymentBank || payment_bank === false" placeholder="Masukan Nomor Kartu" type="text" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+                                </div>
+                            </div>
+                            <div class="col-12 d-none">
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend ">
+                                        <span class="input-group-text">0.0 </span>
+                                    </div>
+                                    <input :disabled="disabledPaymentBank || payment_bank === false" placeholder="Masukan Kode Approval" type="text" class="form-control form-control-sm">
                                 </div>
                             </div>
                         </div>
@@ -495,7 +441,7 @@
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend ">
-                                        <span class="input-group-text">IDR </span>
+                                        <span class="input-group-text">Rp </span>
                                     </div>
                                     <input   readonly="true" v-model="change" placeholder="Change" type="text" :class="{'form-control form-control-sm':true,'text-danger':change === 'Uang cash kurang!'}" aria-label="Amount (to the nearest dollar)">
                                 </div>
@@ -538,7 +484,7 @@
     </div>
 
     <div class="row" style="z-index: 1;margin-top: 2.2rem;overflow:hidden!important">
-        <div class="col-6 col-md-8 col-sm-7 ">
+        <div class="col-12 col-md-8 col-sm-7 ">
             <h5 class="mb-2 mt-4">Menu <span style="color:var(--gray-light)">({{items.length}})</span></h5>
             <div class="row mt-3 ">
                 <div class="col-12">
@@ -558,7 +504,7 @@
                 </div>
             </div>
             <div class="row gy-3 gx-2"> 
-                <div class="col-12 col-lg-4 col-md-4 col-sm-6" v-for="item in items" :key="item.id">
+                <div :class="{'col-6':true, 'col-lg-4':true, 'col-md-4':true, 'col-sm-6':true,'d-none':ringkasanPesananMobile === true }" v-for="item in items" :key="item.id">
                     <div :class="{ 'item-menu':true,'card':true,'border-primary': !isInKeranjang(item.id), 'border-3': !isInKeranjang(item.id) }" style="min-height:210px;">
                         <div class="row" @click="add(item.id)">
                             <img v-if="item.image != '' && item.image.toLowerCase() !== 'images/items/item.gif'" :src="'img/produk/' + item.image" alt="image not found" class="avatar-img rounded-circle" />
@@ -598,10 +544,9 @@
             </div>
 
         </div>
-        <div class="col-6 col-md-4 col-sm-5">
+        <div :class="{'d-sm-block':true,'d-none':ringkasanPesananMobile === false,'col-6':ringkasanPesananMobile === false, 'col-md-4':true, 'col-sm-5':true, 'ringkasan-mobile':ringkasanPesananMobile,  'col-12':ringkasanPesananMobile}"  style="overflow-y:auto">
             <div class="card mt-2 position  w-100" style="width: -webkit-fill-available;" >
-                <div class="card-header p-2"> <span class="">Ringkasan Pesanan 
-                    <!-- <span  style="color:var(--gray-light)">({{ keranjang.length}})</span> -->
+                <div class="card-header p-2 mb-1"> <span class="">Ringkasan Pesanan 
                      <span v-if="activeTable!==''" style="color: var(--gray-light);">{{activeTable}}</span>
                      <button @click="updateTableItems" :class="{ 'ml-1':true, 'btn':true, 'btn-success' : true, 'btn-sm':true, 'd-none':activeTableNumber == ''  }"><i class="fa fa-check"></i></button>
                 </div>
@@ -617,16 +562,16 @@
                         </div>
                         <div v-if="keranjang.length > 0" class="card pt-1 mt-1 p-1 pb-0 p-md-0" v-for="item in keranjang" :key="item.id">
                             <div class="row justify-content-center align-items-center mt-1">
-                                <div class="col-12 col-md-6 ">
+                                <div class="col-5 col-md-6 ">
                                     <div class="summary-item-name" style="font-size:11px">{{item.nama}}</div>
                                     <div class="summary-item-qty" style="font-size:11px">({{formatMoney(item.harga_jual)}}) x {{item.qty}}</div>
                                 </div>
-                                <div class=" col-6 col-md-2 summary-item-deletion mt-1 mt-md-0">
+                                <div class=" col-3 col-md-2 summary-item-deletion mt-1 mt-md-0">
                                     <div @click="removeItem(item.id)" class="card" style="width: 30px;height: 30px;justify-content: center;align-items: center;border-radius: 50%;">
                                         <i class="fa fa-trash " style="color: #deb7b7;"></i>
                                     </div>
                                 </div>
-                                <div class=" col-6 col-md-3 summary-item-note mt mt-md-0">
+                                <div class=" col-3 col-md-3 summary-item-note mt mt-md-0">
                                     <div @click="addNote(item.id)" class="card" style="width: 30px;height: 30px;justify-content: center;align-items: center;border-radius: 50%;">
                                         <i class="fa fa-note-sticky " style="color: rgb(226 228 92);"></i>
                                     </div>
@@ -689,7 +634,7 @@
                                 <div class="col mt-1 mt-md-1">
                                 <button @click="clickClosing" type="button" class="btn btn-danger w-100 btn-sm">
                                         <!-- <i class="fa fa-times"></i> -->
-                                        Tutup
+                                        Closing
                                     </button>                                    
                                 </div>
                                
@@ -706,8 +651,40 @@
     </div>
     <script>
     const {createApp, ref} = Vue;
+    
+    function formatMoney(amount) {
+    // Memisahkan bagian desimal
+    var parts = amount.toString().split(".");
+    var integerPart = parts[0];
+    var decimalPart = parts.length > 1 ? parts[1] : "";
+
+    // Menambahkan koma setiap 3 digit dari belakang, kecuali digit terakhir
+    var formattedIntegerPart = "";
+    for (var i = integerPart.length - 1, j = 1; i >= 0; i--, j++) {
+        formattedIntegerPart = integerPart.charAt(i) + formattedIntegerPart;
+        if (j % 3 === 0 && i !== 0) {
+            formattedIntegerPart = "," + formattedIntegerPart;
+        }
+    }
+
+    // Menggabungkan bagian integer dan decimal
+    var formattedAmount = formattedIntegerPart;
+    if (decimalPart !== "") {
+        formattedAmount += "." + decimalPart;
+    }
+
+    return formattedAmount;
+}
+
+
     const app = Vue.createApp({
         methods: {
+            closeRingkasanPesanan(){
+                this.ringkasanPesananMobile = false
+            },
+            clickkeranjang(){
+                this.ringkasanPesananMobile = !this.ringkasanPesananMobile
+            },
             clickTutupRegister(){
                 let vm = this;
                 let tanggal = '<?php echo date("Y-m-d"); ?>';
@@ -720,16 +697,39 @@
                 success: function(data){
                     var json = jQuery.parseJSON(data);
                     var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
-                    if (jenis_printer === "Mini Printer" )
-                      print_rekap(json,false);               
                     vm.disabledTutupRegister = false;     
                     setTimeout(function() {
-                        alert("Data berhasil disimpan!, sistem akan logout secara otomatis");
-                        window.location.assign("<?php echo $this->createUrl('site/logout'); ?>");
+
+                        Swal.fire({
+                            title: 'Confirmation',
+                            text: 'Data berhasil disimpan!, Apakah anda ingin mencetak Rekap Transaksi Penjualan anda ?',
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // User clicked "Yes"
+                                // Swal.fire('Confirmed!', 'You clicked Yes.', 'success');
+                                window.location.assign("<?php echo $this->createUrl('sales/cetakrekap',["noprint"=>true,"tanggal_rekap"=>date("Y-m-d")]); ?>");
+
+                            } else {
+                                // User clicked "No"
+                                Swal.fire('Logout', 'Sistem akan melakukan logout secara otomatis.', 'success');
+                                setTimeout(() => {
+                                    window.location.assign("<?php echo $this->createUrl('site/logout'); ?>");
+                                }, 3000);
+
+                            }
+                        });
+                        
                     }, 100);
                 },
-                error: function(data){
-                    alert('error');
+                error: function(error){
+                    let errorResponse = JSON.parse(error.responseText);
+                    Swal.fire('Error', errorResponse.message, 'error');
                 }
             });
             },
@@ -770,7 +770,7 @@
 
             },
             closingkalkulasi(){
-                this.closing.remainingCash = parseInt(this.closing.countedCash) - ( parseInt(this.closing.expectedCash) + parseInt(this.closing.openAmount));
+                this.closing.remainingCash = parseInt(this.closing.countedCash) - ( parseInt(this.closing.expectedCash));
             },
             setCashlessMethod(){
                 if (this.payment_bank)
@@ -785,12 +785,8 @@
                 this.dineIn(param);
             },
             onpaymentBankChange(){
-                if (this.leftAmount >= 0 && this.payment_bank){
-                    this.input_bank = this.leftAmount;
-                }else{
-                    this.input_bank = "";
-                }
-                this.kalkulasi()
+                const vm = this;
+                this.kalkulasi();
             },
             onpaymentcashChange(){
                 if (this.payment_cash && this.payment_bank === false)
@@ -803,30 +799,61 @@
                 else
                     this.input_bank = "";
 
-
-                this.kalkulasi()
+                this.kalkulasi();
             },
-            kalkulasi() {
-                const vm = this;
-
-
-                if (this.payment_bank === false && this.payment_cash === true ){
-                    if (this.leftAmount === this.grandtotal){
-                    }else if (this.leftAmount > 0){ // jika masih ada sisa
-                        this.disabledPaymentBank = false;
-                        if (this.payment_bank)   
-                            this.input_bank = this.leftAmount;
-                        else
-                            this.input_bank = "";
-                    }
-                    else{
-                        // this.payment_bank = false;
-                        // this.disabledPaymentBank = true;
-                    }
+            ensureNumber(value) {
+                if (value === undefined || Number.isNaN(value) || isNaN(value) || value.length == 0  ) {
+                    return 0;
                 }
 
+                return parseInt(value);
+            },
+            kalkulasiSisa(){
+                const vm =  this;
+                vm.leftAmount = this.ensureNumber(vm.grandtotal) -  (this.ensureNumber(vm.input_cash) + this.ensureNumber(vm.input_bank)) ;
 
-                vm.leftAmount = vm.grandtotal - ( (isNaN(vm.input_cash) ? 0 : vm.input_cash) + (isNaN(vm.input_bank) ? 0 : vm.input_bank)) ;
+                // console.log("grandtotal", typeof this.ensureNumber(vm.grandtotal));
+                // console.log("cash", typeof this.ensureNumber(vm.input_cash));
+                // console.log("bank", typeof this.ensureNumber(vm.input_bank));
+
+                // console.log("grandtotal",  this.ensureNumber(vm.grandtotal));
+                // console.log("cash",  this.ensureNumber(vm.input_cash));
+                // console.log("bank",  this.ensureNumber(vm.input_bank));
+                
+            },
+            // isPaymentFilled(){
+            //     const vm = this;
+            //     let sisa = 0;
+                
+            //     console.log("this.payment_cash " + this.payment_cash)
+            //     console.log("this.payment_bank " + this.payment_bank)
+                
+            //     // console.log("t " + this.payment_bank)
+            //     console.log("grandtotal", typeof this.ensureNumber(vm.grandtotal));
+            //     console.log("cash", typeof this.ensureNumber(vm.input_cash));
+            //     console.log("bank", typeof this.ensureNumber(vm.input_bank));
+
+            //     if (this.payment_cash && this.payment_bank){
+            //         sisa = this.ensureNumber(vm.grandtotal) -  (this.ensureNumber(vm.input_cash) + this.ensureNumber(vm.input_bank)) ;
+            //         console.log ('dua');
+            //     }else if (this.payment_bank){
+            //         sisa = this.ensureNumber(vm.grandtotal) - this.ensureNumber(vm.input_bank) ;
+            //         console.log ('tiga');
+            //     }
+            //     else if (this.payment_cash){
+            //         sisa = this.ensureNumber(vm.grandtotal) -  this.ensureNumber(vm.input_cash) ;
+            //         console.log ('satu');
+            //     }
+            //     console.log("grandtotal " +this.ensureNumber(vm.grandtotal));
+            //     console.log("input_cash " + this.ensureNumber(vm.input_cash));
+            //     console.log("input_bank " + this.ensureNumber(vm.input_bank));
+            //     console.log("sisa" + sisa);
+            //     console.log("hasil boolean" + sisa <= 0);
+            //     return sisa <= 0;   
+            // },
+            kalkulasi() {
+                const vm = this;
+                try{                
                 vm.subtotal = 0;
                 this.keranjang.forEach((obj) => {
                     vm.subtotal += parseInt(obj.harga_jual) * parseInt(obj.qty);
@@ -838,10 +865,44 @@
                 vm.grandtotal = (vm.subtotalAfterDiscount + vm.tax + vm.service);
                 vm.rounded = this.roundTotalToNearestMultiple(vm.grandtotal, 100) - vm.grandtotal;
                 vm.grandtotal = this.roundTotalToNearestMultiple(vm.grandtotal, 100);
-                if (vm.payment_cash && !vm.payment_bank)
-                    vm.change = vm.input_cash > vm.grandtotal ?  vm.formatMoney(vm.input_cash - vm.grandtotal) : "Uang cash kurang!";
-                
+                this.kalkulasiSisa();
 
+                if (this.payment_bank === false && this.payment_cash === true ){ // jika bayar cash only
+                    vm.input_bank = "";
+                    vm.change = vm.input_cash >= vm.grandtotal ?  vm.formatMoney(vm.input_cash - vm.grandtotal) : "Uang cash kurang!";
+                     if (this.leftAmount > 0){ // jika masih ada yang harus d bayar
+                        this.disabledPaymentBank = false; // aktifkan checkbox bank
+                    }
+                    if (this.leftAmount > 0 && this.payment_cash && this.payment_bank === false){  // jika payment cash aktif, dan masih ada sisa yang harus dibayar
+                        this.disabledPaymentBank = false;
+                    }
+                    this.kalkulasiSisa();
+                    // }
+                }else  if (this.payment_bank && this.payment_cash === false){ // jika bayar bank only
+                    vm.input_cash = "";
+                    this.input_bank = this.grandtotal;
+                    this.kalkulasiSisa();
+                }else  if (this.payment_bank && this.payment_cash){  // jika bank dan cash
+                    this.input_bank = "";
+                    this.kalkulasiSisa();
+                    if (this.leftAmount > 0){  // jika payment cash aktif, dan masih ada sisa yang harus dibayar
+                        this.input_bank = this.leftAmount;
+                    }else{
+                        this.input_bank = "";
+                        this.payment_bank = false;
+                    }
+                    if (this.input_cash === ""){
+                        this.payment_cash = false;
+                    }
+
+                }else{
+                    this.input_bank = "";
+                    this.input_cash = "";
+                }
+                
+                }catch(error){
+                    console.log("kalkulasi function : " + error);
+                }
 
             },
             roundTotalToNearestMultiple(total, multiple) {
@@ -888,6 +949,8 @@
                 }
             },
             add(id,qty = 1) {
+                const vm  = this;
+                try{
                 let isExist = this.keranjang.find(obj => obj.id === id);
                 if (isExist === undefined) {
                     let findItem = this.originalItems.filter(function(i) {
@@ -899,6 +962,10 @@
                     isExist.qty += 1;
                 }
                 this.kalkulasi();
+                }catch(error){
+                    Swal.fire('Error', 'Gagal load produk', 'error');
+                    vm.cleanUpOrder();
+                }
             },
             formatMoney(value) {
                 // Convert the numeric value to Rupiah format
@@ -967,8 +1034,10 @@
                 }
             },
             bayar(status, no_meja){
+                try{
                 let vm = this;
                 let sales = {
+                    pembulatan: vm.rounded,
                     sale_id: null,
                     subtotal: vm.subtotal,
                     discount: vm.discount,
@@ -976,7 +1045,7 @@
                     service: vm.service,
                     total_cost: vm.grandtotal,
                     payment: null,
-                    paidwith_id: vm.payment_bank_method === "" ? "CASH" : vm.payment_bank_method,
+                    bayar_via: vm.payment_bank ? vm.payment_bank_method === "" ? "CASH" : vm.payment_bank_method : "CASH", 
                     status: status,
                     table: no_meja === undefined ? this.activeTableNumber : no_meja,
                     custype: null,
@@ -990,25 +1059,31 @@
                         total_cash = vm.input_cash; 
                     }
 
+
+
                     let sales_payment = {
-                        cash: total_cash,
-                        edcbca: vm.input_bank,
+                        cash: vm.payment_cash ? total_cash : 0,
+                        edcbca: vm.payment_bank ? vm.input_bank : 0,
                         edcniaga: 0,
                         voucher: vm.discount,
                         compliment: 0,
                         dll: 0
                     }
+
                     let sales_items = [];
                     vm.keranjang.forEach(function(rec) {
+                        const item_total = rec.harga_jual * rec.qty;
+                        const item_pajak = item_total * rec.qty;
                         sales_items.push({
                             "item_id": rec.id,
                             "item_satuan_id": rec.nama_satuan_id,
                             "item_name": rec.nama,
                             "quantity_purchased": rec.qty,
-                            "item_tax": 0,
+                            "item_tax": item_total * (vm.percent_tax/100 ),
+                            "item_service": item_total * (vm.percent_service/100 ),
                             "item_discount": 0,
                             "item_price": rec.harga_jual,
-                            "item_total_cost": rec.harga_jual * rec.qty,
+                            "item_total_cost": item_total,
                             "permintaan": rec.comment
                         });
                     });
@@ -1038,26 +1113,41 @@
 
                                     if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
 
-                                        var c = confirm("Cetak Bukti ?? ");
-                                        if (c){	
-                                            $.ajax({
-                                                url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
-                                                data : {
-                                                    id : sales.sale_id
-                                                },
-                                                success:function(data){
-                                                $('.body-bukti').html(data);
-                                                $(".btn-modal-preview").trigger("click");
-
-                                                }
-                                            });
-                                        // window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>&id="+idx);
-                                        }
+                                            Swal.fire({
+                                                title: 'Confirmation',
+                                                text: 'Cetak Receipt ?',
+                                                icon: 'question',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Yes',
+                                                cancelButtonText: 'No'
+                                            }).then((result) => {
+                                                $.ajax({
+                                                    url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
+                                                    data : {
+                                                        id : sales.sale_id
+                                                    },
+                                                    success:function(data){
+                                                    $('.body-bukti').html(data);
+                                                    $(".btn-modal-preview").trigger("click");
+                                                    }
+                                                });
+                                          });
                                     }else if ( (jenis_cetak=="80mm" || jenis_cetak=="58mm") && jenis_printer === "Epson LX" ){
-                                        var c = confirm("Cetak Bukti ?? ");
-                                        if (c){ 
-                                            window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+sales.sale_id);
-                                        }
+                                            Swal.fire({
+                                                title: 'Confirmation',
+                                                text: 'Cetak Receipt ?',
+                                                icon: 'question',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Yes',
+                                                cancelButtonText: 'No'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+sales.sale_id);
+                                            }});
                                     }else{
                                         var i =1;
                                         var ulang  =  1;
@@ -1088,6 +1178,9 @@
                             alert(data);
                         }
                     });
+                }catch(error){
+                    console.log(error);
+                }
             },
             async getActiveTable() {
                 // Construct the URL with the tableNumber parameter
@@ -1147,10 +1240,13 @@
                 this.activeTable = "";
                 this.payment_cash = true;
                 this.payment_bank = false;
+                this.input_bank = "";
+                this.input_cash = ""
                 this.search_keyword = "";
                 this.discount_type = "percent";
                 this.discount_value = 0;
-                this.payment_bank_method = "";
+                this.payment_bank_method = "MANDIRI";
+                this.ringkasanPesananMobile = false;
 
             },
             estimate(num) {
@@ -1179,9 +1275,14 @@
 
             },
             setInputCash(event) {
-                if (this.payment_cash)
-                    this.input_cash = event.currentTarget.getAttribute("idr-value");
-                this.kalkulasi();
+                if (this.payment_cash){
+                    let idrValue = event.currentTarget.getAttribute("idr-value");
+                    if (idrValue === "pass")
+                        this.input_cash =  this.grandtotal;
+                    else
+                        this.input_cash =  idrValue;
+                    this.kalkulasi();
+                }
             },
             filterCategory(id) {
                 this.activeCategory = id;
@@ -1199,16 +1300,22 @@
             }
         },
         computed() {
-
+            <?php 
+            $store = Stores::model()->findByPk(Yii::app()->user->store_id());
+            $percentTax = $store->percent_tax;
+            $percentService = $store->percent_service;
+            ?>
         },
         data() {
             return {
+                search_keyword : "",  
+                ringkasanPesananMobile : false,
                 subtotal: 0,
                 discount: 0,
                 discount_value: 0,
                 discount_type: "percent", //percent or amount
-                percent_tax: <?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->pajak ?>,
-                percent_service: <?php echo Parameter::model()->find(" store_id = '".Yii::app()->user->store_id()."' ")->service ?>,
+                percent_tax: <?php echo (!isset($percentTax) || $percentTax === '') ? 0 : trim($percentTax); ?>,
+                percent_service: <?php echo (!isset($percentService) || $percentService === '') ? 0 : trim($percentService); ?>,
                 tax: 0,
                 service: 0,
                 rounded: 0,
@@ -1221,9 +1328,9 @@
                 activeTableNumber: "",
                 activeTable: "",
                 activeCategory: "all",
-                payment_cash: true,
+                payment_cash: false,
                 payment_bank: false,
-                payment_bank_method: "",
+                payment_bank_method: "MANDIRI",
                 input_bank: 0,
                 input_cash: 0,
                 change: 0,
@@ -1255,17 +1362,30 @@
             this.modalInfo = new bootstrap.Modal(document.getElementById('modalInfo'));
             this.modalCloseRegister = new bootstrap.Modal(document.getElementById('modalCloseRegister'));
             this.refreshTable();
+            setTimeout(() => {
+                this.isLoading = false;
+            }, 2000); // Adjust the delay as needed
         },
         watch: {
             "grandtotal": function() {
-                this.input_cash = this.estimate(this.grandtotal);
+                this.kalkulasiSisa();
             },
             "input_cash": function() {
-                this.kalkulasi();
+                this.kalkulasiSisa();
             },
             "input_bank": function() {
-                this.kalkulasi();
+                this.kalkulasiSisa();
             },
+            "payment_cash": function() {
+                this.kalkulasiSisa();
+            },
+            "payment_bank": function() {
+                this.kalkulasiSisa();
+            },
+            "payment_bank_method": function() {
+                this.kalkulasiSisa();
+            },
+      
             // "items": function() {
             //     this.items =  this.items.slice().sort((a, b) => a.qty - b.qty);
             // }

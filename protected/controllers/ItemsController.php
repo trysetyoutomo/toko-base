@@ -2881,7 +2881,7 @@ public function getHargamodal($id){
 			$value['item_name'] ." <br/>  ". ($value['is_bahan']=="1" ? "<span class='badge' style='background:red'>Bahan Baku</span>" : ""),
 			// '<a href="'.Yii::app()->createUrl("ItemsSatuan/kartu",array("id"=>$value['id'],'satuan_id'=>$value['satuan_id'])).'">'.$value['item_name'].'</a>',
 			$satuanlist,
-			number_format((float)$stok, 2, '.', ''),
+			// number_format((float)$stok, 2, '.', ''),
   		);
   		if ($adjust=="1"){
   			array_push($json, $input);

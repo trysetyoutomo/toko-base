@@ -1,21 +1,18 @@
-
-<?php
-/* @var $this BranchController */
-/* @var $model Branch */
-
-?>
-<!-- <style type="text/css">
-	#Branch-grid{
-		width: 100%;
-	}
-</style>
- -->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Branch/admin'); ?>">Mengelola Cabang</a></li>
+</ol>
 
 <h1>
 <i class="fa fa-book"></i>
 Mengelola Cabang
 </h1>
 <hr>
+<?php 
+$successMessage = Yii::app()->user->getFlash('success');
+if ($successMessage)
+	echo '<div class="alert alert-success">' . $successMessage . '</div>';
+?>
 <div class="row">
 	<div class="col-sm-8">
 		<a href="<?php echo Yii::app()->controller->createUrl("create") ?>">
@@ -74,9 +71,7 @@ Mengelola Cabang
     </li>
 
     <li>
-      <?php 
-      if ($value['is_utama']!="1"){
-      ?>
+      <?php if ($value['is_utama']!="1"){?>
         <a class="hapus" href="<?php echo Yii::app()->createUrl("Branch/hapus", array("id"=>$value[id])) ?>">
         <i class="fa fa-times"></i> Hapus
         </a>
@@ -96,10 +91,13 @@ Mengelola Cabang
             <?php echo $value['company'] ?>
             </a>
             </td> -->
-            <td>
-            	
-            <a href="<?php echo Yii::app()->createUrl("Branch/update", array("id"=>$value[id])) ?>">
-            <?php echo $value['branch_name'] ?>
+            
+            <td>            	
+              <a href="<?php echo Yii::app()->createUrl("Branch/update", array("id"=>$value[id])) ?>">
+              <?php echo $value['branch_name'] ?>
+              <?php if ($value['is_utama']=="1"){?>
+                <div class="badge badge-success">pusat</div>
+              <?php } ?>
             </a>
             </td>
               

@@ -1,17 +1,8 @@
-<?php
-$this->breadcrumbs=array(
-	'Branches'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Branch', 'url'=>array('index')),
-	array('label'=>'Create Branch', 'url'=>array('create')),
-	array('label'=>'View Branch', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Branch', 'url'=>array('admin')),
-);
-?>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Yii::app()->createUrl('Branch/admin'); ?>">Mengelola Cabang</a></li>
+  <li class="breadcrumb-item active"><?php echo $model->branch_name ?></a></li>
+</ol>
 
 <h1>Ubah Cabang #<?php echo $model->id; ?></h1>
 

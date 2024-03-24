@@ -52,4 +52,12 @@ class EWebUser extends CWebUser
 			return false;
 		}
 	}
+
+	function user_id()
+	{
+		$user = $this->loadUser();
+		if ($user) {
+			return $user->id;
+		} 
+	}
 }

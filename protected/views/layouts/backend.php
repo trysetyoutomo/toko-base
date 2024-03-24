@@ -24,10 +24,20 @@
 
       <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
-      <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
-      <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script>
+      <!-- <link href="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.css" rel="stylesheet"/>
+      <script src="<?php echo Yii::app()->request->baseUrl; ?>/select2/select2.js"></script> -->
+
+   <!-- Include Select2 CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+      <!-- Include Select2 JS -->
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+
       <!-- numeral js -->
       <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+      <!-- moment js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.29.1/moment.min.js"></script>
 
 
 
@@ -212,11 +222,9 @@
     // });
     
      $(document).on("click",".hapus,.delete",function(e){
-      // e.preventDefault();
       if (!confirm("Yakin ? ")){
         return false;
       }
-
     });
 
     $('a[href^="#"]').on('click',function (e) {
@@ -464,8 +472,32 @@
          margin-top:10px;
       } 
 
-      .form-control {
+      .form-control, .select2-container {
          max-width: 700px!important;
+      }
+
+      #branch-form .select2-container{
+         width: 700px!important;
+      }
+
+      /* Default styles for h1 */
+      .h1, h1 {
+      font-size: 24px; /* Default font size for mobile */
+      line-height: 1.2;
+      }
+
+      /* Tablet styles */
+      @media (min-width: 768px) {
+      .h1, h1 {
+         font-size: 32px; /* Increase font size for tablets */
+      }
+      }
+
+      /* Desktop styles */
+      @media (min-width: 1024px) {
+      .h1, h1 {
+         font-size: 48px; /* Increase font size for desktops */
+      }
       }
 
       </style>

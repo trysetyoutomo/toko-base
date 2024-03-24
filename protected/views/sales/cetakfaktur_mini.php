@@ -71,32 +71,39 @@ $parameter = Parameter::model()->findByPk(1);
 <?php 
 
 $sql = "
-select 
-refno,
-pembayaran_via,
-sp.cash,
-s.id id,
-faktur_id,
-nama,
-customer_id,
-s.bayar,s.table,inserter, s.comment comment,
-date,
-tanggal_jt,
-s.waiter waiter,
-sum(si.item_tax) tax,
-sum(si.item_service) service, 
-s.sale_voucher voucher
+SELECT
+    s.refno,
+    s.pembayaran_via,
+    sp.cash,
+    sp.edc_bca,
+    s.id AS id,
+    s.faktur_id,
+    nama,
+    s.customer_id,
+    s.bayar,
+    s.table,
+    s.inserter,
+    s.comment AS comment,
+    s.date,
+    s.tanggal_jt,
+    s.waiter AS waiter,
+    SUM(si.item_tax) AS tax,
+    SUM(si.item_service) AS service,
+    s.sale_voucher AS voucher,
+    s.pembulatan
+FROM sales s
+JOIN users u ON s.inserter = u.id
+JOIN sales_payment sp ON sp.id = s.id
+JOIN sales_items si ON si.sale_id = s.id
+WHERE s.id = $id
+GROUP BY s.id
 
-from sales s, users u , sales_payment sp, sales_items  si
-where
- s.id = $id
-and inserter = u.id
-and sp.id = s.id 
-and si.sale_id = s.id 
-group by s.id 
 ";
 
 $model = Yii::app()->db->createCommand($sql)->queryRow();
+// echo "<pre>";
+// print_r($model);
+// exit;
 ?>
 <style type="text/css">
 	$page{
@@ -224,7 +231,7 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 				
 			</tbody>
 				<?php 
-				$gt2 = ( floatval($gt1) + floatval($model['tax']) + floatval($model['service']) ) -  floatval($model['voucher']);
+				$gt2 = ( floatval($gt1) + floatval($model['tax']) + floatval($model['service']) ) -  floatval($model['voucher']) + floatval($model['pembulatan']);
 				?>
 			<tfoot>
 				<tr>
@@ -240,14 +247,24 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 					<td>Potongan</td>
 					<td align="right" ><?php echo number_format($model['voucher']) ?></td>
 				</tr>
+				<?php if (!empty($model['tax'])): ?>
 				<tr>
 					<td>Pajak</td>
 					<td align="right" ><?php echo number_format($model['tax']) ?></td>
 				</tr>
+				<?php endif ?> 
+				<?php if (!empty($model['service'])): ?>
+					<tr>
+						<td>Service</td>
+						<td align="right" ><?php echo number_format($model['service']) ?></td>
+					</tr>
+				<?php endif ?> 
+				<?php if (!empty($model['pembulatan'])): ?>
 				<tr>
-					<td>Service</td>
-					<td align="right" ><?php echo number_format($model['service']) ?></td>
+					<td>Pembulatan</td>
+					<td align="right" ><?php echo number_format($model['pembulatan']) ?></td>
 				</tr>
+				<?php endif ?> 
 		<tr>
 		<td colspan="2" style="border:1px dashed white;padding:0">
 			<div style="width:100%;border-bottom: 1px dashed black;"></div>
@@ -261,8 +278,10 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 					<td align="right" ><?php echo number_format($gt2) ?></td>
 
 				</tr>
-					<tr><td >Bayar</td><td align="right" ><?php echo number_format($model['bayar']) ?></td></tr>
 					
+				
+				 <?php if ( $model['pembayaran_via'] === "CASH" ):   ?>
+					<tr><td >Bayar</td><td align="right" ><?php echo number_format($model['bayar']) ." "  ?></td></tr>
 					<tr>
 					<td style="border-right:1px solid white;">
 						<?php 					
@@ -274,16 +293,29 @@ $model = Yii::app()->db->createCommand($sql)->queryRow();
 						?>
 					</td>
 					<td style="border-right:1px solid white;" align="right"><?php echo number_format( abs($model['bayar']-$gt2)) ?></td>
-					</tr>
-				<?php if ($model['cash'] > 0){ ?>
+				</tr> 
+				<?php else: ?>  
+					<?php  //jika 1 metode pembayaran dengan cashless
+					if($model['cash'] > 0){ ?> 
+						<tr><td >CASH</td><td align="right" ><?php echo number_format($model['cash']) ." "  ?></td></tr>
+					<?php } ?>
+					
+	
+					<?php  //jika 2 metode pembayaran
+					if ($model['edc_bca'] > 0){ ?> 
+					<tr><td ><?php echo $model['pembayaran_via'] ?></td><td align="right" ><?php echo number_format($model['edc_bca']) ." "  ?></td></tr>
+					<?php } ?>
+				<?php endif; ?>  
 				
-				<?php  }else{ ?>
-					<tr><td >Non Tunai</td><td align="right" ><?php echo ($model['pembayaran_via']) ?></td></tr>
-					<?php if (!empty($model['refno'])):  ?>
-						<tr><td >No Ref</td><td align="right" ><?php echo ($model['refno']) ?></td></tr>
-					<?php endif; ?>
+					
+				
+			
 
-				<?php  } ?>
+				
+				<?php if (!empty($model['refno'])):  ?>
+					<tr><td >No Ref</td><td align="right" ><?php echo ($model['refno']) ?></td></tr>
+				<?php endif; ?>
+
 				<tr><td colspan="2" align="center">Terimakasih atas kunjunganya</td></tr>
 			</tfoot>
 		</table>

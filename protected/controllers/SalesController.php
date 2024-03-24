@@ -69,7 +69,7 @@ class SalesController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('adminjson','index','tutupregister','lunasin','labarugi','hapus','rekapmenu','create', 'update','grafikmember','GetCustomer2'),
+                'actions' => array('reopenregister','adminjson','index','tutupregister','lunasin','labarugi','hapus','rekapmenu','create', 'update','grafikmember','GetCustomer2'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -90,6 +90,17 @@ class SalesController extends Controller {
 	      	}
       	}
       }
+
+	  public function actionReopenregister(){
+		if (isset($_REQUEST['tanggal_rekap'])){	
+			$setor = Setor::model()->find("tanggal = '$_REQUEST[tanggal_rekap]' and user_id='$_REQUEST[inserter]' ");
+			$setor->is_closed = 0;
+			$setor->total = 0;
+			if ($setor->update()){
+			  $this->redirect(array('sales/rekap'));
+			}
+		}
+	}
 
 	   public function actionTutupregister(){
       	if (isset($_REQUEST['tanggal_rekap'])){	
@@ -1744,6 +1755,7 @@ class SalesController extends Controller {
 				sum(sd) sale_discount,
 				sum(stt) sale_total_cost,
 				sum(total_items) total_items,
+				pembulatan,
 				nama
 			FROM (
 			SELECT 
@@ -1770,9 +1782,10 @@ class SalesController extends Controller {
 				sp.voucher voucher,
 				sum(si.item_tax) tax,
 				sum(si.item_service) service , 
+				s.pembulatan pembulatan , 
 				sum( si.item_discount/100 * ($subtotal) )  sd,
 
-				if ( (sum($stt)-sp.voucher)<0,0,(sum($stt)-sp.voucher) ) stt
+				if ( (sum($stt)-sp.voucher)<0,0,(sum($stt)-sp.voucher+ s.pembulatan ) ) stt
 				FROM 
 				sales s 
 				inner join sales_items si on  s.id = si.sale_id
@@ -2405,6 +2418,7 @@ public function actionSalesoutletweekly(){
     		$sales->sale_total_cost = round($data['total_cost']);
 	        $sales->bayar_real = round($data['bayar']);
 	        $sales->sisa = round($data['belum_bayar']);
+	        $sales->pembulatan = round($data['pembulatan']);
     		
             if ($data['status']=="1"){	
 	            $sales->bayar = intval(round($data['bayar']));
@@ -4014,7 +4028,7 @@ public function actionCetakReportAll(){
 			
             $summary = Yii::app()->db->createCommand()
                     ->select('sum(((si.item_price*si.quantity_purchased)+(si.item_tax)-(si.item_discount*(si.item_price*si.quantity_purchased)/100)))   
-					stc, sum(sale_discount) sd , sum(si.item_price*si.quantity_purchased) sst, sum(item_tax) t, sum(sale_service) svc')
+					stc, sum(sale_discount) sd , sum(si.item_price*si.quantity_purchased) sst, sum(item_tax) t, sum(sale_service) svc, sum(pembulatan)')
                     ->from('sales s, sales_items si,items i')
 					
                     ->where('
@@ -4045,7 +4059,7 @@ public function actionCetakReportAll(){
 						
             $summary = Yii::app()->db->createCommand()
                     ->select('sum(((si.item_price*si.quantity_purchased)+(si.item_tax)-(si.item_discount*(si.item_price*si.quantity_purchased)/100)))   
-					stc, sum(sale_discount) sd , sum(si.item_price*si.quantity_purchased) sst, sum(item_tax) t, sum(sale_service) svc')
+					stc, sum(sale_discount) sd , sum(si.item_price*si.quantity_purchased) sst, sum(item_tax) t, sum(sale_service) svc,  sum(pembulatan)')
                     ->from('sales s, sales_items si,items i')
                     ->where('
 					 i.id = si.item_id  and 
@@ -4077,7 +4091,12 @@ public function actionCetakReportAll(){
 	function actionCetakRekap(){
 		$noprint = $_REQUEST['noprint'];
 		$html_noprint = "";
-		$branch_id = Yii::app()->user->branch();
+		if (isset($_REQUEST['inserter'])){
+			$branch_id = Users::model()->findByPk($_REQUEST['inserter'])->branch_id;
+		}else{
+			$branch_id = Yii::app()->user->branch();
+		}
+		
 		$date = $_GET['tanggal_rekap'];
 		
 		if (isset($_REQUEST['inserter'])){
@@ -4085,27 +4104,25 @@ public function actionCetakReportAll(){
 			$username = Users::model()->findByPk($username)->username;
 		}else{
 			$username = Yii::app()->user->name;
-		}
-		// echo $username;
-		// exit;
-		
+		}		
 		
 		$user = Users::model()->find('username=:un',array(':un'=>$username));
 		$idk = $user->level;
 		
 
 		if (isset($_REQUEST['uangmasuk'])){//jika closing
-
-			// $s = new Setor;
-			// $s->user_id = $user->id;
-			// $s->tanggal = $_REQUEST['tanggal_rekap'];
-			// $s->total =$_REQUEST['uangmasuk'];
-			// $s->save();
 			$setor = Setor::model()->find("user_id = '$user->id' and  tanggal='$_REQUEST[tanggal_rekap]' ");
-			$setor->total = $_REQUEST['uangmasuk'];
-			$setor->is_closed = 1;
-			$setor->updated_at = date("Y-m-d H:i:s");
-			$setor->save();
+			if ($setor){
+				$setor->total = $_REQUEST['uangmasuk'];
+				$setor->comment = $_REQUEST['comment'];
+				$setor->is_closed = 1;
+				$setor->updated_at = date("Y-m-d H:i:s");
+				$setor->save();
+			}else{
+				http_response_code(404);
+				echo json_encode(["error"=>true,"message"=>"Anda belum melakukan register kasir"]);
+				exit;
+			}
 		}
 		$this->comp = Branch::model()->findByPk($branch_id)->branch_name;
 		$this->adr =  Branch::model()->findByPk($branch_id)->address;
@@ -4138,34 +4155,27 @@ public function actionCetakReportAll(){
 		and date(date)='$date' 
 	    $filter  
 		";		
-		// var_dump($filter);
+
 		$total_adt_cost =  Yii::app()->db->createCommand($total_adt_cost)->queryRow();
-		// print_r($total_adt_cost);
-		// exit;
-		$data1 = Yii::app()->db->createCommand()
-		->select("
-		SUM( si.item_tax ) as tax, 	
-		SUM( si.item_service) as svc, 	
-		sum(si.item_price*si.quantity_purchased) as cost, 
-		sum(si.item_discount*(si.item_price*si.quantity_purchased)/100)  as tot_disc,
-		sum((
-			(si.item_price*si.quantity_purchased)+
-			(si.item_tax)+
-			(si.item_service)-
-			(si.item_discount*(si.item_price*si.quantity_purchased)/100))) as stc 
-		,s.id
-		,s.date
-		")
-		->from("sales s,sales_items si , items i")
-		->where("
-		i.id = si.item_id
-		and 
-		date(s.date)=:date 
-		and  s.status=1 
-		and s.id = si.sale_id
-		
-		$filter2 ", array(':date' => $date))
-		->queryAll();
+
+	
+		$query = $this->sqlSales();
+
+		$query = "select 
+		sum(sale_sub_total) gross,
+		sum(pembulatan) pembulatan,
+		SUM(tax) AS tax,
+		SUM(service) AS svc,
+		SUM(sale_total_cost) AS stc,
+		SUM(sale_discount) AS tot_disc
+		from
+		({$query}) as X 
+		where
+		DATE(date) = '{$date}' and
+		inserter = '{$username}'
+		"   ;
+		$data1 = Yii::app()->db->createCommand($query)->queryAll();
+
 		
 		
 		$sqlGetTotal = "SELECT  
@@ -4179,12 +4189,8 @@ public function actionCetakReportAll(){
 		JOIN motif on motif.id = items.motif
 		JOIN outlet ON outlet.kode_outlet = items.kode_outlet
 		WHERE DATE(DATE) = '$date' AND sales.status = 1
-		
 		$filter
-		GROUP BY motif.id
-
-		
-		
+		GROUP BY motif.id		
 		ORDER BY motif.id ";
 		// var_dump($filter);
 		// var_dump($sqlGetTotal);
@@ -4350,31 +4356,19 @@ public function actionCetakReportAll(){
 			$tmpt['total_pembayaran_label'] = "Total Akhir       :";
 			$tmpt['total_pembayaran'] = "\r".number_format($dt1['cash'] + $dt1['edc_bca'] + $dt1['edc_niaga'])."\r\n";
 			 // $html_noprint .= "<tr><td>".$tmpt['total_pembayaran_label'].$tmpt['total_pembayaran']."</td></tr>";
-
-
-
-			$tmpt['uangmasuk'] =              "Uang Fisik    :";
+			$tmpt['uangmasuk'] =              "Uang Cash    :";
 			$tmpt['sisa_label'] =             "Sisa/Minus    :";
 
 			 // $html_noprint .= "<tr><td>".$tmpt['total_pembayaran_label'].$tmpt['total_pembayaran']."</td></tr>";
-
-
 			
 			$tmp3 = $tmpt;
-			//$username = Yii::app()->user->name;
-			//$uss = Users::model()->find('username=:un',array(':un'=>$username));
-			
-		
-
-
-			// $tmpt['dll'] =    "Pending       :";
-			// $tmpt['dllvalue'] = "\r".number_format($dt1['dll'])."\r\n";
 			
 		}
 
 		// $html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
 
-		// var_dump($tmp3);
+		// print_r($data1);
+		// exit;
 		foreach($data1 as $dt1){
 			//gross sales
 			// $net_sales = $dt1['cost'] - $dt1['tot_disc']-$dt1['tax'];
@@ -4384,8 +4378,11 @@ public function actionCetakReportAll(){
 			// $html_noprint .= "<tr><td>".$tmp['gross'].$tmp['grossvalue']."</td></tr>";
 
 			
+			$html_noprint .= "<tr><td><b>RINCIAN PENJUALAN</b></td></tr>";	
+			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
+	
 			$tmp['net'] =  "Total Kotor    :";
-			$tmp['netvalue'] = "\r".number_format($dt1['cost'])."\r\n";
+			$tmp['netvalue'] = "\r".number_format($dt1['gross'])."\r\n";
 			$html_noprint .= "<tr><td>".$tmp['net'].$tmp['netvalue']."</td></tr>";
 
 			$tmp['disc'] = "Discount       :";
@@ -4405,6 +4402,10 @@ public function actionCetakReportAll(){
 			$tmp['adt_cost'] =    "Biaya Bank     :";
 			$tmp['adt_costvalue'] = "\r".number_format($total_adt_cost['adt_cost'])."\r\n";
 			$html_noprint .= "<tr><td>".$tmp['adt_cost'].$tmp['adt_costvalue']."</td></tr>";
+
+			$tmp['pembulatan_label'] =    "Pembulatan     :";
+			$tmp['pembulatan_value'] = "\r".number_format($dt1['pembulatan'])."\r\n";
+			$html_noprint .= "<tr><td>".$tmp['pembulatan_label'].$tmp['pembulatan_value']."</td></tr>";
 
 
 			$final =  ($dt1['stc']-$voucher)+$total_adt_cost['adt_cost'];
@@ -4435,7 +4436,7 @@ public function actionCetakReportAll(){
 		}
 
 
-		$tmpt['pembayaran_penjualan_label'] = "Total Pendapatan Fisik       :\n";
+		$tmpt['pembayaran_penjualan_label'] = "Total Transaksi Cash       :\n";
 		$tmpt['pembayaran_penjualan'] =  number_format($uangcash);
 	
 		
@@ -4443,11 +4444,13 @@ public function actionCetakReportAll(){
 
 		$hrs_ada = $uangcash+$awal-$totalkeluar;
 		$tmp3['harus_ada'] =  "\r".number_format($hrs_ada)."\r\n";
-		$tmp3['harus_ada_label'] =  "\rFisik Harus Ada :\r\n";
+		$tmp3['harus_ada_label'] =  "\r Total Cash Harus Ada :\r\n";
 
 		$tmp3['saldo_awal'] =  "\r".number_format($awal)."\r\n";
 		$tmp3['saldo_awal_label'] =  "\rSaldo Cash Awal :\r\n";
 		
+		$html_noprint .= "<tr><td><b>RINCIAN TRANSAKSI CASH</b></td></tr>";	
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
 		$html_noprint .= "<tr><td>".$tmp3['saldo_awal_label'].$tmp3['saldo_awal']."</td></tr>";
 		$html_noprint .= "<tr><td>Total Pengeluaran : ".number_format($totalkeluar)."</td></tr>";
@@ -4465,8 +4468,47 @@ public function actionCetakReportAll(){
 		$temp_data['detail'] = $tmp2;
 		$temp_data['detailpay'] = $tmp3;
 		$temp_data['hutang'] = $hihi;
+
+		// $html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
+
+		$queryKredit = "SELECT 
+		s.pembayaran_via as bank,
+		sum(sale_total_cost) as total,
+		b.persentasi as persentasi 
+		 FROM  (".$this->sqlsales().") as s
+		INNER JOIN  
+		bank as b  on b.nama = s.pembayaran_via
+		 where s.bayar <=0  and date(s.date) = '$date'  and inserter = '$username'
+		 group by b.id
+		  ";
+		// listing pembayaran cashless
+		$kredit = Yii::app()->db->createCommand($queryKredit)->queryAll();
+		if ($totalkeluar >0  ){
+			$html_noprint .= "<tr><td><b>DETAIL PENGELUARAN</b></td></tr>";
+			$html_noprint .= "<tr><td>".$htmlpengeluaran."</td></tr>";
+			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
+		}
+
+
+
 		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';		
-		$html_noprint .= "<tr><td><b>DETAIL PENJUALAN</b></td></tr>";	
+		$html_noprint .= "<tr><td><b>RINCIAN TRANSAKSI CASHLESS</b></td></tr>";	
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';	
+		
+		$total_kredit = 0;
+		foreach ($kredit as $key => $value) {
+			$kredit_bagihasil = $value['total']*($persen/100);
+			$x = str_pad($value['bank'],19," ",STR_PAD_RIGHT)." : ".number_format($value['total']);
+			$temp_data['summary_totalgratis'][] = $x;
+			// $temp_data['summary_all'] =    		   "TOTAL OMZET        : ".number_format($total_kredit+$cash);	
+			$html_noprint .= "<tr><td>".$x."</td></tr>";
+			$total_kredit+=$kredit_bagihasil;
+		}
+
+
+
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';		
+		$html_noprint .= "<tr><td><b>RINCIAN PRODUK PENJUALAN</b></td></tr>";	
 		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
 
 		// $tmp_hutang['']
@@ -4544,9 +4586,10 @@ public function actionCetakReportAll(){
 
 			$temp[] = $tmp3;
 		}
+		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';		
 
-		$temp_data['total'] = "\t ".$totalItems." ITEMS\t\t ".number_format($totalPrice)."\r\n";
-		$html_noprint .= "<tr><td>".$temp_data['total']."</td></tr>";
+		$temp_data['total'] = "\t ".$totalItems." PRODUK TERJUAL:\t\t ".number_format($totalPrice)."\r\n";
+		$html_noprint .= "<tr><td> ".$temp_data['total']."</td></tr>";
 
 
 		// $html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
@@ -4573,29 +4616,7 @@ public function actionCetakReportAll(){
 		// $html_noprint .= "<tr><td>".$temp_data['total_gratis']."</td></tr>";
 
 
-		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
-
-		$queryKredit = "SELECT 
-		s.pembayaran_via as bank,
-		sum(sale_total_cost) as total,
-		b.persentasi as persentasi 
-		 FROM  (".$this->sqlsales().") as s
-		INNER JOIN  
-		bank as b  on b.nama = s.pembayaran_via and b.aktif = 1
-		 where s.bayar <=0  and date(s.date) = '$date'  and branch = '$branch_id' and inserter = '$username'
-		 group by b.id
-		  ";
-		$kredit = Yii::app()->db->createCommand($queryKredit)->queryAll();
-
-		// echo $queryKredit;
-		// exit;
-		$kredit = Yii::app()->db->createCommand($queryKredit)->queryAll();
-		// $kredit = $kredit['total'];
-		if (totalkeluar >0  ){
-			$html_noprint .= "<tr><td><b>DETAIL PENGELUARAN</b></td></tr>";
-			$html_noprint .= "<tr><td>".$htmlpengeluaran."</td></tr>";
-			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
-		}
+		
 			
 		$dataPengeluaranTotalKeluar = 0;
 		$temp_data['pengeluaran'] = array();
@@ -4611,43 +4632,35 @@ public function actionCetakReportAll(){
 			$dataPengeluaranTotalKeluar+=$value['total'];
 		}
 
-
-
 	
 		$temp_data['total_pengeluaran'] = "TOTAL : ".number_format($dataPengeluaranTotalKeluar)."\r\n";
 		// $html_noprint .= "<tr><td>".$temp_data['total_pengeluaran']."</td></tr>";
 
 		// $html_noprint .= "<tr><td>".$temp_data['pembatas']."</td></tr>";
-
-
-		
-		// $cash = $final-$total_kredit;
-		// $cash = $tmpt['netcashvalue'];
-		// $cash = 0;
 		$temp_data['nilaisaldoawal'] =         "SALDO AWAL          : ".number_format($awal);	
 		$temp_data['summary_totalpenjualan'] = "TOTAL CASH          : ".number_format($cash);	
 		// $html_noprint .= "<tr><td>".$temp_data['summary_totalpenjualan']."</td></tr>";
-		$total_kredit = 0;
 		$temp_data['summary_totalgratis'] = array();
-		foreach ($kredit as $key => $value) {
-			$persen = 100-$value['persentasi'];
-			$persen2 = 100-$persen;
-			$kredit_bagihasil = $value['total']*($persen/100);
-			$x = str_pad($value['bank'],19," ",STR_PAD_RIGHT)." : ".number_format($value['total'])." - ".$persen2."% = ".number_format($kredit_bagihasil);
-			$temp_data['summary_totalgratis'][] = $x;
-			// $temp_data['summary_all'] =    		   "TOTAL OMZET        : ".number_format($total_kredit+$cash);	
-			$html_noprint .= "<tr><td>".$x."</td></tr>";
-
-			$total_kredit+=$kredit_bagihasil;
-		}
+		// $total_kredit = 0;
+		// foreach ($kredit as $key => $value) {
+		// 	$persen = 100-$value['persentasi'];
+		// 	$persen2 = 100-$persen;
+		// 	$kredit_bagihasil = $value['total']*($persen/100);
+		// 	$x = str_pad($value['bank'],19," ",STR_PAD_RIGHT)." : ".number_format($value['total'])." - ".$persen2."% = ".number_format($kredit_bagihasil);
+		// 	$temp_data['summary_totalgratis'][] = $x;
+		// 	// $temp_data['summary_all'] =    		   "TOTAL OMZET        : ".number_format($total_kredit+$cash);	
+		// 	$html_noprint .= "<tr><td>".$x."</td></tr>";
+		// 	$total_kredit+=$kredit_bagihasil;
+		// }
 
 		// $temp_data['summary_totalgratis'] =    "KREDIT             : ".number_format($total_kredit);	
 
 		
 		$temp_data['summary_pengeluaran'] =    "TOTAL PENGELUARAN   : (".number_format($totalkeluar).")";	
-		$html_noprint .= "<tr><td>".$temp_data['summary_pengeluaran']."</td></tr>";
-		$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
-
+		if ($totalkeluar >0  ){
+			$html_noprint .= "<tr><td>".$temp_data['summary_pengeluaran']."</td></tr>";
+			$html_noprint .= '<tr><td style="border:1px dashed white;padding:0"><div style="width:100%;border-bottom: 1px dashed black;"></div></td></tr>';
+		}
 		$temp_data['summary_coh']         =     "CASH ON HAND       : ".number_format($cash-$totalkeluar+$awal);	
 		// $html_noprint .= "<tr><td>".$temp_data['summary_coh']."</td></tr>";
 		
@@ -5508,10 +5521,12 @@ public function actionCetakReportAll(){
 		if (!empty($cabang)){
 			$where_branch = " and branch='$cabang'";
 		}else{
-			// $where_branch = " ";
-			$bcdefault = Yii::app()->user->branch();
-			$where_branch = " and branch='$bcdefault'";
-			// echo $where_branch;
+			if (Yii::app()->user->level() === "1"){
+				$bcdefault = Yii::app()->user->branch();
+				$where_branch = " and branch='$bcdefault'";
+			}else{
+				$where_branch = " ";
+			}
 		}
 
 		// echo $table;

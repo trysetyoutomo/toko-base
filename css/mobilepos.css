@@ -1,0 +1,304 @@
+:root {
+    --gray-light: #8598AE;
+    --primary: #2E4057;
+}
+
+body {
+    background-color: #F7F7F8;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.modal-dialog label {
+    font-size: 12px;
+}
+
+.navpos {
+    background-color: var(--primary) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+
+#menu-category {
+    padding-left: 0px;
+}
+
+#menu-category li.active {
+    background-color: var(--bs-primary);
+    color: white
+}
+
+#menu-category li:first-child {
+    margin-left: 0rem;
+}
+
+#menu-category li {
+    display: inline-block;
+    margin-left: 1rem;
+    padding: 3px 15px 3px 15px;
+    color: gray;
+    border-radius: 0.5rem;
+    border: 1px solid gray;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item-menu {
+    min-height: 100px;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.item-menu img {
+    border-radius: 1rem;
+    object-fit: cover;
+    width: 100%;
+    max-height: 100px;
+    min-height: 75px;
+}
+
+.item-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.item-price {
+    font-size: 1.1rem;
+    font-weight: regular;
+}
+
+.btn-selected {
+    border-radius: 1rem;
+}
+
+.summary-item-qty {
+    color: var(--gray-light)
+}
+
+.summary-item-image {
+    border-radius: 20%;
+    min-height: 70px;
+    object-fit: cover;
+    margin-left: 0.5rem;
+}
+
+.brand-img {
+    max-width: 75px;
+}
+
+.btn-money-5000 {
+    background-image: url("../img/uang/5000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.btn-money-2000 {
+    background-image: url("../img/uang/2000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+
+.btn-money-1000 {
+    background-image: url("../img/uang/1000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.btn-money-10000 {
+    background-image: url("../img/uang/10000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.btn-money-20000 {
+    background-image: url("../img/uang/20000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.btn-money-50000 {
+    background-image: url("../img/uang/50000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.btn-money-75000 {
+    background-image: url("../img/uang/75000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.btn-money-100000 {
+    background-image: url("../img/uang/100000.jpg");
+    background-size: cover;
+    min-height: 50px;
+
+}
+
+.ringkasan-mobile {
+    position: absolute !important;
+    top: 3rem;
+    left: 0rem;
+}
+
+
+.tabsize {
+    font-size: 13px;
+}
+
+/* @media (min-width: 576px) and (min-height: 700px) { */
+.full-height {
+    height: 50vh !important;
+}
+
+.full-height-half {
+    height: 60vh !important;
+}
+
+.money-box {
+    bottom: 0px;
+}
+
+/* } */
+/* 
+@media (min-height: 300px) {
+    .full-height-half{
+        height: 125px!important;
+    }
+} */
+
+#backToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+
+#ringkasan-pesanan {}
+
+/* #ringkasan-pesanan {
+    display: none;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+    #ringkasan-pesanan {
+        display: block;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+    #ringkasan-pesanan {
+        display: block;
+    }
+}
+
+.btn-payment {
+    color: white;
+    filter: grayscale(100%);
+}
+
+.btn-payment-active{
+    filter: grayscale(0%);
+}
+
+.btn-payment-bca {
+    background-image: url("../img/bank/bca.webp");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-bri {
+    background-image: url("../img/bank/bri.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-mandiri {
+    background-image: url("../img/bank/mandiri.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-bni {
+    background-image: url("../img/bank/bca.webp");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-gopay {
+    background-image: url("../img/bank/gopay.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-shopeepay {
+    background-image: url("../img/bank/shopeepay.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-ovo {
+    background-image: url("../img/bank/ovo.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-qris {
+    background-image: url("../img/bank/qris.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}
+
+.btn-payment-bni {
+    background-image: url("../img/bank/bni.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 50px;
+}

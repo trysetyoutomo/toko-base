@@ -60,8 +60,6 @@ class BranchController extends Controller
 	 */
 	public function actionCreate()
 	{
-		// echo "123";
-		// exit;
 		$model=new Branch;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -69,10 +67,27 @@ class BranchController extends Controller
 
 		if(isset($_POST['Branch']))
 		{
+			$formData = file_get_contents('php://input');
+			parse_str($formData, $parsedData);
 			$model->attributes=$_POST['Branch'];
 			$model->store_id = Yii::app()->user->store_id();
-			if($model->save())
+			if($model->save()){
+
+				// BranchCategoryItems
+				if (count($parsedData['Branch']['categories']) > 0){
+					foreach($parsedData['Branch']['categories'] as $category) {
+						$branchCategoryItems = new BranchCategoryItems;
+						$branchCategoryItems->branch_id =  $model->id;
+						$branchCategoryItems->category_id = $category;
+						$branchCategoryItems->created_dt = date("Y-m-d H:i:s") ;
+						$branchCategoryItems->created_by =  Yii::app()->user->user_id() ;
+						$branchCategoryItems->save();
+					}
+				}
+				Yii::app()->user->setFlash('success', "Cabang {$model->branch_name} berhasil dibuat!");
+
 				$this->redirect(array('admin'));
+			}
 
 
 		}
@@ -87,18 +102,43 @@ class BranchController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
-	{
+	{	
+
+
+		$arrayCategories = [];
 		$model=$this->loadModel($id);
+		$branchCategoryItems =  BranchCategoryItems::model()->findAllByAttributes(array('branch_id' => $id));
+		if(count($branchCategoryItems) > 0) {
+			$arrayCategories = CHtml::listData($branchCategoryItems, 'category_id', 'category_id');
+		}
+		$model->categories = $arrayCategories;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Branch']))
 		{
+			// Get the raw form data
+			$formData = file_get_contents('php://input');
+			parse_str($formData, $parsedData);
 			$model->attributes=$_POST['Branch'];
 			$model->slogan=$_POST['Branch']['slogan'];
-			if($model->save())
+
+			BranchCategoryItems::model()->deleteAllByAttributes(array('branch_id' => $id));
+			// BranchCategoryItems
+			foreach($parsedData['Branch']['categories'] as $category) {
+				$branchCategoryItems = new BranchCategoryItems;
+				$branchCategoryItems->branch_id =  $id;
+				$branchCategoryItems->category_id = $category;
+				$branchCategoryItems->created_dt = date("Y-m-d H:i:s") ;
+				$branchCategoryItems->created_by =  Yii::app()->user->user_id() ;
+				$branchCategoryItems->save();
+			}
+
+			if($model->save()){
+				Yii::app()->user->setFlash('success', 'Cabang berhasil diubah!');
 				$this->redirect(array('admin'));
+			}
 		}
 
 		$this->render('update',array(

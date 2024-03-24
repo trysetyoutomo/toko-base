@@ -11,6 +11,7 @@
  */
 class Branch extends CActiveRecord
 {
+	public $categories;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -84,6 +85,7 @@ class Branch extends CActiveRecord
 			'branch_name' => 'Nama Cabang',
 			'address' => 'Alamat',
 			'telp' => 'Telepon/HP',
+			'categories' => 'Kategori Items ',
 		);
 	}
 
