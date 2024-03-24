@@ -254,8 +254,8 @@
                     <h5 class="modal-title" id="modalMeja">Total Bayar ({{formatMoney(grandtotal)}})</h5>
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     <div>
-                        <button type="button" class="btn btn-secondary me-1 btn-sm " data-bs-dismiss="modal">Batal</button>
-                        <button :disabled="leftAmount > 0 || (payment_cash === false && payment_bank === false)" @click="bayar(1)" type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Bayar</button>
+                        <button :disabled="loadingBayar" type="button" class="btn btn-secondary me-1 btn-sm " data-bs-dismiss="modal">Batal</button>
+                        <button :disabled="leftAmount > 0 || (payment_cash === false && payment_bank === false) || loadingBayar" @click="bayar(1)" type="button" class="btn btn-success btn-sm" ><i v-if="loadingBayar" class="fa fa-spinner fa-spin"></i> Bayar</button>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -1035,7 +1035,9 @@
             },
             bayar(status, no_meja){
                 try{
-                let vm = this;
+                    
+                const vm = this;
+                vm.loadingBayar = true;
                 let sales = {
                     pembulatan: vm.rounded,
                     sale_id: null,
@@ -1090,6 +1092,7 @@
 
                     if (sales_items.length < 0) {
                         alert("gagal!");
+                        return;
                     }
 
                     $.ajax({
@@ -1100,14 +1103,18 @@
                             data_detail: sales_items,
                             data_payment: sales_payment
                         },
+                        beforeSend:function(){
+                            vm.loadingBayar = true;
+                        },  
                         success: function(data) {
                             var sales = JSON.parse(data);
                             vm.refreshTable();
                             vm.cleanUpOrder()
-                    
-                            vm.modalTable.hide();
                             if (sales.status == 1)
-                                {
+                            {
+                                    vm.modalTable.hide();
+                                    vm.modalPayment.hide();
+                                    vm.loadingBayar = false;
                                     var jenis_cetak = '<?php echo SiteController::getConfig("ukuran_kertas"); ?>';
                                     var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
 
@@ -1175,6 +1182,7 @@
                             }
                         },
                         error: function(data) {
+                            vm.disabledBayarBtn = false;
                             alert(data);
                         }
                     });
@@ -1238,7 +1246,7 @@
                 this.keranjang = [];
                 this.activeTableNumber = "";
                 this.activeTable = "";
-                this.payment_cash = true;
+                this.payment_cash = false;
                 this.payment_bank = false;
                 this.input_bank = "";
                 this.input_cash = ""
@@ -1308,6 +1316,7 @@
         },
         data() {
             return {
+                loadingBayar : false,
                 search_keyword : "",  
                 ringkasanPesananMobile : false,
                 subtotal: 0,
@@ -1361,6 +1370,7 @@
             this.modalDiscount = new bootstrap.Modal(document.getElementById('modalDiscount'));
             this.modalInfo = new bootstrap.Modal(document.getElementById('modalInfo'));
             this.modalCloseRegister = new bootstrap.Modal(document.getElementById('modalCloseRegister'));
+            this.modalPayment = new bootstrap.Modal(document.getElementById('modal-payment'));
             this.refreshTable();
             setTimeout(() => {
                 this.isLoading = false;
