@@ -95,8 +95,11 @@
 <div v-if="isLoading">Loading .. </div>
 
   <button @click.prevent="clickkeranjang()"   href="#" class="btn btn-primary rounded-circle floating-button summary-button d-block d-md-none d-sm-none d-lg-none">
-    <i class="fas fa-shopping-cart"></i>
-    <span v-if="keranjang.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    
+  <i v-if="ringkasanPesananMobile === false" class="fas fa-shopping-cart"></i>
+  <i v-if="ringkasanPesananMobile === true" class="fas fa-times"></i>
+
+    <span v-if="keranjang.length > 0 && ringkasanPesananMobile === false" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
         {{  keranjang.length  }}
         <span class="visually-hidden">unread messages</span>
       </span>
