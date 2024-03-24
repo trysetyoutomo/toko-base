@@ -506,6 +506,19 @@ Preview Rekap
 				title: "Metode <br> Pembayaran",
 				data:'pembayaran_via',
 				name:'pembayaran_via',
+				render : function(data,type, row){
+					// alert(row.cash);
+					// alert(row.cash);
+					let returnData = "";
+					if (row.cash > 0){
+						returnData += "<div class='badge badge-danger'>CASH</div> <br>"
+					}
+					if (row.edc_bca > 0){
+						returnData += "<div class='badge badge-danger'>" + row.pembayaran_via +"</div> <br>"
+						// returnData += row.pembayaran_via + " <br>"
+					}
+					return returnData;
+				}
 			},
 			{
 				title: "Rincian",

@@ -1735,6 +1735,8 @@ class SalesController extends Controller {
 			// $stt = "if ($sql_stt)<0,0,1)";	
 			$sql  ="
 			SELECT 
+				edc_bca,
+				cash,
 				refno,
 				pembayaran_via,
 				status,
@@ -1759,6 +1761,8 @@ class SalesController extends Controller {
 				nama
 			FROM (
 			SELECT 
+				sp.edc_bca,
+				sp.cash,
 				ifnull(s.id,'') ID,
 				faktur_id,
 				refno,
