@@ -142,6 +142,14 @@ class ItemsController extends Controller
 		if (isset($_REQUEST['search']['value'])){
 			$filter =  " where  iss.barcode like '%".$_REQUEST['search']['value']."%' ";
 		}
+
+		if (Yii::app()->user->getLevel()==1){
+			$whereKategori = "and i.category_id in (select category_id from branch_category_items where branch_id = ".Yii::app()->user->branch()." )";
+		}else{
+			$whereKategori = "";
+		}
+
+
 	    /* END of POST variables */
 		$query  = "SELECT
 		i.is_bahan,
@@ -163,7 +171,8 @@ class ItemsController extends Controller
 		AND iss.is_default = 1 
 		AND i.hapus = 0 
 		AND s.id = ".Yii::app()->user->store_id()." 
-		 {$filter} 
+		{$whereKategori}
+		{$filter} 
 	GROUP BY
 		i.id 
 	ORDER BY

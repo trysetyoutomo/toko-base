@@ -258,17 +258,17 @@ $(document).ready(function(){
 	   if (before!=skrg){
 	   		// alert(skrg);
 	   		// alert(before);
-	   		if (skrg>before){
+	   		// if (skrg>before){
 	   		// while (harga==0 || isNaN(harga) || harga==null){
-			   var harga = parseFloat(prompt("Masukan Harga Beli/Modal (Harga Terakhir)",harga,harga) );
+			//    var harga = parseFloat(prompt("Masukan Harga Beli/Modal (Harga Terakhir)",harga,harga) );
 	   		// }	
 			   // if (harga==0 || isNaN(harga) || harga==null){
 				  //  	alert("Tidak Boleh Kosong");
 				  //  	exit;
 			   // }
-	   		}else{
-	   			harga = 0;
-	   		}
+	   		// }else{
+	   		// 	harga = 0;
+	   		// }
 	   		// alet("auasdasdas");
 
 	   		// alert(harga);

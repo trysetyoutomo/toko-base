@@ -148,7 +148,7 @@ class Items extends CActiveRecord
 			where  1=1 and i.category_id in (select category_id from branch_category_items where branch_id = ".Yii::app()->user->branch()." ) $where 
 			group by iss.id
 #			group by i.id
-			order by nama_kategori,nama_sub_kategori desc limit 10
+			order by nama_kategori,nama_sub_kategori desc
 			
 			) AS i
 		order by nama_kategori,nama_sub_kategori desc

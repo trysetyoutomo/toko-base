@@ -1,6 +1,8 @@
-<br>
-<br>
-<center>
+<div class="h1 font-size-sm">
+	<i class="fa fa-chart-column"></i> Omzet Penjualan
+</div>
+<hr>
+
 <?php
 $data = array(
 		1=>'Januari',
@@ -22,39 +24,26 @@ for($x=$curr_year-5; $x<$curr_year+5;$x++){
 }
 
 echo CHtml::beginForm();
-// echo "Bulan : ";
-// echo CHtml::dropDownList('month', $month, $data);
 echo "Tahun : ";
-echo CHtml::dropDownList('year', $year, $arr_year);
-echo " &nbsp;&nbsp;&nbsp; ";
-// echo CHtml::button('Cari', array('submit' => array('sales/grafikpenjualan')));
 ?>
-<input type="submit" name="cari" value="Cari" class="btn btn-primary"> 
+<div class="row">
+	<div class="col-xs-12 col-sm-3 col-md-3 text-left">
+	<?php echo CHtml::dropDownList('year', $year, $arr_year,['class'=>"form-control"]); ?>
+	</div>
+	<div class="col-xs-12 col-sm-3 col-md-3 text-left">
+		<div class="form-group">
+			<?php echo CHtml::submitButton('Cari', array('class' => 'btn btn-primary')); ?>
+		</div>
+	</div>
+</div>
 <?php 
 echo CHtml::endForm();
 ?>
-</center>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="container-chart">
+	<canvas id="kanvasku" width="400" height="400"></canvas>
+</div>
 
-
-</center>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/chart/Chart.js"></script>
-<canvas id="kanvasku" height="500" width="900%"  ></canvas>
-
-<?php 
-// echo "123";
-// echo "<pre>";
-// print_r($databar);
-// echo "</pre>";
-// echo $databar[0]["nama_outlet"];
-// $z=0;
-// // foreach ($databar as $key=>$value)
-// {
-// echo $databar[$z]["nama_outlet"] . " nilai :".$databar[$z]["persentase_hasil"]."<br>";
-// $z++;
-// }
-
-// $dataku = 
-?> 
 <script>
 var labelku = new Array();
 var dataku = new Array();
@@ -64,35 +53,22 @@ $data = "";
 $label = "";
 $i=0;
 $array = array();
-// for ($i=1; $i <=12 ;$i++) {
-// 	if ($databar['MONTH']==$i){
-// 		echo $i."123";
-// 	}
-// 	// array_push($array, )
-// }
 foreach ($databar as $key)
 {
 	$data = $data .""."'".$key['month_name']."'"."," ;
-	$label = $label .""."'".$key['stt']."'"."," ;
+	$label = $label .""."'".$key['omzet']."'"."," ;
 	$i++;
 }
-// echo $data."<br>";
-// echo $label;
-
-
 ?>
 
 <script>
-
-			
 		labelku = [<?=$data?>];
 		dataku = [<?=$label?>];
-
-
         var barData = {
             labels : labelku,
             datasets : [
-                {
+				{
+					label: 'Omzet',
                     fillColor : "rgba(255, 0, 0, 0.8)",
                     strokeColor : "rgba(220,220,220,1)",
                     data : dataku
@@ -101,7 +77,16 @@ foreach ($databar as $key)
             
         }
 
-    var barKu = new Chart(document.getElementById("kanvasku").getContext("2d")).Bar(barData);
+    // var barKu = new Chart(document.getElementById("kanvasku").getContext("2d")).Bar(barData);.
+	
+	var barKu = new Chart(document.getElementById("kanvasku").getContext("2d"), {
+		type: 'bar',
+		data: barData,
+		options: {
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
     
 </script>
 <br>

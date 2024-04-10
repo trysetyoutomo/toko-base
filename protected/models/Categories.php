@@ -56,6 +56,7 @@ class Categories extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'branch_category' => array(self::HAS_MANY, 'BranchCategoryItems', 'category_id'),
 		);
 	}
 

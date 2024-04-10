@@ -496,7 +496,7 @@
       /* Desktop styles */
       @media (min-width: 1024px) {
       .h1, h1 {
-         font-size: 48px; /* Increase font size for desktops */
+         font-size: 35px; /* Increase font size for desktops */
       }
       }
 

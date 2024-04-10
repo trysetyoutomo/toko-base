@@ -1,7 +1,4 @@
 <?php 
-// var_dump($cekClosed);
-// var_dump($setor);
-// exit;
 		if ($cekKasir){ // cek apakah transaksi kasir ini sudah di tutup
 			?>
 				<script type="text/javascript">
@@ -16,13 +13,14 @@
 		if (!$cekClosed && $cekSales <= 0){ // cek apakah kasir belum closing dan cek apkah transaksi d bawah 0 
 			if ($setor){ //cek apakah sudah register
 			}else{ // cek user belum melakukan register, user diarahkan ke setor
-				if ($level != "1"){
+                if ($level != "1"){
 					?>
 					<script type="text/javascript">
                         Swal.fire("Hanya pengguna dengan level kasir yang dapat mengakses halaman ini")
                         .then((result) => {
                             window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>'
                         });
+                        window.location.href = '<?php echo Yii::app()->createUrl('site/admin') ?>';
 					</script>
 					<?php 
 				}
@@ -501,7 +499,7 @@
             <div class="row" style="">
                 <div style="width:100000px;white-space: nowrap;overflow-x: auto!important;">
                     <ul id="menu-category">
-                        <li @click="filterCategory('all')" :class="{'active':activeCategory === 'all'}">Semua Kategori</li>
+                        <!-- <li @click="filterCategory('all')" :class="{'active':activeCategory === 'all'}">Semua Kategori</li> -->
                         <li @click="filterCategory(item.id)" :class="{'active':item.id === activeCategory}" v-for="item in categories" :key="item.id">{{item.category.toLowerCase()}}</li>
                     </ul>
                 </div>
@@ -510,8 +508,8 @@
                 <div :class="{'col-6':true, 'col-lg-4':true, 'col-md-4':true, 'col-sm-6':true,'d-none':ringkasanPesananMobile === true }" v-for="item in items" :key="item.id">
                     <div :class="{ 'item-menu':true,'card':true,'border-primary': !isInKeranjang(item.id), 'border-3': !isInKeranjang(item.id) }" style="min-height:210px;">
                         <div class="row" @click="add(item.id)">
-                            <img v-if="item.image != '' && item.image.toLowerCase() !== 'images/items/item.gif'" :src="'img/produk/' + item.image" alt="image not found" class="avatar-img rounded-circle" />
-                            <img v-if="item.image.toLowerCase() == 'images/items/item.gif'" src="https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" alt="image not found" class="avatar-img rounded-circle" />
+                            <img v-if="item.image != '' && item.image.toLowerCase() !== 'images/items/item.gif'" :src="'img/produk/' + item.image" alt="image not found" class="avatar-img" />
+                            <img v-if="item.image.toLowerCase() == 'images/items/item.gif'" src="https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" alt="image not found" class="avatar-img" />
                         </div>
                         <div class="row mt-2 mb-2" @click="add(item.id)">
                             <div class="item-name">
@@ -1375,6 +1373,9 @@
             this.modalCloseRegister = new bootstrap.Modal(document.getElementById('modalCloseRegister'));
             this.modalPayment = new bootstrap.Modal(document.getElementById('modal-payment'));
             this.refreshTable();
+            this.activeCategory = this.categories[0].id; 
+            
+            this.filterCategory(this.activeCategory);
             setTimeout(() => {
                 this.isLoading = false;
             }, 2000); // Adjust the delay as needed

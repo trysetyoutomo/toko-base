@@ -3,9 +3,33 @@
 <applet name="jzebra" code="jzebra.PrintApplet.class" archive="jZebra/jzebra/jzebra.jar" width="0" height="0">
     <param name="printer" value="zebra">
 </applet> 
-<?php 
-$this->renderPartial('application.views.site.main');
-?>
+
+
+<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/js/jQuery.print.min.js"></script>
+
+<!-- Datatables -->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net/js/dataTables.select.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/jszip/dist/jszip.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
+<!-- moment js -->
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
 <h1>
 <i class="fa fa-book"></i> Laporan Transaksi Kasir 
 </h1> 
@@ -30,7 +54,7 @@ $this->renderPartial('application.views.site.main');
 <?php 
 if (isset($_REQUEST['tanggal'])){
 ?>
-<table class="items table">
+<table class="items table" id="datatable">
 	<thead>
 		
 		<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
@@ -39,8 +63,9 @@ if (isset($_REQUEST['tanggal'])){
 			<td>Petugas </td>
 			<td>Saldo Cash Awal </td>
 			<td>Total Cash Masuk</td>
+			<td>Total Cashless</td>
 			<td>Total Omset (Hari ini) </td>
-			<td>Total Biaya Bank </td>
+			<!-- <td>Total Biaya Bank </td> -->
 			<td>Total Potongan </td>
 			<td>Total Pengeluaran </td>
 			<!-- <td>Total Akhir </td> -->
@@ -67,6 +92,7 @@ sum(sale_total_cost) total_omset,
 sum(adt_cost) as total_biaya,
 sum(voucher) as voucher,
 sum(cash) as cash,
+sum(edc_bca) as cashless,
 total_fisik as total_fisik,
 userid,
 total_awal,
@@ -76,6 +102,7 @@ created_at
 from 
 (
 SELECT
+	sp.edc_bca,
 	b.id bid,
 	b.branch_name,
 	se.created_at,
@@ -195,8 +222,9 @@ group by A.nama_user, A.bid
 			$total_akhir = ($m['total_biaya']+$m['cash'])-$data_pengeluaran['total_pengeluaran'];
 			$must = $total_akhir+$m['total_awal'];
 			?>
+			<td><?php echo number_format($m['cashless']); ?></td>
 			<td style="text-align:left"><?php echo number_format($m['total_omset']); ?></td>
-			<td style="text-align:left"><?php echo number_format($m['total_biaya']); ?></td>
+			<!-- <td style="text-align:left"><?php echo number_format($m['total_biaya']); ?></td> -->
 			<td style="text-align:left"><?php echo number_format($m['voucher']); ?></td>
 			<td style="text-align:left"><?php echo number_format($data_pengeluaran['total_pengeluaran']); ?></td>
 
@@ -273,12 +301,13 @@ group by A.nama_user, A.bid
 			
 		$t_awal+=$m['total_awal'];
 		$c+=$m['cash'];
+		$cl+=$m['cashless'];
 		$tv+=$m['voucher'];
 		$ttl+=$m['total_omset'];
 		$tf+=$m['total_fisik'];
 		$tf_hrs+=$total_akhir+$m['total_awal'];
 		$ts+=$m['total_fisik']-($total_akhir+$m['total_awal']);
-		$tb+=$m['total_biaya'];
+		$tb+=$m['cashless'];
 		$total_akhir_pengeluaran += $data_pengeluaran['total_pengeluaran'];
 
 		$ta+=$total_akhir;
@@ -287,11 +316,11 @@ group by A.nama_user, A.bid
 		endforeach; 
 		}else{
 			?>
-			<tr>
-				<td colspan="11">
+			<!-- <tr>
+				<td colspan="13">
 					<p style="color:red;font-style:italic;text-align:center">Data tidak ditemukan</p>
 				</td>
-			</tr>
+			</tr> -->
 			<?php 
 		}
 		?>
@@ -305,8 +334,8 @@ group by A.nama_user, A.bid
 				<td colspan="3">Total</td>
 				<td><?php echo number_format($t_awal); ?></td>
 				<td><?php echo number_format($c); ?></td>
-				<td><?php echo number_format($ttl); ?></td>
 				<td><?php echo number_format($tb); ?></td>
+				<td><?php echo number_format($ttl); ?></td>
 				<td><?php echo number_format($tv); ?></td>
 				<td><?php echo number_format($total_akhir_pengeluaran); ?></td>
 				<!-- <td><?php echo number_format($ta); ?></td> -->
@@ -323,7 +352,39 @@ group by A.nama_user, A.bid
 </table>
 <?php } ?>
 <script>
+
+function reloadDT(){
+
+	if ($.fn.DataTable.isDataTable('#datatable')) {
+    // Destroy DataTable
+    	$('#datatable').DataTable().destroy();
+	}
+
+	$("#datatable").DataTable({
+		"processing": true,
+		"responsive": true,
+		"autoWidth": true,
+		"columnDefs": [
+			{ "width": "0%", "targets": 0, "visible":false }, 
+			{ "width": "8%", "targets": 1 },  
+			{ "width": "8%", "targets": 2 },
+			{ "width": "8%", "targets": 3 },
+			{ "width": "8%", "targets": 4 },
+			{ "width": "8%", "targets": 5 },
+			{ "width": "8%", "targets": 6 },
+			{ "width": "8%", "targets": 7 },
+			{ "width": "8%", "targets": 8 },
+			{ "width": "8%", "targets": 9 },
+			{ "width": "8%", "targets": 10 },
+			{ "width": "8%", "targets": 11 }
+  		]
+	});
+}
 $(document).ready(function(e){
+	reloadDT();
+
+	//  $('#datatable').DataTable();
+
 	 $('.tanggal').datepicker({ 
 		dateFormat: 'yy-mm-dd',
 		changeMonth:true,
@@ -401,4 +462,26 @@ $(document).ready(function(e){
 		}
 	});
 });
+
+// Function to handle orientation change
+function handleOrientationChange() {
+  if (window.orientation === 0 || window.orientation === 180) {
+    // Portrait orientation
+    console.log("Switched to portrait orientation");
+    // Your portrait orientation handling code here
+  } else {
+    // Landscape orientation
+    console.log("Switched to landscape orientation");
+	setTimeout(() => {
+		reloadDT();
+	}, 1000);
+    // Your landscape orientation handling code here
+  }
+}
+
+// Call handler initially
+handleOrientationChange();
+
+// Add listener for orientation change
+window.addEventListener("orientationchange", handleOrientationChange, false);
 </script>

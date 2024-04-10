@@ -13,26 +13,29 @@
 // echo $string1."". str_repeat(" ",17).$string2;
 ?>
 
-<center>
 <style type="text/css">
   #test{
     margin-top:100px; 
     font-family: arial;
+    text-align: center;
   }
   #test img{
     width: 150px;
     height: auto;
   }
 </style>
-<div id="test">
     <?php  if (Yii::app()->user->level == "4"){ ?>
+      <div id="test">
+
       <div class="row">
           <div class="col-lg-12">
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/logo/35_POS_LOGO.png" alt="">
             <h1>Selamat Datang <b>SuperAdmin!</b></h1>
         </div>
       </div>
-    <?php }else{ ?>
+      </div>
+    <?php }else if (Yii::app()->user->level == "2"){ ?>
+      <div id="test">
     <?php $parameter = Parameter::model()->find("store_id = '".Yii::app()->user->store_id()."'");?>
     <img src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
     <br>
@@ -50,14 +53,38 @@
     </strong>
 
   </h1>
-  <div style="width: 400px">
+  <div >
   <h4  class=" text-center;text-transform:lowercase"><?php echo Branch::model()->findByPk($branch_id)->address; ?></h4>
   </div>
     <br>
+    </div>
+      
+    
+    <?php }else{ ?>
+      <div id="test">
+    <?php $parameter = Parameter::model()->find("store_id = '".Yii::app()->user->store_id()."'");?>
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/logo/<?php echo $parameter->gambar ?>" alt="">
+    <br>
+    <br> 
+  <h1>
+    <!-- <b><?php echo Stores::model()->findByPk(Yii::app()->user->store_id())->name;?> </b> -->
+    <!-- <br>  -->
+    <strong>
+    <?php 
+    $branch_id = Yii::app()->user->branch();
+    $store_id =  Branch::model()->findByPk($branch_id)->store_id;
+    echo Stores::model()->findByPk($store_id)->name;
+    echo "<br>";
+    ?>
+    </strong>
 
+  </h1>
+  <div >
+  <h4  class=" text-center;text-transform:lowercase"><?php echo Branch::model()->findByPk($branch_id)->address; ?></h4>
+  </div>
+    <br>
+    </div>
     <?php } ?>
  
-</div>
 
-</center>
 

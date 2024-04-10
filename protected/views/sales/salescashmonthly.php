@@ -1,3 +1,9 @@
+<?php 
+// echo "<pre>";
+// print_r($databar);
+// echo "</pre>";
+// exit;
+?>
 <style>
 	#container-chart {
 		width: 100%;
@@ -23,7 +29,7 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'action' => Yii::app()->createUrl('sales/grafik'),
+	// 'action' => Yii::app()->createUrl('sales/grafik'),
 	'method' => 'get',
 	'htmlOptions' => array('class' => 'form-inline'),
 ));
@@ -98,86 +104,55 @@ $form = $this->beginWidget('CActiveForm', array(
 		</div>
 	</div>
 </div>
-
-
-
 <?php $this->endWidget(); ?>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-<div id="container-chart" style="margin-top:2rem">
-	<canvas id="kanvasku" width="400" height="400"></canvas>
-</div>
+<table class="items table" id="datatable">
+	<thead>
+		
+		<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
+			<td>Metode Pembayaran</td>
+			<td>Total</td>
+		</tr>
+	</thead>
+	<tbody>
+			<?php foreach ($databar  as $m ):?>
+				<tr>
+					<td><?=($m['bank'])?></td>
+					<td><?=number_format($m['total'])?></td>
+				</tr>
+				<?php 
+				$total+=$m['total'];
+				?>
+			<?php endforeach?>		
+	</tbody>
+		<tfoot style="font-weight: bold;">
+			<tr>
+				<td>Total</td>
+				<td><?=number_format($total)?></td>
+			</tr>
+		</tfoot>
+</table>
 
+<script>
+	function reloadDT(){
 
-<?php
-$data = "";
-$label = "";
-$i = 0;
-if ($mode == 'bersih') {
-	foreach ($databar as $key => $value) {
-		$data = $data . "" . "'" . $databar[$i][n] . "'" . ",";
-		$label = $label . "" . "'" . $databar[$i][b] . "'" . ",";
-		$i++;
-	}
-} else if ($mode == 'top') {
-	foreach ($databar as $key => $value) {
-		$na = str_replace("'", "", $databar[$i][nama]);
-		$data = $data . "" . "'" . $na . "'" . ",";
-		$label = $label . "" . "'" . intval($databar[$i][jumlah]) . "'" . ",";
-		$i++;
-	}
-}
-$label = rtrim($label, ",");
-$data = rtrim($data, ",");
-
-
-?>
-<script type="text/javascript">
-	var labelku = new Array();
-	var dataku = new Array();
-
-	labelku = [<?php echo $data; ?>];
-	dataku = [<?php echo $label; ?>];
-
-
-	var barData = {
-		labels: labelku,
-		datasets: [{
-			label: 'Terjual (QTY)',
-			fillColor: "rgba(255, 0, 0, 0.8)",
-			strokeColor: "rgba(220,220,220,1)",
-			data: dataku
-		}, ]
-
+	if ($.fn.DataTable.isDataTable('#datatable')) {
+	// Destroy DataTable
+		$('#datatable').DataTable().destroy();
 	}
 
-
-	var barKu = new Chart(document.getElementById("kanvasku").getContext("2d"), {
-		type: '<?=isset($_REQUEST['jenis_chart']) ? $_REQUEST['jenis_chart'] : 'bar'?>',
-		data: barData,
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			plugins: {
-              // Configure the datalabels plugin
-              datalabels: {
-                  color: '#fff',
-                  formatter: (value, ctx) => {
-                      let sum = 0;
-                      let dataArr = ctx.chart.data.datasets[0].data;
-                      dataArr.map(data => {
-                          sum += parseFloat(data);
-                      });
-                      let percentage = (value*100 / sum).toFixed(2)+"%";
-                      return percentage;
-                  },
-                  anchor: 'end',
-                  align: 'start',
-                  offset: 10,
-              }
-          },
-		},
-		plugins: [ChartDataLabels]
+	$("#datatable").DataTable({
+		"processing": true,
+		"responsive": true,
+		"autoWidth": true,
+		"columnDefs": [
+			{ "width": "8%", "targets": 1 },  
+			{ "width": "8%", "targets": 2 },
+			{ "width": "8%", "targets": 3 },
+		]
 	});
+	}
+	$(document).ready(function(e){
+		reloadDT();
+	})
 </script>

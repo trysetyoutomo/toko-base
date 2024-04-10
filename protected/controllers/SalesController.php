@@ -1071,101 +1071,94 @@ class SalesController extends Controller {
 
 	// }
 	
-	public function actionGrafik(){
-		$mode = $_REQUEST['mode'];
-		// print_r($_REQUEST);exit;
-		// var_dump(isset($_GET['Sales']['date']));
-		// var_dump(isset($_GET['Sales']['tgl']));
-		if (isset($_REQUEST['Sales']['date']) && isset($_REQUEST['Sales']['tgl']) ) {
-			$tgl = $_REQUEST['Sales']['date'];
-			$tgl2 = $_REQUEST['Sales']['tgl'];
-		}
-		else{
-			// echo "masuk";
-			// exit;
-			$tgl = date('Y-m-d',strtotime('-7 days')); 
-			$tgl2 = date('Y-m-d'); 
-		}
 
-		// echo $tgl;
-		// echo $tgl2;
-		// exit;
-		
-		$mode = "top";
-		
-		$connection = Yii::app()->db;
-		$store_id = Yii::app()->user->store_id();
-		$branch_id = Yii::app()->user->branch();
-			
-		if ($mode=='top'){
-			if (isset($_REQUEST['limit'])){	
-				$limit = " limit $_REQUEST[limit]";
-			}
-
-			if (isset($_REQUEST['kategori'])){
-
-			if ($_REQUEST['kategori']=='semua')
-				$filter = " ";
-			else
-				$filter = " and category_id = '$_REQUEST[kategori]' ";
-			}
-		
-		// and 
-			$command = $connection->createCommand("
+	public function queryTopPenjualan($filter){
+		$querySelect = $filter['querySelect'];
+		$where_branch = $filter['where_branch'];
+		$groupBy = $filter['groupBy'];
+		$tgl = $filter['tgl'];
+		$tgl2 = $filter['tgl2'];
+		$filterKategori = $filter['filterKategori'];
+		return  "
 		SELECT
-		CONCAT(
-		SUBSTR(i.item_name, 1, 50),
-		'-',iss.nama_satuan
-		) nama,
+		{$querySelect}
 		sum(quantity_purchased) jumlah
 		FROM
 		sales s
 		INNER JOIN sales_items si ON s.id = si.sale_id
 		left JOIN items i ON si.item_id = i.id
 		INNER JOIN items_satuan iss on iss.item_id = i.id 
+		INNER JOIN branch b  on b.id = s.branch 
+		INNER JOIN stores st  on st.id = b.store_id 
 		WHERE
 		s.status = 1
-		and
-		s.branch = '$branch_id'
+		{$where_branch}
 		and 
 		date(s.date) >= '$tgl' and date(s.date) <= '$tgl2'
 		and is_sales_item_bahan is NULL
-		$filter
-
-		group by i.id
+		$filterKategori
+		and st.id = ".Yii::app()->user->store_id()."
+		{$groupBy}
 		order by jumlah desc
-		$limit
-			
-		");
-		}else if ($mode=='bersih'){
-		$command = $connection->createCommand("
-			select nama_outlet n,
-			sum(((si.item_price*si.quantity_purchased)-(si.item_discount*si.item_price/100)) * (o.persentase_hasil /100) ) b
-			from sales s,sales_items si,outlet o,items i
-			where 
-			
-			si.item_id = i.id and 
-			s.id=si.sale_id and 
-			i.kode_outlet=o.kode_outlet and 
-			s.status = 1
-			and
-			date(s.date) >= '$tgl' and date(s.date) <= '$tgl2'
-			group by o.kode_outlet
-			
-			");
-		}
-		
-		$row = $command->queryAll(); 
-
-        $this->render('grafik',array(
-		'databar'=>$row,
-		'tgl'=>$tgl,
-		'tgl2'=>$tgl2,
-		'mode'=>$mode,
-		));
-		
-		
+		limit 20
+	";
 	}
+	public function actionGrafik(){
+		$mode = $_REQUEST['mode'];
+		if (isset($_REQUEST['Sales']['date']) && isset($_REQUEST['Sales']['tgl']) ) {
+			$tgl = $_REQUEST['Sales']['date'];
+			$tgl2 = $_REQUEST['Sales']['tgl'];
+		}
+		else{
+			$tgl = date('Y-m-d',strtotime('-7 days')); 
+			$tgl2 = date('Y-m-d'); 
+		}
+		$mode = "top";
+		$connection = Yii::app()->db;
+		$store_id = Yii::app()->user->store_id();
+		// if (Yii::app()->user->level() === "1"){
+		// 	$bcdefault = Yii::app()->user->branch();
+		// 	$where_branch = " and s.branch='$bcdefault'";
+		// }else{
+		// 	$where_branch = " ";
+		// }
+			
+		if (isset($_REQUEST['kategori'])){
+
+			if ($_REQUEST['kategori']=='semua')
+				$filterKategori = " ";
+			else
+				$filterKategori = " and category_id = '$_REQUEST[kategori]' ";
+		}
+
+		if ($_REQUEST['kelompok']=='cabang'){
+			$querySelect = "CONCAT(SUBSTR(b.branch_name, 1, 50)) nama,";
+			$groupBy = "group by b.id";
+		}else{
+			$querySelect = "CONCAT(SUBSTR(i.item_name, 1, 50),'-',iss.nama_satuan) nama,";
+			$groupBy = "group by i.id";
+		}
+
+		$filter = [
+			'querySelect' => $querySelect,
+			'where_branch' => $where_branch,
+			'groupBy' => $groupBy,
+			'tgl' => $tgl,
+			'tgl2' => $tgl2,
+			'filterKategori' => $filterKategori
+		];
+
+		$query = $this->queryTopPenjualan($filter);		
+		$command = $connection->createCommand($query);
+		$row = $command->queryAll(); 
+        $this->render('grafik',array(
+			'databar'=>$row,
+			'tgl'=>$tgl,
+			'tgl2'=>$tgl2,
+			'mode'=>$mode,
+		));
+	}
+
 	public function actionGrafikmember(){
 		$mode = $_GET['mode'];
 		if (isset($_GET['Sales']['date']) and isset($_GET['Sales']['tgl']) ) {
@@ -1259,57 +1252,29 @@ class SalesController extends Controller {
 
 		$connection = Yii::app()->db;
 
-		$command = $connection->createCommand("SELECT dua.month_name,
+		$store_id = Yii::app()->user->store_id();
+		if (Yii::app()->user->level() === "1"){
+			$bcdefault = Yii::app()->user->branch();
+			$where_branch = " and s.branch='$bcdefault' ";
+		}else{
+			$where_branch = " ";
+		}
+		$query = "
+		select * from (
+			SELECT  sum( sale_sub_total) omzet, MONTH ( date )  bulan, year( date ) tahun 
+			FROM ({$this->sqlSales()}) AS satu group by MONTH ( date ) , year ( date )  
+		) AS satu
+		RIGHT JOIN ( SELECT `month`, month_name FROM time_dimension GROUP BY MONTH ) AS dua ON satu.bulan  = dua.`MONTH` and tahun='$year'
+		";
 
-		IFNULL(stt,'0')  AS stt  
-		FROM (
-		SELECT
-		MONTH(DATE) MONTH,
-		YEAR(DATE) YEAR,
-		SUM(si.item_price*si.quantity_purchased) sst,
-		SUM(si.item_tax) tax,
-		SUM(si.item_service) service ,
-		SUM( si.item_discount/100 * (si.item_price*si.quantity_purchased) ) sd,
-		SUM(
-		(
-		(si.item_price*si.quantity_purchased)
-		+
-		(si.item_tax)
-		+
-		(si.item_service)
-		-
-		(si.item_discount*(si.item_price*si.quantity_purchased)/100) - sp.voucher )
-
-		) stt
-		FROM sales s, sales_items si, items i,sales_payment sp
-		WHERE 
-		i.id = si.item_id  AND YEAR(DATE)='$year' 
-		AND s.status=1 AND s.id = si.sale_id
-		and s.branch = '$branch_id'
-		GROUP BY MONTH(s.date)
-		ORDER BY DATE(s.date) ASC 
-		) AS satu RIGHT JOIN 
-
-		(SELECT * FROM time_dimension GROUP BY MONTH) AS dua
-
-		ON  satu.month = dua.month
-
-
-
-
-		");
-	
-		
+		$command = $connection->createCommand($query);
 		$row = $command->queryAll(); 
-
-        $this->render('grafikpenjualan',array(
-		'databar'=>$row,
-		'month'=>$month,
-		'year'=>$year,
-		// 'mode'=>$mode,
+		
+		$this->render('grafikpenjualan',array(
+			'databar'=>$row,
+			'month'=>$month,
+			'year'=>$year
 		));
-		
-		
 	}
 	public function actionPrintData(){
 		$tgl1 = $_GET['tgl1'];
@@ -1735,6 +1700,7 @@ class SalesController extends Controller {
 			// $stt = "if ($sql_stt)<0,0,1)";	
 			$sql  ="
 			SELECT 
+						
 				edc_bca,
 				cash,
 				refno,
@@ -3384,52 +3350,76 @@ public function actionCetakReportAll(){
      */
 	 
 	 public function actionSalescashmonthly(){
-		$branch_id = Yii::app()->user->branch();
-		if (isset($_REQUEST['month'])){
-			$month = $_REQUEST['month'];
-			$year = $_REQUEST['year'];
-			
-		}else{
-			$month = intval(Date('m'));
-			$year = intval(Date('Y'));
-			
-		}
-		$filterBank = "";
-		if ($_REQUEST['pembayaran']!=""){
-			$bank = $_REQUEST['pembayaran'];
-			$filterBank = " and pembayaran_via = '$bank'";
-		}else{
-			$filterBank = " ";
-			$bank = "";
-		}
-		// echo $filterBank;
-		// exit;
-		// $month = Date('m');
-		$model = new Sales;
-		
-		
-		$cabang = Yii::app()->user->id;
-		$user = Users::model()->find('username=:un',array(':un'=>$cabang));
-		$cabang_id = $user->branch_id;
-		//(SUM(cash)+SUM(edc_bca)+SUM(compliment)+SUM(edc_niaga)+SUM(voucher)+SUM(dll)) grandtotal,
-		$tot = Yii::app()->db->createCommand()
-			->select('pembayaran_via,date(s.date) tanggal,s.id,s.date,sum(cash)cash,sum(edc_bca)edc_bca,sum(edc_niaga)edc_niaga,sum(compliment)compliment,sum(credit_bca) transfer,sum(dll)dll, SUM(IFNULL(cash,0)+IFNULL(edc_bca,0)+IFNULL(edc_niaga,0)+IFNULL(compliment,0)+IFNULL(dll,0)+IFNULL(credit_bca,0)) grandtotal	')
-			->from('sales s,sales_payment ')
-			->where("month(date) =  '$month' and year(date)='$year'  and sales_payment.id = s.id and s.status = 1 and s.branch = '$branch_id' {$filterBank} ")
-			->group('day(s.date)')
-			->queryAll();
-			
+		$username = Yii::app()->user->name;
 
-			// echo "123";
-			$this->render('monthlycashsum',array(
-				'model'=>$model,
-				'tot'=>$tot,
-				'month'=>$month,
-				'year'=>$year,
-				'bank'=>$bank,
-			));
+		$mode = $_REQUEST['mode'];
+		if (isset($_REQUEST['Sales']['date']) && isset($_REQUEST['Sales']['tgl']) ) {
+			$tgl = $_REQUEST['Sales']['date'];
+			$tgl2 = $_REQUEST['Sales']['tgl'];
+		}
+		else{
+			$tgl = date('Y-m-d',strtotime('-7 days')); 
+			$tgl2 = date('Y-m-d'); 
+		}
+		$mode = "top";
+		$connection = Yii::app()->db;
+		$store_id = Yii::app()->user->store_id();
+		if (Yii::app()->user->level() === "1"){
+			$bcdefault = Yii::app()->user->branch();
+			$where_branch = " and s.branch='$bcdefault'";
+		}else{
+			$where_branch = " ";
+		}
+			
+		if (isset($_REQUEST['kategori'])){
+
+			if ($_REQUEST['kategori']=='semua')
+				$filterKategori = " ";
+			else
+				$filterKategori = " and category_id = '$_REQUEST[kategori]' ";
+		}
+
+		if ($_REQUEST['kelompok']=='cabang'){
+			$querySelect = "CONCAT(SUBSTR(b.branch_name, 1, 50)) nama,";
+			$groupBy = "group by b.id";
+		}else{
+			$querySelect = "CONCAT(SUBSTR(i.item_name, 1, 50),'-',iss.nama_satuan) nama,";
+			$groupBy = "group by i.id";
+		}
+
+
+
+		$filter = [
+			'querySelect' => $querySelect,
+			'where_branch' => $where_branch,
+			'groupBy' => $groupBy,
+			'tgl' => $tgl,
+			'tgl2' => $tgl2,
+			'filterKategori' => $filterKategori
+		];
+
+		$query = $this->queryTopPenjualan($filter);
 		
 		
+		$query = "SELECT 
+		s.pembayaran_via as bank,
+		sum(sale_total_cost) as total
+		 FROM  (".$this->sqlsales().") as s
+		INNER JOIN  
+		bank as b  on b.nama = s.pembayaran_via
+		 where  date(s.date) between '$tgl' and '$tgl2' 
+		 group by b.id
+		  ";
+
+
+		$command = $connection->createCommand($query);
+		$row = $command->queryAll(); 
+        $this->render('salescashmonthly',array(
+			'databar'=>$row,
+			'tgl'=>$tgl,
+			'tgl2'=>$tgl2,
+			'mode'=>$mode,
+		));
 	}
 
 	 public function actionSalescashweekly(){
@@ -3938,6 +3928,8 @@ public function actionCetakReportAll(){
 			 }
 			
 			$table = $this->sqlSales();
+			//  echo $table;
+			//  exit;
 			$cabang = $_REQUEST['cabang'];
 			if (!empty($cabang)){
 				$where_branch = " and branch='$cabang'";

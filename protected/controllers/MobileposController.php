@@ -118,7 +118,7 @@ class MobileposController extends Controller
 			$resultsAsArrays[] = $model->attributes;
 		}
 
-		$categories = Categories::model()->findAll("store_id = '".Yii::app()->user->store_id()."' ");
+		$categories = Categories::model()->with('branch_category')->findAll("t.store_id = '".Yii::app()->user->store_id()."'  and branch_category.branch_id  = '".Yii::app()->user->branch()."' ");
 		$categoriesArray = array();
 		foreach ($categories as $model) {
 			$categoriesArray[] = $model->attributes;
