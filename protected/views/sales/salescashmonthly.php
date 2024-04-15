@@ -23,7 +23,7 @@
 
 <?php $store_id = Yii::app()->user->store_id(); ?>
 <div class="h1 font-size-sm">
-	<i class="fa fa-chart-column"></i> Top Penjualan terbaik
+	<i class="fa fa-wallet"></i> Rekap Pembayaran
 </div>
 <hr>
 
@@ -34,7 +34,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	'htmlOptions' => array('class' => 'form-inline'),
 ));
 ?>
-<div class="row">
+<div class="row" style="margin-bottom:1rem">
 	<?php echo CHtml::hiddenField('mode', $mode); ?>
 
 	<div class="col-xs-12">
@@ -53,7 +53,7 @@ $form = $this->beginWidget('CActiveForm', array(
 			</div>
 
 			
-			<div class="col-xs-12 col-sm-3 col-sm-2 text-left">
+			<!-- <div class="col-xs-12 col-sm-3 col-sm-2 text-left">
 				<div class="form-group">
 					<?php echo CHtml::label('Pilih Kelompok', 'kelompok'); ?>
 					<select name="kelompok" class="form-control">
@@ -62,7 +62,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 					</select>
 				</div>
-			</div>
+			</div> 
 
 			<div class="col-xs-12 col-sm-3 col-sm-2 text-left">
 				<div class="form-group">
@@ -90,6 +90,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					</select>
 				</div>
 			</div>
+			-->
 			<div class="col-xs-12 col-sm-3 col-sm-2 text-left " style="display: none;">
 				<div class="form-group">
 					<?php echo CHtml::label('Limit', 'limit'); ?>

@@ -1240,12 +1240,14 @@ class SalesController extends Controller {
 	}
 
 	public function actionGrafikPenjualan(){
-		if (isset($_REQUEST['year'] )){
+		$month  = $_REQUEST['month'];
+		$year  = $_REQUEST['year'];
+		if (isset($_REQUEST['year']) && isset($_REQUEST['month']) ){
 			$month = $_REQUEST['month'];
 			$year = $_REQUEST['year'];
 		}else{
-			$month = intval(Date('m'));
-			$year = intval(Date('Y'));
+			$year = date('Y');
+			$month = "";
 		}
 		
 		$branch_id = Yii::app()->user->branch();
@@ -1259,13 +1261,70 @@ class SalesController extends Controller {
 		}else{
 			$where_branch = " ";
 		}
-		$query = "
-		select * from (
-			SELECT  sum( sale_sub_total) omzet, MONTH ( date )  bulan, year( date ) tahun 
-			FROM ({$this->sqlSales()}) AS satu group by MONTH ( date ) , year ( date )  
-		) AS satu
-		RIGHT JOIN ( SELECT `month`, month_name FROM time_dimension GROUP BY MONTH ) AS dua ON satu.bulan  = dua.`MONTH` and tahun='$year'
-		";
+
+		// var_dump($month);
+		// exit;
+
+		if ($month === ""){
+
+			
+			$query = "
+			select *, month_name as label from (
+				SELECT  sum( sale_sub_total) omzet, MONTH ( date )  bulan, year( date ) tahun 
+				FROM ({$this->sqlSales()}) AS satu group by MONTH ( date ) , year ( date )  
+				) AS satu
+				RIGHT JOIN ( SELECT `month`, month_name FROM time_dimension GROUP BY MONTH ) AS dua ON satu.bulan  = dua.`MONTH` and tahun='$year'
+				";
+		}else{
+
+			
+			$query = "
+			select omzet , 
+			
+			CONCAT(
+				CASE DAYOFWEEK(db_date)
+				WHEN 1 THEN 'Minggu'
+				WHEN 2 THEN 'Senin'
+				WHEN 3 THEN 'Selasa'
+				WHEN 4 THEN 'Rabu'
+				WHEN 5 THEN 'Kamis'
+				WHEN 6 THEN 'Jumat'
+				WHEN 7 THEN 'Sabtu'
+			  END,
+			  ', ',
+
+				DAY(db_date),
+				' ',
+				CASE MONTH(db_date)
+				  WHEN 1 THEN 'Januari'
+				  WHEN 2 THEN 'Februari'
+				  WHEN 3 THEN 'Maret'
+				  WHEN 4 THEN 'April'
+				  WHEN 5 THEN 'Mei'
+				  WHEN 6 THEN 'Juni'
+				  WHEN 7 THEN 'Juli'
+				  WHEN 8 THEN 'Agustus'
+				  WHEN 9 THEN 'September'
+				  WHEN 10 THEN 'Oktober'
+				  WHEN 11 THEN 'November'
+				  WHEN 12 THEN 'Desember'
+				END,
+				' ',
+				YEAR(db_date)
+			  ) AS label
+			
+			from (
+			SELECT  sum( sale_sub_total) omzet,	date(date) as date
+
+			FROM ({$this->sqlSales()}) AS satu group by date ( date )
+			) AS satu
+			RIGHT JOIN ( SELECT `db_date`, day_name FROM time_dimension WHERE YEAR ( db_date ) = '$year' AND MONTH ( db_date ) = '$month' ) AS dua ON date(satu.date) = date(dua.db_date)
+			order by db_date asc
+			";
+		}
+
+		// echo $query;
+		// exit;
 
 		$command = $connection->createCommand($query);
 		$row = $command->queryAll(); 
@@ -2658,8 +2717,12 @@ public function actionSalesoutletweekly(){
             }
         }
 
+		// print_r($_REQUEST);
+
+		// echo "masuk 2";
         //end try
         }catch(Exception $err){
+			echo "masuk 3";
 			echo $err;
 			// $transaction->rollback();
 		}
@@ -3410,8 +3473,7 @@ public function actionCetakReportAll(){
 		 where  date(s.date) between '$tgl' and '$tgl2' 
 		 group by b.id
 		  ";
-
-
+		  
 		$command = $connection->createCommand($query);
 		$row = $command->queryAll(); 
         $this->render('salescashmonthly',array(

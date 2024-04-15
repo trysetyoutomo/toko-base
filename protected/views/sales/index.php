@@ -273,7 +273,7 @@ Preview Rekap
             "searching": false,
             "processing": true,
             "serverSide": true,
-			"pageLength": 100,
+			"pageLength": "1000000",
             "lengthMenu": [[5, 10, 25, 50,100, 1000000], [5, 10, 25, 50,100, "Semua"]],
 			"ajax": {
 				"url" : "<?php echo Yii::app()->createUrl("sales/adminJSON") ?>",

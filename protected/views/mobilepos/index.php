@@ -1034,163 +1034,92 @@
                     this.bayar(0, item.no_meja);
                 }
             },
-            bayar(status, no_meja){
-                try{
-                    
+            async bayar(status, no_meja) {
                 const vm = this;
-                vm.loadingBayar = true;
-                let sales = {
-                    pembulatan: vm.rounded,
-                    sale_id: null,
-                    subtotal: vm.subtotal,
-                    discount: vm.discount,
-                    tax: vm.tax,
-                    service: vm.service,
-                    total_cost: vm.grandtotal,
-                    payment: null,
-                    bayar_via: vm.payment_bank ? vm.payment_bank_method === "" ? "CASH" : vm.payment_bank_method : "CASH", 
-                    status: status,
-                    table: no_meja === undefined ? this.activeTableNumber : no_meja,
-                    custype: null,
-                    bayar: vm.input_cash
-                };
-                
-                    let total_cash = 0;
-                    if (vm.payment_cash && vm.payment_bank === false){
-                        total_cash = vm.grandtotal;
-                    }else{
-                        total_cash = vm.input_cash; 
-                    }
+                try {
+                    vm.loadingBayar = true;
+                     // Construct form data
+                    let formData = new FormData();
+                    formData.append('data[pembulatan]', vm.rounded);
+                    formData.append('data[sale_id]', null);
+                    formData.append('data[subtotal]', vm.subtotal);
+                    formData.append('data[discount]', vm.discount);
+                    formData.append('data[tax]', vm.tax);
+                    formData.append('data[service]', vm.service);
+                    formData.append('data[total_cost]', vm.grandtotal);
+                    formData.append('data[payment]', null);
+                    formData.append('data[bayar_via]', vm.payment_bank ? (vm.payment_bank_method === "" ? "CASH" : vm.payment_bank_method) : "CASH");
+                    formData.append('data[status]', status);
+                    formData.append('data[table]', no_meja === undefined ? this.activeTableNumber : no_meja);
+                    formData.append('data[custype]', null);
+                    formData.append('data[bayar]', vm.input_cash);
 
+                    // Add sales payment data
+                    let total_cash = vm.payment_cash && !vm.payment_bank ? vm.grandtotal : vm.input_cash;
+                    formData.append('data_payment[cash]', vm.payment_cash ? total_cash : 0);
+                    formData.append('data_payment[edcbca]', vm.payment_bank ? vm.input_bank : 0);
+                    formData.append('data_payment[edcniaga]', 0);
+                    formData.append('data_payment[voucher]', vm.discount);
+                    formData.append('data_payment[compliment]', 0);
+                    formData.append('data_payment[dll]', 0);
 
-
-                    let sales_payment = {
-                        cash: vm.payment_cash ? total_cash : 0,
-                        edcbca: vm.payment_bank ? vm.input_bank : 0,
-                        edcniaga: 0,
-                        voucher: vm.discount,
-                        compliment: 0,
-                        dll: 0
-                    }
-
-                    let sales_items = [];
-                    vm.keranjang.forEach(function(rec) {
+                    // Add sales items data
+                    let indexKeranjang = 0;
+                    vm.keranjang.forEach(function (rec) {
                         const item_total = rec.harga_jual * rec.qty;
-                        const item_pajak = item_total * rec.qty;
-                        sales_items.push({
-                            "item_id": rec.id,
-                            "item_satuan_id": rec.nama_satuan_id,
-                            "item_name": rec.nama,
-                            "quantity_purchased": rec.qty,
-                            "item_tax": item_total * (vm.percent_tax/100 ),
-                            "item_service": item_total * (vm.percent_service/100 ),
-                            "item_discount": 0,
-                            "item_price": rec.harga_jual,
-                            "item_total_cost": item_total,
-                            "permintaan": rec.comment
-                        });
+                        formData.append('data_detail['+indexKeranjang+'][item_id]', rec.id);
+                        formData.append('data_detail['+indexKeranjang+'][item_satuan_id]', rec.nama_satuan_id);
+                        formData.append('data_detail['+indexKeranjang+'][item_name]', rec.nama);
+                        formData.append('data_detail['+indexKeranjang+'][quantity_purchased]', rec.qty);
+                        formData.append('data_detail['+indexKeranjang+'][item_tax]', item_total * (vm.percent_tax / 100));
+                        formData.append('data_detail['+indexKeranjang+'][item_service]', item_total * (vm.percent_service / 100));
+                        formData.append('data_detail['+indexKeranjang+'][item_discount]', 0);
+                        formData.append('data_detail['+indexKeranjang+'][item_price]', rec.harga_jual);
+                        formData.append('data_detail['+indexKeranjang+'][item_total_cost]', item_total);
+                        formData.append('data_detail['+indexKeranjang+'][permintaan]', rec.comment);
+                        indexKeranjang ++;
                     });
 
-                    if (sales_items.length < 0) {
-                        alert("gagal!");
-                        return;
+                    const response = await fetch('index.php?r=sales/bayar', {
+                        method: 'POST',
+                        body: formData,
+                        'Accept': 'application/json' // Accept JSON response only
+                    });
+
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');                  
                     }
 
-                    $.ajax({
-                        url: 'index.php?r=sales/bayar',
-                        type: 'POST',
-                        data: {
-                            data: sales,
-                            data_detail: sales_items,
-                            data_payment: sales_payment
-                        },
-                        beforeSend:function(){
-                            vm.loadingBayar = true;
-                        },  
-                        success: function(data) {
-                            var sales = JSON.parse(data);
-                            vm.refreshTable();
-                            vm.cleanUpOrder()
-                            if (sales.status == 1)
-                            {
-                                    vm.modalTable.hide();
-                                    vm.modalPayment.hide();
-                                    vm.loadingBayar = false;
-                                    var jenis_cetak = '<?php echo SiteController::getConfig("ukuran_kertas"); ?>';
-                                    var jenis_printer = '<?php echo SiteController::getConfig("jenis_printer"); ?>';
+                    const sales = await response.json();
+                    vm.modalTable.hide();
+                    vm.modalPayment.hide();
+                    vm.loadingBayar = false;
+                    vm.refreshTable();
+                    vm.cleanUpOrder();
 
-                                    if (jenis_cetak=="24cmx14cm" || jenis_cetak=="12cmx14cm"){
-
-                                            Swal.fire({
-                                                title: 'Confirmation',
-                                                text: 'Cetak Receipt ?',
-                                                icon: 'question',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#3085d6',
-                                                cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Yes',
-                                                cancelButtonText: 'No'
-                                            }).then((result) => {
-                                                $.ajax({
-                                                    url : '<?php echo Yii::app()->createUrl("Sales/cetakfaktur") ?>',
-                                                    data : {
-                                                        id : sales.sale_id
-                                                    },
-                                                    success:function(data){
-                                                    $('.body-bukti').html(data);
-                                                    $(".btn-modal-preview").trigger("click");
-                                                    }
-                                                });
-                                          });
-                                    }else if ( (jenis_cetak=="80mm" || jenis_cetak=="58mm") && jenis_printer === "Epson LX" ){
-                                            Swal.fire({
-                                                title: 'Confirmation',
-                                                text: 'Cetak Receipt ?',
-                                                icon: 'question',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#3085d6',
-                                                cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Yes',
-                                                cancelButtonText: 'No'
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+sales.sale_id);
-                                            }});
-                                    }else{
-                                        var i =1;
-                                        var ulang  =  1;
-                                        function myLoop(){
-                                            setTimeout(function(){
-                                                print_bayar(sales);
-                                                i++;
-                                                
-                                                if (i<=ulang){
-                                                    myLoop();
-                                                    
-                                                }
-                                            },1000)
-                                        }
-                                        myLoop();
-                                    }
-                                    // alert("Tekan OK untuk mendapatkan rekap ke 2.");
-                                    // if (confirm("Cetak receipt ke - 2 ? ")){	
-                                    // }
-                                    // $("#vouchernominal").val("");
-                                }
-
-                            if (sales.error){
-                                alert(sales.error);
-                            }
-                        },
-                        error: function(data) {
-                            vm.disabledBayarBtn = false;
-                            alert(data);
-                        }
+                    Swal.fire({
+                        title: 'Confirmation',
+                        text: 'Cetak Receipt ?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No'
+                    }).then((result) => {
+                        if (result.isConfirmed) 
+                            window.open("<?php echo Yii::app()->createUrl("Sales/cetakfaktur_mini") ?>&id="+sales.sale_id);
                     });
-                }catch(error){
-                    console.log(error);
+
+
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    vm.loadingBayar = false;
+                    // Additional error handling logic here...
                 }
             },
+
             async getActiveTable() {
                 // Construct the URL with the tableNumber parameter
                 const apiUrl = `<?php echo $this->createUrl('mobilepos/table');?>`;

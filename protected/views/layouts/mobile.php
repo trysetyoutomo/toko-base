@@ -8,9 +8,7 @@
     <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- bootbox -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.all.min.js"></script> -->
+    <link rel="manifest" href="<?php echo Yii::app()->request->baseUrl; ?>/manifest.json">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -37,6 +35,21 @@
 <body style="overflow-x:hidden!important;">
     <?php echo $content; ?>
 </body>
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<!-- jquery -->
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('http://localhost/toko-base/service-worker.js')
+        .then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(err) {
+            console.log('Service Worker registration failed:', err);
+        });
+
+
+        navigator.serviceWorker.ready.then(swRegistration => {
+            return swRegistration.sync.register('sync-outbox');
+        });
+}
+</script>
+
 </html>

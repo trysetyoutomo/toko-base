@@ -24,12 +24,17 @@ for($x=$curr_year-5; $x<$curr_year+5;$x++){
 }
 
 echo CHtml::beginForm();
-echo "Tahun : ";
 ?>
 <div class="row">
 	<div class="col-xs-12 col-sm-3 col-md-3 text-left">
+	<?php echo CHtml::dropDownList('month', $month, $data,['class'=>"form-control","prompt"=>"Semua Bulan"]); ?>
+	</div>
+
+	<div class="col-xs-12 col-sm-3 col-md-3 text-left">
 	<?php echo CHtml::dropDownList('year', $year, $arr_year,['class'=>"form-control"]); ?>
 	</div>
+
+
 	<div class="col-xs-12 col-sm-3 col-md-3 text-left">
 		<div class="form-group">
 			<?php echo CHtml::submitButton('Cari', array('class' => 'btn btn-primary')); ?>
@@ -55,7 +60,7 @@ $i=0;
 $array = array();
 foreach ($databar as $key)
 {
-	$data = $data .""."'".$key['month_name']."'"."," ;
+	$data = $data .""."'".$key['label']."'"."," ;
 	$label = $label .""."'".$key['omzet']."'"."," ;
 	$i++;
 }
