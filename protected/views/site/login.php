@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from templatemonster to le
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-<link rel="manifest" href="https://koperasi-bersama.id/public/35pos/manifest.json">
+<link rel="manifest" href="manifest.json">
 
 <!-- Toggles CSS -->
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/burnette/vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
