@@ -1240,6 +1240,9 @@ class SalesController extends Controller {
 	}
 
 	public function actionGrafikPenjualan(){
+		$where_branch = "";
+		$cabang = $_REQUEST['cabang'];
+		$bcdefault = Yii::app()->user->branch();
 		$month  = $_REQUEST['month'];
 		$year  = $_REQUEST['year'];
 		if (isset($_REQUEST['year']) && isset($_REQUEST['month']) ){
@@ -1250,32 +1253,29 @@ class SalesController extends Controller {
 			$month = "";
 		}
 		
-		$branch_id = Yii::app()->user->branch();
 
 		$connection = Yii::app()->db;
 
 		$store_id = Yii::app()->user->store_id();
-		if (Yii::app()->user->level() === "1"){
-			$bcdefault = Yii::app()->user->branch();
-			$where_branch = " and s.branch='$bcdefault' ";
+			
+		if (isset($cabang) && $cabang !== ""){
+			$where_branch = " having branch = '$_REQUEST[cabang]'";
 		}else{
 			$where_branch = " ";
 		}
 
-		// var_dump($month);
-		// exit;
 
-		if ($month === ""){
-
+		if ($month === ""){ // jika yearly then outcome is months 
 			
 			$query = "
 			select *, month_name as label from (
-				SELECT  sum( sale_sub_total) omzet, MONTH ( date )  bulan, year( date ) tahun 
-				FROM ({$this->sqlSales()}) AS satu group by MONTH ( date ) , year ( date )  
-				) AS satu
-				RIGHT JOIN ( SELECT `month`, month_name FROM time_dimension GROUP BY MONTH ) AS dua ON satu.bulan  = dua.`MONTH` and tahun='$year'
+			SELECT  sum( sale_sub_total) omzet, MONTH ( date )  bulan, year( date ) tahun 
+			FROM ({$this->sqlSales()} {$where_branch}) AS satu group by MONTH ( date ) , year ( date )  
+			) AS satu
+			RIGHT JOIN ( SELECT `month`, month_name FROM time_dimension GROUP BY MONTH ) AS dua ON satu.bulan  = dua.`MONTH` and tahun='$year' 
+			
 				";
-		}else{
+		}else{ // if daily then outcome is list of days
 
 			
 			$query = "
@@ -1316,15 +1316,13 @@ class SalesController extends Controller {
 			from (
 			SELECT  sum( sale_sub_total) omzet,	date(date) as date
 
-			FROM ({$this->sqlSales()}) AS satu group by date ( date )
+			FROM ({$this->sqlSales()} {$where_branch}) AS satu group by date ( date )
 			) AS satu
 			RIGHT JOIN ( SELECT `db_date`, day_name FROM time_dimension WHERE YEAR ( db_date ) = '$year' AND MONTH ( db_date ) = '$month' ) AS dua ON date(satu.date) = date(dua.db_date)
+		
 			order by db_date asc
 			";
 		}
-
-		// echo $query;
-		// exit;
 
 		$command = $connection->createCommand($query);
 		$row = $command->queryAll(); 
@@ -1332,7 +1330,8 @@ class SalesController extends Controller {
 		$this->render('grafikpenjualan',array(
 			'databar'=>$row,
 			'month'=>$month,
-			'year'=>$year
+			'year'=>$year,
+			'cabang'=>$cabang
 		));
 	}
 	public function actionPrintData(){

@@ -26,6 +26,26 @@ for($x=$curr_year-5; $x<$curr_year+5;$x++){
 echo CHtml::beginForm();
 ?>
 <div class="row">
+<?php 
+	if (Yii::app()->user->level() == "2")
+		$nilai = Branch::model()->findAll("  hapus = 0 and store_id = '".Yii::app()->user->store_id()."' "); 
+	else
+		$nilai = Branch::model()->findAll(" hapus = 0 and id = '".Yii::app()->user->branch()."' "); 
+
+?>
+	<div class="col-md-3 col-xs-12">
+		<select id="cabang" name="cabang" class="form-control">
+		<?php  if (Yii::app()->user->level() == "2"){ ?>
+			<option value="">Semua Cabang</option>
+		<?php } ?> 
+			<?php foreach ($nilai as $k): ?>
+				<option <?php if ($k->id == $cabang) echo "selected" ?> value="<?php echo $k->id ?>">
+					<?php echo $k->branch_name ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+	</div>
+
 	<div class="col-xs-12 col-sm-3 col-md-3 text-left">
 	<?php echo CHtml::dropDownList('month', $month, $data,['class'=>"form-control","prompt"=>"Semua Bulan"]); ?>
 	</div>
