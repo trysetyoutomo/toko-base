@@ -605,6 +605,13 @@ class ItemsController extends Controller
 		// echo "cooming soon";
 		$this->renderPartial('cetaklabel');
 	}
+
+	public function actionCetaklabelSatuan($barcode,$jumlahLabel){
+		// echo "cooming soon";
+		$this->renderPartial('cetaklabelsatuan', ["barcode" => $barcode, "jumlahLabel"=>$jumlahLabel, "cetak"=>true]);
+	}
+
+
 	public function actionCetakpinjam($id){
 		$array = array();
 		$p = Peminjaman::model()->findByPk($id);
@@ -2902,6 +2909,7 @@ public function getHargamodal($id){
 //   print_r($stokpercabang);
   	return $array;
   }
+
   public function getAdminJSON($query) {
   	$rawData = Yii::app()->db->createCommand($query)->queryAll();
   	$array = array();
@@ -2922,6 +2930,11 @@ public function getHargamodal($id){
 		    Aksi <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu">
+		<li>
+			<a class="btn-cetak-satuan" href="#" data-barcode="'.$value['barcode'].'">
+				<i class="fa fa-barcode"></i> Cetak Label Harga
+			</a>
+		</li>
 		  <li>
 		      <a href="'.Yii::app()->createUrl("itemsSatuan/admin", array("id"=>$value[id],"status"=>"ubah")).'" >
 		              <i class="fa fa-pencil"></i>
