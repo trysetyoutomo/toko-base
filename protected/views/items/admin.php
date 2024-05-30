@@ -225,7 +225,7 @@
           ]
 
       });
-      myTable.search(sessionStorage.getItem("datatable_filter_input")).draw();
+      myTable.search(sessionStorage.getItem("datatable_filter_input") === null ? "" : sessionStorage.getItem("datatable_filter_input")).draw();
     }
   });
 </script>
