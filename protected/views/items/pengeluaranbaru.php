@@ -57,9 +57,10 @@
 				<select  style="width: 450px;display: inline"  id="pembayaran_via" class="form-control ">
                   <option value="CASH">CASH</option>
                   <?php 
+				//   store_id = '".Yii::app()->user->store_id()."' 
 					$criteria = new CDbCriteria;
 					$criteria->select ='t.*';
-					$criteria->condition =" store_id = '".Yii::app()->user->store_id()."' and group_id = 5 ";
+					$criteria->condition ="  group_id = 5 ";
 					$criteria->join =" INNER JOIN akuntansi_subgroup as a on a.id = t.subgroup_id ";
 
                   $m = Bank::model()->findAll("aktif=1");
