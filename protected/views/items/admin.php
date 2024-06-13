@@ -143,6 +143,32 @@
       });
     });
 
+    $('#datatable').on('click', '.btn-cetak-satuan-pos', function(e) {
+      let data = $(this).data("barcode");
+      Swal.fire({
+        title: 'Berapa label yang akan dicetak?',
+        input: 'number',
+        inputAttributes: {
+          min: 1
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Cetak',
+        cancelButtonText: 'Batal',
+        inputValidator: (value) => {
+          if (!value || value <= 0) {
+            return 'Masukkan jumlah yang valid!';
+          }
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let jumlahLabel = result.value;
+          // Do something with the jumlahLabel value
+          // console.log(`Jumlah label yang akan dicetak: ${jumlahLabel}`);
+          window.location.assign("<?php echo Yii::app()->createUrl("items/cetaklabelsatuanpos") ?>&barcode=" + data + "&jumlahLabel=" + jumlahLabel);
+        }
+      });
+    });
+
 
     function reloadItems() {
       if (myTable) {
