@@ -2,7 +2,10 @@
 
 @media print{
 		#data-cetak table tr td,#data-cetak table tr th{
-			border:1px solid black;
+			border:1px solid black!important;
+		}
+		button, input, a{
+			display: none!important;
 		}
 	}
 	select{
@@ -11,6 +14,7 @@
 	#sales-filter tr td{
 		padding: 5px;
 	}	
+
 </style>
 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.css">
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-custom/jquery-ui.min.js"></script>
@@ -119,7 +123,7 @@ echo CHtml::beginForm($this->createUrl('sales/index'), 'get');
 
 <hr>
 <?php echo CHtml::submitButton('Cari',array('class'=>'btn btn-primary')); ?>
-<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#data-cetak').print()" />
+<input type="button" name="Cetak" value="Cetak" class="btn btn-primary"  onclick="$('#datatable').print()" />
 
 <!-- <a href="<?php echo Yii::app()->createUrl('sales/cetakrekap&noprint=true') ?>" type="button" class="btn btn-primary"  name="btn-preview">
 Preview Rekap
@@ -269,6 +273,12 @@ Preview Rekap
             myTable.destroy();
           }
           // $(".loader").show();
+
+		function formatDT(d) {
+			return ("<div>"+d+"</div>");
+		}
+
+
           myTable =  $('#datatable').DataTable({
             "searching": false,
             "processing": true,
@@ -356,45 +366,9 @@ Preview Rekap
 				$(api.column(10).footer()).html(numeral(total_pembulatan).format('0,0')); // Replace 3 with the index of the column you're calculating the total for
 				$(api.column(11).footer()).html(numeral(total_bersih).format('0,0')); // Replace 3 with the index of the column you're calculating the total for
 			},
-
-		//    "footerCallback": function(row, data, start, end, display) {
-		// 		var total = 0;
-		// 		var total_sisa = 0;
-		// 		var api = this.api(),
-		// 			intVal = function(i) {
-		// 				return typeof i === 'string' ? i.replace(/[, Rs]|(\.\d{2})/g, "") * 1 : typeof i === 'number' ? i : 0;
-		// 			},		
-		// 			total = api.column(5).data().reduce(function(a, b) {
-		// 				return intVal(a) + intVal(b);
-        //             }, 0);
-        //             total_sisa = api.column(6).data().reduce(function(a, b) {
-		// 				return intVal(a) + intVal(b);
-		// 			}, 0);
-		// 			// alert(total);
-		// 			// alert(total_sisa);
-
-		// 		if (isNaN(total)) {
-		// 			total = 0;
-        //         }
-                
-                
-		// 		if (isNaN(total_sisa)) {
-		// 			total_sisa = 0;
-		// 		}
-
-		// 		if (data.length > 0) {
-		// 			$(api.column(3).footer()).html('Total');
-		// 			$(api.column(5).footer()).html(' ' + numeral(total).format('0,0') + '');
-        //             $(api.column(6).footer()).html(' ' + numeral(total_sisa).format('0,0') + '');
-        //             let total_all = total+total_sisa;
-        //             $('tr:eq(1) td:eq(3)', api.table().footer()).html("Total Keseluruhan ");
-        //             $('tr:eq(1) td:eq(5)', api.table().footer()).html(numeral(total_all).format("0,0"));
-        //             $('tr:eq(1) td:eq(5)', api.table().footer()).html(numeral(total_all).format("0,0"));
-		// 			// $(api.column(6).footer(1)).html(' ' + numeral(total_sisa).format('0,0') + '');
-		// 		}
-		// 	},
-            columns:
-            [  
+		columns:
+		[  
+		
 			{
 				title: "Faktur ID",
 				data:'faktur_id',
@@ -515,13 +489,24 @@ Preview Rekap
 					return returnData;
 				}
 			},
+			// {
+			// 	title: "Rincian",
+			// 	data: "id",
+			// 	render : function(data,row){
+			// 		return '<a href="index.php?r=sales/detailitems&id='+data+'">Detail</a>';
+			// 	}
+			// },
 			{
-				title: "Rincian",
-				data: "id",
-				render : function(data,row){
-					return '<a href="index.php?r=sales/detailitems&id='+data+'">Detail</a>';
-				}
-			},
+            title: 'Rincian',
+            class: 'dt-control',
+            orderable: false,
+            data: 'faktur_id',
+            defaultContent: 'xx',
+			name:'faktur_id',
+			"render": function(data, type, row) {
+                    return "<a href='#'>Rincian</a>";
+			}
+        	},
 			{
 				title: "Aksi",
 				data: "id",
@@ -535,8 +520,60 @@ Preview Rekap
           ]
 
           });
-  }
-          });
+
+		// Array to track the ids of the details displayed rows
+		const detailRows = [];
+		
+		myTable.on('click', 'tbody td.dt-control', function () {
+			let tr = event.target.closest('tr');
+			let row = myTable.row(tr);
+			let idx = detailRows.indexOf(tr.id);
+
+			let data = myTable.row(tr).data();
+		
+			if (row.child.isShown()) {
+				tr.classList.remove('details');
+				row.child.hide();
+		
+				// Remove from the 'open' array
+				detailRows.splice(idx, 1);
+			}
+			else {
+				tr.classList.add('details');
+				$.ajax({
+					url:'index.php?r=sales/detailitems',
+					data:'id='+data.id+'&src=main',
+					success: function(data){
+						row.child(formatDT(data)).show();
+
+					},
+					error: function(data){
+					alert('error');
+					}
+				});
+
+		
+				// Add to the 'open' array
+				if (idx === -1) {
+					detailRows.push(tr.id);
+				}
+			}
+		});
+		
+		// On each draw, loop over the `detailRows` array and show any child rows
+		myTable.on('draw', () => {
+			detailRows.forEach((id, i) => {
+				let el = document.querySelector('#' + id + ' td.dt-control');
+		
+				if (el) {
+					el.dispatchEvent(new Event('click', { bubbles: true }));
+				}
+			});
+		});
+
+  
+		}
+});
 </script>
 
 <!-- Modal -->

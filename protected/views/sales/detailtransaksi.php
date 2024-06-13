@@ -1,9 +1,11 @@
 	
-<h3 class="well"><a href="#" onclick="window.history.back()" style="">
-<i class="fa fa-arrow-left"></i>
-</a> 
- Detail penjualan #<?php echo ' Faktur '.$_GET['id']; ?></h3>
-</legend>	
+<!-- <h3 class="well"> -->
+	<!-- <a href="#" onclick="window.history.back()" style="">
+		<i class="fa fa-arrow-left"></i>
+	</a>  -->
+ <!-- Detail penjualan #<?php echo ' Faktur '.$_GET['id']; ?></h3> -->
+ <!-- Rincian Penjualan -->
+<!-- </legend>	 -->
 <div class="well">
 <div class="row"><div class="col-lg-2">Faktur ID</div><div class="col-lg-6"><?php echo $sales->faktur_id ?></div></div>
 <div class="row"><div class="col-lg-2">Tanggal Transaksi</div><div class="col-lg-6"><?php echo $sales->date ?></div></div>
@@ -14,7 +16,7 @@
 <!-- <div class="row"><div class="col-lg-2">Kembali</div><div class="col-lg-6"><?php echo number_format($sales->kembali) ?></div></div> -->
 <div class="row"><div class="col-lg-2">Pembayaran Via</div><div class="col-lg-6"><?php echo $sales->pembayaran_via == '0' ? "CASH" : $sales->pembayaran_via ?></div></div>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	//'id'=>'outlet-grid',
+ 	'itemsCssClass' => 'table  table-bordered',
 	'dataProvider'=>$detailtransaksi,
 	'filter'=>$model,
 	'columns'=>array(
@@ -41,7 +43,7 @@
 		'name'=>'name',
 		'type'=>'raw',
 		'header'=>'Nama Item',
-		'value'=>'CHtml::link($data[name],array("SalesItems/update","id"=>$data[id]),array("style"=>"text-decoration:underline"))',
+		// 'value'=>'CHtml::link($data[name],array("SalesItems/update","id"=>$data[id]),array("style"=>"text-decoration:underline"))',
 		
 		),
 		array(
@@ -156,7 +158,7 @@
 		),
 		array( 
 		'class'=>'CButtonColumn',
-		'template'=>'{ganti}',
+		'template'=>'',
 		// 'template'=>'{update}{hapus}',
 		// 'visible'=>$a,
 		
@@ -175,17 +177,17 @@
 			
 				),
 				
-				'ganti' => array(
-					// 'label'=> 'Bayar',
-					// 'hint'=>'Bayar',
-					'url'=>'Yii::app()->createUrl("Salesitems/tukarbarang", array("id"=>$data[id]))',      //A PHP expression for generating the URL of the button.
-					'imageUrl'=>Yii::app()->request->baseUrl.'/img/ganti.png',
-					 // 'visible'=>$a,
-					// 'options'=>array(
-						// 'class'=>'btn btn-small update'
-					// ),
+				// 'ganti' => array(
+				// 	// 'label'=> 'Bayar',
+				// 	// 'hint'=>'Bayar',
+				// 	'url'=>'Yii::app()->createUrl("Salesitems/tukarbarang", array("id"=>$data[id]))',      //A PHP expression for generating the URL of the button.
+				// 	'imageUrl'=>Yii::app()->request->baseUrl.'/img/ganti.png',
+				// 	 // 'visible'=>$a,
+				// 	// 'options'=>array(
+				// 		// 'class'=>'btn btn-small update'
+				// 	// ),
 				
-				),
+				// ),
 				
 				
 			),
