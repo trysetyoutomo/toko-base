@@ -602,15 +602,16 @@ class ItemsController extends Controller
 	}
 
 	public function actionCetaklabel(){
-		// echo "cooming soon";
 		$this->renderPartial('cetaklabel');
 	}
 
 	public function actionCetaklabelSatuan($barcode,$jumlahLabel){
-		// echo "cooming soon";
 		$this->renderPartial('cetaklabelsatuan', ["barcode" => $barcode, "jumlahLabel"=>$jumlahLabel, "cetak"=>true]);
 	}
 
+	public function actionCetaklabelSatuanpos($barcode,$jumlahLabel){
+		$this->renderPartial('cetaklabelsatuanpos', ["barcode" => $barcode, "jumlahLabel"=>$jumlahLabel, "cetak"=>true]);
+	}
 
 	public function actionCetakpinjam($id){
 		$array = array();
@@ -2932,7 +2933,12 @@ public function getHargamodal($id){
 		  <ul class="dropdown-menu">
 		<li>
 			<a class="btn-cetak-satuan" href="#" data-barcode="'.$value['barcode'].'">
-				<i class="fa fa-barcode"></i> Cetak Label Harga
+				<i class="fa fa-barcode"></i> Cetak Label Harga Non Printer POS
+			</a>
+		</li>
+			<li>
+			<a class="btn-cetak-satuan-pos" href="#" data-barcode="'.$value['barcode'].'">
+				<i class="fa fa-barcode"></i> Cetak Label Harga Printer POS
 			</a>
 		</li>
 		  <li>
