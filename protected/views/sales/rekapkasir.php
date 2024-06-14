@@ -174,6 +174,12 @@ group by A.nama_user, A.bid
 
 		$model = Yii::app()->db->createCommand($sql)->queryAll();
 
+		$query = "select u.username,b.branch_name,s.total_awal,s.created_at,s.updated_at from setor s
+	INNER JOIN users u on s.user_id = u.id
+	INNER JOIN branch b on u.branch_id = b.id
+WHERE s.store_id = '$store_id' AND s.tanggal = '$date' ORDER BY b.branch_name ASC";
+
+$model_hadir = Yii::app()->db->createCommand($query)->queryAll();
 
 
 	?>
@@ -350,6 +356,42 @@ group by A.nama_user, A.bid
 		
 	</tbody>
 </table>
+
+<h1>Petugas Hadir</h1>
+<table class="items table" id="datatable">
+	<thead>
+		
+		<tr style="color:white;font-weight: bolder;background-color: rgba(42, 63, 84,1)" >
+			<td>No</td>
+			<td>Cabang</td>
+			<td>Setor Awal </td>
+			<td>Jam Masuk</td>
+			<td>Jam Pulang</td>
+		</tr>
+		
+
+	</thead>
+	<tbody>
+	<?php
+			$nomor =1; 
+			foreach ($model_hadir  as $hadir ):
+		?>
+		
+			<tr>
+			<td><?php echo $nomor ?></td>
+			<td><?php echo $hadir['branch_name']; ?></td>
+			<td><?php echo number_format($hadir['total_awal']); ?></td>
+			<td><?php echo $hadir['created_at']; ?></td>
+			<td><?php echo $hadir['updated_at']; ?></td>
+			</tr>
+			<?php 
+				$nomor++;
+			endforeach;?>
+	</tbody>
+</table>
+
+
+
 <?php } ?>
 <script>
 
