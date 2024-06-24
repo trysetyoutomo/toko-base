@@ -22,7 +22,7 @@ window.onload = function() {
 </script>
 <body  style="margin:0 auto" >
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JsBarcode.all.min.js"></script>
 
 	<?php 
             function printLine($text = '', $width = 40) {

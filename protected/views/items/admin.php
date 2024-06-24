@@ -118,7 +118,7 @@
     });
 
     $('#datatable').on('click', '.btn-cetak-satuan', function(e) {
-      let data = $(this).data("barcode");
+      var data = $(this).data("barcode");
       Swal.fire({
         title: 'Berapa label yang akan dicetak?',
         input: 'number',
@@ -128,14 +128,14 @@
         showCancelButton: true,
         confirmButtonText: 'Cetak',
         cancelButtonText: 'Batal',
-        inputValidator: (value) => {
+        inputValidator: function(value) {
           if (!value || value <= 0) {
             return 'Masukkan jumlah yang valid!';
           }
         }
-      }).then((result) => {
+      }).then(function(result){
         if (result.isConfirmed) {
-          let jumlahLabel = result.value;
+          var jumlahLabel = result.value;
           // Do something with the jumlahLabel value
           // console.log(`Jumlah label yang akan dicetak: ${jumlahLabel}`);
           window.location.assign("<?php echo Yii::app()->createUrl("items/cetaklabelsatuan") ?>&barcode=" + data + "&jumlahLabel=" + jumlahLabel);
@@ -144,7 +144,7 @@
     });
 
     $('#datatable').on('click', '.btn-cetak-satuan-pos', function(e) {
-      let data = $(this).data("barcode");
+      var data = $(this).data("barcode");
       Swal.fire({
         title: 'Berapa label yang akan dicetak?',
         input: 'number',
@@ -154,14 +154,14 @@
         showCancelButton: true,
         confirmButtonText: 'Cetak',
         cancelButtonText: 'Batal',
-        inputValidator: (value) => {
+        inputValidator: function(value) {
           if (!value || value <= 0) {
             return 'Masukkan jumlah yang valid!';
           }
         }
-      }).then((result) => {
+      }).then(function(result){
         if (result.isConfirmed) {
-          let jumlahLabel = result.value;
+          var jumlahLabel = result.value;
           // Do something with the jumlahLabel value
           // console.log(`Jumlah label yang akan dicetak: ${jumlahLabel}`);
           window.location.assign("<?php echo Yii::app()->createUrl("items/cetaklabelsatuanpos") ?>&barcode=" + data + "&jumlahLabel=" + jumlahLabel);
