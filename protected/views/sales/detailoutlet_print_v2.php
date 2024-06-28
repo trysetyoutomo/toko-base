@@ -156,6 +156,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 <table id="rekapmenu_table" border="1" cellpadding="5"  style="border-collapse:collapse;width:100%;font-size:12px;border:1px solid black" colspan = "3" rowspan="3">
 	<tr>
 		<td>No</td>
+		<td>Barcode</td>
 		<td>Nama</td>
 		<td>Kategori</td>
 		<td>Sub Kategori</td>
@@ -212,33 +213,39 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 			<!-- <td>Keterangan</td> -->
 		</tr>
 		<?php 
-	$items = Yii::app()->db->createCommand()
-    ->select('si.sale_id slid, i.id iid,
-        i.item_name item_name, 
-        c.category category_name, 
-        sc.nama subcategory_name, 
-        si.item_price unit_price, 
-        si.item_modal item_modal, 
-        si.item_modal modal')
-    ->from('items i')
-    ->join('sales_items si', 'si.item_id = i.id')
-    ->join('sales s', 's.id = si.sale_id')
-    ->join('categories c', 'i.category_id = c.id')
-    ->join('branch b', 'b.id = s.branch')
-    ->join('stores st', 'st.id = b.store_id')
-    ->leftJoin('motif sc', 'i.motif = sc.id') // Use LEFT JOIN for motif
-    ->where("
-        s.status = 1
-        and date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
-        and st.id = '$store_id'
-        and is_sales_item_bahan is null
-        {$whereCustomer}
-        {$whereCategory}
-        {$whereBranch}
-		")
-    ->group("si.item_id, si.item_price, si.item_modal ")
-    ->order("i.item_name asc")
-    ->queryAll();
+		
+		$items = Yii::app()->db->createCommand()
+		->select('si.sale_id slid, i.id iid,
+			si.sales_item_name item_name, 
+			IFNULL(iss.barcode,"DELETED") barcode, 
+			iss.item_id,
+			i.id,
+			c.category category_name, 
+			sc.nama subcategory_name, 
+			si.item_price unit_price, 
+			si.item_modal item_modal, 
+			si.item_modal modal')
+		->from('items i')
+		->leftJoin('items_satuan iss', 'iss.item_id = i.id') // Change to LEFT JOIN for items_satuan
+		->join('sales_items si', 'si.item_id = i.id')
+		->join('sales s', 's.id = si.sale_id')
+		->join('categories c', 'i.category_id = c.id')
+		->join('branch b', 'b.id = s.branch')
+		->join('stores st', 'st.id = b.store_id')
+		->leftJoin('motif sc', 'i.motif = sc.id') // Use LEFT JOIN for motif
+		->where("
+			s.status = 1
+			and date(s.date) >= '$tgl1' AND date(s.date) <= '$tgl2' 
+			and st.id = '$store_id'
+			and is_sales_item_bahan is null
+			{$whereCustomer}
+			{$whereCategory}
+			{$whereBranch}
+			")
+		->group("si.item_id, si.item_price, si.item_modal")
+		->order("i.item_name asc")
+		->queryAll();
+	
 
 		$no = 0;
 		$km =1;
@@ -277,6 +284,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 		$jml=0;$no++?>
 		<tr style="width:100px;overflow:visible;" >
 			<td><?php echo $no?></td>
+			<td style="text-transform:uppercase"><?php echo $values["barcode"]?></td>
 			<td style="text-transform:uppercase"><?php echo $values["item_name"]?></td>
 			<td style="text-transform:uppercase"><?php echo $values["category_name"]?></td>
 			<td style="text-transform:uppercase"><?php echo $values["subcategory_name"]?></td>
@@ -344,6 +352,7 @@ if (isset($_REQUEST['tgl1']) && isset($_REQUEST['tgl2']) ){
 	
 	<tr style="border:0px solid black">
 	<td></td>
+	<td></td>	
 	<td></td>	
 	<td></td>	
 	<td></td>	
