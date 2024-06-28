@@ -113,6 +113,7 @@ License: You must have a valid license purchased only from templatemonster to le
 			</div>
 			<div class="col-sm-12 mb-20 text-center">
 					<button type="button" style="margin:0 auto!important;background:#2A3F54;border:none;" id="installButton" class="install-button btn btn-primary btn-lg"><i class="fa fa-download"></i> Instal 35pos </button><!-- Preloader -->
+				<br>	<a href="public/RawBT.apk"><button type="button" style="margin:0 auto!important;background:#2A3F54;border:none;" id="ButtonRawbt" class="install-button btn btn-primary btn-lg"><i class="fa fa-download"></i> Download Rawbt </button></a><!-- Preloader -->
 				</div>
 
 								<!-- <div class="col-sm-6 mb-20"><button class="btn btn-sky btn-block btn-wth-icon"> <span class="icon-label"><i class="fa fa-twitter"></i> </span><span class="btn-text">Login with Twitter</span></button></div> -->
